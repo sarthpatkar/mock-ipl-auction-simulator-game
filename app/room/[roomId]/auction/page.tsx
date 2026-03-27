@@ -19,6 +19,7 @@ import { PageNavbar } from '@/components/shared/PageNavbar'
 import { formatAuctionStatus, formatRolePlural, getTeamThemeStyle } from '@/lib/auction-helpers'
 
 const SOUND_STORAGE_KEY = 'auction:sound-enabled'
+const HIGH_BID_ALERT_THRESHOLD = 15 * 10_000_000
 
 function playTone(enabled: boolean, frequency: number, duration: number, type: OscillatorType) {
   if (!enabled || typeof window === 'undefined' || !('AudioContext' in window)) return
@@ -55,6 +56,10 @@ export default function AuctionPage() {
   const [soundEnabled, setSoundEnabled] = useState(false)
   const lastBidIdRef = useRef<string | null>(null)
   const lastTickRef = useRef<number | null>(null)
+  const previousPriceRef = useRef<number | null>(null)
+  const trackedPlayerKeyRef = useRef<string | null>(null)
+  const alertedPlayerKeyRef = useRef<string | null>(null)
+  const highBidAlertAudioRef = useRef<HTMLAudioElement | null>(null)
   const stageRef = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
@@ -82,6 +87,20 @@ export default function AuctionPage() {
       setSoundEnabled(window.localStorage.getItem(SOUND_STORAGE_KEY) === '1')
     } catch {
       setSoundEnabled(false)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+
+    const audio = new Audio('/high-bid-alert.mp3')
+    audio.preload = 'auto'
+    highBidAlertAudioRef.current = audio
+
+    return () => {
+      audio.pause()
+      audio.src = ''
+      highBidAlertAudioRef.current = null
     }
   }, [])
 
@@ -244,6 +263,36 @@ export default function AuctionPage() {
     lastTickRef.current = remaining
     playTone(soundEnabled, 520, 0.05, 'triangle')
   }, [auction?.status, isDanger, remaining, soundEnabled])
+
+  useEffect(() => {
+    const playerKey = auction?.current_player_id ? `${auction.auction_session_id}:${auction.current_player_id}` : null
+
+    if (!auction || !playerKey) {
+      previousPriceRef.current = null
+      trackedPlayerKeyRef.current = null
+      alertedPlayerKeyRef.current = null
+      return
+    }
+
+    if (trackedPlayerKeyRef.current !== playerKey) {
+      trackedPlayerKeyRef.current = playerKey
+      alertedPlayerKeyRef.current = null
+      previousPriceRef.current = auction?.current_price ?? 0
+      return
+    }
+
+    const previousPrice = previousPriceRef.current ?? auction.current_price
+    const currentPrice = auction.current_price
+    const crossedThreshold = previousPrice <= HIGH_BID_ALERT_THRESHOLD && currentPrice > HIGH_BID_ALERT_THRESHOLD
+
+    if (crossedThreshold && soundEnabled && highBidAlertAudioRef.current && alertedPlayerKeyRef.current !== playerKey) {
+      highBidAlertAudioRef.current.currentTime = 0
+      void highBidAlertAudioRef.current.play().catch(() => {})
+      alertedPlayerKeyRef.current = playerKey
+    }
+
+    previousPriceRef.current = currentPrice
+  }, [auction?.auction_session_id, auction?.current_player_id, auction?.current_price, soundEnabled])
 
   useEffect(() => {
     if (!resolutionType || !auction?.auction_session_id || !user || !resolutionKey) return
