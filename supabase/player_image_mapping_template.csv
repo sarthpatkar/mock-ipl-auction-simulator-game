@@ -1,0 +1,2 @@
+player_id,player_name,image_file_name,public_url
+00000000-0000-0000-0000-000000000000,Example Player,00000000-0000-0000-0000-000000000000.webp,https://YOUR_PROJECT_REF.supabase.co/storage/v1/object/public/player-images/00000000-0000-0000-0000-000000000000.webp

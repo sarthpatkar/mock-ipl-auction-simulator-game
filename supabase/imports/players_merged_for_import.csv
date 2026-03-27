@@ -1,0 +1,253 @@
+id,name,age,nationality,ipl_team,role,category,batting_style,bowling_style,image_url,base_price,base_price_label,spouse,created_at,matches,batting_avg,strike_rate,wickets,economy,performance_score,consistency_score,recent_form_score,experience_level,impact_type
+654df97d-7bb0-429c-96c9-e339db1bdc7f,Abdul Samad,24,India,LSG,batter,capped,Right hand Bat,Legbreak,,5000000,₹50 L,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+05026612-1b45-46bc-9d47-8e6296f5037e,Abhinandan Singh,28,India,RCB,bowler,uncapped,Right hand Bat,Right arm Medium fast,,3000000,₹30 L,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+63865810-9c90-4da8-afb0-ece8feaab211,Abhishek Sharma,25,India,SRH,allrounder,capped,Left hand Bat,Slow Left arm Orthodox,,15000000,₹1.5 Cr,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+f688c25c-5a6a-4ff1-8b49-cbe458230fe1,Abhishek Sharma,25,India,SRH,batter,capped,Left hand Bat,Slow Left arm Orthodox,,15000000,₹1.5 Cr,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+59778e44-d69c-4870-81b7-bdce25989979,Abishek Porel,23,India,DC,wicketkeeper,uncapped,Left hand Bat,,,3000000,₹30 L,,2026-03-26 13:14:21.237701+00,38,22.40,138.80,0,0,62,5.2,6.0,mid,anchor
+a29beffe-389e-4969-a17f-7cbb0ae93abd,Adam Milne,33,New Zealand,RR,bowler,capped,Right hand Bat,Right arm Fast,,7500000,₹75 L,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+1bbf474d-4e74-4679-832c-f891bad8885a,Aiden Markram,31,South Africa,LSG,batter,capped,Right hand Bat,Right arm Offbreak,,20000000,₹2 Cr,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+dbe3f069-7ff8-4fc4-901b-bb3f902b340f,Ajay Mandal,29,India,DC,allrounder,uncapped,Left hand Bat,Slow Left arm Orthodox,,3000000,₹30 L,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+a39912a6-2d4f-4de5-801b-1d92afd114e2,Ajinkya Rahane,37,India,KKR,batter,capped,Right hand Bat,Right arm Medium,,3000000,₹30 L,Radhika Dhopavkar,2026-03-26 13:14:21.237701+00,162,32.10,122.40,0,0,71,7.6,5.4,veteran,anchor
+f8c6fb7f-82c3-4e47-98a2-8de290ef6c40,Akash Singh,23,India,LSG,bowler,uncapped,Right hand Bat,Left arm Medium fast,,3000000,₹30 L,,2026-03-26 13:14:21.237701+00,14,6.00,74.00,14,9.20,56,4.4,5.4,rookie,powerplay_bowler
+783fcc4a-29fa-4cb3-8264-81c8c8cf65fd,Akeal Hosein,32,West Indies,CSK,bowler,capped,Left hand Bat,Slow Left arm Orthodox,,7500000,₹75 L,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+46486af0-5965-4140-8bdd-58ea4c8a7e3a,Akshat Raghuwanshi,22,India,LSG,batter,uncapped,Right hand Bat,Right arm Offbreak,,3000000,₹30 L,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+b28e4193-ed8a-4451-a626-d91ee2c8f23c,AM Ghazanfar,19,Afghanistan,MI,bowler,capped,Right hand Bat,Offbreak / Legbreak,,10000000,₹1 Cr,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+1f79c8f7-f1a3-4eab-bbbd-8c50ec0e7d54,Aman Khan,28,India,CSK,allrounder,uncapped,Right hand Bat,Right arm Medium,,3000000,₹30 L,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+1fff519f-1103-445f-8007-bad8529fbb88,Aman Rao,21,India,RR,batter,uncapped,Right hand Bat,,,3000000,₹30 L,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+1dbc91d3-e5d7-4eff-bf49-46598d444df8,Amit Kumar,23,India,SRH,bowler,uncapped,Right hand Bat,Legbreak Googly,,3000000,₹30 L,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+bc0ee2e5-8993-4944-9510-69f4ee810f99,Angkrish Raghuvanshi,21,India,KKR,batter,uncapped,Right hand Bat,Slow Left arm Orthodox,,3000000,₹30 L,,2026-03-26 13:14:21.237701+00,32,28.80,138.40,0,0,64,5.6,6.4,mid,anchor
+29437983-5cd6-4af1-b23b-0217254ef4e5,Aniket Verma,23,India,SRH,batter,uncapped,Right hand Bat,Right arm Medium fast,,3000000,₹30 L,,2026-03-26 13:14:21.237701+00,42,24.40,148.40,0,0,62,5.4,6.2,mid,finisher
+39b6a204-3f6c-413c-a29e-906023513831,Anrich Nortje,31,South Africa,LSG,bowler,capped,Right hand Bat,Right arm Fast,,20000000,₹2 Cr,,2026-03-26 13:14:21.237701+00,8,6.50,78.00,8,9.80,58,4.6,5.6,rookie,powerplay_bowler
+047de3b4-2da1-4c8e-bb48-ab9696c8e1ea,Anshul Kamboj,24,India,CSK,allrounder,capped,Right hand Bat,Right arm Medium,,4000000,₹40 L,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+5ff3a0a1-0e43-4b40-844c-f0db4e3f537c,Anuj Rawat,26,India,GT,wicketkeeper,uncapped,Left hand Bat,,,3000000,₹30 L,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+a8b10f1b-50b6-46fc-9172-2f2dd7bdd6bd,Anukul Roy,26,India,KKR,allrounder,capped,Left hand Bat,Slow Left arm Orthodox,,3000000,₹30 L,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+3fb26193-04c3-40ff-b067-d9ab7942eda6,Arjun Tendulkar,26,India,LSG,bowler,capped,Left hand Bat,Left arm Medium fast,,3000000,₹30 L,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+8dde97f0-a95c-48dd-9aab-0237b6ba50aa,Arshad Khan,27,India,GT,bowler,uncapped,Left hand Bat,Left arm Fast medium,,3000000,₹30 L,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+661bcae3-1189-4c3f-969e-9b8fdb20703b,Arshdeep Singh,26,India,PBKS,bowler,capped,Left hand Bat,Left arm Medium fast,,20000000,₹2 Cr,,2026-03-26 13:14:21.237701+00,112,7.50,88.00,98,8.60,80,7.6,8.0,veteran,powerplay_bowler
+f05745f6-550a-4cde-9d26-5b757339efb6,Arshin Kulkarni,20,India,LSG,allrounder,uncapped,Right hand Bat,Right arm Medium,,3000000,₹30 L,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+84e1c655-f799-42dd-874e-c9b25fcf476f,Ashok Sharma,23,India,GT,bowler,uncapped,Right hand Bat,Right arm Medium,,3000000,₹30 L,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+663678a4-18ba-4933-8eec-50c986b1ae16,Ashutosh Sharma,27,India,DC,allrounder,uncapped,Right hand Bat,,,3000000,₹30 L,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+09bf9487-92a1-4fff-aede-13596a4542b2,Ashwani Kumar,24,India,MI,bowler,uncapped,Left hand Bat,Left arm Medium,,3000000,₹30 L,,2026-03-26 13:14:21.237701+00,18,6.00,74.00,18,10.80,60,5.0,6.0,rookie,death_bowler
+ceca32dc-0187-424a-94e1-460adff08ef3,Atharva Ankolekar,25,India,MI,allrounder,uncapped,Left hand Bat,Slow Left arm Orthodox,,3000000,₹30 L,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+6d69c689-3464-438f-bf8e-9f3b3efa2f20,Auqib Nabi,29,India,DC,bowler,uncapped,Right hand Bat,Right arm Medium,,3000000,₹30 L,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+f35acbcb-3a48-43b7-93ad-bb1aa8454985,Avesh Khan,28,India,LSG,bowler,capped,Right hand Bat,Right arm Fast medium,,10000000,₹1 Cr,,2026-03-26 13:14:21.237701+00,112,7.00,82.00,92,9.20,71,6.6,6.2,veteran,death_bowler
+a3b93f16-be3a-4f26-9312-7ce67ede1596,Axar Patel,31,India,DC,allrounder,capped,Left hand Bat,Slow Left arm Orthodox,https://rkgckqlstuycgzuwspcn.supabase.co/storage/v1/object/public/player-images/110.avif,20000000,₹2 Cr,Meha Patel,2026-03-26 13:14:21.237701+00,184,21.40,141.20,92,7.90,84,8.4,8.0,veteran,all_rounder
+1b478328-0d13-46cf-a9af-4a4d8ed6ea86,Ayush Badoni,25,India,LSG,batter,capped,Right hand Bat,Right arm Offbreak,,3000000,₹30 L,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+03a80a3e-ae43-4bb3-a6f8-9717fd28f93d,Ayush Mhatre,18,India,CSK,batter,uncapped,Right hand Bat,Right arm Offbreak,,3000000,₹30 L,,2026-03-26 13:14:21.237701+00,18,28.40,178.40,0,0,66,5.4,7.6,rookie,power_hitter
+a6bf71b6-da3c-4de5-bca9-9e387a595cde,Azmatullah Omarzai,25,Afghanistan,PBKS,allrounder,capped,Right hand Bat,Right arm Medium fast,,15000000,₹1.5 Cr,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+e6fa349e-ffa2-41d9-a396-6fff92ba1464,Ben Dwarshuis,31,Australia,PBKS,bowler,capped,Left hand Bat,Left arm Fast medium,,7500000,₹75 L,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+cc29c90c-9ec1-41cf-a5d9-0bbc79cefb3d,Bhuvneshwar Kumar,35,India,RCB,bowler,capped,Right hand Bat,Right arm Medium,,15000000,₹1.5 Cr,Nupur Nagar,2026-03-26 13:14:21.237701+00,174,9.20,96.00,188,7.90,80,8.4,6.8,veteran,powerplay_bowler
+3459dd3a-7081-4126-90e4-a5463451dbb7,Blessing Muzarabani,29,Zimbabwe,KKR,bowler,capped,Right hand Bat,Right arm Fast medium,,15000000,₹1.5 Cr,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+15a7438d-ce5c-4410-a21d-1ecf98bdb753,Brijesh Sharma,26,India,RR,bowler,uncapped,Right hand Bat,Right arm Medium,,3000000,₹30 L,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+cf4b6fd6-afbc-4969-8c46-2ebc76a816c6,Brydon Carse,30,England,SRH,allrounder,capped,Right hand Bat,Right arm Fast medium,,10000000,₹1 Cr,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+63cefe6a-5c67-4c0c-83f6-de11300a0f26,Cameron Green,26,Australia,KKR,allrounder,capped,Right hand Bat,Right arm Fast medium,,20000000,₹2 Cr,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+462181ea-6002-4a3e-8c77-0990451b604a,Cooper Connolly,22,Australia,PBKS,allrounder,capped,Left hand Bat,Slow Left arm Orthodox,,7500000,₹75 L,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+f1158639-83c2-43fa-94c7-4f467c7530e5,Corbin Bosch,31,South Africa,MI,allrounder,capped,Right hand Bat,Right arm Fast medium,,10000000,₹1 Cr,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+ea9b04cd-631a-47c0-9a00-199cef110cd4,Daksh Kamra,22,India,KKR,allrounder,uncapped,Right hand Bat,Legbreak Googly,,3000000,₹30 L,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+bf385284-6ca9-4269-8b27-9dea907b7b57,Danish Malewar,22,India,MI,batter,uncapped,Right hand Bat,Legbreak,,3000000,₹30 L,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+6e69889d-2f32-4721-b67c-9c2fa81aa08d,Dasun Shanaka,34,Sri Lanka,RR,allrounder,capped,Right hand Bat,Right arm Medium,,10000000,₹1 Cr,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+a03877e1-b4ff-49cb-b82d-af4e623394df,David Miller,36,South Africa,DC,batter,capped,Left hand Bat,Right arm Offbreak,,20000000,₹2 Cr,,2026-03-26 13:14:21.237701+00,112,34.20,132.60,0,0,76,7.2,6.4,veteran,finisher
+043888b3-ec69-426a-ba2d-b71763f842fd,David Payne,34,England,SRH,bowler,capped,Right hand Bat,Left arm Fast medium,,7500000,₹75 L,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+119a9c26-5630-4444-bae0-25b26d1d4920,Deepak Chahar,33,India,MI,bowler,capped,Right hand Bat,Right arm Medium,,10000000,₹1 Cr,Jaya Bhardwaj,2026-03-26 13:14:21.237701+00,118,18.40,122.40,98,8.60,74,7.2,6.6,veteran,powerplay_bowler
+9791b74d-583d-4995-8a5d-f0190f836810,Devdutt Padikkal,25,India,RCB,batter,capped,Left hand Bat,Right arm Offbreak,,7500000,₹75 L,,2026-03-26 13:14:21.237701+00,68,26.40,138.60,0,0,66,6.2,6.0,mid,anchor
+1d70f38c-cdd4-4e31-8c7d-b164a475879e,Dewald Brevis,22,South Africa,CSK,batter,capped,Right hand Bat,Legbreak,,10000000,₹1 Cr,,2026-03-26 13:14:21.237701+00,38,32.40,172.40,0,0,69,5.8,7.2,mid,power_hitter
+0455bdac-5a88-4207-9ce9-24e884b5f166,Dhruv Jurel,24,India,RR,wicketkeeper,capped,Right hand Bat,,https://rkgckqlstuycgzuwspcn.supabase.co/storage/v1/object/public/player-images/1004.avif,15000000,₹1.5 Cr,,2026-03-26 13:14:21.237701+00,42,28.40,148.80,0,0,66,5.8,6.6,mid,finisher
+35702855-f4af-45da-87a1-1f310443088f,Digvesh Rathi,25,India,LSG,bowler,uncapped,Right hand Bat,Legbreak,,3000000,₹30 L,,2026-03-26 13:14:21.237701+00,28,7.00,80.00,28,8.20,65,5.8,7.0,mid,spinner
+b95d8fd2-041c-42ab-a162-7aa8b3e722e3,Donovan Ferreira,27,South Africa,RR,allrounder,capped,Right hand Bat,Right arm Offbreak,,7500000,₹75 L,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+97c875b7-4715-476e-89f3-34238e098330,Dushmantha Chameera,33,Sri Lanka,DC,bowler,capped,Right hand Bat,Right arm Fast,,10000000,₹1 Cr,,2026-03-26 13:14:21.237701+00,18,6.00,74.00,18,10.40,60,5.0,5.8,rookie,death_bowler
+9f24006a-6d32-4fc6-9112-eaad7e7abd7d,Eshan Malinga,24,Sri Lanka,SRH,bowler,capped,Left hand Bat,Right arm Fast medium,,7500000,₹75 L,,2026-03-26 13:14:21.237701+00,18,6.00,76.00,18,8.80,64,5.6,7.4,rookie,death_bowler
+300367fd-080c-4b63-93ee-52d3ef2ccb36,Finn Allen,26,New Zealand,KKR,batter,capped,Right hand Bat,,,10000000,₹1 Cr,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+16d2e42f-f70a-4350-a2bd-0204ce9eed3f,Glenn Phillips,28,New Zealand,GT,allrounder,capped,Right hand Bat,Right arm Offbreak,,15000000,₹1.5 Cr,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+fb00957c-6fd6-4cd0-a2d7-0a38e80eafb0,Gurjapneet Singh,27,India,CSK,bowler,uncapped,Right hand Bat,Left arm Medium fast,,3000000,₹30 L,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+3022fdfe-6168-4820-8313-50b376ebb01f,Gurnoor Brar,25,India,GT,bowler,uncapped,Left hand Bat,Right arm Fast,,3000000,₹30 L,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+4a27603f-b122-4bbc-ad8c-3431e99bcd51,Hardik Pandya,32,India,MI,allrounder,capped,Right hand Bat,Right arm Medium fast,,20000000,₹2 Cr,Natasa Stankovic,2026-03-26 13:14:21.237701+00,145,30.40,148.20,76,8.90,88,7.8,7.4,veteran,all_rounder
+3ac9ff54-af8d-40e9-93e9-334542a05b0b,Harnoor Singh,22,India,PBKS,batter,uncapped,Left hand Bat,Legbreak,,3000000,₹30 L,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+ca75db6f-7dd1-47b6-bb18-ef6253834784,Harpreet Brar,30,India,PBKS,bowler,capped,Left hand Bat,Slow Left arm Orthodox,,4000000,₹40 L,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+d6622867-6fa2-4665-8c79-1a3fd45214bf,Harsh Dubey,23,India,SRH,allrounder,uncapped,Left hand Bat,Slow Left arm Orthodox,,3000000,₹30 L,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+f03d3027-ea86-4730-9932-6b56c4a674f4,Harshal Patel,34,India,SRH,allrounder,capped,Right hand Bat,Right arm Medium,https://rkgckqlstuycgzuwspcn.supabase.co/storage/v1/object/public/player-images/114.avif,10000000,₹1 Cr,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+e74906ef-d69c-4f74-8ad2-3639f2386235,Harshit Rana,23,India,KKR,bowler,capped,Right hand Bat,Right arm Fast,,15000000,₹1.5 Cr,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+7f58c578-fd26-4ba1-b40d-49a9ee4cd048,Heinrich Klaasen,34,South Africa,SRH,wicketkeeper,capped,Right hand Bat,Right arm Offbreak,,20000000,₹2 Cr,Sone Martins,2026-03-26 13:14:21.237701+00,68,36.70,168.40,0,0,79,6.8,8.0,mid,power_hitter
+80b1ae89-65d9-400d-be54-eed4ea582a2e,Himmat Singh,29,India,LSG,batter,uncapped,Right hand Bat,Right arm Offbreak,,3000000,₹30 L,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+d4dce85f-15ab-4a3f-826c-5b72a3213046,Ishan Kishan,27,India,SRH,wicketkeeper,capped,Left hand Bat,Right arm Offbreak / Legbreak,,20000000,₹2 Cr,,2026-03-26 13:14:21.237701+00,105,32.10,148.40,0,0,77,6.8,7.2,veteran,power_hitter
+76d66d5e-5a30-4a90-a025-6a3ba322b850,Ishant Sharma,37,India,GT,bowler,capped,Right hand Bat,Right arm Fast medium,,3000000,₹30 L,Pratima Singh,2026-03-26 13:14:21.237701+00,22,6.50,78.00,18,10.80,60,5.2,4.8,mid,powerplay_bowler
+5842c16e-bd78-47f9-8906-595326f1f5f5,Jacob Bethell,22,England,RCB,allrounder,capped,Left hand Bat,Slow Left arm Orthodox,,15000000,₹1.5 Cr,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+a21059eb-3593-4822-aded-08e9c41a8cd8,Jacob Duffy,31,New Zealand,RCB,bowler,capped,Right hand Bat,Right arm Fast medium,,7500000,₹75 L,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+f2fe2d52-ee01-45a4-8e0d-5174e8d9f31b,Jamie Overton,31,England,CSK,allrounder,capped,Right hand Bat,Right arm Fast,,10000000,₹1 Cr,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+c1fcf0e0-df36-4ea3-8b2e-74f689de7c24,Jason Holder,34,West Indies,GT,allrounder,capped,Right hand Bat,Right arm Medium fast,,15000000,₹1.5 Cr,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+14186b86-7509-4d22-a114-172b60b74b1b,Jasprit Bumrah,31,India,MI,bowler,capped,Right hand Bat,Right arm Fast,,20000000,₹2 Cr,Sanjana Ganesan,2026-03-26 13:14:21.237701+00,145,8.00,105.00,182,7.40,95,9.6,9.4,veteran,death_bowler
+4c0e93b9-6e36-4df3-9b3e-627d6948f341,Jayant Yadav,35,India,GT,bowler,capped,Right hand Bat,Right arm Offbreak,,3000000,₹30 L,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+c12cab49-e287-4e5f-9d45-fbd4c3a9f17d,Jaydev Unadkat,34,India,SRH,bowler,capped,Right hand Bat,Left arm Medium,,4000000,₹40 L,Rinni Kantaria,2026-03-26 13:14:21.237701+00,88,7.00,82.00,42,8.60,66,6.4,5.8,veteran,powerplay_bowler
+b85ce291-4b43-4413-a79e-38606ad80f94,Jitesh Sharma,32,India,RCB,wicketkeeper,uncapped,Right hand Bat,,https://rkgckqlstuycgzuwspcn.supabase.co/storage/v1/object/public/player-images/1000.avif,5000000,₹50 L,,2026-03-26 13:14:21.237701+00,62,28.40,162.40,0,0,68,6.0,6.8,mid,power_hitter
+962de0bd-dac5-4a25-a981-052611c6b970,Jofra Archer,30,England,RR,bowler,capped,Right hand Bat,Right arm Fast,,20000000,₹2 Cr,,2026-03-26 13:14:21.237701+00,58,9.20,102.00,42,8.80,76,6.8,7.4,mid,powerplay_bowler
+43be8230-bfa3-4443-899c-c0742f5152f0,Jordan Cox,25,England,RCB,wicketkeeper,capped,Right hand Bat,,,7500000,₹75 L,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+e1fc02d7-2ec4-4d1e-9186-4d83e8fdb0e9,Jos Buttler,35,England,GT,wicketkeeper,capped,Right hand Bat,,,20000000,₹2 Cr,Louise Buttler,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+61387cbe-f2b7-499d-a965-3cac9fe454a4,Josh Hazlewood,34,Australia,RCB,bowler,capped,Left hand Bat,Right arm Fast medium,,20000000,₹2 Cr,Cherina Murphy,2026-03-26 13:14:21.237701+00,74,7.00,85.00,65,8.40,79,7.4,7.6,mid,powerplay_bowler
+97273756-41e1-4b30-942c-b01e69226193,Josh Inglis,30,Australia,LSG,wicketkeeper,capped,Right hand Bat,,,10000000,₹1 Cr,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+49d5c6ec-2358-44b5-849f-c8a12939c56a,Kagiso Rabada,30,South Africa,GT,bowler,capped,Left hand Bat,Right arm Fast,https://rkgckqlstuycgzuwspcn.supabase.co/storage/v1/object/public/player-images/116.avif,20000000,₹2 Cr,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+238b6866-5499-4589-be88-0e1597dcad0d,Kamindu Mendis,27,Sri Lanka,SRH,allrounder,capped,Left hand Bat,Right arm Offbreak / Slow Left arm Orthodox,,15000000,₹1.5 Cr,,2026-03-26 13:14:21.237701+00,28,28.60,128.60,8,8.40,64,5.6,6.6,mid,all_rounder
+760f70f9-20a6-4b6a-a8f1-0dd483ba9a49,Kanishk Chouhan,19,India,RCB,allrounder,uncapped,Right hand Bat,Right arm Offbreak,,3000000,₹30 L,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+c5a2efd3-1fea-446c-a244-13e6acf0dc16,Kartik Sharma,19,India,CSK,wicketkeeper,uncapped,Right hand Bat,,,3000000,₹30 L,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+5cf51105-0440-42ac-aa3d-53a4f39bc134,Kartik Tyagi,25,India,KKR,bowler,uncapped,Right hand Bat,Right arm Fast,,3000000,₹30 L,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+b95d5e21-e346-4009-8604-49cc17a60e1c,Karun Nair,33,India,DC,batter,capped,Right hand Bat,Right arm Offbreak,,3000000,₹30 L,Sanjaya Nair,2026-03-26 13:14:21.237701+00,42,26.40,162.60,0,0,64,5.4,6.4,mid,power_hitter
+9fa287db-7b31-482f-a9f7-b7abee6486a4,Khaleel Ahmed,27,India,CSK,bowler,capped,Right hand Bat,Left arm Fast medium,,10000000,₹1 Cr,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+00a943bc-a634-479b-a0b0-aa7dc10ad0fc,KL Rahul,33,India,DC,wicketkeeper,capped,Right hand Bat,,,20000000,₹2 Cr,Athiya Shetty,2026-03-26 13:14:21.237701+00,132,47.20,136.80,0,0,87,8.6,7.8,veteran,anchor
+3cd7c2da-89fe-4c3f-8dcf-8c2f38e61fed,Krains Fuletra,21,India,SRH,allrounder,uncapped,Right hand Bat,Left arm Wrist spin,,3000000,₹30 L,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+3492e9b8-9a68-49d1-a7be-dc474f042fb2,Krunal Pandya,34,India,RCB,allrounder,capped,Left hand Bat,Slow Left arm Orthodox,,15000000,₹1.5 Cr,Pankhuri Sharma,2026-03-26 13:14:21.237701+00,162,24.80,128.40,82,8.10,80,7.8,7.6,veteran,all_rounder
+08241bc2-a51a-460e-93ff-6115a6e2e8ad,Kuldeep Sen,29,India,RR,bowler,capped,Right hand Bat,Right arm Fast,https://rkgckqlstuycgzuwspcn.supabase.co/storage/v1/object/public/player-images/1005.avif,4000000,₹40 L,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+89a47771-071d-4527-8328-4b5b8c0e3bb1,Kuldeep Yadav,30,India,DC,bowler,capped,Left hand Bat,Left arm Wrist spin,,20000000,₹2 Cr,,2026-03-26 13:14:21.237701+00,106,7.50,90.00,92,8.30,82,7.8,8.2,veteran,spinner
+c6d28d55-2a10-4fde-9931-7960530716a2,Kumar Kushagra,21,India,GT,wicketkeeper,uncapped,Right hand Bat,,,3000000,₹30 L,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+ac4e7b3a-32bf-424f-9ec3-53dfcb6a1b4b,Kwena Maphaka,19,South Africa,RR,bowler,capped,Left hand Bat,Left arm Fast,,10000000,₹1 Cr,,2026-03-26 13:14:21.237701+00,8,5.50,70.00,8,10.40,54,4.2,5.4,rookie,death_bowler
+f237ac1e-100c-4c92-8a9e-2e68a0be46c2,Kyle Jamieson,30,New Zealand,DC,bowler,capped,Right hand Bat,Right arm Fast medium,,15000000,₹1.5 Cr,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+200fb347-a59a-4e81-a9f0-f630c3782b0c,Lhuan-dre Pretorius,19,South Africa,RR,wicketkeeper,uncapped,Left hand Bat,,,3000000,₹30 L,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+f7f1691d-fcf2-4bef-9726-432595126e1e,Liam Livingstone,32,England,SRH,allrounder,capped,Right hand Bat,Right arm Offbreak / Legbreak,,20000000,₹2 Cr,,2026-03-26 13:14:21.237701+00,72,22.40,158.60,14,8.80,72,6.2,6.8,mid,all_rounder
+2d5e5015-12f7-49fc-a589-850a68a296a9,Lockie Ferguson,34,New Zealand,PBKS,bowler,capped,Right hand Bat,Right arm Fast,,15000000,₹1.5 Cr,,2026-03-26 13:14:21.237701+00,42,7.00,84.00,28,9.20,66,5.8,6.4,mid,death_bowler
+ba0d769a-169b-45ed-a495-3f01299c95bb,Luke Wood,30,England,GT,bowler,capped,Left hand Bat,Left arm Fast medium,,7500000,₹75 L,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+1466dbb1-3168-4ec3-abc0-12d1bcba6b9b,Lungi Ngidi,29,South Africa,DC,bowler,capped,Right hand Bat,Right arm Fast medium,,15000000,₹1.5 Cr,,2026-03-26 13:14:21.237701+00,14,6.50,78.00,18,10.20,60,5.0,6.0,rookie,powerplay_bowler
+df4e7d24-1152-473c-8b78-b965730e13a6,M Shahrukh Khan,30,India,GT,batter,capped,Right hand Bat,Right arm Offbreak,,5000000,₹50 L,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+936116a4-a66a-43b8-953f-00fb15ef5069,Madhav Tiwari,22,India,DC,allrounder,uncapped,Right hand Bat,Right arm Medium fast,,3000000,₹30 L,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+c243dbc3-6a06-4288-8e6e-cac21699ce95,Manav Suthar,23,India,GT,allrounder,uncapped,Left hand Bat,Slow Left arm Orthodox,,3000000,₹30 L,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+58452093-d0f5-4a62-81c9-e9f18bf96186,Mangesh Yadav,23,India,RCB,allrounder,uncapped,Left hand Bat,Left arm Fast,,3000000,₹30 L,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+073dc9ea-3d27-4615-b4b7-6a627ea3a95d,Manimaran Siddharth,27,India,LSG,bowler,capped,Right hand Bat,Slow Left arm Orthodox,,4000000,₹40 L,,2026-03-26 13:14:21.237701+00,8,6.00,72.00,8,9.40,54,4.2,5.2,rookie,spinner
+1f06d5d9-9e18-44cd-8ea6-c872d1bbec61,Manish Pandey,36,India,KKR,batter,capped,Right hand Bat,Right arm Medium,,3000000,₹30 L,Ashrita Shetty,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+3b38f93b-3e98-4628-bb29-235200ffd5ad,Marco Jansen,25,South Africa,PBKS,allrounder,capped,Right hand Bat,Left arm Fast,,20000000,₹2 Cr,,2026-03-26 13:14:21.237701+00,56,22.40,128.00,42,9.00,73,6.4,7.4,mid,all_rounder
+4cb68fda-a15e-4180-9d37-aac3b6b736cc,Marcus Stoinis,36,Australia,PBKS,allrounder,capped,Right hand Bat,Right arm Medium,,15000000,₹1.5 Cr,,2026-03-26 13:14:21.237701+00,58,28.80,168.40,14,9.40,72,6.2,6.6,mid,all_rounder
+98d0fc7a-643b-4171-80d8-51fceac41678,Matheesha Pathirana,22,Sri Lanka,KKR,bowler,capped,Right hand Bat,Right arm Fast,,20000000,₹2 Cr,,2026-03-26 13:14:21.237701+00,48,6.50,78.00,42,9.60,70,6.4,7.0,mid,death_bowler
+9d50d9a9-52b6-4c46-a5a6-76eef4599bf6,Matt Henry,33,New Zealand,CSK,bowler,capped,Right hand Bat,Right arm Fast medium,,15000000,₹1.5 Cr,Holly Carran,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+b95fcaf5-e164-4728-b2b2-a77c2184963a,Matthew Breetzke,27,South Africa,LSG,batter,capped,Right hand Bat,,,10000000,₹1 Cr,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+d29d6fb5-8c9b-4ea7-9e89-0b8646f12adc,Matthew Short,30,Australia,CSK,allrounder,capped,Right hand Bat,Right arm Offbreak,,7500000,₹75 L,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+180b3970-953d-452d-a23b-fd18f016b53e,Mayank Markande,28,India,MI,bowler,uncapped,Right hand Bat,Legbreak,,3000000,₹30 L,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+38aed054-f69f-459d-83b7-b298902ce98a,Mayank Rawat,25,India,MI,allrounder,uncapped,Right hand Bat,Right arm Offbreak,,3000000,₹30 L,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+6368bff9-2a65-41e1-a601-eaf84fad70e6,Mayank Yadav,23,India,LSG,bowler,capped,Right hand Bat,Right arm Fast,,15000000,₹1.5 Cr,,2026-03-26 13:14:21.237701+00,8,6.00,72.00,8,11.80,58,4.4,6.8,rookie,death_bowler
+93454ce9-9b6b-47ce-bdd5-b53842b968d3,Mitchell Marsh,34,Australia,LSG,allrounder,capped,Right hand Bat,Right arm Medium,,20000000,₹2 Cr,Greta Mack,2026-03-26 13:14:21.237701+00,89,38.40,155.20,18,9.10,82,7.2,7.8,veteran,all_rounder
+65d75080-5e15-49f9-9514-c4fa8a29d217,Mitchell Owen,24,Australia,PBKS,allrounder,uncapped,Right hand Bat,Right arm Medium,,5000000,₹50 L,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+657d2d42-1825-40dd-b2cb-49a91cdf48f7,Mitchell Santner,33,New Zealand,MI,allrounder,capped,Left hand Bat,Slow Left arm Orthodox,,15000000,₹1.5 Cr,,2026-03-26 13:14:21.237701+00,72,18.60,118.40,42,7.80,70,6.8,6.4,mid,all_rounder
+a6ca617c-5caa-49d7-a0f5-261dc03ecda7,Mitchell Starc,35,Australia,DC,bowler,capped,Left hand Bat,Left arm Fast,,20000000,₹2 Cr,Alyssa Healy,2026-03-26 13:14:21.237701+00,64,9.00,92.00,82,9.40,76,7.0,7.2,mid,powerplay_bowler
+d9a93662-a47d-482c-b4dc-018a74818231,Mohammed Shami,35,India,LSG,bowler,capped,Right hand Bat,Right arm Fast,,20000000,₹2 Cr,,2026-03-26 13:14:21.237701+00,128,7.50,88.00,118,8.60,79,7.6,7.0,veteran,powerplay_bowler
+f230f3e7-7798-4489-8db0-362794ac6bb4,Mohammed Siraj,31,India,GT,bowler,capped,Right hand Bat,Right arm Fast,,20000000,₹2 Cr,Mahira Sharma,2026-03-26 13:14:21.237701+00,108,7.00,84.00,78,8.60,76,7.0,7.2,veteran,powerplay_bowler
+d7e64ea4-1fcd-4cb9-afe5-a4049c965131,Mohd Izhar,21,India,MI,bowler,uncapped,Right hand Bat,Left arm Medium,,3000000,₹30 L,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+d020009f-da45-4be3-9566-c672e30285fc,Mohsin Khan,27,India,LSG,bowler,capped,Left hand Bat,Left arm Medium fast,,5000000,₹50 L,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+cee45f57-2bf2-46f2-bbed-a9a5e4223a5c,MS Dhoni,44,India,CSK,wicketkeeper,capped,Right hand Bat,Right arm Medium,,20000000,₹2 Cr,Sakshi Dhoni,2026-03-26 13:14:21.237701+00,264,38.20,138.60,0,0,90,9.2,7.8,veteran,finisher
+148dc3ba-0f3c-4ae3-8a03-0ed5aa0ff7f0,Mukesh Choudhary,29,India,CSK,bowler,uncapped,Left hand Bat,Left arm Medium,,3000000,₹30 L,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+2179defd-3d61-412b-a4b9-d0e13a3b9537,Mukesh Kumar,32,India,DC,bowler,capped,Right hand Bat,Right arm Medium,,7500000,₹75 L,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+33101eea-a158-4586-9be7-0a184e7cacf2,Mukul Choudhary,21,India,LSG,batter,uncapped,Right hand Bat,,,3000000,₹30 L,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+77f4110f-3d10-4d01-a51f-49a4d1576f00,Musheer Khan,20,India,PBKS,allrounder,uncapped,Right hand Bat,Slow Left arm Orthodox,,3000000,₹30 L,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+8ae490dc-84bd-443c-b1e2-2c7019458ca0,Naman Dhir,25,India,MI,allrounder,uncapped,Right hand Bat,Right arm Offbreak,,3000000,₹30 L,,2026-03-26 13:14:21.237701+00,42,24.80,162.40,0,9.50,66,5.6,6.4,mid,finisher
+5409bd17-c13b-46f5-80af-14d84f707c95,Naman Tiwari,20,India,LSG,bowler,uncapped,Left hand Bat,Left arm Medium fast,,3000000,₹30 L,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+a10d36c2-9c1a-4549-9aad-4d6aacc32d1e,Nandre Burger,30,South Africa,RR,bowler,capped,Left hand Bat,Left arm Fast medium,,10000000,₹1 Cr,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+f8da1feb-2c24-481b-aa2a-2347525769bb,Nehal Wadhera,25,India,PBKS,batter,capped,Left hand Bat,Legbreak,,3000000,₹30 L,,2026-03-26 13:14:21.237701+00,42,26.40,142.40,0,0,64,5.6,6.2,mid,finisher
+62609bcb-d8c0-4a96-8827-6eced728279b,Nicholas Pooran,30,West Indies,LSG,wicketkeeper,capped,Left hand Bat,,,20000000,₹2 Cr,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+f1593b03-e83d-46a7-9937-3d439850e9dc,Nicholas Pooran,30,West Indies,LSG,batter,capped,Left hand Bat,Right arm Offbreak,,20000000,₹2 Cr,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+bfca42b5-40c3-4af4-a884-2dfd8fbe202d,Nishant Sindhu,21,India,GT,allrounder,uncapped,Left hand Bat,Slow Left arm Orthodox,,3000000,₹30 L,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+4d2e6397-6fe7-4f5e-9206-9ca41dd255ea,Nitish Kumar Reddy,22,India,SRH,allrounder,capped,Right hand Bat,Right arm Medium fast,,15000000,₹1.5 Cr,,2026-03-26 13:14:21.237701+00,42,24.20,128.40,8,9.20,66,5.6,7.2,mid,all_rounder
+a9a122e3-8142-4ecb-8e8d-337e8963f978,Nitish Rana,31,India,DC,batter,capped,Left hand Bat,Right arm Medium / Offbreak / Legbreak,,5000000,₹50 L,Saachi Marwah,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+637cd95b-d02c-4d6a-a246-9c6d240f8413,Noor Ahmad,20,Afghanistan,CSK,bowler,capped,Right hand Bat,Left arm Wrist spin,,15000000,₹1.5 Cr,,2026-03-26 13:14:21.237701+00,48,6.50,82.00,52,8.20,74,6.8,7.8,mid,spinner
+4d01482b-2c6a-4b8f-8e3b-64e387156d74,Nuwan Thushara,31,Sri Lanka,RCB,bowler,capped,Right hand Bat,Right arm Medium fast,,10000000,₹1 Cr,,2026-03-26 13:14:21.237701+00,8,6.00,72.00,8,7.20,56,4.6,5.8,rookie,powerplay_bowler
+f8103375-7124-4dd7-9903-831c10e599d0,Onkar Tarmale,23,India,SRH,bowler,uncapped,Right hand Bat,Right arm Fast,,3000000,₹30 L,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+be3a4a18-9486-4f2c-9be3-2c2696bda6d0,Pat Cummins,32,Australia,SRH,bowler,capped,Right hand Bat,Right arm Fast,,20000000,₹2 Cr,Becky Boston,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+11f2d755-14e8-46d0-a77d-a622caa7c76d,Pathum Nissanka,27,Sri Lanka,DC,batter,capped,Right hand Bat,,,15000000,₹1.5 Cr,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+59659c89-b800-4639-80a7-2d7e7987b977,Phil Salt,29,England,RCB,wicketkeeper,capped,Right hand Bat,Right arm Offbreak,,20000000,₹2 Cr,,2026-03-26 13:14:21.237701+00,48,30.20,168.40,0,0,75,6.4,7.6,mid,power_hitter
+1ab9e312-824b-4987-9fd2-fa8bf24e166d,Prabhsimran Singh,25,India,PBKS,wicketkeeper,uncapped,Right hand Bat,,,3000000,₹30 L,,2026-03-26 13:14:21.237701+00,62,28.10,158.40,0,0,72,6.2,7.4,mid,power_hitter
+b5a1180d-cecb-4530-810e-101d8bed5a0c,Praful Hinge,23,India,SRH,bowler,uncapped,Right hand Bat,Right arm Medium fast,,3000000,₹30 L,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+10722fe3-b64e-4a32-bb5b-30ed9a7c091d,Prashant Solanki,25,India,KKR,bowler,uncapped,Right hand Bat,Legbreak,,3000000,₹30 L,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+c73c4be7-3573-4e07-a146-5adf9d8a3da2,Prashant Veer,19,India,CSK,allrounder,uncapped,Left hand Bat,Slow Left arm Orthodox,,3000000,₹30 L,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+003a1262-da09-4209-bc90-dc3a5311e3a6,Prasidh Krishna,29,India,GT,bowler,capped,Right hand Bat,Right arm Fast medium,,15000000,₹1.5 Cr,,2026-03-26 13:14:21.237701+00,98,7.00,88.00,98,8.60,80,7.4,8.6,veteran,death_bowler
+0db5c0ba-9da8-42e0-8e59-d1eeee70ad8d,Praveen Dubey,32,India,PBKS,bowler,uncapped,Right hand Bat,Legbreak Googly,,3000000,₹30 L,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+d47f7262-3bfe-425a-9bbf-2c6b4f8b753d,Prince Yadav,23,India,LSG,bowler,uncapped,Right hand Bat,Right arm Fast,,3000000,₹30 L,,2026-03-26 13:14:21.237701+00,18,6.00,72.00,14,9.80,56,4.4,5.4,rookie,spinner
+b8d349c7-00a9-4229-8c56-4872e9e4d4f9,Prithvi Raj,27,India,GT,bowler,uncapped,Left hand Bat,Left arm Medium,,3000000,₹30 L,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+3224d922-84cd-434e-8756-e09e7c9b61a6,Prithvi Shaw,26,India,DC,batter,capped,Right hand Bat,Right arm Offbreak,,3000000,₹30 L,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+c879c337-a553-4a7c-858c-842486f4e7f1,Priyansh Arya,24,India,PBKS,batter,uncapped,Left hand Bat,Right arm Offbreak,,3000000,₹30 L,,2026-03-26 13:14:21.237701+00,32,28.00,178.30,0,0,73,6.0,7.8,mid,power_hitter
+7e1f7031-d2d2-4e5d-a91b-ea1bd081683f,Pyla Avinash,25,India,PBKS,batter,uncapped,Right hand Bat,Right arm Medium fast,,3000000,₹30 L,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+ebe498af-66cc-49e2-99e0-9055f835b8c8,Quinton de Kock,32,South Africa,MI,wicketkeeper,capped,Left hand Bat,,,20000000,₹2 Cr,Sasha Hurly,2026-03-26 13:14:21.237701+00,112,32.40,138.80,0,0,76,7.4,6.4,veteran,anchor
+541ae4a1-850d-444d-998e-06085658c6d8,Rachin Ravindra,25,New Zealand,KKR,allrounder,capped,Left hand Bat,Slow Left arm Orthodox,,20000000,₹2 Cr,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+7091aed0-8612-4173-a394-b4c6daffab05,Raghu Sharma,32,India,MI,bowler,uncapped,Right hand Bat,Legbreak,,3000000,₹30 L,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+fa19a9f3-e85d-4d44-b81b-fb5e34cd6ea9,Rahul Chahar,26,India,CSK,bowler,capped,Right hand Bat,Legbreak Googly,,10000000,₹1 Cr,Ishani Johar,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+26e02e57-02d9-420e-ba49-c33a10740186,Rahul Tewatia,32,India,GT,allrounder,capped,Left hand Bat,Legbreak,,10000000,₹1 Cr,,2026-03-26 13:14:21.237701+00,128,18.20,152.40,0,9.50,66,6.4,5.8,veteran,finisher
+ef7db905-5122-40af-9f8c-d25895c2181a,Rahul Tripathi,34,India,KKR,batter,capped,Right hand Bat,Right arm Medium,,3000000,₹30 L,,2026-03-26 13:14:21.237701+00,78,22.40,132.40,0,0,62,5.8,5.0,mid,anchor
+8b2b7fe3-e421-4116-b8f9-130e0c4e391f,Raj Bawa,23,India,MI,allrounder,uncapped,Left hand Bat,Right arm Medium fast,,3000000,₹30 L,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+82527a80-267b-46e9-bfa0-1a6a45190635,Rajat Patidar,32,India,RCB,batter,capped,Right hand Bat,Right arm Offbreak,,10000000,₹1 Cr,,2026-03-26 13:14:21.237701+00,68,26.40,138.60,0,0,68,6.2,6.6,mid,anchor
+8e7de1f6-ef14-4250-b4f3-d61494d3c8b2,Ramakrishna Ghosh,28,India,CSK,allrounder,uncapped,Right hand Bat,Right arm Medium Fast,,3000000,₹30 L,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+75a54e60-0e47-42dd-ae8d-350650cf4d03,Ramandeep Singh,28,India,KKR,batter,uncapped,Right hand Bat,Right arm Medium,,3000000,₹30 L,,2026-03-26 13:14:21.237701+00,42,14.40,132.40,0,0,56,4.8,5.2,mid,finisher
+d138a03a-fa5a-43f5-82e1-258287080645,Rashid Khan,27,Afghanistan,GT,allrounder,capped,Right hand Bat,Legbreak Googly,,20000000,₹2 Cr,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+1a18fca2-dc8d-4c9f-8470-1600e44ca575,Rasikh Salam,25,India,RCB,bowler,capped,Right hand Bat,Right arm Medium,,4000000,₹40 L,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+da37e163-5fa4-47c0-b00d-4f0e0b00d1b8,Ravi Bishnoi,25,India,RR,bowler,capped,Right hand Bat,Legbreak Googly,,15000000,₹1.5 Cr,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+177cb6c1-bb16-4403-9859-660d39a699ee,Ravi Singh,24,India,RR,batter,uncapped,Left hand Bat,Legbreak,,3000000,₹30 L,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+f5b96dfb-b457-43ec-80fa-9c9e7c1ac0e9,Ravichandran Smaran,22,India,SRH,batter,uncapped,Left hand Bat,Right arm Offbreak,,3000000,₹30 L,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+75bcaf34-4ba6-44c8-8a76-ed0aa2a8f074,Ravindra Jadeja,36,India,RR,allrounder,capped,Left hand Bat,Slow Left arm Orthodox,,20000000,₹2 Cr,Rivaba Jadeja,2026-03-26 13:14:21.237701+00,248,26.60,127.80,152,7.60,91,9.4,8.6,veteran,all_rounder
+4a13a4fb-a5b1-4c3c-a69e-5f2e768a92a2,Rinku Singh,28,India,KKR,batter,capped,Left hand Bat,Right arm Offbreak,,15000000,₹1.5 Cr,,2026-03-26 13:14:21.237701+00,72,28.60,152.60,0,0,71,6.6,6.8,mid,finisher
+8515600e-862e-4013-89b3-4f9cc79a2710,Rishabh Pant,28,India,LSG,wicketkeeper,capped,Left hand Bat,,,20000000,₹2 Cr,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+b1f672f7-e21c-4991-b77a-19cb256e3d70,Rishabh Pant,28,India,LSG,batter,capped,Left hand Bat,,,20000000,₹2 Cr,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+7ee848a9-0710-481f-8fa0-19c6be24676e,Riyan Parag,24,India,RR,batter,capped,Right hand Bat,Right arm Offbreak / Legbreak,,10000000,₹1 Cr,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+ec28f603-0d95-4cc4-83d9-d03e85e597f3,Robin Minz,23,India,MI,wicketkeeper,uncapped,Left hand Bat,Slow Left arm Orthodox,,3000000,₹30 L,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+7a8cc70e-738d-4e7e-ac56-9be59d413488,Rohit Sharma,38,India,MI,batter,capped,Right hand Bat,Right arm Offbreak,,20000000,₹2 Cr,Ritika Sajdeh,2026-03-26 13:14:21.237701+00,257,32.80,132.40,0,0,89,8.8,7.2,veteran,anchor
+579e81c2-cbb7-4e65-98ea-47b90c5e0c12,Romario Shepherd,30,West Indies,RCB,allrounder,capped,Right hand Bat,Right arm Fast medium,,10000000,₹1 Cr,,2026-03-26 13:14:21.237701+00,42,28.60,182.40,18,9.80,68,5.8,6.8,mid,all_rounder
+514ee0eb-abf4-4d20-8cde-32fb99856ed5,Rovman Powell,32,West Indies,KKR,batter,capped,Right hand Bat,Right arm Medium fast,,15000000,₹1.5 Cr,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+b9bc7e37-ab45-467f-b3dc-0222b5eab59f,Ruturaj Gaikwad,28,India,CSK,batter,capped,Right hand Bat,Right arm Offbreak,https://rkgckqlstuycgzuwspcn.supabase.co/storage/v1/object/public/player-images/102.avif,20000000,₹2 Cr,Utkarsha Pawar,2026-03-26 13:14:21.237701+00,116,31.20,132.60,0,0,79,7.8,6.8,veteran,anchor
+e12446ce-d0eb-44c2-9dd4-8d3473b95913,Ryan Rickelton,29,South Africa,MI,wicketkeeper,capped,Left hand Bat,,,15000000,₹1.5 Cr,,2026-03-26 13:14:21.237701+00,38,26.40,138.60,0,0,68,5.8,6.8,mid,power_hitter
+8f662439-36a4-4465-bb58-fabc0ea8cee0,Sahil Parakh,18,India,DC,batter,uncapped,Left hand Bat,Legbreak,,3000000,₹30 L,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+2949851f-7b44-4d0a-8294-1b6ce1c3a615,Sai Kishore,29,India,GT,bowler,capped,Left hand Bat,Slow Left arm Orthodox,,4000000,₹40 L,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+7baa210e-1545-47c9-baed-24cdb5f4ae62,Sai Sudharsan,24,India,GT,batter,capped,Left hand Bat,Legbreak,,15000000,₹1.5 Cr,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+a797cbd7-f739-4758-9f55-0c81b79dfb07,Sakib Hussain,20,India,SRH,bowler,uncapped,Right hand Bat,Right arm Medium,,3000000,₹30 L,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+f1cfe6b8-bd60-4e2d-b784-b9e06cdf9f3a,Salil Arora,23,India,SRH,wicketkeeper,uncapped,Right hand Bat,,,3000000,₹30 L,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+16a566eb-ad99-4a2f-83d3-7d3121f2e5bc,Sameer Rizvi,21,India,DC,allrounder,uncapped,Right hand Bat,Right arm Offbreak,,3000000,₹30 L,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+3023052f-98ac-4042-85a2-b3c06bc5fecf,Sandeep Sharma,32,India,RR,bowler,capped,Right hand Bat,Right arm Medium,,4000000,₹40 L,,2026-03-26 13:14:21.237701+00,162,7.50,86.00,118,8.40,72,7.2,6.0,veteran,powerplay_bowler
+4b2ae00b-93ca-4a8c-92fd-eb0d46a20d9e,Sanju Samson,31,India,CSK,wicketkeeper,capped,Right hand Bat,,,20000000,₹2 Cr,Charulatha Samson,2026-03-26 13:14:21.237701+00,177,32.60,142.30,0,0,82,7.4,7.6,veteran,power_hitter
+4327b129-f126-45e9-9c84-611598a935c0,Sarfaraz Khan,28,India,CSK,batter,uncapped,Right hand Bat,Legbreak,,4000000,₹40 L,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+d982cf58-5015-4ab8-a036-2134bb9f3651,Sarthak Ranjan,29,India,KKR,batter,uncapped,Right hand Bat,Legbreak,,3000000,₹30 L,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+49892a15-67c4-4185-905e-13510b092a95,Satvik Deswal,18,India,RCB,bowler,uncapped,Right hand Bat,Slow Left arm Orthodox,,3000000,₹30 L,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+af556098-7f99-4d41-b830-1690c9fe7044,Saurabh Dubey,27,India,KKR,bowler,uncapped,Right hand Bat,Left arm Medium fast,,3000000,₹30 L,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+d86974de-df44-49e1-b3fc-b4f3d97c3350,Shahbaz Ahmed,30,India,LSG,allrounder,capped,Left hand Bat,Slow Left arm Orthodox,,5000000,₹50 L,,2026-03-26 13:14:21.237701+00,28,14.40,118.40,8,9.40,58,5.0,5.6,mid,all_rounder
+8c7ef72a-fec4-4f36-8996-e19ba27799b9,Shardul Thakur,34,India,MI,allrounder,capped,Right hand Bat,Right arm Medium,,10000000,₹1 Cr,Mittali Parulkar,2026-03-26 13:14:21.237701+00,114,20.80,142.40,82,9.40,73,6.6,6.4,veteran,all_rounder
+1c742af4-990a-4592-9ad0-b8df6debb2ca,Shashank Singh,33,India,PBKS,allrounder,capped,Right hand Bat,Right arm Medium / Right arm Offbreak,,5000000,₹50 L,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+828e875b-cb7b-43d5-bd1f-2737f462a1ad,Sherfane Rutherford,27,West Indies,MI,batter,capped,Left hand Bat,Right arm Fast medium,,10000000,₹1 Cr,,2026-03-26 13:14:21.237701+00,42,28.40,152.60,0,0,64,5.4,6.4,mid,finisher
+55ced259-5652-483e-aaeb-9e9e382f8e36,Shimron Hetmyer,28,West Indies,RR,batter,capped,Left hand Bat,,,15000000,₹1.5 Cr,,2026-03-26 13:14:21.237701+00,72,24.20,148.60,0,0,67,5.8,5.8,mid,finisher
+ee7054b9-ba9a-442f-bf35-ae3b3c1e545c,Shivam Dube,32,India,CSK,allrounder,capped,Left hand Bat,Right arm Medium,,15000000,₹1.5 Cr,Anjum Khan,2026-03-26 13:14:21.237701+00,98,27.50,148.20,14,9.20,75,6.4,7.2,veteran,finisher
+73d41edf-c0ff-4432-a67e-33ba6d86f5f3,Shivam Mavi,26,India,SRH,allrounder,capped,Right hand Bat,Right arm Fast medium,,7500000,₹75 L,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+b04af03f-4089-4c4a-ba50-bffe64d32f1f,Shivang Kumar,23,India,SRH,allrounder,uncapped,Right hand Bat,Left arm Wrist spin,,3000000,₹30 L,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+e218fea8-b3c3-4cfe-9b45-248c39761dec,Shreyas Gopal,32,India,CSK,bowler,uncapped,Right hand Bat,Legbreak,,3000000,₹30 L,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+c2403596-54bb-48f3-9789-e4391899c64a,Shreyas Iyer,30,India,PBKS,batter,capped,Right hand Bat,Right arm Offbreak / Legbreak Googly,https://rkgckqlstuycgzuwspcn.supabase.co/storage/v1/object/public/player-images/12.avif,20000000,₹2 Cr,Rohini Iyer,2026-03-26 13:14:21.237701+00,115,34.60,132.40,0,0,83,7.8,8.2,veteran,anchor
+44c111e6-ff7a-4852-9ca6-ddfba9e44a23,Shubham Dubey,31,India,RR,batter,uncapped,Left hand Bat,Right arm Offbreak,,3000000,₹30 L,,2026-03-26 13:14:21.237701+00,28,18.40,128.40,0,0,56,4.8,5.0,mid,anchor
+1efe1049-58ad-4a94-9a8c-6d2ed228424a,Shubman Gill,26,India,GT,batter,capped,Right hand Bat,Right arm Offbreak,,20000000,₹2 Cr,,2026-03-26 13:14:21.237701+00,119,38.80,136.20,0,0,86,8.2,8.4,veteran,anchor
+2c851f77-0527-46da-a65b-e4878218698a,Spencer Johnson,29,Australia,CSK,bowler,capped,Left hand Bat,Left arm Fast,,15000000,₹1.5 Cr,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+3dc3a5ac-e0c4-4bbe-bb8f-31bc1515efea,Sunil Narine,37,West Indies,KKR,batter,capped,Left hand Bat,Right arm Offbreak,,20000000,₹2 Cr,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+cd76739e-fd44-4be4-a408-a503c0c46b44,Sunil Narine,37,West Indies,KKR,allrounder,capped,Left hand Bat,Right arm Offbreak,,20000000,₹2 Cr,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+dc7a6adb-c3ae-42f2-bea5-4ece1b427da3,Suryakumar Yadav,35,India,MI,batter,capped,Right hand Bat,Right arm Medium / Offbreak,,20000000,₹2 Cr,Devisha Shetty,2026-03-26 13:14:21.237701+00,193,34.20,171.40,0,0,91,8.4,9.2,veteran,power_hitter
+bacff553-ea78-4e73-9ff1-ff4478623d91,Suryansh Shedge,22,India,PBKS,allrounder,uncapped,Right hand Bat,Right arm Medium fast,,3000000,₹30 L,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+fa1cd434-9403-407c-9d61-b1046789f627,Sushant Mishra,24,India,RR,bowler,uncapped,Left hand Bat,Left arm Medium fast,,3000000,₹30 L,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+bc98d284-6aff-4c1b-84f1-7762ee9fcbaf,Suyash Sharma,22,India,RCB,bowler,uncapped,Right hand Bat,Legbreak Googly,,3000000,₹30 L,,2026-03-26 13:14:21.237701+00,28,6.50,78.00,22,8.60,62,5.4,6.2,mid,spinner
+925d9cfc-2aed-4ef2-acc8-46aff33292be,Swapnil Singh,34,India,RCB,bowler,capped,Right hand Bat,Slow Left arm Orthodox,,3000000,₹30 L,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+c9a274c2-fa03-4691-88db-1eb670fc91c6,T Natarajan,34,India,DC,bowler,capped,Left hand Bat,Left arm Medium,,10000000,₹1 Cr,Pavithra Natarajan,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+aeef3e4e-45fc-484c-b8e9-f359d8355013,Tejasvi Dahiya,23,India,KKR,wicketkeeper,uncapped,Right hand Bat,,,3000000,₹30 L,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+b54d693d-5ecd-46db-abcd-7cca6dd73d72,Tilak Varma,23,India,MI,allrounder,capped,Left hand Bat,Right arm Offbreak,,20000000,₹2 Cr,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+5c278214-209b-41b7-b8eb-f2cb7ba87edd,Tim David,29,Australia,RCB,batter,capped,Right hand Bat,Right arm Offbreak,,20000000,₹2 Cr,,2026-03-26 13:14:21.237701+00,68,34.60,168.80,0,0,78,6.8,7.6,mid,finisher
+2a04a14d-44a7-4b8d-adec-3798318a72e8,Tim Seifert,30,New Zealand,KKR,wicketkeeper,capped,Right hand Bat,,,7500000,₹75 L,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+eec1192f-641b-4e2c-bef4-d2f76f7c03f9,Tom Banton,27,England,GT,wicketkeeper,capped,Right hand Bat,,,7500000,₹75 L,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+385b0aa5-f154-4c35-8255-9ea476a7c80b,Travis Head,31,Australia,SRH,batter,capped,Left hand Bat,Right arm Offbreak,,20000000,₹2 Cr,Jessica Davies,2026-03-26 13:14:21.237701+00,48,34.10,162.30,0,0,78,6.8,7.6,mid,power_hitter
+3e2687cd-2a79-4631-bbbf-2cb84d5e4234,Trent Boult,36,New Zealand,MI,bowler,capped,Right hand Bat,Left arm Fast medium,,20000000,₹2 Cr,Gert Smith,2026-03-26 13:14:21.237701+00,187,8.00,90.00,188,8.20,83,8.2,7.4,veteran,powerplay_bowler
+c446be13-940b-46a4-8039-b7646b119103,Tripurana Vijay,24,India,DC,bowler,uncapped,Right hand Bat,Right arm Offbreak,,3000000,₹30 L,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+31896663-4cde-4a5d-9cbf-b60d95644315,Tristan Stubbs,25,South Africa,DC,wicketkeeper,capped,Right hand Bat,Right arm Offbreak,https://rkgckqlstuycgzuwspcn.supabase.co/storage/v1/object/public/player-images/1017.avif,10000000,₹1 Cr,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+8970a354-37c8-4010-98a0-0f883b788f1b,Tushar Deshpande,30,India,RR,bowler,capped,Left hand Bat,Right arm Medium,,5000000,₹50 L,,2026-03-26 13:14:21.237701+00,38,7.00,82.00,28,10.20,62,5.2,5.8,mid,death_bowler
+d2f918dd-6de6-46f5-b996-9602a5a009f2,Umran Malik,25,India,KKR,bowler,uncapped,Right hand Bat,Right arm Fast,,4000000,₹40 L,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+6e071ea4-8d75-4b93-8659-e00f880b379b,Urvil Patel,27,India,CSK,wicketkeeper,uncapped,Right hand Bat,,,3000000,₹30 L,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+58189ea0-822d-4841-beee-dfb8334068ea,Vaibhav Arora,27,India,KKR,bowler,capped,Right hand Bat,Right arm Fast medium,,5000000,₹50 L,,2026-03-26 13:14:21.237701+00,42,6.00,75.00,38,9.80,67,5.8,6.6,mid,death_bowler
+c4118b9b-52ae-4fa6-b9a3-b29100b94292,Vaibhav Sooryavanshi,14,India,RR,batter,uncapped,Left hand Bat,Slow Left arm Orthodox,,3000000,₹30 L,,2026-03-26 13:14:21.237701+00,14,28.40,192.60,0,0,68,5.2,8.2,rookie,power_hitter
+5e18e1a1-124e-4e5d-b865-6eee3249c7bf,Varun Chakravarthy,34,India,KKR,bowler,capped,Right hand Bat,Legbreak Googly,,15000000,₹1.5 Cr,,2026-03-26 13:14:21.237701+00,98,8.00,95.00,113,8.10,79,7.6,7.4,veteran,spinner
+b8caa2ff-62e4-4ee9-8894-62a01dde2d28,Venkatesh Iyer,30,India,RCB,allrounder,capped,Left hand Bat,Right arm Medium,,15000000,₹1.5 Cr,,2026-03-26 13:14:21.237701+00,68,24.80,148.40,0,9.50,66,5.8,6.2,mid,all_rounder
+37b0c91d-5474-4ed7-87b1-b59d647298a4,Vicky Ostwal,23,India,RCB,bowler,uncapped,Right hand Bat,Slow Left arm Orthodox,,3000000,₹30 L,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+b6d816c6-f9f8-441a-bba2-442f92aeb650,Vignesh Puthur,24,India,RR,bowler,uncapped,Right hand Bat,Left arm Wrist spin,,3000000,₹30 L,,2026-03-26 13:14:21.237701+00,14,6.00,74.00,18,9.20,58,4.6,5.8,rookie,spinner
+6bbbcca9-d746-4ae5-8fae-c1cf48698dda,Vihaan Malhotra,18,India,RCB,allrounder,uncapped,Left hand Bat,Right arm Offbreak,,3000000,₹30 L,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+85885dd1-b72e-4b47-865f-d4ab209367c2,Vijaykumar Vyshak,28,India,PBKS,bowler,capped,Right hand Bat,Right arm Medium,,4000000,₹40 L,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+e7be0616-1b17-4dd6-8120-03a3422fc65e,Vipraj Nigam,21,India,DC,bowler,uncapped,Right hand Bat,Legbreak,,3000000,₹30 L,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+5b4b3b8a-5c29-479a-93fb-24a5540f1f0a,Virat Kohli,37,India,RCB,batter,capped,Right hand Bat,Right arm Medium,,20000000,₹2 Cr,Anushka Sharma,2026-03-26 13:14:21.237701+00,252,44.50,136.50,0,0,93,9.5,8.5,veteran,anchor
+ba1f2f95-7e2e-43f9-b75d-3eaeb86c9df4,Vishal Nishad,20,India,PBKS,bowler,uncapped,Right hand Bat,Legbreak,,3000000,₹30 L,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+df7cc30f-d6e7-4a65-9f4d-58d0934657ed,Vishnu Vinod,31,India,PBKS,wicketkeeper,uncapped,Right hand Bat,,,3000000,₹30 L,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+73e0b102-a234-4cfa-8fe5-0040d5d77ed7,Wanindu Hasaranga,28,Sri Lanka,LSG,allrounder,capped,Right hand Bat,Legbreak,,20000000,₹2 Cr,,2026-03-26 13:14:21.237701+00,62,18.40,128.60,58,8.80,74,6.8,7.2,mid,all_rounder
+8c7955fe-a4e6-4386-b6d9-0470d272ad9b,Washington Sundar,26,India,GT,allrounder,capped,Left hand Bat,Right arm Offbreak,,15000000,₹1.5 Cr,,2026-03-26 13:14:21.237701+00,68,22.80,142.40,28,8.60,70,6.6,6.8,mid,all_rounder
+721780f8-4124-4f68-a177-deadf70775a9,Will Jacks,26,England,MI,allrounder,capped,Right hand Bat,Right arm Offbreak,,15000000,₹1.5 Cr,,2026-03-26 13:14:21.237701+00,62,24.80,148.60,18,8.60,71,6.2,6.8,mid,all_rounder
+dc2b2f14-938a-4071-964f-6f78e6411ad2,Xavier Bartlett,26,Australia,PBKS,bowler,capped,Right hand Bat,Right arm Fast medium,,10000000,₹1 Cr,,2026-03-26 13:14:21.237701+00,14,6.00,72.00,14,9.40,56,4.4,5.4,rookie,powerplay_bowler
+e78b6f8a-33bd-4192-845a-ae9849f10f4d,Yash Raj Punja,19,India,RR,bowler,uncapped,Right hand Bat,Legbreak Googly,,3000000,₹30 L,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+38d8721a-5cf6-45c2-a715-716064250cc6,Yash Thakur,26,India,PBKS,bowler,capped,Right hand Bat,Right arm Fast medium,,4000000,₹40 L,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+d5968284-24b0-4929-bfd4-f281a92089a1,Yashasvi Jaiswal,23,India,RR,batter,capped,Left hand Bat,Legbreak,,20000000,₹2 Cr,,2026-03-26 13:14:21.237701+00,62,34.20,158.20,0,0,83,7.4,9.0,mid,power_hitter
+37c5697d-924d-4833-9aa4-9d955bda01dc,Yudhvir Singh,28,India,RR,bowler,capped,Right hand Bat,Right arm Medium fast,,4000000,₹40 L,,2026-03-26 13:14:21.237701+00,14,6.00,76.00,14,11.20,56,4.6,5.8,rookie,death_bowler
+7ec414d0-025d-4ef3-aebb-ee7ef218fb7f,Yuzvendra Chahal,35,India,PBKS,bowler,capped,Right hand Bat,Legbreak Googly,https://rkgckqlstuycgzuwspcn.supabase.co/storage/v1/object/public/player-images/10.avif,20000000,₹2 Cr,Dhanashree Verma,2026-03-26 13:14:21.237701+00,164,6.50,80.00,205,8.20,82,8.0,6.8,veteran,spinner
+b5dfb44a-af26-4adc-885d-e7ba69dbdbd3,Zak Foulkes,23,New Zealand,CSK,allrounder,capped,Right hand Bat,Right arm Medium,,5000000,₹50 L,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
+bd50673f-72a6-4228-a66b-02d792ff3204,Zeeshan Ansari,25,India,SRH,bowler,capped,Right hand Bat,Legbreak Googly,,4000000,₹40 L,,2026-03-26 13:14:21.237701+00,28,6.00,74.00,18,9.60,58,4.8,5.6,mid,spinner

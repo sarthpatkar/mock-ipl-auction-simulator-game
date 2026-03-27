@@ -1,0 +1,3121 @@
+{
+  "meta": {
+    "season": 2026,
+    "currency": "INR",
+    "base_price_brackets": {
+      "top_tier": "₹2,00,00,000",
+      "high_tier_a": "₹1,50,00,000",
+      "high_tier_b": "₹1,00,00,000",
+      "mid_tier_a": "₹75,00,000",
+      "mid_tier_b": "₹50,00,000",
+      "mid_tier_c": "₹40,00,000",
+      "low_tier": "₹30,00,000"
+    },
+    "cap_rule": "An Indian player is classified as UNCAPPED if they have not appeared in an international starting XI in the last five years (2021–2026). All overseas players who have played international cricket are CAPPED."
+  },
+  "teams": [
+    {
+      "team": "CSK",
+      "full_name": "Chennai Super Kings",
+      "players": {
+        "batters": {
+          "capped": [
+            {
+              "name": "Ruturaj Gaikwad",
+              "age": 28,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Right arm Offbreak",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/102.png",
+              "spouse": "Utkarsha Pawar",
+              "base_price": 20000000,
+              "base_price_label": "₹2 Cr"
+            },
+            {
+              "name": "Dewald Brevis",
+              "age": 22,
+              "nationality": "South Africa",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Legbreak",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/797.png",
+              "spouse": null,
+              "base_price": 10000000,
+              "base_price_label": "₹1 Cr"
+            }
+          ],
+          "uncapped": [
+            {
+              "name": "Sarfaraz Khan",
+              "age": 28,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Legbreak",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "spouse": null,
+              "base_price": 4000000,
+              "base_price_label": "₹40 L",
+              "note": "Played Tests recently but not regularly in last 5 years across formats"
+            },
+            {
+              "name": "Ayush Mhatre",
+              "age": 18,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Right arm Offbreak",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "spouse": null,
+              "base_price": 3000000,
+              "base_price_label": "₹30 L"
+            }
+          ]
+        },
+        "wicketkeepers": {
+          "capped": [
+            {
+              "name": "MS Dhoni",
+              "age": 44,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Right arm Medium",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/57.png",
+              "spouse": "Sakshi Dhoni",
+              "base_price": 20000000,
+              "base_price_label": "₹2 Cr"
+            },
+            {
+              "name": "Sanju Samson",
+              "age": 31,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": null,
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/258.png",
+              "spouse": "Charulatha Samson",
+              "base_price": 20000000,
+              "base_price_label": "₹2 Cr"
+            }
+          ],
+          "uncapped": [
+            {
+              "name": "Kartik Sharma",
+              "age": 19,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": null,
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "spouse": null,
+              "base_price": 3000000,
+              "base_price_label": "₹30 L"
+            },
+            {
+              "name": "Urvil Patel",
+              "age": 27,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": null,
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "spouse": null,
+              "base_price": 3000000,
+              "base_price_label": "₹30 L"
+            }
+          ]
+        },
+        "allrounders": {
+          "capped": [
+            {
+              "name": "Shivam Dube",
+              "age": 32,
+              "nationality": "India",
+              "batting_style": "Left hand Bat",
+              "bowling_style": "Right arm Medium",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/543.png",
+              "spouse": "Anjum Khan",
+              "base_price": 15000000,
+              "base_price_label": "₹1.5 Cr"
+            },
+            {
+              "name": "Jamie Overton",
+              "age": 31,
+              "nationality": "England",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Right arm Fast",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/888.png",
+              "spouse": null,
+              "base_price": 10000000,
+              "base_price_label": "₹1 Cr"
+            },
+            {
+              "name": "Matthew Short",
+              "age": 30,
+              "nationality": "Australia",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Right arm Offbreak",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/777.png",
+              "spouse": null,
+              "base_price": 7500000,
+              "base_price_label": "₹75 L"
+            },
+            {
+              "name": "Zak Foulkes",
+              "age": 23,
+              "nationality": "New Zealand",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Right arm Medium",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "spouse": null,
+              "base_price": 5000000,
+              "base_price_label": "₹50 L"
+            },
+            {
+              "name": "Anshul Kamboj",
+              "age": 24,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Right arm Medium",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/901.png",
+              "spouse": null,
+              "base_price": 4000000,
+              "base_price_label": "₹40 L"
+            }
+          ],
+          "uncapped": [
+            {
+              "name": "Aman Khan",
+              "age": 28,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Right arm Medium",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "spouse": null,
+              "base_price": 3000000,
+              "base_price_label": "₹30 L"
+            },
+            {
+              "name": "Ramakrishna Ghosh",
+              "age": 28,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Right arm Medium Fast",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "spouse": null,
+              "base_price": 3000000,
+              "base_price_label": "₹30 L"
+            },
+            {
+              "name": "Prashant Veer",
+              "age": 19,
+              "nationality": "India",
+              "batting_style": "Left hand Bat",
+              "bowling_style": "Slow Left arm Orthodox",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "spouse": null,
+              "base_price": 3000000,
+              "base_price_label": "₹30 L"
+            }
+          ]
+        },
+        "bowlers": {
+          "capped": [
+            {
+              "name": "Khaleel Ahmed",
+              "age": 27,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Left arm Fast medium",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/8.png",
+              "spouse": null,
+              "base_price": 10000000,
+              "base_price_label": "₹1 Cr"
+            },
+            {
+              "name": "Rahul Chahar",
+              "age": 26,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Legbreak Googly",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/171.png",
+              "spouse": "Ishani Johar",
+              "base_price": 10000000,
+              "base_price_label": "₹1 Cr"
+            },
+            {
+              "name": "Matt Henry",
+              "age": 33,
+              "nationality": "New Zealand",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Right arm Fast medium",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/600.png",
+              "spouse": "Holly Carran",
+              "base_price": 15000000,
+              "base_price_label": "₹1.5 Cr"
+            },
+            {
+              "name": "Akeal Hosein",
+              "age": 32,
+              "nationality": "West Indies",
+              "batting_style": "Left hand Bat",
+              "bowling_style": "Slow Left arm Orthodox",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/601.png",
+              "spouse": null,
+              "base_price": 7500000,
+              "base_price_label": "₹75 L"
+            },
+            {
+              "name": "Spencer Johnson",
+              "age": 29,
+              "nationality": "Australia",
+              "batting_style": "Left hand Bat",
+              "bowling_style": "Left arm Fast",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/602.png",
+              "spouse": null,
+              "base_price": 15000000,
+              "base_price_label": "₹1.5 Cr"
+            },
+            {
+              "name": "Noor Ahmad",
+              "age": 20,
+              "nationality": "Afghanistan",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Left arm Wrist spin",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/604.png",
+              "spouse": null,
+              "base_price": 15000000,
+              "base_price_label": "₹1.5 Cr"
+            }
+          ],
+          "uncapped": [
+            {
+              "name": "Shreyas Gopal",
+              "age": 32,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Legbreak",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "spouse": null,
+              "base_price": 3000000,
+              "base_price_label": "₹30 L"
+            },
+            {
+              "name": "Gurjapneet Singh",
+              "age": 27,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Left arm Medium fast",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "spouse": null,
+              "base_price": 3000000,
+              "base_price_label": "₹30 L"
+            },
+            {
+              "name": "Mukesh Choudhary",
+              "age": 29,
+              "nationality": "India",
+              "batting_style": "Left hand Bat",
+              "bowling_style": "Left arm Medium",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/603.png",
+              "spouse": null,
+              "base_price": 3000000,
+              "base_price_label": "₹30 L"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "team": "DC",
+      "full_name": "Delhi Capitals",
+      "withdrawn": [
+        { "name": "Ben Duckett", "age": 31, "role": "wicketkeeper", "nationality": "England", "reason": "Withdrawn" }
+      ],
+      "players": {
+        "batters": {
+          "capped": [
+            {
+              "name": "David Miller",
+              "age": 36,
+              "nationality": "South Africa",
+              "batting_style": "Left hand Bat",
+              "bowling_style": "Right arm Offbreak",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/187.png",
+              "spouse": null,
+              "base_price": 20000000,
+              "base_price_label": "₹2 Cr"
+            },
+            {
+              "name": "Karun Nair",
+              "age": 33,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Right arm Offbreak",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/276.png",
+              "spouse": "Sanjaya Nair",
+              "base_price": 3000000,
+              "base_price_label": "₹30 L",
+              "note": "No international appearance in starting XI in last 5 years — classified uncapped per rule"
+            },
+            {
+              "name": "Pathum Nissanka",
+              "age": 27,
+              "nationality": "Sri Lanka",
+              "batting_style": "Right hand Bat",
+              "bowling_style": null,
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/620.png",
+              "spouse": null,
+              "base_price": 15000000,
+              "base_price_label": "₹1.5 Cr"
+            },
+            {
+              "name": "Nitish Rana",
+              "age": 31,
+              "nationality": "India",
+              "batting_style": "Left hand Bat",
+              "bowling_style": "Right arm Medium / Offbreak / Legbreak",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/148.png",
+              "spouse": "Saachi Marwah",
+              "base_price": 5000000,
+              "base_price_label": "₹50 L"
+            },
+            {
+              "name": "Prithvi Shaw",
+              "age": 26,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Right arm Offbreak",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/113.png",
+              "spouse": null,
+              "base_price": 3000000,
+              "base_price_label": "₹30 L",
+              "note": "Not in Indian XI regularly in last 5 years — classified uncapped per rule"
+            }
+          ],
+          "uncapped": [
+            {
+              "name": "Sahil Parakh",
+              "age": 18,
+              "nationality": "India",
+              "batting_style": "Left hand Bat",
+              "bowling_style": "Legbreak",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "spouse": null,
+              "base_price": 3000000,
+              "base_price_label": "₹30 L"
+            }
+          ]
+        },
+        "wicketkeepers": {
+          "capped": [
+            {
+              "name": "KL Rahul",
+              "age": 33,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": null,
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/112.png",
+              "spouse": "Athiya Shetty",
+              "base_price": 20000000,
+              "base_price_label": "₹2 Cr"
+            },
+            {
+              "name": "Tristan Stubbs",
+              "age": 25,
+              "nationality": "South Africa",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Right arm Offbreak",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/900.png",
+              "spouse": null,
+              "base_price": 10000000,
+              "base_price_label": "₹1 Cr"
+            }
+          ],
+          "uncapped": [
+            {
+              "name": "Abishek Porel",
+              "age": 23,
+              "nationality": "India",
+              "batting_style": "Left hand Bat",
+              "bowling_style": null,
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "spouse": null,
+              "base_price": 3000000,
+              "base_price_label": "₹30 L"
+            }
+          ]
+        },
+        "allrounders": {
+          "capped": [
+            {
+              "name": "Axar Patel",
+              "age": 31,
+              "nationality": "India",
+              "batting_style": "Left hand Bat",
+              "bowling_style": "Slow Left arm Orthodox",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/111.png",
+              "spouse": "Meha Patel",
+              "base_price": 20000000,
+              "base_price_label": "₹2 Cr"
+            }
+          ],
+          "uncapped": [
+            {
+              "name": "Ajay Mandal",
+              "age": 29,
+              "nationality": "India",
+              "batting_style": "Left hand Bat",
+              "bowling_style": "Slow Left arm Orthodox",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "spouse": null,
+              "base_price": 3000000,
+              "base_price_label": "₹30 L"
+            },
+            {
+              "name": "Sameer Rizvi",
+              "age": 21,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Right arm Offbreak",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/950.png",
+              "spouse": null,
+              "base_price": 3000000,
+              "base_price_label": "₹30 L"
+            },
+            {
+              "name": "Ashutosh Sharma",
+              "age": 27,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": null,
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/951.png",
+              "spouse": null,
+              "base_price": 3000000,
+              "base_price_label": "₹30 L"
+            },
+            {
+              "name": "Madhav Tiwari",
+              "age": 22,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Right arm Medium fast",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "spouse": null,
+              "base_price": 3000000,
+              "base_price_label": "₹30 L"
+            }
+          ]
+        },
+        "bowlers": {
+          "capped": [
+            {
+              "name": "Dushmantha Chameera",
+              "age": 33,
+              "nationality": "Sri Lanka",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Right arm Fast",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/333.png",
+              "spouse": null,
+              "base_price": 10000000,
+              "base_price_label": "₹1 Cr"
+            },
+            {
+              "name": "Kyle Jamieson",
+              "age": 30,
+              "nationality": "New Zealand",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Right arm Fast medium",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/444.png",
+              "spouse": null,
+              "base_price": 15000000,
+              "base_price_label": "₹1.5 Cr"
+            },
+            {
+              "name": "Kuldeep Yadav",
+              "age": 30,
+              "nationality": "India",
+              "batting_style": "Left hand Bat",
+              "bowling_style": "Left arm Wrist spin",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/555.png",
+              "spouse": null,
+              "base_price": 20000000,
+              "base_price_label": "₹2 Cr"
+            },
+            {
+              "name": "Mukesh Kumar",
+              "age": 32,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Right arm Medium",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/556.png",
+              "spouse": null,
+              "base_price": 7500000,
+              "base_price_label": "₹75 L"
+            },
+            {
+              "name": "T Natarajan",
+              "age": 34,
+              "nationality": "India",
+              "batting_style": "Left hand Bat",
+              "bowling_style": "Left arm Medium",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/557.png",
+              "spouse": "Pavithra Natarajan",
+              "base_price": 10000000,
+              "base_price_label": "₹1 Cr"
+            },
+            {
+              "name": "Lungi Ngidi",
+              "age": 29,
+              "nationality": "South Africa",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Right arm Fast medium",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/558.png",
+              "spouse": null,
+              "base_price": 15000000,
+              "base_price_label": "₹1.5 Cr"
+            },
+            {
+              "name": "Mitchell Starc",
+              "age": 35,
+              "nationality": "Australia",
+              "batting_style": "Left hand Bat",
+              "bowling_style": "Left arm Fast",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/559.png",
+              "spouse": "Alyssa Healy",
+              "base_price": 20000000,
+              "base_price_label": "₹2 Cr"
+            }
+          ],
+          "uncapped": [
+            {
+              "name": "Auqib Nabi",
+              "age": 29,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Right arm Medium",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "spouse": null,
+              "base_price": 3000000,
+              "base_price_label": "₹30 L"
+            },
+            {
+              "name": "Vipraj Nigam",
+              "age": 21,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Legbreak",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "spouse": null,
+              "base_price": 3000000,
+              "base_price_label": "₹30 L"
+            },
+            {
+              "name": "Tripurana Vijay",
+              "age": 24,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Right arm Offbreak",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "spouse": null,
+              "base_price": 3000000,
+              "base_price_label": "₹30 L"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "team": "GT",
+      "full_name": "Gujarat Titans",
+      "players": {
+        "batters": {
+          "capped": [
+            {
+              "name": "Shubman Gill",
+              "age": 26,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Right arm Offbreak",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/62.png",
+              "spouse": null,
+              "base_price": 20000000,
+              "base_price_label": "₹2 Cr"
+            },
+            {
+              "name": "Sai Sudharsan",
+              "age": 24,
+              "nationality": "India",
+              "batting_style": "Left hand Bat",
+              "bowling_style": "Legbreak",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/601.png",
+              "spouse": null,
+              "base_price": 15000000,
+              "base_price_label": "₹1.5 Cr"
+            },
+            {
+              "name": "M Shahrukh Khan",
+              "age": 30,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Right arm Offbreak",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/389.png",
+              "spouse": null,
+              "base_price": 5000000,
+              "base_price_label": "₹50 L"
+            }
+          ],
+          "uncapped": []
+        },
+        "wicketkeepers": {
+          "capped": [
+            {
+              "name": "Jos Buttler",
+              "age": 35,
+              "nationality": "England",
+              "batting_style": "Right hand Bat",
+              "bowling_style": null,
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/182.png",
+              "spouse": "Louise Buttler",
+              "base_price": 20000000,
+              "base_price_label": "₹2 Cr"
+            },
+            {
+              "name": "Tom Banton",
+              "age": 27,
+              "nationality": "England",
+              "batting_style": "Right hand Bat",
+              "bowling_style": null,
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/400.png",
+              "spouse": null,
+              "base_price": 7500000,
+              "base_price_label": "₹75 L"
+            }
+          ],
+          "uncapped": [
+            {
+              "name": "Anuj Rawat",
+              "age": 26,
+              "nationality": "India",
+              "batting_style": "Left hand Bat",
+              "bowling_style": null,
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/534.png",
+              "spouse": null,
+              "base_price": 3000000,
+              "base_price_label": "₹30 L"
+            },
+            {
+              "name": "Kumar Kushagra",
+              "age": 21,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": null,
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "spouse": null,
+              "base_price": 3000000,
+              "base_price_label": "₹30 L"
+            }
+          ]
+        },
+        "allrounders": {
+          "capped": [
+            {
+              "name": "Rashid Khan",
+              "age": 27,
+              "nationality": "Afghanistan",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Legbreak Googly",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/288.png",
+              "spouse": null,
+              "base_price": 20000000,
+              "base_price_label": "₹2 Cr"
+            },
+            {
+              "name": "Jason Holder",
+              "age": 34,
+              "nationality": "West Indies",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Right arm Medium fast",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/274.png",
+              "spouse": null,
+              "base_price": 15000000,
+              "base_price_label": "₹1.5 Cr"
+            },
+            {
+              "name": "Glenn Phillips",
+              "age": 28,
+              "nationality": "New Zealand",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Right arm Offbreak",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/700.png",
+              "spouse": null,
+              "base_price": 15000000,
+              "base_price_label": "₹1.5 Cr"
+            },
+            {
+              "name": "Washington Sundar",
+              "age": 26,
+              "nationality": "India",
+              "batting_style": "Left hand Bat",
+              "bowling_style": "Right arm Offbreak",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/20.png",
+              "spouse": null,
+              "base_price": 15000000,
+              "base_price_label": "₹1.5 Cr"
+            },
+            {
+              "name": "Rahul Tewatia",
+              "age": 32,
+              "nationality": "India",
+              "batting_style": "Left hand Bat",
+              "bowling_style": "Legbreak",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/199.png",
+              "spouse": null,
+              "base_price": 10000000,
+              "base_price_label": "₹1 Cr"
+            }
+          ],
+          "uncapped": [
+            {
+              "name": "Nishant Sindhu",
+              "age": 21,
+              "nationality": "India",
+              "batting_style": "Left hand Bat",
+              "bowling_style": "Slow Left arm Orthodox",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/701.png",
+              "spouse": null,
+              "base_price": 3000000,
+              "base_price_label": "₹30 L"
+            },
+            {
+              "name": "Manav Suthar",
+              "age": 23,
+              "nationality": "India",
+              "batting_style": "Left hand Bat",
+              "bowling_style": "Slow Left arm Orthodox",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "spouse": null,
+              "base_price": 3000000,
+              "base_price_label": "₹30 L"
+            }
+          ]
+        },
+        "bowlers": {
+          "capped": [
+            {
+              "name": "Kagiso Rabada",
+              "age": 30,
+              "nationality": "South Africa",
+              "batting_style": "Left hand Bat",
+              "bowling_style": "Right arm Fast",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/166.png",
+              "spouse": null,
+              "base_price": 20000000,
+              "base_price_label": "₹2 Cr"
+            },
+            {
+              "name": "Mohammed Siraj",
+              "age": 31,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Right arm Fast",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/71.png",
+              "spouse": "Mahira Sharma",
+              "base_price": 20000000,
+              "base_price_label": "₹2 Cr"
+            },
+            {
+              "name": "Prasidh Krishna",
+              "age": 29,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Right arm Fast medium",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/510.png",
+              "spouse": null,
+              "base_price": 15000000,
+              "base_price_label": "₹1.5 Cr"
+            },
+            {
+              "name": "Ishant Sharma",
+              "age": 37,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Right arm Fast medium",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/50.png",
+              "spouse": "Pratima Singh",
+              "base_price": 3000000,
+              "base_price_label": "₹30 L",
+              "note": "Not in Indian XI in last 5 years — classified uncapped per rule"
+            },
+            {
+              "name": "Sai Kishore",
+              "age": 29,
+              "nationality": "India",
+              "batting_style": "Left hand Bat",
+              "bowling_style": "Slow Left arm Orthodox",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/503.png",
+              "spouse": null,
+              "base_price": 4000000,
+              "base_price_label": "₹40 L"
+            },
+            {
+              "name": "Jayant Yadav",
+              "age": 35,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Right arm Offbreak",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/174.png",
+              "spouse": null,
+              "base_price": 3000000,
+              "base_price_label": "₹30 L",
+              "note": "Not in Indian XI in last 5 years — classified uncapped per rule"
+            },
+            {
+              "name": "Luke Wood",
+              "age": 30,
+              "nationality": "England",
+              "batting_style": "Left hand Bat",
+              "bowling_style": "Left arm Fast medium",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/703.png",
+              "spouse": null,
+              "base_price": 7500000,
+              "base_price_label": "₹75 L"
+            }
+          ],
+          "uncapped": [
+            {
+              "name": "Arshad Khan",
+              "age": 27,
+              "nationality": "India",
+              "batting_style": "Left hand Bat",
+              "bowling_style": "Left arm Fast medium",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "spouse": null,
+              "base_price": 3000000,
+              "base_price_label": "₹30 L"
+            },
+            {
+              "name": "Ashok Sharma",
+              "age": 23,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Right arm Medium",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "spouse": null,
+              "base_price": 3000000,
+              "base_price_label": "₹30 L"
+            },
+            {
+              "name": "Gurnoor Brar",
+              "age": 25,
+              "nationality": "India",
+              "batting_style": "Left hand Bat",
+              "bowling_style": "Right arm Fast",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/702.png",
+              "spouse": null,
+              "base_price": 3000000,
+              "base_price_label": "₹30 L"
+            },
+            {
+              "name": "Prithvi Raj",
+              "age": 27,
+              "nationality": "India",
+              "batting_style": "Left hand Bat",
+              "bowling_style": "Left arm Medium",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "spouse": null,
+              "base_price": 3000000,
+              "base_price_label": "₹30 L"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "team": "KKR",
+      "full_name": "Kolkata Knight Riders",
+      "players": {
+        "batters": {
+          "capped": [
+            {
+              "name": "Sunil Narine",
+              "age": 37,
+              "nationality": "West Indies",
+              "batting_style": "Left hand Bat",
+              "bowling_style": "Right arm Offbreak",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/276.png",
+              "spouse": null,
+              "base_price": 20000000,
+              "base_price_label": "₹2 Cr",
+              "role": "all-rounder",
+              "note": "Listed here as key batting asset; also categorized in all-rounders"
+            },
+            {
+              "name": "Rinku Singh",
+              "age": 28,
+              "nationality": "India",
+              "batting_style": "Left hand Bat",
+              "bowling_style": "Right arm Offbreak",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/964.png",
+              "spouse": null,
+              "base_price": 15000000,
+              "base_price_label": "₹1.5 Cr"
+            },
+            {
+              "name": "Finn Allen",
+              "age": 26,
+              "nationality": "New Zealand",
+              "batting_style": "Right hand Bat",
+              "bowling_style": null,
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/704.png",
+              "spouse": null,
+              "base_price": 10000000,
+              "base_price_label": "₹1 Cr"
+            },
+            {
+              "name": "Rovman Powell",
+              "age": 32,
+              "nationality": "West Indies",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Right arm Medium fast",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/529.png",
+              "spouse": null,
+              "base_price": 15000000,
+              "base_price_label": "₹1.5 Cr"
+            },
+            {
+              "name": "Ajinkya Rahane",
+              "age": 37,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Right arm Medium",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/9.png",
+              "spouse": "Radhika Dhopavkar",
+              "base_price": 3000000,
+              "base_price_label": "₹30 L",
+              "note": "Not in Indian XI in last 5 years — classified uncapped per rule"
+            },
+            {
+              "name": "Manish Pandey",
+              "age": 36,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Right arm Medium",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/123.png",
+              "spouse": "Ashrita Shetty",
+              "base_price": 3000000,
+              "base_price_label": "₹30 L",
+              "note": "Not in Indian XI in last 5 years — classified uncapped per rule"
+            },
+            {
+              "name": "Rahul Tripathi",
+              "age": 34,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Right arm Medium",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/200.png",
+              "spouse": null,
+              "base_price": 3000000,
+              "base_price_label": "₹30 L",
+              "note": "Not in Indian XI — classified uncapped per rule"
+            }
+          ],
+          "uncapped": [
+            {
+              "name": "Angkrish Raghuvanshi",
+              "age": 21,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Slow Left arm Orthodox",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/705.png",
+              "spouse": null,
+              "base_price": 3000000,
+              "base_price_label": "₹30 L"
+            },
+            {
+              "name": "Ramandeep Singh",
+              "age": 28,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Right arm Medium",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/706.png",
+              "spouse": null,
+              "base_price": 3000000,
+              "base_price_label": "₹30 L"
+            },
+            {
+              "name": "Sarthak Ranjan",
+              "age": 29,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Legbreak",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "spouse": null,
+              "base_price": 3000000,
+              "base_price_label": "₹30 L"
+            }
+          ]
+        },
+        "wicketkeepers": {
+          "capped": [
+            {
+              "name": "Tim Seifert",
+              "age": 30,
+              "nationality": "New Zealand",
+              "batting_style": "Right hand Bat",
+              "bowling_style": null,
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/707.png",
+              "spouse": null,
+              "base_price": 7500000,
+              "base_price_label": "₹75 L"
+            }
+          ],
+          "uncapped": [
+            {
+              "name": "Tejasvi Dahiya",
+              "age": 23,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": null,
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "spouse": null,
+              "base_price": 3000000,
+              "base_price_label": "₹30 L"
+            }
+          ]
+        },
+        "allrounders": {
+          "capped": [
+            {
+              "name": "Sunil Narine",
+              "age": 37,
+              "nationality": "West Indies",
+              "batting_style": "Left hand Bat",
+              "bowling_style": "Right arm Offbreak",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/276.png",
+              "spouse": null,
+              "base_price": 20000000,
+              "base_price_label": "₹2 Cr"
+            },
+            {
+              "name": "Rachin Ravindra",
+              "age": 25,
+              "nationality": "New Zealand",
+              "batting_style": "Left hand Bat",
+              "bowling_style": "Slow Left arm Orthodox",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/709.png",
+              "spouse": null,
+              "base_price": 20000000,
+              "base_price_label": "₹2 Cr"
+            },
+            {
+              "name": "Cameron Green",
+              "age": 26,
+              "nationality": "Australia",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Right arm Fast medium",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/708.png",
+              "spouse": null,
+              "base_price": 20000000,
+              "base_price_label": "₹2 Cr"
+            },
+            {
+              "name": "Anukul Roy",
+              "age": 26,
+              "nationality": "India",
+              "batting_style": "Left hand Bat",
+              "bowling_style": "Slow Left arm Orthodox",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/710.png",
+              "spouse": null,
+              "base_price": 3000000,
+              "base_price_label": "₹30 L",
+              "note": "Not in Indian XI — classified uncapped per rule"
+            }
+          ],
+          "uncapped": [
+            {
+              "name": "Daksh Kamra",
+              "age": 22,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Legbreak Googly",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "spouse": null,
+              "base_price": 3000000,
+              "base_price_label": "₹30 L"
+            }
+          ]
+        },
+        "bowlers": {
+          "capped": [
+            {
+              "name": "Varun Chakravarthy",
+              "age": 34,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Legbreak Googly",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/543.png",
+              "spouse": null,
+              "base_price": 15000000,
+              "base_price_label": "₹1.5 Cr"
+            },
+            {
+              "name": "Matheesha Pathirana",
+              "age": 22,
+              "nationality": "Sri Lanka",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Right arm Fast",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/715.png",
+              "spouse": null,
+              "base_price": 20000000,
+              "base_price_label": "₹2 Cr"
+            },
+            {
+              "name": "Blessing Muzarabani",
+              "age": 29,
+              "nationality": "Zimbabwe",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Right arm Fast medium",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/714.png",
+              "spouse": null,
+              "base_price": 15000000,
+              "base_price_label": "₹1.5 Cr"
+            },
+            {
+              "name": "Harshit Rana",
+              "age": 23,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Right arm Fast",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/712.png",
+              "spouse": null,
+              "base_price": 15000000,
+              "base_price_label": "₹1.5 Cr"
+            },
+            {
+              "name": "Vaibhav Arora",
+              "age": 27,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Right arm Fast medium",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/711.png",
+              "spouse": null,
+              "base_price": 5000000,
+              "base_price_label": "₹50 L"
+            }
+          ],
+          "uncapped": [
+            {
+              "name": "Saurabh Dubey",
+              "age": 27,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Left arm Medium fast",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "spouse": null,
+              "base_price": 3000000,
+              "base_price_label": "₹30 L"
+            },
+            {
+              "name": "Kartik Tyagi",
+              "age": 25,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Right arm Fast",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/713.png",
+              "spouse": null,
+              "base_price": 3000000,
+              "base_price_label": "₹30 L"
+            },
+            {
+              "name": "Prashant Solanki",
+              "age": 25,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Legbreak",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/716.png",
+              "spouse": null,
+              "base_price": 3000000,
+              "base_price_label": "₹30 L"
+            },
+            {
+              "name": "Umran Malik",
+              "age": 25,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Right arm Fast",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/171.png",
+              "spouse": null,
+              "base_price": 4000000,
+              "base_price_label": "₹40 L"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "team": "LSG",
+      "full_name": "Lucknow Super Giants",
+      "players": {
+        "batters": {
+          "capped": [
+            {
+              "name": "Rishabh Pant",
+              "age": 28,
+              "nationality": "India",
+              "batting_style": "Left hand Bat",
+              "bowling_style": null,
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/18.png",
+              "spouse": null,
+              "base_price": 20000000,
+              "base_price_label": "₹2 Cr",
+              "role": "wicketkeeper"
+            },
+            {
+              "name": "Aiden Markram",
+              "age": 31,
+              "nationality": "South Africa",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Right arm Offbreak",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/172.png",
+              "spouse": null,
+              "base_price": 20000000,
+              "base_price_label": "₹2 Cr"
+            },
+            {
+              "name": "Nicholas Pooran",
+              "age": 30,
+              "nationality": "West Indies",
+              "batting_style": "Left hand Bat",
+              "bowling_style": "Right arm Offbreak",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/170.png",
+              "spouse": null,
+              "base_price": 20000000,
+              "base_price_label": "₹2 Cr",
+              "role": "wicketkeeper"
+            },
+            {
+              "name": "Matthew Breetzke",
+              "age": 27,
+              "nationality": "South Africa",
+              "batting_style": "Right hand Bat",
+              "bowling_style": null,
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/720.png",
+              "spouse": null,
+              "base_price": 10000000,
+              "base_price_label": "₹1 Cr"
+            },
+            {
+              "name": "Abdul Samad",
+              "age": 24,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Legbreak",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/271.png",
+              "spouse": null,
+              "base_price": 5000000,
+              "base_price_label": "₹50 L"
+            },
+            {
+              "name": "Ayush Badoni",
+              "age": 25,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Right arm Offbreak",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/600.png",
+              "spouse": null,
+              "base_price": 3000000,
+              "base_price_label": "₹30 L",
+              "note": "Not in Indian XI — classified uncapped per rule"
+            }
+          ],
+          "uncapped": [
+            {
+              "name": "Akshat Raghuwanshi",
+              "age": 22,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Right arm Offbreak",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "spouse": null,
+              "base_price": 3000000,
+              "base_price_label": "₹30 L"
+            },
+            {
+              "name": "Mukul Choudhary",
+              "age": 21,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": null,
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "spouse": null,
+              "base_price": 3000000,
+              "base_price_label": "₹30 L"
+            },
+            {
+              "name": "Himmat Singh",
+              "age": 29,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Right arm Offbreak",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "spouse": null,
+              "base_price": 3000000,
+              "base_price_label": "₹30 L"
+            }
+          ]
+        },
+        "wicketkeepers": {
+          "capped": [
+            {
+              "name": "Rishabh Pant",
+              "age": 28,
+              "nationality": "India",
+              "batting_style": "Left hand Bat",
+              "bowling_style": null,
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/18.png",
+              "spouse": null,
+              "base_price": 20000000,
+              "base_price_label": "₹2 Cr"
+            },
+            {
+              "name": "Josh Inglis",
+              "age": 30,
+              "nationality": "Australia",
+              "batting_style": "Right hand Bat",
+              "bowling_style": null,
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/721.png",
+              "spouse": null,
+              "base_price": 10000000,
+              "base_price_label": "₹1 Cr"
+            },
+            {
+              "name": "Nicholas Pooran",
+              "age": 30,
+              "nationality": "West Indies",
+              "batting_style": "Left hand Bat",
+              "bowling_style": null,
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/170.png",
+              "spouse": null,
+              "base_price": 20000000,
+              "base_price_label": "₹2 Cr"
+            }
+          ],
+          "uncapped": []
+        },
+        "allrounders": {
+          "capped": [
+            {
+              "name": "Mitchell Marsh",
+              "age": 34,
+              "nationality": "Australia",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Right arm Medium",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/722.png",
+              "spouse": "Greta Mack",
+              "base_price": 20000000,
+              "base_price_label": "₹2 Cr"
+            },
+            {
+              "name": "Wanindu Hasaranga",
+              "age": 28,
+              "nationality": "Sri Lanka",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Legbreak",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/268.png",
+              "spouse": null,
+              "base_price": 20000000,
+              "base_price_label": "₹2 Cr"
+            },
+            {
+              "name": "Shahbaz Ahmed",
+              "age": 30,
+              "nationality": "India",
+              "batting_style": "Left hand Bat",
+              "bowling_style": "Slow Left arm Orthodox",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/723.png",
+              "spouse": null,
+              "base_price": 5000000,
+              "base_price_label": "₹50 L"
+            }
+          ],
+          "uncapped": [
+            {
+              "name": "Arshin Kulkarni",
+              "age": 20,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Right arm Medium",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "spouse": null,
+              "base_price": 3000000,
+              "base_price_label": "₹30 L"
+            }
+          ]
+        },
+        "bowlers": {
+          "capped": [
+            {
+              "name": "Mohammed Shami",
+              "age": 35,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Right arm Fast",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/94.png",
+              "spouse": null,
+              "base_price": 20000000,
+              "base_price_label": "₹2 Cr"
+            },
+            {
+              "name": "Avesh Khan",
+              "age": 28,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Right arm Fast medium",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/156.png",
+              "spouse": null,
+              "base_price": 10000000,
+              "base_price_label": "₹1 Cr"
+            },
+            {
+              "name": "Anrich Nortje",
+              "age": 31,
+              "nationality": "South Africa",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Right arm Fast",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/725.png",
+              "spouse": null,
+              "base_price": 20000000,
+              "base_price_label": "₹2 Cr"
+            },
+            {
+              "name": "Mayank Yadav",
+              "age": 23,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Right arm Fast",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/728.png",
+              "spouse": null,
+              "base_price": 15000000,
+              "base_price_label": "₹1.5 Cr"
+            },
+            {
+              "name": "Mohsin Khan",
+              "age": 27,
+              "nationality": "India",
+              "batting_style": "Left hand Bat",
+              "bowling_style": "Left arm Medium fast",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/725.png",
+              "spouse": null,
+              "base_price": 5000000,
+              "base_price_label": "₹50 L"
+            },
+            {
+              "name": "Manimaran Siddharth",
+              "age": 27,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Slow Left arm Orthodox",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/726.png",
+              "spouse": null,
+              "base_price": 4000000,
+              "base_price_label": "₹40 L"
+            },
+            {
+              "name": "Arjun Tendulkar",
+              "age": 26,
+              "nationality": "India",
+              "batting_style": "Left hand Bat",
+              "bowling_style": "Left arm Medium fast",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/727.png",
+              "spouse": null,
+              "base_price": 3000000,
+              "base_price_label": "₹30 L",
+              "note": "Not in Indian XI — classified uncapped per rule"
+            }
+          ],
+          "uncapped": [
+            {
+              "name": "Akash Singh",
+              "age": 23,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Left arm Medium fast",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/724.png",
+              "spouse": null,
+              "base_price": 3000000,
+              "base_price_label": "₹30 L"
+            },
+            {
+              "name": "Prince Yadav",
+              "age": 23,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Right arm Fast",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "spouse": null,
+              "base_price": 3000000,
+              "base_price_label": "₹30 L"
+            },
+            {
+              "name": "Digvesh Rathi",
+              "age": 25,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Legbreak",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "spouse": null,
+              "base_price": 3000000,
+              "base_price_label": "₹30 L"
+            },
+            {
+              "name": "Naman Tiwari",
+              "age": 20,
+              "nationality": "India",
+              "batting_style": "Left hand Bat",
+              "bowling_style": "Left arm Medium fast",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "spouse": null,
+              "base_price": 3000000,
+              "base_price_label": "₹30 L"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "team": "MI",
+      "full_name": "Mumbai Indians",
+      "players": {
+        "batters": {
+          "capped": [
+            {
+              "name": "Rohit Sharma",
+              "age": 38,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Right arm Offbreak",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/6.png",
+              "spouse": "Ritika Sajdeh",
+              "base_price": 20000000,
+              "base_price_label": "₹2 Cr"
+            },
+            {
+              "name": "Suryakumar Yadav",
+              "age": 35,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Right arm Medium / Offbreak",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/118.png",
+              "spouse": "Devisha Shetty",
+              "base_price": 20000000,
+              "base_price_label": "₹2 Cr"
+            },
+            {
+              "name": "Sherfane Rutherford",
+              "age": 27,
+              "nationality": "West Indies",
+              "batting_style": "Left hand Bat",
+              "bowling_style": "Right arm Fast medium",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/548.png",
+              "spouse": null,
+              "base_price": 10000000,
+              "base_price_label": "₹1 Cr"
+            }
+          ],
+          "uncapped": [
+            {
+              "name": "Danish Malewar",
+              "age": 22,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Legbreak",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "spouse": null,
+              "base_price": 3000000,
+              "base_price_label": "₹30 L"
+            }
+          ]
+        },
+        "wicketkeepers": {
+          "capped": [
+            {
+              "name": "Quinton de Kock",
+              "age": 32,
+              "nationality": "South Africa",
+              "batting_style": "Left hand Bat",
+              "bowling_style": null,
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/187.png",
+              "spouse": "Sasha Hurly",
+              "base_price": 20000000,
+              "base_price_label": "₹2 Cr"
+            },
+            {
+              "name": "Ryan Rickelton",
+              "age": 29,
+              "nationality": "South Africa",
+              "batting_style": "Left hand Bat",
+              "bowling_style": null,
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/745.png",
+              "spouse": null,
+              "base_price": 15000000,
+              "base_price_label": "₹1.5 Cr"
+            }
+          ],
+          "uncapped": [
+            {
+              "name": "Robin Minz",
+              "age": 23,
+              "nationality": "India",
+              "batting_style": "Left hand Bat",
+              "bowling_style": "Slow Left arm Orthodox",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "spouse": null,
+              "base_price": 3000000,
+              "base_price_label": "₹30 L"
+            }
+          ]
+        },
+        "allrounders": {
+          "capped": [
+            {
+              "name": "Hardik Pandya",
+              "age": 32,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Right arm Medium fast",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/54.png",
+              "spouse": "Natasa Stankovic",
+              "base_price": 20000000,
+              "base_price_label": "₹2 Cr"
+            },
+            {
+              "name": "Tilak Varma",
+              "age": 23,
+              "nationality": "India",
+              "batting_style": "Left hand Bat",
+              "bowling_style": "Right arm Offbreak",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/750.png",
+              "spouse": null,
+              "base_price": 20000000,
+              "base_price_label": "₹2 Cr"
+            },
+            {
+              "name": "Will Jacks",
+              "age": 26,
+              "nationality": "England",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Right arm Offbreak",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/748.png",
+              "spouse": null,
+              "base_price": 15000000,
+              "base_price_label": "₹1.5 Cr"
+            },
+            {
+              "name": "Mitchell Santner",
+              "age": 33,
+              "nationality": "New Zealand",
+              "batting_style": "Left hand Bat",
+              "bowling_style": "Slow Left arm Orthodox",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/180.png",
+              "spouse": null,
+              "base_price": 15000000,
+              "base_price_label": "₹1.5 Cr"
+            },
+            {
+              "name": "Shardul Thakur",
+              "age": 34,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Right arm Medium",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/44.png",
+              "spouse": "Mittali Parulkar",
+              "base_price": 10000000,
+              "base_price_label": "₹1 Cr"
+            },
+            {
+              "name": "Corbin Bosch",
+              "age": 31,
+              "nationality": "South Africa",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Right arm Fast medium",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/747.png",
+              "spouse": null,
+              "base_price": 10000000,
+              "base_price_label": "₹1 Cr"
+            }
+          ],
+          "uncapped": [
+            {
+              "name": "Atharva Ankolekar",
+              "age": 25,
+              "nationality": "India",
+              "batting_style": "Left hand Bat",
+              "bowling_style": "Slow Left arm Orthodox",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "spouse": null,
+              "base_price": 3000000,
+              "base_price_label": "₹30 L"
+            },
+            {
+              "name": "Raj Bawa",
+              "age": 23,
+              "nationality": "India",
+              "batting_style": "Left hand Bat",
+              "bowling_style": "Right arm Medium fast",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/746.png",
+              "spouse": null,
+              "base_price": 3000000,
+              "base_price_label": "₹30 L"
+            },
+            {
+              "name": "Mayank Rawat",
+              "age": 25,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Right arm Offbreak",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "spouse": null,
+              "base_price": 3000000,
+              "base_price_label": "₹30 L"
+            },
+            {
+              "name": "Naman Dhir",
+              "age": 25,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Right arm Offbreak",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/749.png",
+              "spouse": null,
+              "base_price": 3000000,
+              "base_price_label": "₹30 L"
+            }
+          ]
+        },
+        "bowlers": {
+          "capped": [
+            {
+              "name": "Jasprit Bumrah",
+              "age": 31,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Right arm Fast",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/112.png",
+              "spouse": "Sanjana Ganesan",
+              "base_price": 20000000,
+              "base_price_label": "₹2 Cr"
+            },
+            {
+              "name": "Trent Boult",
+              "age": 36,
+              "nationality": "New Zealand",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Left arm Fast medium",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/96.png",
+              "spouse": "Gert Smith",
+              "base_price": 20000000,
+              "base_price_label": "₹2 Cr"
+            },
+            {
+              "name": "Deepak Chahar",
+              "age": 33,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Right arm Medium",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/94.png",
+              "spouse": "Jaya Bhardwaj",
+              "base_price": 10000000,
+              "base_price_label": "₹1 Cr"
+            },
+            {
+              "name": "AM Ghazanfar",
+              "age": 19,
+              "nationality": "Afghanistan",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Offbreak / Legbreak",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "spouse": null,
+              "base_price": 10000000,
+              "base_price_label": "₹1 Cr"
+            }
+          ],
+          "uncapped": [
+            {
+              "name": "Ashwani Kumar",
+              "age": 24,
+              "nationality": "India",
+              "batting_style": "Left hand Bat",
+              "bowling_style": "Left arm Medium",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "spouse": null,
+              "base_price": 3000000,
+              "base_price_label": "₹30 L"
+            },
+            {
+              "name": "Mayank Markande",
+              "age": 28,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Legbreak",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/751.png",
+              "spouse": null,
+              "base_price": 3000000,
+              "base_price_label": "₹30 L"
+            },
+            {
+              "name": "Mohd Izhar",
+              "age": 21,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Left arm Medium",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "spouse": null,
+              "base_price": 3000000,
+              "base_price_label": "₹30 L"
+            },
+            {
+              "name": "Raghu Sharma",
+              "age": 32,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Legbreak",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "spouse": null,
+              "base_price": 3000000,
+              "base_price_label": "₹30 L"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "team": "PBKS",
+      "full_name": "Punjab Kings",
+      "players": {
+        "batters": {
+          "capped": [
+            {
+              "name": "Shreyas Iyer",
+              "age": 30,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Right arm Offbreak / Legbreak Googly",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/156.png",
+              "spouse": "Rohini Iyer",
+              "base_price": 20000000,
+              "base_price_label": "₹2 Cr"
+            },
+            {
+              "name": "Nehal Wadhera",
+              "age": 25,
+              "nationality": "India",
+              "batting_style": "Left hand Bat",
+              "bowling_style": "Legbreak",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/712.png",
+              "spouse": null,
+              "base_price": 3000000,
+              "base_price_label": "₹30 L",
+              "note": "Not in Indian XI — classified uncapped per rule"
+            }
+          ],
+          "uncapped": [
+            {
+              "name": "Priyansh Arya",
+              "age": 24,
+              "nationality": "India",
+              "batting_style": "Left hand Bat",
+              "bowling_style": "Right arm Offbreak",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "spouse": null,
+              "base_price": 3000000,
+              "base_price_label": "₹30 L"
+            },
+            {
+              "name": "Pyla Avinash",
+              "age": 25,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Right arm Medium fast",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "spouse": null,
+              "base_price": 3000000,
+              "base_price_label": "₹30 L"
+            },
+            {
+              "name": "Harnoor Singh",
+              "age": 22,
+              "nationality": "India",
+              "batting_style": "Left hand Bat",
+              "bowling_style": "Legbreak",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "spouse": null,
+              "base_price": 3000000,
+              "base_price_label": "₹30 L"
+            }
+          ]
+        },
+        "wicketkeepers": {
+          "capped": [],
+          "uncapped": [
+            {
+              "name": "Prabhsimran Singh",
+              "age": 25,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": null,
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/537.png",
+              "spouse": null,
+              "base_price": 3000000,
+              "base_price_label": "₹30 L"
+            },
+            {
+              "name": "Vishnu Vinod",
+              "age": 31,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": null,
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/540.png",
+              "spouse": null,
+              "base_price": 3000000,
+              "base_price_label": "₹30 L"
+            }
+          ]
+        },
+        "allrounders": {
+          "capped": [
+            {
+              "name": "Marco Jansen",
+              "age": 25,
+              "nationality": "South Africa",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Left arm Fast",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/250.png",
+              "spouse": null,
+              "base_price": 20000000,
+              "base_price_label": "₹2 Cr"
+            },
+            {
+              "name": "Marcus Stoinis",
+              "age": 36,
+              "nationality": "Australia",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Right arm Medium",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/139.png",
+              "spouse": null,
+              "base_price": 15000000,
+              "base_price_label": "₹1.5 Cr"
+            },
+            {
+              "name": "Azmatullah Omarzai",
+              "age": 25,
+              "nationality": "Afghanistan",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Right arm Medium fast",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/900.png",
+              "spouse": null,
+              "base_price": 15000000,
+              "base_price_label": "₹1.5 Cr"
+            },
+            {
+              "name": "Shashank Singh",
+              "age": 33,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Right arm Medium / Right arm Offbreak",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/902.png",
+              "spouse": null,
+              "base_price": 5000000,
+              "base_price_label": "₹50 L"
+            },
+            {
+              "name": "Cooper Connolly",
+              "age": 22,
+              "nationality": "Australia",
+              "batting_style": "Left hand Bat",
+              "bowling_style": "Slow Left arm Orthodox",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/901.png",
+              "spouse": null,
+              "base_price": 7500000,
+              "base_price_label": "₹75 L"
+            }
+          ],
+          "uncapped": [
+            {
+              "name": "Musheer Khan",
+              "age": 20,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Slow Left arm Orthodox",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "spouse": null,
+              "base_price": 3000000,
+              "base_price_label": "₹30 L"
+            },
+            {
+              "name": "Mitchell Owen",
+              "age": 24,
+              "nationality": "Australia",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Right arm Medium",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "spouse": null,
+              "base_price": 5000000,
+              "base_price_label": "₹50 L",
+              "note": "Emerging Australia international — lower tier placement"
+            },
+            {
+              "name": "Suryansh Shedge",
+              "age": 22,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Right arm Medium fast",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "spouse": null,
+              "base_price": 3000000,
+              "base_price_label": "₹30 L"
+            }
+          ]
+        },
+        "bowlers": {
+          "capped": [
+            {
+              "name": "Arshdeep Singh",
+              "age": 26,
+              "nationality": "India",
+              "batting_style": "Left hand Bat",
+              "bowling_style": "Left arm Medium fast",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/174.png",
+              "spouse": null,
+              "base_price": 20000000,
+              "base_price_label": "₹2 Cr"
+            },
+            {
+              "name": "Yuzvendra Chahal",
+              "age": 35,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Legbreak Googly",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/96.png",
+              "spouse": "Dhanashree Verma",
+              "base_price": 20000000,
+              "base_price_label": "₹2 Cr"
+            },
+            {
+              "name": "Lockie Ferguson",
+              "age": 34,
+              "nationality": "New Zealand",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Right arm Fast",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/176.png",
+              "spouse": null,
+              "base_price": 15000000,
+              "base_price_label": "₹1.5 Cr"
+            },
+            {
+              "name": "Xavier Bartlett",
+              "age": 26,
+              "nationality": "Australia",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Right arm Fast medium",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/903.png",
+              "spouse": null,
+              "base_price": 10000000,
+              "base_price_label": "₹1 Cr"
+            },
+            {
+              "name": "Ben Dwarshuis",
+              "age": 31,
+              "nationality": "Australia",
+              "batting_style": "Left hand Bat",
+              "bowling_style": "Left arm Fast medium",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/904.png",
+              "spouse": null,
+              "base_price": 7500000,
+              "base_price_label": "₹75 L"
+            },
+            {
+              "name": "Harpreet Brar",
+              "age": 30,
+              "nationality": "India",
+              "batting_style": "Left hand Bat",
+              "bowling_style": "Slow Left arm Orthodox",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/300.png",
+              "spouse": null,
+              "base_price": 4000000,
+              "base_price_label": "₹40 L"
+            },
+            {
+              "name": "Vijaykumar Vyshak",
+              "age": 28,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Right arm Medium",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/905.png",
+              "spouse": null,
+              "base_price": 4000000,
+              "base_price_label": "₹40 L"
+            },
+            {
+              "name": "Yash Thakur",
+              "age": 26,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Right arm Fast medium",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/906.png",
+              "spouse": null,
+              "base_price": 4000000,
+              "base_price_label": "₹40 L"
+            }
+          ],
+          "uncapped": [
+            {
+              "name": "Praveen Dubey",
+              "age": 32,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Legbreak Googly",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "spouse": null,
+              "base_price": 3000000,
+              "base_price_label": "₹30 L"
+            },
+            {
+              "name": "Vishal Nishad",
+              "age": 20,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Legbreak",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "spouse": null,
+              "base_price": 3000000,
+              "base_price_label": "₹30 L"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "team": "RR",
+      "full_name": "Rajasthan Royals",
+      "withdrawn": [
+        { "name": "Sam Curran", "age": 27, "role": "all-rounder", "nationality": "England", "reason": "Withdrawn" }
+      ],
+      "players": {
+        "batters": {
+          "capped": [
+            {
+              "name": "Yashasvi Jaiswal",
+              "age": 23,
+              "nationality": "India",
+              "batting_style": "Left hand Bat",
+              "bowling_style": "Legbreak",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/135.png",
+              "spouse": null,
+              "base_price": 20000000,
+              "base_price_label": "₹2 Cr"
+            },
+            {
+              "name": "Riyan Parag",
+              "age": 24,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Right arm Offbreak / Legbreak",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/964.png",
+              "spouse": null,
+              "base_price": 10000000,
+              "base_price_label": "₹1 Cr"
+            },
+            {
+              "name": "Shimron Hetmyer",
+              "age": 28,
+              "nationality": "West Indies",
+              "batting_style": "Left hand Bat",
+              "bowling_style": null,
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/170.png",
+              "spouse": null,
+              "base_price": 15000000,
+              "base_price_label": "₹1.5 Cr"
+            }
+          ],
+          "uncapped": [
+            {
+              "name": "Aman Rao",
+              "age": 21,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": null,
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "spouse": null,
+              "base_price": 3000000,
+              "base_price_label": "₹30 L"
+            },
+            {
+              "name": "Shubham Dubey",
+              "age": 31,
+              "nationality": "India",
+              "batting_style": "Left hand Bat",
+              "bowling_style": "Right arm Offbreak",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "spouse": null,
+              "base_price": 3000000,
+              "base_price_label": "₹30 L"
+            },
+            {
+              "name": "Ravi Singh",
+              "age": 24,
+              "nationality": "India",
+              "batting_style": "Left hand Bat",
+              "bowling_style": "Legbreak",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "spouse": null,
+              "base_price": 3000000,
+              "base_price_label": "₹30 L"
+            },
+            {
+              "name": "Vaibhav Sooryavanshi",
+              "age": 14,
+              "nationality": "India",
+              "batting_style": "Left hand Bat",
+              "bowling_style": "Slow Left arm Orthodox",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "spouse": null,
+              "base_price": 3000000,
+              "base_price_label": "₹30 L"
+            }
+          ]
+        },
+        "wicketkeepers": {
+          "capped": [
+            {
+              "name": "Dhruv Jurel",
+              "age": 24,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": null,
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/712.png",
+              "spouse": null,
+              "base_price": 15000000,
+              "base_price_label": "₹1.5 Cr"
+            }
+          ],
+          "uncapped": [
+            {
+              "name": "Lhuan-dre Pretorius",
+              "age": 19,
+              "nationality": "South Africa",
+              "batting_style": "Left hand Bat",
+              "bowling_style": null,
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "spouse": null,
+              "base_price": 3000000,
+              "base_price_label": "₹30 L",
+              "note": "Emerging South Africa talent, minimal international caps"
+            }
+          ]
+        },
+        "allrounders": {
+          "capped": [
+            {
+              "name": "Ravindra Jadeja",
+              "age": 36,
+              "nationality": "India",
+              "batting_style": "Left hand Bat",
+              "bowling_style": "Slow Left arm Orthodox",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/9.png",
+              "spouse": "Rivaba Jadeja",
+              "base_price": 20000000,
+              "base_price_label": "₹2 Cr"
+            },
+            {
+              "name": "Donovan Ferreira",
+              "age": 27,
+              "nationality": "South Africa",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Right arm Offbreak",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/908.png",
+              "spouse": null,
+              "base_price": 7500000,
+              "base_price_label": "₹75 L"
+            },
+            {
+              "name": "Dasun Shanaka",
+              "age": 34,
+              "nationality": "Sri Lanka",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Right arm Medium",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/907.png",
+              "spouse": null,
+              "base_price": 10000000,
+              "base_price_label": "₹1 Cr"
+            }
+          ],
+          "uncapped": []
+        },
+        "bowlers": {
+          "capped": [
+            {
+              "name": "Jofra Archer",
+              "age": 30,
+              "nationality": "England",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Right arm Fast",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/171.png",
+              "spouse": null,
+              "base_price": 20000000,
+              "base_price_label": "₹2 Cr"
+            },
+            {
+              "name": "Ravi Bishnoi",
+              "age": 25,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Legbreak Googly",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/906.png",
+              "spouse": null,
+              "base_price": 15000000,
+              "base_price_label": "₹1.5 Cr"
+            },
+            {
+              "name": "Nandre Burger",
+              "age": 30,
+              "nationality": "South Africa",
+              "batting_style": "Left hand Bat",
+              "bowling_style": "Left arm Fast medium",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/909.png",
+              "spouse": null,
+              "base_price": 10000000,
+              "base_price_label": "₹1 Cr"
+            },
+            {
+              "name": "Kwena Maphaka",
+              "age": 19,
+              "nationality": "South Africa",
+              "batting_style": "Left hand Bat",
+              "bowling_style": "Left arm Fast",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/910.png",
+              "spouse": null,
+              "base_price": 10000000,
+              "base_price_label": "₹1 Cr"
+            },
+            {
+              "name": "Sandeep Sharma",
+              "age": 32,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Right arm Medium",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/911.png",
+              "spouse": null,
+              "base_price": 4000000,
+              "base_price_label": "₹40 L"
+            },
+            {
+              "name": "Kuldeep Sen",
+              "age": 29,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Right arm Fast",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/912.png",
+              "spouse": null,
+              "base_price": 4000000,
+              "base_price_label": "₹40 L"
+            },
+            {
+              "name": "Yudhvir Singh",
+              "age": 28,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Right arm Medium fast",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "spouse": null,
+              "base_price": 4000000,
+              "base_price_label": "₹40 L"
+            },
+            {
+              "name": "Adam Milne",
+              "age": 33,
+              "nationality": "New Zealand",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Right arm Fast",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/910.png",
+              "spouse": null,
+              "base_price": 7500000,
+              "base_price_label": "₹75 L"
+            },
+            {
+              "name": "Tushar Deshpande",
+              "age": 30,
+              "nationality": "India",
+              "batting_style": "Left hand Bat",
+              "bowling_style": "Right arm Medium",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/909.png",
+              "spouse": null,
+              "base_price": 5000000,
+              "base_price_label": "₹50 L"
+            }
+          ],
+          "uncapped": [
+            {
+              "name": "Brijesh Sharma",
+              "age": 26,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Right arm Medium",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "spouse": null,
+              "base_price": 3000000,
+              "base_price_label": "₹30 L"
+            },
+            {
+              "name": "Sushant Mishra",
+              "age": 24,
+              "nationality": "India",
+              "batting_style": "Left hand Bat",
+              "bowling_style": "Left arm Medium fast",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "spouse": null,
+              "base_price": 3000000,
+              "base_price_label": "₹30 L"
+            },
+            {
+              "name": "Vignesh Puthur",
+              "age": 24,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Left arm Wrist spin",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "spouse": null,
+              "base_price": 3000000,
+              "base_price_label": "₹30 L"
+            },
+            {
+              "name": "Yash Raj Punja",
+              "age": 19,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Legbreak Googly",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "spouse": null,
+              "base_price": 3000000,
+              "base_price_label": "₹30 L"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "team": "RCB",
+      "full_name": "Royal Challengers Bengaluru",
+      "withdrawn": [
+        { "name": "Yash Dayal", "age": 27, "role": "bowler", "nationality": "India", "reason": "Withdrawn" }
+      ],
+      "players": {
+        "batters": {
+          "capped": [
+            {
+              "name": "Virat Kohli",
+              "age": 37,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Right arm Medium",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/2.png",
+              "spouse": "Anushka Sharma",
+              "base_price": 20000000,
+              "base_price_label": "₹2 Cr"
+            },
+            {
+              "name": "Rajat Patidar",
+              "age": 32,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Right arm Offbreak",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/597.png",
+              "spouse": null,
+              "base_price": 10000000,
+              "base_price_label": "₹1 Cr"
+            },
+            {
+              "name": "Tim David",
+              "age": 29,
+              "nationality": "Australia",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Right arm Offbreak",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/540.png",
+              "spouse": null,
+              "base_price": 20000000,
+              "base_price_label": "₹2 Cr"
+            },
+            {
+              "name": "Devdutt Padikkal",
+              "age": 25,
+              "nationality": "India",
+              "batting_style": "Left hand Bat",
+              "bowling_style": "Right arm Offbreak",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/543.png",
+              "spouse": null,
+              "base_price": 7500000,
+              "base_price_label": "₹75 L"
+            }
+          ],
+          "uncapped": []
+        },
+        "wicketkeepers": {
+          "capped": [
+            {
+              "name": "Phil Salt",
+              "age": 29,
+              "nationality": "England",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Right arm Offbreak",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/912.png",
+              "spouse": null,
+              "base_price": 20000000,
+              "base_price_label": "₹2 Cr"
+            },
+            {
+              "name": "Jordan Cox",
+              "age": 25,
+              "nationality": "England",
+              "batting_style": "Right hand Bat",
+              "bowling_style": null,
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/950.png",
+              "spouse": null,
+              "base_price": 7500000,
+              "base_price_label": "₹75 L"
+            }
+          ],
+          "uncapped": [
+            {
+              "name": "Jitesh Sharma",
+              "age": 32,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": null,
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/913.png",
+              "spouse": null,
+              "base_price": 5000000,
+              "base_price_label": "₹50 L"
+            }
+          ]
+        },
+        "allrounders": {
+          "capped": [
+            {
+              "name": "Krunal Pandya",
+              "age": 34,
+              "nationality": "India",
+              "batting_style": "Left hand Bat",
+              "bowling_style": "Slow Left arm Orthodox",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/14.png",
+              "spouse": "Pankhuri Sharma",
+              "base_price": 15000000,
+              "base_price_label": "₹1.5 Cr"
+            },
+            {
+              "name": "Venkatesh Iyer",
+              "age": 30,
+              "nationality": "India",
+              "batting_style": "Left hand Bat",
+              "bowling_style": "Right arm Medium",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/915.png",
+              "spouse": null,
+              "base_price": 15000000,
+              "base_price_label": "₹1.5 Cr"
+            },
+            {
+              "name": "Jacob Bethell",
+              "age": 22,
+              "nationality": "England",
+              "batting_style": "Left hand Bat",
+              "bowling_style": "Slow Left arm Orthodox",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/914.png",
+              "spouse": null,
+              "base_price": 15000000,
+              "base_price_label": "₹1.5 Cr"
+            },
+            {
+              "name": "Romario Shepherd",
+              "age": 30,
+              "nationality": "West Indies",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Right arm Fast medium",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/916.png",
+              "spouse": null,
+              "base_price": 10000000,
+              "base_price_label": "₹1 Cr"
+            }
+          ],
+          "uncapped": [
+            {
+              "name": "Kanishk Chouhan",
+              "age": 19,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Right arm Offbreak",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "spouse": null,
+              "base_price": 3000000,
+              "base_price_label": "₹30 L"
+            },
+            {
+              "name": "Vihaan Malhotra",
+              "age": 18,
+              "nationality": "India",
+              "batting_style": "Left hand Bat",
+              "bowling_style": "Right arm Offbreak",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "spouse": null,
+              "base_price": 3000000,
+              "base_price_label": "₹30 L"
+            },
+            {
+              "name": "Mangesh Yadav",
+              "age": 23,
+              "nationality": "India",
+              "batting_style": "Left hand Bat",
+              "bowling_style": "Left arm Fast",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "spouse": null,
+              "base_price": 3000000,
+              "base_price_label": "₹30 L"
+            }
+          ]
+        },
+        "bowlers": {
+          "capped": [
+            {
+              "name": "Josh Hazlewood",
+              "age": 34,
+              "nationality": "Australia",
+              "batting_style": "Left hand Bat",
+              "bowling_style": "Right arm Fast medium",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/33.png",
+              "spouse": "Cherina Murphy",
+              "base_price": 20000000,
+              "base_price_label": "₹2 Cr"
+            },
+            {
+              "name": "Bhuvneshwar Kumar",
+              "age": 35,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Right arm Medium",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/116.png",
+              "spouse": "Nupur Nagar",
+              "base_price": 15000000,
+              "base_price_label": "₹1.5 Cr"
+            },
+            {
+              "name": "Nuwan Thushara",
+              "age": 31,
+              "nationality": "Sri Lanka",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Right arm Medium fast",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/921.png",
+              "spouse": null,
+              "base_price": 10000000,
+              "base_price_label": "₹1 Cr"
+            },
+            {
+              "name": "Jacob Duffy",
+              "age": 31,
+              "nationality": "New Zealand",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Right arm Fast medium",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/917.png",
+              "spouse": null,
+              "base_price": 7500000,
+              "base_price_label": "₹75 L"
+            },
+            {
+              "name": "Rasikh Salam",
+              "age": 25,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Right arm Medium",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/919.png",
+              "spouse": null,
+              "base_price": 4000000,
+              "base_price_label": "₹40 L"
+            },
+            {
+              "name": "Swapnil Singh",
+              "age": 34,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Slow Left arm Orthodox",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/920.png",
+              "spouse": null,
+              "base_price": 3000000,
+              "base_price_label": "₹30 L",
+              "note": "Not in Indian XI — classified uncapped per rule"
+            }
+          ],
+          "uncapped": [
+            {
+              "name": "Abhinandan Singh",
+              "age": 28,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Right arm Medium fast",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "spouse": null,
+              "base_price": 3000000,
+              "base_price_label": "₹30 L"
+            },
+            {
+              "name": "Satvik Deswal",
+              "age": 18,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Slow Left arm Orthodox",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "spouse": null,
+              "base_price": 3000000,
+              "base_price_label": "₹30 L"
+            },
+            {
+              "name": "Vicky Ostwal",
+              "age": 23,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Slow Left arm Orthodox",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/918.png",
+              "spouse": null,
+              "base_price": 3000000,
+              "base_price_label": "₹30 L"
+            },
+            {
+              "name": "Suyash Sharma",
+              "age": 22,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Legbreak Googly",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/916.png",
+              "spouse": null,
+              "base_price": 3000000,
+              "base_price_label": "₹30 L"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "team": "SRH",
+      "full_name": "Sunrisers Hyderabad",
+      "withdrawn": [
+        { "name": "Jack Edwards", "age": 25, "role": "all-rounder", "nationality": "Australia", "reason": "Withdrawn" }
+      ],
+      "replacements": [
+        { "name": "David Payne", "replaces": "Jack Edwards" }
+      ],
+      "players": {
+        "batters": {
+          "capped": [
+            {
+              "name": "Travis Head",
+              "age": 31,
+              "nationality": "Australia",
+              "batting_style": "Left hand Bat",
+              "bowling_style": "Right arm Offbreak",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/137.png",
+              "spouse": "Jessica Davies",
+              "base_price": 20000000,
+              "base_price_label": "₹2 Cr"
+            },
+            {
+              "name": "Abhishek Sharma",
+              "age": 25,
+              "nationality": "India",
+              "batting_style": "Left hand Bat",
+              "bowling_style": "Slow Left arm Orthodox",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/713.png",
+              "spouse": null,
+              "base_price": 15000000,
+              "base_price_label": "₹1.5 Cr",
+              "role": "all-rounder"
+            }
+          ],
+          "uncapped": [
+            {
+              "name": "Ravichandran Smaran",
+              "age": 22,
+              "nationality": "India",
+              "batting_style": "Left hand Bat",
+              "bowling_style": "Right arm Offbreak",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "spouse": null,
+              "base_price": 3000000,
+              "base_price_label": "₹30 L"
+            },
+            {
+              "name": "Aniket Verma",
+              "age": 23,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Right arm Medium fast",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "spouse": null,
+              "base_price": 3000000,
+              "base_price_label": "₹30 L"
+            }
+          ]
+        },
+        "wicketkeepers": {
+          "capped": [
+            {
+              "name": "Ishan Kishan",
+              "age": 27,
+              "nationality": "India",
+              "batting_style": "Left hand Bat",
+              "bowling_style": "Right arm Offbreak / Legbreak",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/18.png",
+              "spouse": null,
+              "base_price": 20000000,
+              "base_price_label": "₹2 Cr"
+            },
+            {
+              "name": "Heinrich Klaasen",
+              "age": 34,
+              "nationality": "South Africa",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Right arm Offbreak",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/173.png",
+              "spouse": "Sone Martins",
+              "base_price": 20000000,
+              "base_price_label": "₹2 Cr"
+            }
+          ],
+          "uncapped": [
+            {
+              "name": "Salil Arora",
+              "age": 23,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": null,
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "spouse": null,
+              "base_price": 3000000,
+              "base_price_label": "₹30 L"
+            }
+          ]
+        },
+        "allrounders": {
+          "capped": [
+            {
+              "name": "Abhishek Sharma",
+              "age": 25,
+              "nationality": "India",
+              "batting_style": "Left hand Bat",
+              "bowling_style": "Slow Left arm Orthodox",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/713.png",
+              "spouse": null,
+              "base_price": 15000000,
+              "base_price_label": "₹1.5 Cr"
+            },
+            {
+              "name": "Liam Livingstone",
+              "age": 32,
+              "nationality": "England",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Right arm Offbreak / Legbreak",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/918.png",
+              "spouse": null,
+              "base_price": 20000000,
+              "base_price_label": "₹2 Cr"
+            },
+            {
+              "name": "Kamindu Mendis",
+              "age": 27,
+              "nationality": "Sri Lanka",
+              "batting_style": "Left hand Bat",
+              "bowling_style": "Right arm Offbreak / Slow Left arm Orthodox",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/915.png",
+              "spouse": null,
+              "base_price": 15000000,
+              "base_price_label": "₹1.5 Cr"
+            },
+            {
+              "name": "Nitish Kumar Reddy",
+              "age": 22,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Right arm Medium fast",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/919.png",
+              "spouse": null,
+              "base_price": 15000000,
+              "base_price_label": "₹1.5 Cr"
+            },
+            {
+              "name": "Harshal Patel",
+              "age": 34,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Right arm Medium",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/31.png",
+              "spouse": null,
+              "base_price": 10000000,
+              "base_price_label": "₹1 Cr"
+            },
+            {
+              "name": "Brydon Carse",
+              "age": 30,
+              "nationality": "England",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Right arm Fast medium",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/914.png",
+              "spouse": null,
+              "base_price": 10000000,
+              "base_price_label": "₹1 Cr"
+            },
+            {
+              "name": "Shivam Mavi",
+              "age": 26,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Right arm Fast medium",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/920.png",
+              "spouse": null,
+              "base_price": 7500000,
+              "base_price_label": "₹75 L"
+            }
+          ],
+          "uncapped": [
+            {
+              "name": "Harsh Dubey",
+              "age": 23,
+              "nationality": "India",
+              "batting_style": "Left hand Bat",
+              "bowling_style": "Slow Left arm Orthodox",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "spouse": null,
+              "base_price": 3000000,
+              "base_price_label": "₹30 L"
+            },
+            {
+              "name": "Krains Fuletra",
+              "age": 21,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Left arm Wrist spin",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "spouse": null,
+              "base_price": 3000000,
+              "base_price_label": "₹30 L"
+            },
+            {
+              "name": "Shivang Kumar",
+              "age": 23,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Left arm Wrist spin",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "spouse": null,
+              "base_price": 3000000,
+              "base_price_label": "₹30 L"
+            }
+          ]
+        },
+        "bowlers": {
+          "capped": [
+            {
+              "name": "Pat Cummins",
+              "age": 32,
+              "nationality": "Australia",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Right arm Fast",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/7.png",
+              "spouse": "Becky Boston",
+              "base_price": 20000000,
+              "base_price_label": "₹2 Cr"
+            },
+            {
+              "name": "Jaydev Unadkat",
+              "age": 34,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Left arm Medium",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/166.png",
+              "spouse": "Rinni Kantaria",
+              "base_price": 4000000,
+              "base_price_label": "₹40 L"
+            },
+            {
+              "name": "David Payne",
+              "age": 34,
+              "nationality": "England",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Left arm Fast medium",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/922.png",
+              "spouse": null,
+              "base_price": 7500000,
+              "base_price_label": "₹75 L",
+              "note": "Replacement for Jack Edwards"
+            },
+            {
+              "name": "Eshan Malinga",
+              "age": 24,
+              "nationality": "Sri Lanka",
+              "batting_style": "Left hand Bat",
+              "bowling_style": "Right arm Fast medium",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/921.png",
+              "spouse": null,
+              "base_price": 7500000,
+              "base_price_label": "₹75 L"
+            },
+            {
+              "name": "Zeeshan Ansari",
+              "age": 25,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Legbreak Googly",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "spouse": null,
+              "base_price": 4000000,
+              "base_price_label": "₹40 L"
+            }
+          ],
+          "uncapped": [
+            {
+              "name": "Amit Kumar",
+              "age": 23,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Legbreak Googly",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "spouse": null,
+              "base_price": 3000000,
+              "base_price_label": "₹30 L"
+            },
+            {
+              "name": "Praful Hinge",
+              "age": 23,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Right arm Medium fast",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "spouse": null,
+              "base_price": 3000000,
+              "base_price_label": "₹30 L"
+            },
+            {
+              "name": "Sakib Hussain",
+              "age": 20,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Right arm Medium",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/923.png",
+              "spouse": null,
+              "base_price": 3000000,
+              "base_price_label": "₹30 L"
+            },
+            {
+              "name": "Onkar Tarmale",
+              "age": 23,
+              "nationality": "India",
+              "batting_style": "Right hand Bat",
+              "bowling_style": "Right arm Fast",
+              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "spouse": null,
+              "base_price": 3000000,
+              "base_price_label": "₹30 L"
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

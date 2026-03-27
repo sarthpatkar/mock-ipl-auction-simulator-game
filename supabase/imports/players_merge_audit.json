@@ -1,0 +1,3360 @@
+{
+  "generated_at": "2026-03-27T11:18:31.822Z",
+  "inputs": {
+    "db_csv": "/Users/sarth/Downloads/players_rows-2.csv",
+    "enriched_csv": "/Users/sarth/Downloads/ipl_player_enriched.csv"
+  },
+  "outputs": {
+    "import_csv": "/Users/sarth/ipl/supabase/imports/players_merged_for_import.csv",
+    "audit_report": "/Users/sarth/ipl/supabase/imports/players_merge_audit.json"
+  },
+  "schema": {
+    "output_columns": [
+      "id",
+      "name",
+      "age",
+      "nationality",
+      "ipl_team",
+      "role",
+      "category",
+      "batting_style",
+      "bowling_style",
+      "image_url",
+      "base_price",
+      "base_price_label",
+      "spouse",
+      "created_at",
+      "matches",
+      "batting_avg",
+      "strike_rate",
+      "wickets",
+      "economy",
+      "performance_score",
+      "consistency_score",
+      "recent_form_score",
+      "experience_level",
+      "impact_type"
+    ]
+  },
+  "summary": {
+    "db_rows": 252,
+    "enriched_rows": 150,
+    "output_rows": 252,
+    "exact_name_unique_matches": 120,
+    "updated_rows": 100,
+    "skipped_ambiguous_name": 4,
+    "skipped_role_mismatch": 20,
+    "quarantined_enriched_only": 26,
+    "final_validation_only_rows": 0,
+    "outlier_flags": 0,
+    "invalid_numeric_flags": 0,
+    "nationality_not_validated_flags": 100
+  },
+  "skipped_updates": [
+    {
+      "name": "Rishabh Pant",
+      "normalized_name": "rishabh pant",
+      "reason": "ambiguous_name",
+      "enriched_role": "WK",
+      "candidate_ids": [
+        "8515600e-862e-4013-89b3-4f9cc79a2710",
+        "b1f672f7-e21c-4991-b77a-19cb256e3d70"
+      ]
+    },
+    {
+      "name": "Jos Buttler",
+      "normalized_name": "jos buttler",
+      "reason": "role_mismatch",
+      "enriched_role": "BAT",
+      "db_role": "wicketkeeper"
+    },
+    {
+      "name": "Nicholas Pooran",
+      "normalized_name": "nicholas pooran",
+      "reason": "ambiguous_name",
+      "enriched_role": "WK",
+      "candidate_ids": [
+        "62609bcb-d8c0-4a96-8827-6eced728279b",
+        "f1593b03-e83d-46a7-9937-3d439850e9dc"
+      ]
+    },
+    {
+      "name": "Abhishek Sharma",
+      "normalized_name": "abhishek sharma",
+      "reason": "ambiguous_name",
+      "enriched_role": "AR",
+      "candidate_ids": [
+        "63865810-9c90-4da8-afb0-ece8feaab211",
+        "f688c25c-5a6a-4ff1-8b49-cbe458230fe1"
+      ]
+    },
+    {
+      "name": "Aiden Markram",
+      "normalized_name": "aiden markram",
+      "reason": "role_mismatch",
+      "enriched_role": "AR",
+      "db_role": "batter"
+    },
+    {
+      "name": "Riyan Parag",
+      "normalized_name": "riyan parag",
+      "reason": "role_mismatch",
+      "enriched_role": "AR",
+      "db_role": "batter"
+    },
+    {
+      "name": "Sunil Narine",
+      "normalized_name": "sunil narine",
+      "reason": "ambiguous_name",
+      "enriched_role": "AR",
+      "candidate_ids": [
+        "3dc3a5ac-e0c4-4bbe-bb8f-31bc1515efea",
+        "cd76739e-fd44-4be4-a408-a503c0c46b44"
+      ]
+    },
+    {
+      "name": "Pat Cummins",
+      "normalized_name": "pat cummins",
+      "reason": "role_mismatch",
+      "enriched_role": "AR",
+      "db_role": "bowler"
+    },
+    {
+      "name": "Harshal Patel",
+      "normalized_name": "harshal patel",
+      "reason": "role_mismatch",
+      "enriched_role": "BOWL",
+      "db_role": "allrounder"
+    },
+    {
+      "name": "Rashid Khan",
+      "normalized_name": "rashid khan",
+      "reason": "role_mismatch",
+      "enriched_role": "BOWL",
+      "db_role": "allrounder"
+    },
+    {
+      "name": "Harshit Rana",
+      "normalized_name": "harshit rana",
+      "reason": "role_mismatch",
+      "enriched_role": "AR",
+      "db_role": "bowler"
+    },
+    {
+      "name": "Harpreet Brar",
+      "normalized_name": "harpreet brar",
+      "reason": "role_mismatch",
+      "enriched_role": "AR",
+      "db_role": "bowler"
+    },
+    {
+      "name": "Anshul Kamboj",
+      "normalized_name": "anshul kamboj",
+      "reason": "role_mismatch",
+      "enriched_role": "BOWL",
+      "db_role": "allrounder"
+    },
+    {
+      "name": "Tristan Stubbs",
+      "normalized_name": "tristan stubbs",
+      "reason": "role_mismatch",
+      "enriched_role": "BAT",
+      "db_role": "wicketkeeper"
+    },
+    {
+      "name": "Shashank Singh",
+      "normalized_name": "shashank singh",
+      "reason": "role_mismatch",
+      "enriched_role": "BAT",
+      "db_role": "allrounder"
+    },
+    {
+      "name": "Tilak Varma",
+      "normalized_name": "tilak varma",
+      "reason": "role_mismatch",
+      "enriched_role": "BAT",
+      "db_role": "allrounder"
+    },
+    {
+      "name": "Rachin Ravindra",
+      "normalized_name": "rachin ravindra",
+      "reason": "role_mismatch",
+      "enriched_role": "BAT",
+      "db_role": "allrounder"
+    },
+    {
+      "name": "Abdul Samad",
+      "normalized_name": "abdul samad",
+      "reason": "role_mismatch",
+      "enriched_role": "AR",
+      "db_role": "batter"
+    },
+    {
+      "name": "Ayush Badoni",
+      "normalized_name": "ayush badoni",
+      "reason": "role_mismatch",
+      "enriched_role": "AR",
+      "db_role": "batter"
+    },
+    {
+      "name": "Vipraj Nigam",
+      "normalized_name": "vipraj nigam",
+      "reason": "role_mismatch",
+      "enriched_role": "AR",
+      "db_role": "bowler"
+    },
+    {
+      "name": "Kyle Jamieson",
+      "normalized_name": "kyle jamieson",
+      "reason": "role_mismatch",
+      "enriched_role": "AR",
+      "db_role": "bowler"
+    },
+    {
+      "name": "Jacob Bethell",
+      "normalized_name": "jacob bethell",
+      "reason": "role_mismatch",
+      "enriched_role": "BAT",
+      "db_role": "allrounder"
+    },
+    {
+      "name": "Harsh Dubey",
+      "normalized_name": "harsh dubey",
+      "reason": "role_mismatch",
+      "enriched_role": "BOWL",
+      "db_role": "allrounder"
+    },
+    {
+      "name": "Arshad Khan",
+      "normalized_name": "arshad khan",
+      "reason": "role_mismatch",
+      "enriched_role": "AR",
+      "db_role": "bowler"
+    }
+  ],
+  "quarantined_enriched_rows": [
+    {
+      "name": "Andre Russell",
+      "normalized_name": "andre russell",
+      "reason": "enriched_only_no_exact_db_match",
+      "enriched_row": {
+        "player_id": "14",
+        "name": "Andre Russell",
+        "role": "AR",
+        "batting_avg": "29.80",
+        "strike_rate": "174.30",
+        "wickets": "87",
+        "economy": "9.10",
+        "matches": "117",
+        "performance_score": "88",
+        "consistency_score": "7.6",
+        "recent_form_score": "8.2",
+        "experience_level": "veteran",
+        "impact_type": "all_rounder"
+      }
+    },
+    {
+      "name": "Glenn Maxwell",
+      "normalized_name": "glenn maxwell",
+      "reason": "enriched_only_no_exact_db_match",
+      "enriched_row": {
+        "player_id": "15",
+        "name": "Glenn Maxwell",
+        "role": "AR",
+        "batting_avg": "26.40",
+        "strike_rate": "158.60",
+        "wickets": "36",
+        "economy": "8.30",
+        "matches": "116",
+        "performance_score": "82",
+        "consistency_score": "6.8",
+        "recent_form_score": "6.4",
+        "experience_level": "veteran",
+        "impact_type": "all_rounder"
+      }
+    },
+    {
+      "name": "B Sai Sudharsan",
+      "normalized_name": "b sai sudharsan",
+      "reason": "enriched_only_no_exact_db_match",
+      "enriched_row": {
+        "player_id": "18",
+        "name": "B Sai Sudharsan",
+        "role": "BAT",
+        "batting_avg": "42.10",
+        "strike_rate": "147.30",
+        "wickets": "0",
+        "economy": "0",
+        "matches": "52",
+        "performance_score": "82",
+        "consistency_score": "7.6",
+        "recent_form_score": "8.8",
+        "experience_level": "mid",
+        "impact_type": "anchor"
+      }
+    },
+    {
+      "name": "R Sai Kishore",
+      "normalized_name": "r sai kishore",
+      "reason": "enriched_only_no_exact_db_match",
+      "enriched_row": {
+        "player_id": "44",
+        "name": "R Sai Kishore",
+        "role": "BOWL",
+        "batting_avg": "6.00",
+        "strike_rate": "78.00",
+        "wickets": "58",
+        "economy": "8.90",
+        "matches": "68",
+        "performance_score": "72",
+        "consistency_score": "6.8",
+        "recent_form_score": "7.2",
+        "experience_level": "mid",
+        "impact_type": "spinner"
+      }
+    },
+    {
+      "name": "Yash Dayal",
+      "normalized_name": "yash dayal",
+      "reason": "enriched_only_no_exact_db_match",
+      "enriched_row": {
+        "player_id": "50",
+        "name": "Yash Dayal",
+        "role": "BOWL",
+        "batting_avg": "6.00",
+        "strike_rate": "78.00",
+        "wickets": "48",
+        "economy": "9.40",
+        "matches": "68",
+        "performance_score": "66",
+        "consistency_score": "5.8",
+        "recent_form_score": "6.4",
+        "experience_level": "mid",
+        "impact_type": "death_bowler"
+      }
+    },
+    {
+      "name": "Maheesh Theekshana",
+      "normalized_name": "maheesh theekshana",
+      "reason": "enriched_only_no_exact_db_match",
+      "enriched_row": {
+        "player_id": "65",
+        "name": "Maheesh Theekshana",
+        "role": "BOWL",
+        "batting_avg": "6.50",
+        "strike_rate": "78.00",
+        "wickets": "38",
+        "economy": "9.20",
+        "matches": "48",
+        "performance_score": "68",
+        "consistency_score": "6.2",
+        "recent_form_score": "6.8",
+        "experience_level": "mid",
+        "impact_type": "spinner"
+      }
+    },
+    {
+      "name": "Devon Conway",
+      "normalized_name": "devon conway",
+      "reason": "enriched_only_no_exact_db_match",
+      "enriched_row": {
+        "player_id": "80",
+        "name": "Devon Conway",
+        "role": "BAT",
+        "batting_avg": "28.60",
+        "strike_rate": "128.60",
+        "wickets": "0",
+        "economy": "0",
+        "matches": "42",
+        "performance_score": "69",
+        "consistency_score": "6.4",
+        "recent_form_score": "6.2",
+        "experience_level": "mid",
+        "impact_type": "anchor"
+      }
+    },
+    {
+      "name": "Akash Deep",
+      "normalized_name": "akash deep",
+      "reason": "enriched_only_no_exact_db_match",
+      "enriched_row": {
+        "player_id": "87",
+        "name": "Akash Deep",
+        "role": "BOWL",
+        "batting_avg": "6.00",
+        "strike_rate": "72.00",
+        "wickets": "14",
+        "economy": "11.20",
+        "matches": "18",
+        "performance_score": "58",
+        "consistency_score": "4.8",
+        "recent_form_score": "5.6",
+        "experience_level": "rookie",
+        "impact_type": "death_bowler"
+      }
+    },
+    {
+      "name": "Faf du Plessis",
+      "normalized_name": "faf du plessis",
+      "reason": "enriched_only_no_exact_db_match",
+      "enriched_row": {
+        "player_id": "94",
+        "name": "Faf du Plessis",
+        "role": "BAT",
+        "batting_avg": "32.80",
+        "strike_rate": "130.60",
+        "wickets": "0",
+        "economy": "0",
+        "matches": "142",
+        "performance_score": "74",
+        "consistency_score": "7.4",
+        "recent_form_score": "5.6",
+        "experience_level": "veteran",
+        "impact_type": "anchor"
+      }
+    },
+    {
+      "name": "Moeen Ali",
+      "normalized_name": "moeen ali",
+      "reason": "enriched_only_no_exact_db_match",
+      "enriched_row": {
+        "player_id": "99",
+        "name": "Moeen Ali",
+        "role": "AR",
+        "batting_avg": "24.60",
+        "strike_rate": "142.60",
+        "wickets": "42",
+        "economy": "8.60",
+        "matches": "72",
+        "performance_score": "72",
+        "consistency_score": "6.8",
+        "recent_form_score": "6.2",
+        "experience_level": "mid",
+        "impact_type": "all_rounder"
+      }
+    },
+    {
+      "name": "Jake Fraser-McGurk",
+      "normalized_name": "jake fraser-mcgurk",
+      "reason": "enriched_only_no_exact_db_match",
+      "enriched_row": {
+        "player_id": "102",
+        "name": "Jake Fraser-McGurk",
+        "role": "BAT",
+        "batting_avg": "18.40",
+        "strike_rate": "158.60",
+        "wickets": "0",
+        "economy": "0",
+        "matches": "22",
+        "performance_score": "60",
+        "consistency_score": "4.8",
+        "recent_form_score": "6.4",
+        "experience_level": "mid",
+        "impact_type": "power_hitter"
+      }
+    },
+    {
+      "name": "Ravichandran Ashwin",
+      "normalized_name": "ravichandran ashwin",
+      "reason": "enriched_only_no_exact_db_match",
+      "enriched_row": {
+        "player_id": "106",
+        "name": "Ravichandran Ashwin",
+        "role": "AR",
+        "batting_avg": "14.80",
+        "strike_rate": "112.40",
+        "wickets": "148",
+        "economy": "8.40",
+        "matches": "188",
+        "performance_score": "80",
+        "consistency_score": "8.2",
+        "recent_form_score": "5.8",
+        "experience_level": "veteran",
+        "impact_type": "spinner"
+      }
+    },
+    {
+      "name": "Mayank Agarwal",
+      "normalized_name": "mayank agarwal",
+      "reason": "enriched_only_no_exact_db_match",
+      "enriched_row": {
+        "player_id": "107",
+        "name": "Mayank Agarwal",
+        "role": "BAT",
+        "batting_avg": "28.60",
+        "strike_rate": "142.60",
+        "wickets": "0",
+        "economy": "0",
+        "matches": "128",
+        "performance_score": "70",
+        "consistency_score": "6.8",
+        "recent_form_score": "5.4",
+        "experience_level": "veteran",
+        "impact_type": "anchor"
+      }
+    },
+    {
+      "name": "Sam Curran",
+      "normalized_name": "sam curran",
+      "reason": "enriched_only_no_exact_db_match",
+      "enriched_row": {
+        "player_id": "108",
+        "name": "Sam Curran",
+        "role": "AR",
+        "batting_avg": "22.80",
+        "strike_rate": "138.40",
+        "wickets": "58",
+        "economy": "9.80",
+        "matches": "68",
+        "performance_score": "73",
+        "consistency_score": "6.4",
+        "recent_form_score": "6.6",
+        "experience_level": "mid",
+        "impact_type": "all_rounder"
+      }
+    },
+    {
+      "name": "Vijay Shankar",
+      "normalized_name": "vijay shankar",
+      "reason": "enriched_only_no_exact_db_match",
+      "enriched_row": {
+        "player_id": "109",
+        "name": "Vijay Shankar",
+        "role": "AR",
+        "batting_avg": "24.40",
+        "strike_rate": "132.40",
+        "wickets": "14",
+        "economy": "9.20",
+        "matches": "72",
+        "performance_score": "64",
+        "consistency_score": "5.8",
+        "recent_form_score": "5.8",
+        "experience_level": "mid",
+        "impact_type": "all_rounder"
+      }
+    },
+    {
+      "name": "Gerald Coetzee",
+      "normalized_name": "gerald coetzee",
+      "reason": "enriched_only_no_exact_db_match",
+      "enriched_row": {
+        "player_id": "110",
+        "name": "Gerald Coetzee",
+        "role": "BOWL",
+        "batting_avg": "6.50",
+        "strike_rate": "80.00",
+        "wickets": "18",
+        "economy": "10.40",
+        "matches": "18",
+        "performance_score": "60",
+        "consistency_score": "4.8",
+        "recent_form_score": "6.2",
+        "experience_level": "rookie",
+        "impact_type": "death_bowler"
+      }
+    },
+    {
+      "name": "Mustafizur Rahman",
+      "normalized_name": "mustafizur rahman",
+      "reason": "enriched_only_no_exact_db_match",
+      "enriched_row": {
+        "player_id": "113",
+        "name": "Mustafizur Rahman",
+        "role": "BOWL",
+        "batting_avg": "7.00",
+        "strike_rate": "82.00",
+        "wickets": "18",
+        "economy": "8.20",
+        "matches": "28",
+        "performance_score": "64",
+        "consistency_score": "5.6",
+        "recent_form_score": "6.2",
+        "experience_level": "mid",
+        "impact_type": "death_bowler"
+      }
+    },
+    {
+      "name": "Will O'Rourke",
+      "normalized_name": "will o'rourke",
+      "reason": "enriched_only_no_exact_db_match",
+      "enriched_row": {
+        "player_id": "122",
+        "name": "Will O'Rourke",
+        "role": "BOWL",
+        "batting_avg": "6.00",
+        "strike_rate": "72.00",
+        "wickets": "18",
+        "economy": "12.20",
+        "matches": "14",
+        "performance_score": "56",
+        "consistency_score": "4.4",
+        "recent_form_score": "5.6",
+        "experience_level": "rookie",
+        "impact_type": "death_bowler"
+      }
+    },
+    {
+      "name": "Akash Madhwal",
+      "normalized_name": "akash madhwal",
+      "reason": "enriched_only_no_exact_db_match",
+      "enriched_row": {
+        "player_id": "123",
+        "name": "Akash Madhwal",
+        "role": "BOWL",
+        "batting_avg": "6.00",
+        "strike_rate": "74.00",
+        "wickets": "18",
+        "economy": "10.80",
+        "matches": "22",
+        "performance_score": "58",
+        "consistency_score": "4.6",
+        "recent_form_score": "5.8",
+        "experience_level": "mid",
+        "impact_type": "death_bowler"
+      }
+    },
+    {
+      "name": "Adam Zampa",
+      "normalized_name": "adam zampa",
+      "reason": "enriched_only_no_exact_db_match",
+      "enriched_row": {
+        "player_id": "125",
+        "name": "Adam Zampa",
+        "role": "BOWL",
+        "batting_avg": "6.00",
+        "strike_rate": "74.00",
+        "wickets": "14",
+        "economy": "11.40",
+        "matches": "14",
+        "performance_score": "58",
+        "consistency_score": "4.8",
+        "recent_form_score": "5.6",
+        "experience_level": "rookie",
+        "impact_type": "spinner"
+      }
+    },
+    {
+      "name": "Simarjeet Singh",
+      "normalized_name": "simarjeet singh",
+      "reason": "enriched_only_no_exact_db_match",
+      "enriched_row": {
+        "player_id": "130",
+        "name": "Simarjeet Singh",
+        "role": "BOWL",
+        "batting_avg": "5.50",
+        "strike_rate": "68.00",
+        "wickets": "8",
+        "economy": "13.40",
+        "matches": "14",
+        "performance_score": "50",
+        "consistency_score": "4.0",
+        "recent_form_score": "4.6",
+        "experience_level": "rookie",
+        "impact_type": "death_bowler"
+      }
+    },
+    {
+      "name": "Kumar Kartikeya",
+      "normalized_name": "kumar kartikeya",
+      "reason": "enriched_only_no_exact_db_match",
+      "enriched_row": {
+        "player_id": "131",
+        "name": "Kumar Kartikeya",
+        "role": "BOWL",
+        "batting_avg": "6.00",
+        "strike_rate": "72.00",
+        "wickets": "8",
+        "economy": "9.60",
+        "matches": "14",
+        "performance_score": "56",
+        "consistency_score": "4.4",
+        "recent_form_score": "5.2",
+        "experience_level": "rookie",
+        "impact_type": "spinner"
+      }
+    },
+    {
+      "name": "Fazalhaq Farooqi",
+      "normalized_name": "fazalhaq farooqi",
+      "reason": "enriched_only_no_exact_db_match",
+      "enriched_row": {
+        "player_id": "134",
+        "name": "Fazalhaq Farooqi",
+        "role": "BOWL",
+        "batting_avg": "6.50",
+        "strike_rate": "78.00",
+        "wickets": "18",
+        "economy": "8.80",
+        "matches": "28",
+        "performance_score": "62",
+        "consistency_score": "5.4",
+        "recent_form_score": "6.2",
+        "experience_level": "mid",
+        "impact_type": "powerplay_bowler"
+      }
+    },
+    {
+      "name": "Karn Sharma",
+      "normalized_name": "karn sharma",
+      "reason": "enriched_only_no_exact_db_match",
+      "enriched_row": {
+        "player_id": "139",
+        "name": "Karn Sharma",
+        "role": "BOWL",
+        "batting_avg": "7.00",
+        "strike_rate": "80.00",
+        "wickets": "28",
+        "economy": "8.40",
+        "matches": "48",
+        "performance_score": "64",
+        "consistency_score": "5.8",
+        "recent_form_score": "5.4",
+        "experience_level": "mid",
+        "impact_type": "spinner"
+      }
+    },
+    {
+      "name": "Deepak Hooda",
+      "normalized_name": "deepak hooda",
+      "reason": "enriched_only_no_exact_db_match",
+      "enriched_row": {
+        "player_id": "147",
+        "name": "Deepak Hooda",
+        "role": "AR",
+        "batting_avg": "22.40",
+        "strike_rate": "138.40",
+        "wickets": "8",
+        "economy": "9.20",
+        "matches": "112",
+        "performance_score": "64",
+        "consistency_score": "5.8",
+        "recent_form_score": "5.2",
+        "experience_level": "veteran",
+        "impact_type": "all_rounder"
+      }
+    },
+    {
+      "name": "Shaik Rasheed",
+      "normalized_name": "shaik rasheed",
+      "reason": "enriched_only_no_exact_db_match",
+      "enriched_row": {
+        "player_id": "148",
+        "name": "Shaik Rasheed",
+        "role": "BAT",
+        "batting_avg": "18.40",
+        "strike_rate": "118.40",
+        "wickets": "0",
+        "economy": "0",
+        "matches": "18",
+        "performance_score": "54",
+        "consistency_score": "4.4",
+        "recent_form_score": "5.0",
+        "experience_level": "rookie",
+        "impact_type": "anchor"
+      }
+    }
+  ],
+  "updated_rows": [
+    {
+      "id": "5b4b3b8a-5c29-479a-93fb-24a5540f1f0a",
+      "name": "Virat Kohli",
+      "normalized_name": "virat kohli",
+      "db_role": "batter",
+      "enriched_role": "BAT",
+      "updated_fields": [
+        "matches",
+        "batting_avg",
+        "strike_rate",
+        "wickets",
+        "economy",
+        "performance_score",
+        "consistency_score",
+        "recent_form_score",
+        "experience_level",
+        "impact_type"
+      ],
+      "flags": [
+        {
+          "type": "nationality_not_validated",
+          "field": "nationality",
+          "message": "Nationality was not validated because the enriched CSV does not include nationality"
+        }
+      ]
+    },
+    {
+      "id": "7a8cc70e-738d-4e7e-ac56-9be59d413488",
+      "name": "Rohit Sharma",
+      "normalized_name": "rohit sharma",
+      "db_role": "batter",
+      "enriched_role": "BAT",
+      "updated_fields": [
+        "matches",
+        "batting_avg",
+        "strike_rate",
+        "wickets",
+        "economy",
+        "performance_score",
+        "consistency_score",
+        "recent_form_score",
+        "experience_level",
+        "impact_type"
+      ],
+      "flags": [
+        {
+          "type": "nationality_not_validated",
+          "field": "nationality",
+          "message": "Nationality was not validated because the enriched CSV does not include nationality"
+        }
+      ]
+    },
+    {
+      "id": "cee45f57-2bf2-46f2-bbed-a9a5e4223a5c",
+      "name": "MS Dhoni",
+      "normalized_name": "ms dhoni",
+      "db_role": "wicketkeeper",
+      "enriched_role": "WK",
+      "updated_fields": [
+        "matches",
+        "batting_avg",
+        "strike_rate",
+        "wickets",
+        "economy",
+        "performance_score",
+        "consistency_score",
+        "recent_form_score",
+        "experience_level",
+        "impact_type"
+      ],
+      "flags": [
+        {
+          "type": "nationality_not_validated",
+          "field": "nationality",
+          "message": "Nationality was not validated because the enriched CSV does not include nationality"
+        }
+      ]
+    },
+    {
+      "id": "dc7a6adb-c3ae-42f2-bea5-4ece1b427da3",
+      "name": "Suryakumar Yadav",
+      "normalized_name": "suryakumar yadav",
+      "db_role": "batter",
+      "enriched_role": "BAT",
+      "updated_fields": [
+        "matches",
+        "batting_avg",
+        "strike_rate",
+        "wickets",
+        "economy",
+        "performance_score",
+        "consistency_score",
+        "recent_form_score",
+        "experience_level",
+        "impact_type"
+      ],
+      "flags": [
+        {
+          "type": "nationality_not_validated",
+          "field": "nationality",
+          "message": "Nationality was not validated because the enriched CSV does not include nationality"
+        }
+      ]
+    },
+    {
+      "id": "14186b86-7509-4d22-a114-172b60b74b1b",
+      "name": "Jasprit Bumrah",
+      "normalized_name": "jasprit bumrah",
+      "db_role": "bowler",
+      "enriched_role": "BOWL",
+      "updated_fields": [
+        "matches",
+        "batting_avg",
+        "strike_rate",
+        "wickets",
+        "economy",
+        "performance_score",
+        "consistency_score",
+        "recent_form_score",
+        "experience_level",
+        "impact_type"
+      ],
+      "flags": [
+        {
+          "type": "nationality_not_validated",
+          "field": "nationality",
+          "message": "Nationality was not validated because the enriched CSV does not include nationality"
+        }
+      ]
+    },
+    {
+      "id": "00a943bc-a634-479b-a0b0-aa7dc10ad0fc",
+      "name": "KL Rahul",
+      "normalized_name": "kl rahul",
+      "db_role": "wicketkeeper",
+      "enriched_role": "WK",
+      "updated_fields": [
+        "matches",
+        "batting_avg",
+        "strike_rate",
+        "wickets",
+        "economy",
+        "performance_score",
+        "consistency_score",
+        "recent_form_score",
+        "experience_level",
+        "impact_type"
+      ],
+      "flags": [
+        {
+          "type": "nationality_not_validated",
+          "field": "nationality",
+          "message": "Nationality was not validated because the enriched CSV does not include nationality"
+        }
+      ]
+    },
+    {
+      "id": "1efe1049-58ad-4a94-9a8c-6d2ed228424a",
+      "name": "Shubman Gill",
+      "normalized_name": "shubman gill",
+      "db_role": "batter",
+      "enriched_role": "BAT",
+      "updated_fields": [
+        "matches",
+        "batting_avg",
+        "strike_rate",
+        "wickets",
+        "economy",
+        "performance_score",
+        "consistency_score",
+        "recent_form_score",
+        "experience_level",
+        "impact_type"
+      ],
+      "flags": [
+        {
+          "type": "nationality_not_validated",
+          "field": "nationality",
+          "message": "Nationality was not validated because the enriched CSV does not include nationality"
+        }
+      ]
+    },
+    {
+      "id": "4a27603f-b122-4bbc-ad8c-3431e99bcd51",
+      "name": "Hardik Pandya",
+      "normalized_name": "hardik pandya",
+      "db_role": "allrounder",
+      "enriched_role": "AR",
+      "updated_fields": [
+        "matches",
+        "batting_avg",
+        "strike_rate",
+        "wickets",
+        "economy",
+        "performance_score",
+        "consistency_score",
+        "recent_form_score",
+        "experience_level",
+        "impact_type"
+      ],
+      "flags": [
+        {
+          "type": "nationality_not_validated",
+          "field": "nationality",
+          "message": "Nationality was not validated because the enriched CSV does not include nationality"
+        }
+      ]
+    },
+    {
+      "id": "4b2ae00b-93ca-4a8c-92fd-eb0d46a20d9e",
+      "name": "Sanju Samson",
+      "normalized_name": "sanju samson",
+      "db_role": "wicketkeeper",
+      "enriched_role": "WK",
+      "updated_fields": [
+        "matches",
+        "batting_avg",
+        "strike_rate",
+        "wickets",
+        "economy",
+        "performance_score",
+        "consistency_score",
+        "recent_form_score",
+        "experience_level",
+        "impact_type"
+      ],
+      "flags": [
+        {
+          "type": "nationality_not_validated",
+          "field": "nationality",
+          "message": "Nationality was not validated because the enriched CSV does not include nationality"
+        }
+      ]
+    },
+    {
+      "id": "75bcaf34-4ba6-44c8-8a76-ed0aa2a8f074",
+      "name": "Ravindra Jadeja",
+      "normalized_name": "ravindra jadeja",
+      "db_role": "allrounder",
+      "enriched_role": "AR",
+      "updated_fields": [
+        "matches",
+        "batting_avg",
+        "strike_rate",
+        "wickets",
+        "economy",
+        "performance_score",
+        "consistency_score",
+        "recent_form_score",
+        "experience_level",
+        "impact_type"
+      ],
+      "flags": [
+        {
+          "type": "nationality_not_validated",
+          "field": "nationality",
+          "message": "Nationality was not validated because the enriched CSV does not include nationality"
+        }
+      ]
+    },
+    {
+      "id": "d4dce85f-15ab-4a3f-826c-5b72a3213046",
+      "name": "Ishan Kishan",
+      "normalized_name": "ishan kishan",
+      "db_role": "wicketkeeper",
+      "enriched_role": "WK",
+      "updated_fields": [
+        "matches",
+        "batting_avg",
+        "strike_rate",
+        "wickets",
+        "economy",
+        "performance_score",
+        "consistency_score",
+        "recent_form_score",
+        "experience_level",
+        "impact_type"
+      ],
+      "flags": [
+        {
+          "type": "nationality_not_validated",
+          "field": "nationality",
+          "message": "Nationality was not validated because the enriched CSV does not include nationality"
+        }
+      ]
+    },
+    {
+      "id": "ee7054b9-ba9a-442f-bf35-ae3b3c1e545c",
+      "name": "Shivam Dube",
+      "normalized_name": "shivam dube",
+      "db_role": "allrounder",
+      "enriched_role": "AR",
+      "updated_fields": [
+        "matches",
+        "batting_avg",
+        "strike_rate",
+        "wickets",
+        "economy",
+        "performance_score",
+        "consistency_score",
+        "recent_form_score",
+        "experience_level",
+        "impact_type"
+      ],
+      "flags": [
+        {
+          "type": "nationality_not_validated",
+          "field": "nationality",
+          "message": "Nationality was not validated because the enriched CSV does not include nationality"
+        }
+      ]
+    },
+    {
+      "id": "b9bc7e37-ab45-467f-b3dc-0222b5eab59f",
+      "name": "Ruturaj Gaikwad",
+      "normalized_name": "ruturaj gaikwad",
+      "db_role": "batter",
+      "enriched_role": "BAT",
+      "updated_fields": [
+        "matches",
+        "batting_avg",
+        "strike_rate",
+        "wickets",
+        "economy",
+        "performance_score",
+        "consistency_score",
+        "recent_form_score",
+        "experience_level",
+        "impact_type"
+      ],
+      "flags": [
+        {
+          "type": "nationality_not_validated",
+          "field": "nationality",
+          "message": "Nationality was not validated because the enriched CSV does not include nationality"
+        }
+      ]
+    },
+    {
+      "id": "93454ce9-9b6b-47ce-bdd5-b53842b968d3",
+      "name": "Mitchell Marsh",
+      "normalized_name": "mitchell marsh",
+      "db_role": "allrounder",
+      "enriched_role": "AR",
+      "updated_fields": [
+        "matches",
+        "batting_avg",
+        "strike_rate",
+        "wickets",
+        "economy",
+        "performance_score",
+        "consistency_score",
+        "recent_form_score",
+        "experience_level",
+        "impact_type"
+      ],
+      "flags": [
+        {
+          "type": "nationality_not_validated",
+          "field": "nationality",
+          "message": "Nationality was not validated because the enriched CSV does not include nationality"
+        }
+      ]
+    },
+    {
+      "id": "c2403596-54bb-48f3-9789-e4391899c64a",
+      "name": "Shreyas Iyer",
+      "normalized_name": "shreyas iyer",
+      "db_role": "batter",
+      "enriched_role": "BAT",
+      "updated_fields": [
+        "matches",
+        "batting_avg",
+        "strike_rate",
+        "wickets",
+        "economy",
+        "performance_score",
+        "consistency_score",
+        "recent_form_score",
+        "experience_level",
+        "impact_type"
+      ],
+      "flags": [
+        {
+          "type": "nationality_not_validated",
+          "field": "nationality",
+          "message": "Nationality was not validated because the enriched CSV does not include nationality"
+        }
+      ]
+    },
+    {
+      "id": "d5968284-24b0-4929-bfd4-f281a92089a1",
+      "name": "Yashasvi Jaiswal",
+      "normalized_name": "yashasvi jaiswal",
+      "db_role": "batter",
+      "enriched_role": "BAT",
+      "updated_fields": [
+        "matches",
+        "batting_avg",
+        "strike_rate",
+        "wickets",
+        "economy",
+        "performance_score",
+        "consistency_score",
+        "recent_form_score",
+        "experience_level",
+        "impact_type"
+      ],
+      "flags": [
+        {
+          "type": "nationality_not_validated",
+          "field": "nationality",
+          "message": "Nationality was not validated because the enriched CSV does not include nationality"
+        }
+      ]
+    },
+    {
+      "id": "7f58c578-fd26-4ba1-b40d-49a9ee4cd048",
+      "name": "Heinrich Klaasen",
+      "normalized_name": "heinrich klaasen",
+      "db_role": "wicketkeeper",
+      "enriched_role": "WK",
+      "updated_fields": [
+        "matches",
+        "batting_avg",
+        "strike_rate",
+        "wickets",
+        "economy",
+        "performance_score",
+        "consistency_score",
+        "recent_form_score",
+        "experience_level",
+        "impact_type"
+      ],
+      "flags": [
+        {
+          "type": "nationality_not_validated",
+          "field": "nationality",
+          "message": "Nationality was not validated because the enriched CSV does not include nationality"
+        }
+      ]
+    },
+    {
+      "id": "385b0aa5-f154-4c35-8255-9ea476a7c80b",
+      "name": "Travis Head",
+      "normalized_name": "travis head",
+      "db_role": "batter",
+      "enriched_role": "BAT",
+      "updated_fields": [
+        "matches",
+        "batting_avg",
+        "strike_rate",
+        "wickets",
+        "economy",
+        "performance_score",
+        "consistency_score",
+        "recent_form_score",
+        "experience_level",
+        "impact_type"
+      ],
+      "flags": [
+        {
+          "type": "nationality_not_validated",
+          "field": "nationality",
+          "message": "Nationality was not validated because the enriched CSV does not include nationality"
+        }
+      ]
+    },
+    {
+      "id": "1ab9e312-824b-4987-9fd2-fa8bf24e166d",
+      "name": "Prabhsimran Singh",
+      "normalized_name": "prabhsimran singh",
+      "db_role": "wicketkeeper",
+      "enriched_role": "WK",
+      "updated_fields": [
+        "matches",
+        "batting_avg",
+        "strike_rate",
+        "wickets",
+        "economy",
+        "performance_score",
+        "consistency_score",
+        "recent_form_score",
+        "experience_level",
+        "impact_type"
+      ],
+      "flags": [
+        {
+          "type": "nationality_not_validated",
+          "field": "nationality",
+          "message": "Nationality was not validated because the enriched CSV does not include nationality"
+        }
+      ]
+    },
+    {
+      "id": "c879c337-a553-4a7c-858c-842486f4e7f1",
+      "name": "Priyansh Arya",
+      "normalized_name": "priyansh arya",
+      "db_role": "batter",
+      "enriched_role": "BAT",
+      "updated_fields": [
+        "matches",
+        "batting_avg",
+        "strike_rate",
+        "wickets",
+        "economy",
+        "performance_score",
+        "consistency_score",
+        "recent_form_score",
+        "experience_level",
+        "impact_type"
+      ],
+      "flags": [
+        {
+          "type": "nationality_not_validated",
+          "field": "nationality",
+          "message": "Nationality was not validated because the enriched CSV does not include nationality"
+        }
+      ]
+    },
+    {
+      "id": "59659c89-b800-4639-80a7-2d7e7987b977",
+      "name": "Phil Salt",
+      "normalized_name": "phil salt",
+      "db_role": "wicketkeeper",
+      "enriched_role": "WK",
+      "updated_fields": [
+        "matches",
+        "batting_avg",
+        "strike_rate",
+        "wickets",
+        "economy",
+        "performance_score",
+        "consistency_score",
+        "recent_form_score",
+        "experience_level",
+        "impact_type"
+      ],
+      "flags": [
+        {
+          "type": "nationality_not_validated",
+          "field": "nationality",
+          "message": "Nationality was not validated because the enriched CSV does not include nationality"
+        }
+      ]
+    },
+    {
+      "id": "a39912a6-2d4f-4de5-801b-1d92afd114e2",
+      "name": "Ajinkya Rahane",
+      "normalized_name": "ajinkya rahane",
+      "db_role": "batter",
+      "enriched_role": "BAT",
+      "updated_fields": [
+        "matches",
+        "batting_avg",
+        "strike_rate",
+        "wickets",
+        "economy",
+        "performance_score",
+        "consistency_score",
+        "recent_form_score",
+        "experience_level",
+        "impact_type"
+      ],
+      "flags": [
+        {
+          "type": "nationality_not_validated",
+          "field": "nationality",
+          "message": "Nationality was not validated because the enriched CSV does not include nationality"
+        }
+      ]
+    },
+    {
+      "id": "a3b93f16-be3a-4f26-9312-7ce67ede1596",
+      "name": "Axar Patel",
+      "normalized_name": "axar patel",
+      "db_role": "allrounder",
+      "enriched_role": "AR",
+      "updated_fields": [
+        "matches",
+        "batting_avg",
+        "strike_rate",
+        "wickets",
+        "economy",
+        "performance_score",
+        "consistency_score",
+        "recent_form_score",
+        "experience_level",
+        "impact_type"
+      ],
+      "flags": [
+        {
+          "type": "nationality_not_validated",
+          "field": "nationality",
+          "message": "Nationality was not validated because the enriched CSV does not include nationality"
+        }
+      ]
+    },
+    {
+      "id": "5e18e1a1-124e-4e5d-b865-6eee3249c7bf",
+      "name": "Varun Chakravarthy",
+      "normalized_name": "varun chakravarthy",
+      "db_role": "bowler",
+      "enriched_role": "BOWL",
+      "updated_fields": [
+        "matches",
+        "batting_avg",
+        "strike_rate",
+        "wickets",
+        "economy",
+        "performance_score",
+        "consistency_score",
+        "recent_form_score",
+        "experience_level",
+        "impact_type"
+      ],
+      "flags": [
+        {
+          "type": "nationality_not_validated",
+          "field": "nationality",
+          "message": "Nationality was not validated because the enriched CSV does not include nationality"
+        }
+      ]
+    },
+    {
+      "id": "89a47771-071d-4527-8328-4b5b8c0e3bb1",
+      "name": "Kuldeep Yadav",
+      "normalized_name": "kuldeep yadav",
+      "db_role": "bowler",
+      "enriched_role": "BOWL",
+      "updated_fields": [
+        "matches",
+        "batting_avg",
+        "strike_rate",
+        "wickets",
+        "economy",
+        "performance_score",
+        "consistency_score",
+        "recent_form_score",
+        "experience_level",
+        "impact_type"
+      ],
+      "flags": [
+        {
+          "type": "nationality_not_validated",
+          "field": "nationality",
+          "message": "Nationality was not validated because the enriched CSV does not include nationality"
+        }
+      ]
+    },
+    {
+      "id": "003a1262-da09-4209-bc90-dc3a5311e3a6",
+      "name": "Prasidh Krishna",
+      "normalized_name": "prasidh krishna",
+      "db_role": "bowler",
+      "enriched_role": "BOWL",
+      "updated_fields": [
+        "matches",
+        "batting_avg",
+        "strike_rate",
+        "wickets",
+        "economy",
+        "performance_score",
+        "consistency_score",
+        "recent_form_score",
+        "experience_level",
+        "impact_type"
+      ],
+      "flags": [
+        {
+          "type": "nationality_not_validated",
+          "field": "nationality",
+          "message": "Nationality was not validated because the enriched CSV does not include nationality"
+        }
+      ]
+    },
+    {
+      "id": "637cd95b-d02c-4d6a-a246-9c6d240f8413",
+      "name": "Noor Ahmad",
+      "normalized_name": "noor ahmad",
+      "db_role": "bowler",
+      "enriched_role": "BOWL",
+      "updated_fields": [
+        "matches",
+        "batting_avg",
+        "strike_rate",
+        "wickets",
+        "economy",
+        "performance_score",
+        "consistency_score",
+        "recent_form_score",
+        "experience_level",
+        "impact_type"
+      ],
+      "flags": [
+        {
+          "type": "nationality_not_validated",
+          "field": "nationality",
+          "message": "Nationality was not validated because the enriched CSV does not include nationality"
+        }
+      ]
+    },
+    {
+      "id": "61387cbe-f2b7-499d-a965-3cac9fe454a4",
+      "name": "Josh Hazlewood",
+      "normalized_name": "josh hazlewood",
+      "db_role": "bowler",
+      "enriched_role": "BOWL",
+      "updated_fields": [
+        "matches",
+        "batting_avg",
+        "strike_rate",
+        "wickets",
+        "economy",
+        "performance_score",
+        "consistency_score",
+        "recent_form_score",
+        "experience_level",
+        "impact_type"
+      ],
+      "flags": [
+        {
+          "type": "nationality_not_validated",
+          "field": "nationality",
+          "message": "Nationality was not validated because the enriched CSV does not include nationality"
+        }
+      ]
+    },
+    {
+      "id": "3e2687cd-2a79-4631-bbbf-2cb84d5e4234",
+      "name": "Trent Boult",
+      "normalized_name": "trent boult",
+      "db_role": "bowler",
+      "enriched_role": "BOWL",
+      "updated_fields": [
+        "matches",
+        "batting_avg",
+        "strike_rate",
+        "wickets",
+        "economy",
+        "performance_score",
+        "consistency_score",
+        "recent_form_score",
+        "experience_level",
+        "impact_type"
+      ],
+      "flags": [
+        {
+          "type": "nationality_not_validated",
+          "field": "nationality",
+          "message": "Nationality was not validated because the enriched CSV does not include nationality"
+        }
+      ]
+    },
+    {
+      "id": "661bcae3-1189-4c3f-969e-9b8fdb20703b",
+      "name": "Arshdeep Singh",
+      "normalized_name": "arshdeep singh",
+      "db_role": "bowler",
+      "enriched_role": "BOWL",
+      "updated_fields": [
+        "matches",
+        "batting_avg",
+        "strike_rate",
+        "wickets",
+        "economy",
+        "performance_score",
+        "consistency_score",
+        "recent_form_score",
+        "experience_level",
+        "impact_type"
+      ],
+      "flags": [
+        {
+          "type": "nationality_not_validated",
+          "field": "nationality",
+          "message": "Nationality was not validated because the enriched CSV does not include nationality"
+        }
+      ]
+    },
+    {
+      "id": "3492e9b8-9a68-49d1-a7be-dc474f042fb2",
+      "name": "Krunal Pandya",
+      "normalized_name": "krunal pandya",
+      "db_role": "allrounder",
+      "enriched_role": "AR",
+      "updated_fields": [
+        "matches",
+        "batting_avg",
+        "strike_rate",
+        "wickets",
+        "economy",
+        "performance_score",
+        "consistency_score",
+        "recent_form_score",
+        "experience_level",
+        "impact_type"
+      ],
+      "flags": [
+        {
+          "type": "nationality_not_validated",
+          "field": "nationality",
+          "message": "Nationality was not validated because the enriched CSV does not include nationality"
+        }
+      ]
+    },
+    {
+      "id": "cc29c90c-9ec1-41cf-a5d9-0bbc79cefb3d",
+      "name": "Bhuvneshwar Kumar",
+      "normalized_name": "bhuvneshwar kumar",
+      "db_role": "bowler",
+      "enriched_role": "BOWL",
+      "updated_fields": [
+        "matches",
+        "batting_avg",
+        "strike_rate",
+        "wickets",
+        "economy",
+        "performance_score",
+        "consistency_score",
+        "recent_form_score",
+        "experience_level",
+        "impact_type"
+      ],
+      "flags": [
+        {
+          "type": "nationality_not_validated",
+          "field": "nationality",
+          "message": "Nationality was not validated because the enriched CSV does not include nationality"
+        }
+      ]
+    },
+    {
+      "id": "3b38f93b-3e98-4628-bb29-235200ffd5ad",
+      "name": "Marco Jansen",
+      "normalized_name": "marco jansen",
+      "db_role": "allrounder",
+      "enriched_role": "AR",
+      "updated_fields": [
+        "matches",
+        "batting_avg",
+        "strike_rate",
+        "wickets",
+        "economy",
+        "performance_score",
+        "consistency_score",
+        "recent_form_score",
+        "experience_level",
+        "impact_type"
+      ],
+      "flags": [
+        {
+          "type": "nationality_not_validated",
+          "field": "nationality",
+          "message": "Nationality was not validated because the enriched CSV does not include nationality"
+        }
+      ]
+    },
+    {
+      "id": "7ec414d0-025d-4ef3-aebb-ee7ef218fb7f",
+      "name": "Yuzvendra Chahal",
+      "normalized_name": "yuzvendra chahal",
+      "db_role": "bowler",
+      "enriched_role": "BOWL",
+      "updated_fields": [
+        "matches",
+        "batting_avg",
+        "strike_rate",
+        "wickets",
+        "economy",
+        "performance_score",
+        "consistency_score",
+        "recent_form_score",
+        "experience_level",
+        "impact_type"
+      ],
+      "flags": [
+        {
+          "type": "nationality_not_validated",
+          "field": "nationality",
+          "message": "Nationality was not validated because the enriched CSV does not include nationality"
+        }
+      ]
+    },
+    {
+      "id": "58189ea0-822d-4841-beee-dfb8334068ea",
+      "name": "Vaibhav Arora",
+      "normalized_name": "vaibhav arora",
+      "db_role": "bowler",
+      "enriched_role": "BOWL",
+      "updated_fields": [
+        "matches",
+        "batting_avg",
+        "strike_rate",
+        "wickets",
+        "economy",
+        "performance_score",
+        "consistency_score",
+        "recent_form_score",
+        "experience_level",
+        "impact_type"
+      ],
+      "flags": [
+        {
+          "type": "nationality_not_validated",
+          "field": "nationality",
+          "message": "Nationality was not validated because the enriched CSV does not include nationality"
+        }
+      ]
+    },
+    {
+      "id": "f230f3e7-7798-4489-8db0-362794ac6bb4",
+      "name": "Mohammed Siraj",
+      "normalized_name": "mohammed siraj",
+      "db_role": "bowler",
+      "enriched_role": "BOWL",
+      "updated_fields": [
+        "matches",
+        "batting_avg",
+        "strike_rate",
+        "wickets",
+        "economy",
+        "performance_score",
+        "consistency_score",
+        "recent_form_score",
+        "experience_level",
+        "impact_type"
+      ],
+      "flags": [
+        {
+          "type": "nationality_not_validated",
+          "field": "nationality",
+          "message": "Nationality was not validated because the enriched CSV does not include nationality"
+        }
+      ]
+    },
+    {
+      "id": "f35acbcb-3a48-43b7-93ad-bb1aa8454985",
+      "name": "Avesh Khan",
+      "normalized_name": "avesh khan",
+      "db_role": "bowler",
+      "enriched_role": "BOWL",
+      "updated_fields": [
+        "matches",
+        "batting_avg",
+        "strike_rate",
+        "wickets",
+        "economy",
+        "performance_score",
+        "consistency_score",
+        "recent_form_score",
+        "experience_level",
+        "impact_type"
+      ],
+      "flags": [
+        {
+          "type": "nationality_not_validated",
+          "field": "nationality",
+          "message": "Nationality was not validated because the enriched CSV does not include nationality"
+        }
+      ]
+    },
+    {
+      "id": "35702855-f4af-45da-87a1-1f310443088f",
+      "name": "Digvesh Rathi",
+      "normalized_name": "digvesh rathi",
+      "db_role": "bowler",
+      "enriched_role": "BOWL",
+      "updated_fields": [
+        "matches",
+        "batting_avg",
+        "strike_rate",
+        "wickets",
+        "economy",
+        "performance_score",
+        "consistency_score",
+        "recent_form_score",
+        "experience_level",
+        "impact_type"
+      ],
+      "flags": [
+        {
+          "type": "nationality_not_validated",
+          "field": "nationality",
+          "message": "Nationality was not validated because the enriched CSV does not include nationality"
+        }
+      ]
+    },
+    {
+      "id": "3023052f-98ac-4042-85a2-b3c06bc5fecf",
+      "name": "Sandeep Sharma",
+      "normalized_name": "sandeep sharma",
+      "db_role": "bowler",
+      "enriched_role": "BOWL",
+      "updated_fields": [
+        "matches",
+        "batting_avg",
+        "strike_rate",
+        "wickets",
+        "economy",
+        "performance_score",
+        "consistency_score",
+        "recent_form_score",
+        "experience_level",
+        "impact_type"
+      ],
+      "flags": [
+        {
+          "type": "nationality_not_validated",
+          "field": "nationality",
+          "message": "Nationality was not validated because the enriched CSV does not include nationality"
+        }
+      ]
+    },
+    {
+      "id": "73e0b102-a234-4cfa-8fe5-0040d5d77ed7",
+      "name": "Wanindu Hasaranga",
+      "normalized_name": "wanindu hasaranga",
+      "db_role": "allrounder",
+      "enriched_role": "AR",
+      "updated_fields": [
+        "matches",
+        "batting_avg",
+        "strike_rate",
+        "wickets",
+        "economy",
+        "performance_score",
+        "consistency_score",
+        "recent_form_score",
+        "experience_level",
+        "impact_type"
+      ],
+      "flags": [
+        {
+          "type": "nationality_not_validated",
+          "field": "nationality",
+          "message": "Nationality was not validated because the enriched CSV does not include nationality"
+        }
+      ]
+    },
+    {
+      "id": "8c7ef72a-fec4-4f36-8996-e19ba27799b9",
+      "name": "Shardul Thakur",
+      "normalized_name": "shardul thakur",
+      "db_role": "allrounder",
+      "enriched_role": "AR",
+      "updated_fields": [
+        "matches",
+        "batting_avg",
+        "strike_rate",
+        "wickets",
+        "economy",
+        "performance_score",
+        "consistency_score",
+        "recent_form_score",
+        "experience_level",
+        "impact_type"
+      ],
+      "flags": [
+        {
+          "type": "nationality_not_validated",
+          "field": "nationality",
+          "message": "Nationality was not validated because the enriched CSV does not include nationality"
+        }
+      ]
+    },
+    {
+      "id": "a6ca617c-5caa-49d7-a0f5-261dc03ecda7",
+      "name": "Mitchell Starc",
+      "normalized_name": "mitchell starc",
+      "db_role": "bowler",
+      "enriched_role": "BOWL",
+      "updated_fields": [
+        "matches",
+        "batting_avg",
+        "strike_rate",
+        "wickets",
+        "economy",
+        "performance_score",
+        "consistency_score",
+        "recent_form_score",
+        "experience_level",
+        "impact_type"
+      ],
+      "flags": [
+        {
+          "type": "nationality_not_validated",
+          "field": "nationality",
+          "message": "Nationality was not validated because the enriched CSV does not include nationality"
+        }
+      ]
+    },
+    {
+      "id": "9f24006a-6d32-4fc6-9112-eaad7e7abd7d",
+      "name": "Eshan Malinga",
+      "normalized_name": "eshan malinga",
+      "db_role": "bowler",
+      "enriched_role": "BOWL",
+      "updated_fields": [
+        "matches",
+        "batting_avg",
+        "strike_rate",
+        "wickets",
+        "economy",
+        "performance_score",
+        "consistency_score",
+        "recent_form_score",
+        "experience_level",
+        "impact_type"
+      ],
+      "flags": [
+        {
+          "type": "nationality_not_validated",
+          "field": "nationality",
+          "message": "Nationality was not validated because the enriched CSV does not include nationality"
+        }
+      ]
+    },
+    {
+      "id": "c12cab49-e287-4e5f-9d45-fbd4c3a9f17d",
+      "name": "Jaydev Unadkat",
+      "normalized_name": "jaydev unadkat",
+      "db_role": "bowler",
+      "enriched_role": "BOWL",
+      "updated_fields": [
+        "matches",
+        "batting_avg",
+        "strike_rate",
+        "wickets",
+        "economy",
+        "performance_score",
+        "consistency_score",
+        "recent_form_score",
+        "experience_level",
+        "impact_type"
+      ],
+      "flags": [
+        {
+          "type": "nationality_not_validated",
+          "field": "nationality",
+          "message": "Nationality was not validated because the enriched CSV does not include nationality"
+        }
+      ]
+    },
+    {
+      "id": "119a9c26-5630-4444-bae0-25b26d1d4920",
+      "name": "Deepak Chahar",
+      "normalized_name": "deepak chahar",
+      "db_role": "bowler",
+      "enriched_role": "BOWL",
+      "updated_fields": [
+        "matches",
+        "batting_avg",
+        "strike_rate",
+        "wickets",
+        "economy",
+        "performance_score",
+        "consistency_score",
+        "recent_form_score",
+        "experience_level",
+        "impact_type"
+      ],
+      "flags": [
+        {
+          "type": "nationality_not_validated",
+          "field": "nationality",
+          "message": "Nationality was not validated because the enriched CSV does not include nationality"
+        }
+      ]
+    },
+    {
+      "id": "09bf9487-92a1-4fff-aede-13596a4542b2",
+      "name": "Ashwani Kumar",
+      "normalized_name": "ashwani kumar",
+      "db_role": "bowler",
+      "enriched_role": "BOWL",
+      "updated_fields": [
+        "matches",
+        "batting_avg",
+        "strike_rate",
+        "wickets",
+        "economy",
+        "performance_score",
+        "consistency_score",
+        "recent_form_score",
+        "experience_level",
+        "impact_type"
+      ],
+      "flags": [
+        {
+          "type": "nationality_not_validated",
+          "field": "nationality",
+          "message": "Nationality was not validated because the enriched CSV does not include nationality"
+        }
+      ]
+    },
+    {
+      "id": "657d2d42-1825-40dd-b2cb-49a91cdf48f7",
+      "name": "Mitchell Santner",
+      "normalized_name": "mitchell santner",
+      "db_role": "allrounder",
+      "enriched_role": "AR",
+      "updated_fields": [
+        "matches",
+        "batting_avg",
+        "strike_rate",
+        "wickets",
+        "economy",
+        "performance_score",
+        "consistency_score",
+        "recent_form_score",
+        "experience_level",
+        "impact_type"
+      ],
+      "flags": [
+        {
+          "type": "nationality_not_validated",
+          "field": "nationality",
+          "message": "Nationality was not validated because the enriched CSV does not include nationality"
+        }
+      ]
+    },
+    {
+      "id": "962de0bd-dac5-4a25-a981-052611c6b970",
+      "name": "Jofra Archer",
+      "normalized_name": "jofra archer",
+      "db_role": "bowler",
+      "enriched_role": "BOWL",
+      "updated_fields": [
+        "matches",
+        "batting_avg",
+        "strike_rate",
+        "wickets",
+        "economy",
+        "performance_score",
+        "consistency_score",
+        "recent_form_score",
+        "experience_level",
+        "impact_type"
+      ],
+      "flags": [
+        {
+          "type": "nationality_not_validated",
+          "field": "nationality",
+          "message": "Nationality was not validated because the enriched CSV does not include nationality"
+        }
+      ]
+    },
+    {
+      "id": "721780f8-4124-4f68-a177-deadf70775a9",
+      "name": "Will Jacks",
+      "normalized_name": "will jacks",
+      "db_role": "allrounder",
+      "enriched_role": "AR",
+      "updated_fields": [
+        "matches",
+        "batting_avg",
+        "strike_rate",
+        "wickets",
+        "economy",
+        "performance_score",
+        "consistency_score",
+        "recent_form_score",
+        "experience_level",
+        "impact_type"
+      ],
+      "flags": [
+        {
+          "type": "nationality_not_validated",
+          "field": "nationality",
+          "message": "Nationality was not validated because the enriched CSV does not include nationality"
+        }
+      ]
+    },
+    {
+      "id": "e12446ce-d0eb-44c2-9dd4-8d3473b95913",
+      "name": "Ryan Rickelton",
+      "normalized_name": "ryan rickelton",
+      "db_role": "wicketkeeper",
+      "enriched_role": "WK",
+      "updated_fields": [
+        "matches",
+        "batting_avg",
+        "strike_rate",
+        "wickets",
+        "economy",
+        "performance_score",
+        "consistency_score",
+        "recent_form_score",
+        "experience_level",
+        "impact_type"
+      ],
+      "flags": [
+        {
+          "type": "nationality_not_validated",
+          "field": "nationality",
+          "message": "Nationality was not validated because the enriched CSV does not include nationality"
+        }
+      ]
+    },
+    {
+      "id": "8ae490dc-84bd-443c-b1e2-2c7019458ca0",
+      "name": "Naman Dhir",
+      "normalized_name": "naman dhir",
+      "db_role": "allrounder",
+      "enriched_role": "AR",
+      "updated_fields": [
+        "matches",
+        "batting_avg",
+        "strike_rate",
+        "wickets",
+        "economy",
+        "performance_score",
+        "consistency_score",
+        "recent_form_score",
+        "experience_level",
+        "impact_type"
+      ],
+      "flags": [
+        {
+          "type": "nationality_not_validated",
+          "field": "nationality",
+          "message": "Nationality was not validated because the enriched CSV does not include nationality"
+        }
+      ]
+    },
+    {
+      "id": "f8da1feb-2c24-481b-aa2a-2347525769bb",
+      "name": "Nehal Wadhera",
+      "normalized_name": "nehal wadhera",
+      "db_role": "batter",
+      "enriched_role": "BAT",
+      "updated_fields": [
+        "matches",
+        "batting_avg",
+        "strike_rate",
+        "wickets",
+        "economy",
+        "performance_score",
+        "consistency_score",
+        "recent_form_score",
+        "experience_level",
+        "impact_type"
+      ],
+      "flags": [
+        {
+          "type": "nationality_not_validated",
+          "field": "nationality",
+          "message": "Nationality was not validated because the enriched CSV does not include nationality"
+        }
+      ]
+    },
+    {
+      "id": "59778e44-d69c-4870-81b7-bdce25989979",
+      "name": "Abishek Porel",
+      "normalized_name": "abishek porel",
+      "db_role": "wicketkeeper",
+      "enriched_role": "WK",
+      "updated_fields": [
+        "matches",
+        "batting_avg",
+        "strike_rate",
+        "wickets",
+        "economy",
+        "performance_score",
+        "consistency_score",
+        "recent_form_score",
+        "experience_level",
+        "impact_type"
+      ],
+      "flags": [
+        {
+          "type": "nationality_not_validated",
+          "field": "nationality",
+          "message": "Nationality was not validated because the enriched CSV does not include nationality"
+        }
+      ]
+    },
+    {
+      "id": "bc0ee2e5-8993-4944-9510-69f4ee810f99",
+      "name": "Angkrish Raghuvanshi",
+      "normalized_name": "angkrish raghuvanshi",
+      "db_role": "batter",
+      "enriched_role": "BAT",
+      "updated_fields": [
+        "matches",
+        "batting_avg",
+        "strike_rate",
+        "wickets",
+        "economy",
+        "performance_score",
+        "consistency_score",
+        "recent_form_score",
+        "experience_level",
+        "impact_type"
+      ],
+      "flags": [
+        {
+          "type": "nationality_not_validated",
+          "field": "nationality",
+          "message": "Nationality was not validated because the enriched CSV does not include nationality"
+        }
+      ]
+    },
+    {
+      "id": "0455bdac-5a88-4207-9ce9-24e884b5f166",
+      "name": "Dhruv Jurel",
+      "normalized_name": "dhruv jurel",
+      "db_role": "wicketkeeper",
+      "enriched_role": "WK",
+      "updated_fields": [
+        "matches",
+        "batting_avg",
+        "strike_rate",
+        "wickets",
+        "economy",
+        "performance_score",
+        "consistency_score",
+        "recent_form_score",
+        "experience_level",
+        "impact_type"
+      ],
+      "flags": [
+        {
+          "type": "nationality_not_validated",
+          "field": "nationality",
+          "message": "Nationality was not validated because the enriched CSV does not include nationality"
+        }
+      ]
+    },
+    {
+      "id": "03a80a3e-ae43-4bb3-a6f8-9717fd28f93d",
+      "name": "Ayush Mhatre",
+      "normalized_name": "ayush mhatre",
+      "db_role": "batter",
+      "enriched_role": "BAT",
+      "updated_fields": [
+        "matches",
+        "batting_avg",
+        "strike_rate",
+        "wickets",
+        "economy",
+        "performance_score",
+        "consistency_score",
+        "recent_form_score",
+        "experience_level",
+        "impact_type"
+      ],
+      "flags": [
+        {
+          "type": "nationality_not_validated",
+          "field": "nationality",
+          "message": "Nationality was not validated because the enriched CSV does not include nationality"
+        }
+      ]
+    },
+    {
+      "id": "1d70f38c-cdd4-4e31-8c7d-b164a475879e",
+      "name": "Dewald Brevis",
+      "normalized_name": "dewald brevis",
+      "db_role": "batter",
+      "enriched_role": "BAT",
+      "updated_fields": [
+        "matches",
+        "batting_avg",
+        "strike_rate",
+        "wickets",
+        "economy",
+        "performance_score",
+        "consistency_score",
+        "recent_form_score",
+        "experience_level",
+        "impact_type"
+      ],
+      "flags": [
+        {
+          "type": "nationality_not_validated",
+          "field": "nationality",
+          "message": "Nationality was not validated because the enriched CSV does not include nationality"
+        }
+      ]
+    },
+    {
+      "id": "c4118b9b-52ae-4fa6-b9a3-b29100b94292",
+      "name": "Vaibhav Sooryavanshi",
+      "normalized_name": "vaibhav sooryavanshi",
+      "db_role": "batter",
+      "enriched_role": "BAT",
+      "updated_fields": [
+        "matches",
+        "batting_avg",
+        "strike_rate",
+        "wickets",
+        "economy",
+        "performance_score",
+        "consistency_score",
+        "recent_form_score",
+        "experience_level",
+        "impact_type"
+      ],
+      "flags": [
+        {
+          "type": "nationality_not_validated",
+          "field": "nationality",
+          "message": "Nationality was not validated because the enriched CSV does not include nationality"
+        }
+      ]
+    },
+    {
+      "id": "ebe498af-66cc-49e2-99e0-9055f835b8c8",
+      "name": "Quinton de Kock",
+      "normalized_name": "quinton de kock",
+      "db_role": "wicketkeeper",
+      "enriched_role": "WK",
+      "updated_fields": [
+        "matches",
+        "batting_avg",
+        "strike_rate",
+        "wickets",
+        "economy",
+        "performance_score",
+        "consistency_score",
+        "recent_form_score",
+        "experience_level",
+        "impact_type"
+      ],
+      "flags": [
+        {
+          "type": "nationality_not_validated",
+          "field": "nationality",
+          "message": "Nationality was not validated because the enriched CSV does not include nationality"
+        }
+      ]
+    },
+    {
+      "id": "579e81c2-cbb7-4e65-98ea-47b90c5e0c12",
+      "name": "Romario Shepherd",
+      "normalized_name": "romario shepherd",
+      "db_role": "allrounder",
+      "enriched_role": "AR",
+      "updated_fields": [
+        "matches",
+        "batting_avg",
+        "strike_rate",
+        "wickets",
+        "economy",
+        "performance_score",
+        "consistency_score",
+        "recent_form_score",
+        "experience_level",
+        "impact_type"
+      ],
+      "flags": [
+        {
+          "type": "nationality_not_validated",
+          "field": "nationality",
+          "message": "Nationality was not validated because the enriched CSV does not include nationality"
+        }
+      ]
+    },
+    {
+      "id": "bc98d284-6aff-4c1b-84f1-7762ee9fcbaf",
+      "name": "Suyash Sharma",
+      "normalized_name": "suyash sharma",
+      "db_role": "bowler",
+      "enriched_role": "BOWL",
+      "updated_fields": [
+        "matches",
+        "batting_avg",
+        "strike_rate",
+        "wickets",
+        "economy",
+        "performance_score",
+        "consistency_score",
+        "recent_form_score",
+        "experience_level",
+        "impact_type"
+      ],
+      "flags": [
+        {
+          "type": "nationality_not_validated",
+          "field": "nationality",
+          "message": "Nationality was not validated because the enriched CSV does not include nationality"
+        }
+      ]
+    },
+    {
+      "id": "97c875b7-4715-476e-89f3-34238e098330",
+      "name": "Dushmantha Chameera",
+      "normalized_name": "dushmantha chameera",
+      "db_role": "bowler",
+      "enriched_role": "BOWL",
+      "updated_fields": [
+        "matches",
+        "batting_avg",
+        "strike_rate",
+        "wickets",
+        "economy",
+        "performance_score",
+        "consistency_score",
+        "recent_form_score",
+        "experience_level",
+        "impact_type"
+      ],
+      "flags": [
+        {
+          "type": "nationality_not_validated",
+          "field": "nationality",
+          "message": "Nationality was not validated because the enriched CSV does not include nationality"
+        }
+      ]
+    },
+    {
+      "id": "98d0fc7a-643b-4171-80d8-51fceac41678",
+      "name": "Matheesha Pathirana",
+      "normalized_name": "matheesha pathirana",
+      "db_role": "bowler",
+      "enriched_role": "BOWL",
+      "updated_fields": [
+        "matches",
+        "batting_avg",
+        "strike_rate",
+        "wickets",
+        "economy",
+        "performance_score",
+        "consistency_score",
+        "recent_form_score",
+        "experience_level",
+        "impact_type"
+      ],
+      "flags": [
+        {
+          "type": "nationality_not_validated",
+          "field": "nationality",
+          "message": "Nationality was not validated because the enriched CSV does not include nationality"
+        }
+      ]
+    },
+    {
+      "id": "4cb68fda-a15e-4180-9d37-aac3b6b736cc",
+      "name": "Marcus Stoinis",
+      "normalized_name": "marcus stoinis",
+      "db_role": "allrounder",
+      "enriched_role": "AR",
+      "updated_fields": [
+        "matches",
+        "batting_avg",
+        "strike_rate",
+        "wickets",
+        "economy",
+        "performance_score",
+        "consistency_score",
+        "recent_form_score",
+        "experience_level",
+        "impact_type"
+      ],
+      "flags": [
+        {
+          "type": "nationality_not_validated",
+          "field": "nationality",
+          "message": "Nationality was not validated because the enriched CSV does not include nationality"
+        }
+      ]
+    },
+    {
+      "id": "a03877e1-b4ff-49cb-b82d-af4e623394df",
+      "name": "David Miller",
+      "normalized_name": "david miller",
+      "db_role": "batter",
+      "enriched_role": "BAT",
+      "updated_fields": [
+        "matches",
+        "batting_avg",
+        "strike_rate",
+        "wickets",
+        "economy",
+        "performance_score",
+        "consistency_score",
+        "recent_form_score",
+        "experience_level",
+        "impact_type"
+      ],
+      "flags": [
+        {
+          "type": "nationality_not_validated",
+          "field": "nationality",
+          "message": "Nationality was not validated because the enriched CSV does not include nationality"
+        }
+      ]
+    },
+    {
+      "id": "55ced259-5652-483e-aaeb-9e9e382f8e36",
+      "name": "Shimron Hetmyer",
+      "normalized_name": "shimron hetmyer",
+      "db_role": "batter",
+      "enriched_role": "BAT",
+      "updated_fields": [
+        "matches",
+        "batting_avg",
+        "strike_rate",
+        "wickets",
+        "economy",
+        "performance_score",
+        "consistency_score",
+        "recent_form_score",
+        "experience_level",
+        "impact_type"
+      ],
+      "flags": [
+        {
+          "type": "nationality_not_validated",
+          "field": "nationality",
+          "message": "Nationality was not validated because the enriched CSV does not include nationality"
+        }
+      ]
+    },
+    {
+      "id": "b95d5e21-e346-4009-8604-49cc17a60e1c",
+      "name": "Karun Nair",
+      "normalized_name": "karun nair",
+      "db_role": "batter",
+      "enriched_role": "BAT",
+      "updated_fields": [
+        "matches",
+        "batting_avg",
+        "strike_rate",
+        "wickets",
+        "economy",
+        "performance_score",
+        "consistency_score",
+        "recent_form_score",
+        "experience_level",
+        "impact_type"
+      ],
+      "flags": [
+        {
+          "type": "nationality_not_validated",
+          "field": "nationality",
+          "message": "Nationality was not validated because the enriched CSV does not include nationality"
+        }
+      ]
+    },
+    {
+      "id": "f7f1691d-fcf2-4bef-9726-432595126e1e",
+      "name": "Liam Livingstone",
+      "normalized_name": "liam livingstone",
+      "db_role": "allrounder",
+      "enriched_role": "AR",
+      "updated_fields": [
+        "matches",
+        "batting_avg",
+        "strike_rate",
+        "wickets",
+        "economy",
+        "performance_score",
+        "consistency_score",
+        "recent_form_score",
+        "experience_level",
+        "impact_type"
+      ],
+      "flags": [
+        {
+          "type": "nationality_not_validated",
+          "field": "nationality",
+          "message": "Nationality was not validated because the enriched CSV does not include nationality"
+        }
+      ]
+    },
+    {
+      "id": "4d2e6397-6fe7-4f5e-9206-9ca41dd255ea",
+      "name": "Nitish Kumar Reddy",
+      "normalized_name": "nitish kumar reddy",
+      "db_role": "allrounder",
+      "enriched_role": "AR",
+      "updated_fields": [
+        "matches",
+        "batting_avg",
+        "strike_rate",
+        "wickets",
+        "economy",
+        "performance_score",
+        "consistency_score",
+        "recent_form_score",
+        "experience_level",
+        "impact_type"
+      ],
+      "flags": [
+        {
+          "type": "nationality_not_validated",
+          "field": "nationality",
+          "message": "Nationality was not validated because the enriched CSV does not include nationality"
+        }
+      ]
+    },
+    {
+      "id": "8c7955fe-a4e6-4386-b6d9-0470d272ad9b",
+      "name": "Washington Sundar",
+      "normalized_name": "washington sundar",
+      "db_role": "allrounder",
+      "enriched_role": "AR",
+      "updated_fields": [
+        "matches",
+        "batting_avg",
+        "strike_rate",
+        "wickets",
+        "economy",
+        "performance_score",
+        "consistency_score",
+        "recent_form_score",
+        "experience_level",
+        "impact_type"
+      ],
+      "flags": [
+        {
+          "type": "nationality_not_validated",
+          "field": "nationality",
+          "message": "Nationality was not validated because the enriched CSV does not include nationality"
+        }
+      ]
+    },
+    {
+      "id": "9791b74d-583d-4995-8a5d-f0190f836810",
+      "name": "Devdutt Padikkal",
+      "normalized_name": "devdutt padikkal",
+      "db_role": "batter",
+      "enriched_role": "BAT",
+      "updated_fields": [
+        "matches",
+        "batting_avg",
+        "strike_rate",
+        "wickets",
+        "economy",
+        "performance_score",
+        "consistency_score",
+        "recent_form_score",
+        "experience_level",
+        "impact_type"
+      ],
+      "flags": [
+        {
+          "type": "nationality_not_validated",
+          "field": "nationality",
+          "message": "Nationality was not validated because the enriched CSV does not include nationality"
+        }
+      ]
+    },
+    {
+      "id": "5c278214-209b-41b7-b8eb-f2cb7ba87edd",
+      "name": "Tim David",
+      "normalized_name": "tim david",
+      "db_role": "batter",
+      "enriched_role": "BAT",
+      "updated_fields": [
+        "matches",
+        "batting_avg",
+        "strike_rate",
+        "wickets",
+        "economy",
+        "performance_score",
+        "consistency_score",
+        "recent_form_score",
+        "experience_level",
+        "impact_type"
+      ],
+      "flags": [
+        {
+          "type": "nationality_not_validated",
+          "field": "nationality",
+          "message": "Nationality was not validated because the enriched CSV does not include nationality"
+        }
+      ]
+    },
+    {
+      "id": "4a13a4fb-a5b1-4c3c-a69e-5f2e768a92a2",
+      "name": "Rinku Singh",
+      "normalized_name": "rinku singh",
+      "db_role": "batter",
+      "enriched_role": "BAT",
+      "updated_fields": [
+        "matches",
+        "batting_avg",
+        "strike_rate",
+        "wickets",
+        "economy",
+        "performance_score",
+        "consistency_score",
+        "recent_form_score",
+        "experience_level",
+        "impact_type"
+      ],
+      "flags": [
+        {
+          "type": "nationality_not_validated",
+          "field": "nationality",
+          "message": "Nationality was not validated because the enriched CSV does not include nationality"
+        }
+      ]
+    },
+    {
+      "id": "b8caa2ff-62e4-4ee9-8894-62a01dde2d28",
+      "name": "Venkatesh Iyer",
+      "normalized_name": "venkatesh iyer",
+      "db_role": "allrounder",
+      "enriched_role": "AR",
+      "updated_fields": [
+        "matches",
+        "batting_avg",
+        "strike_rate",
+        "wickets",
+        "economy",
+        "performance_score",
+        "consistency_score",
+        "recent_form_score",
+        "experience_level",
+        "impact_type"
+      ],
+      "flags": [
+        {
+          "type": "nationality_not_validated",
+          "field": "nationality",
+          "message": "Nationality was not validated because the enriched CSV does not include nationality"
+        }
+      ]
+    },
+    {
+      "id": "2d5e5015-12f7-49fc-a589-850a68a296a9",
+      "name": "Lockie Ferguson",
+      "normalized_name": "lockie ferguson",
+      "db_role": "bowler",
+      "enriched_role": "BOWL",
+      "updated_fields": [
+        "matches",
+        "batting_avg",
+        "strike_rate",
+        "wickets",
+        "economy",
+        "performance_score",
+        "consistency_score",
+        "recent_form_score",
+        "experience_level",
+        "impact_type"
+      ],
+      "flags": [
+        {
+          "type": "nationality_not_validated",
+          "field": "nationality",
+          "message": "Nationality was not validated because the enriched CSV does not include nationality"
+        }
+      ]
+    },
+    {
+      "id": "37c5697d-924d-4833-9aa4-9d955bda01dc",
+      "name": "Yudhvir Singh",
+      "normalized_name": "yudhvir singh",
+      "db_role": "bowler",
+      "enriched_role": "BOWL",
+      "updated_fields": [
+        "matches",
+        "batting_avg",
+        "strike_rate",
+        "wickets",
+        "economy",
+        "performance_score",
+        "consistency_score",
+        "recent_form_score",
+        "experience_level",
+        "impact_type"
+      ],
+      "flags": [
+        {
+          "type": "nationality_not_validated",
+          "field": "nationality",
+          "message": "Nationality was not validated because the enriched CSV does not include nationality"
+        }
+      ]
+    },
+    {
+      "id": "bd50673f-72a6-4228-a66b-02d792ff3204",
+      "name": "Zeeshan Ansari",
+      "normalized_name": "zeeshan ansari",
+      "db_role": "bowler",
+      "enriched_role": "BOWL",
+      "updated_fields": [
+        "matches",
+        "batting_avg",
+        "strike_rate",
+        "wickets",
+        "economy",
+        "performance_score",
+        "consistency_score",
+        "recent_form_score",
+        "experience_level",
+        "impact_type"
+      ],
+      "flags": [
+        {
+          "type": "nationality_not_validated",
+          "field": "nationality",
+          "message": "Nationality was not validated because the enriched CSV does not include nationality"
+        }
+      ]
+    },
+    {
+      "id": "238b6866-5499-4589-be88-0e1597dcad0d",
+      "name": "Kamindu Mendis",
+      "normalized_name": "kamindu mendis",
+      "db_role": "allrounder",
+      "enriched_role": "AR",
+      "updated_fields": [
+        "matches",
+        "batting_avg",
+        "strike_rate",
+        "wickets",
+        "economy",
+        "performance_score",
+        "consistency_score",
+        "recent_form_score",
+        "experience_level",
+        "impact_type"
+      ],
+      "flags": [
+        {
+          "type": "nationality_not_validated",
+          "field": "nationality",
+          "message": "Nationality was not validated because the enriched CSV does not include nationality"
+        }
+      ]
+    },
+    {
+      "id": "f8c6fb7f-82c3-4e47-98a2-8de290ef6c40",
+      "name": "Akash Singh",
+      "normalized_name": "akash singh",
+      "db_role": "bowler",
+      "enriched_role": "BOWL",
+      "updated_fields": [
+        "matches",
+        "batting_avg",
+        "strike_rate",
+        "wickets",
+        "economy",
+        "performance_score",
+        "consistency_score",
+        "recent_form_score",
+        "experience_level",
+        "impact_type"
+      ],
+      "flags": [
+        {
+          "type": "nationality_not_validated",
+          "field": "nationality",
+          "message": "Nationality was not validated because the enriched CSV does not include nationality"
+        }
+      ]
+    },
+    {
+      "id": "8970a354-37c8-4010-98a0-0f883b788f1b",
+      "name": "Tushar Deshpande",
+      "normalized_name": "tushar deshpande",
+      "db_role": "bowler",
+      "enriched_role": "BOWL",
+      "updated_fields": [
+        "matches",
+        "batting_avg",
+        "strike_rate",
+        "wickets",
+        "economy",
+        "performance_score",
+        "consistency_score",
+        "recent_form_score",
+        "experience_level",
+        "impact_type"
+      ],
+      "flags": [
+        {
+          "type": "nationality_not_validated",
+          "field": "nationality",
+          "message": "Nationality was not validated because the enriched CSV does not include nationality"
+        }
+      ]
+    },
+    {
+      "id": "d9a93662-a47d-482c-b4dc-018a74818231",
+      "name": "Mohammed Shami",
+      "normalized_name": "mohammed shami",
+      "db_role": "bowler",
+      "enriched_role": "BOWL",
+      "updated_fields": [
+        "matches",
+        "batting_avg",
+        "strike_rate",
+        "wickets",
+        "economy",
+        "performance_score",
+        "consistency_score",
+        "recent_form_score",
+        "experience_level",
+        "impact_type"
+      ],
+      "flags": [
+        {
+          "type": "nationality_not_validated",
+          "field": "nationality",
+          "message": "Nationality was not validated because the enriched CSV does not include nationality"
+        }
+      ]
+    },
+    {
+      "id": "b6d816c6-f9f8-441a-bba2-442f92aeb650",
+      "name": "Vignesh Puthur",
+      "normalized_name": "vignesh puthur",
+      "db_role": "bowler",
+      "enriched_role": "BOWL",
+      "updated_fields": [
+        "matches",
+        "batting_avg",
+        "strike_rate",
+        "wickets",
+        "economy",
+        "performance_score",
+        "consistency_score",
+        "recent_form_score",
+        "experience_level",
+        "impact_type"
+      ],
+      "flags": [
+        {
+          "type": "nationality_not_validated",
+          "field": "nationality",
+          "message": "Nationality was not validated because the enriched CSV does not include nationality"
+        }
+      ]
+    },
+    {
+      "id": "1466dbb1-3168-4ec3-abc0-12d1bcba6b9b",
+      "name": "Lungi Ngidi",
+      "normalized_name": "lungi ngidi",
+      "db_role": "bowler",
+      "enriched_role": "BOWL",
+      "updated_fields": [
+        "matches",
+        "batting_avg",
+        "strike_rate",
+        "wickets",
+        "economy",
+        "performance_score",
+        "consistency_score",
+        "recent_form_score",
+        "experience_level",
+        "impact_type"
+      ],
+      "flags": [
+        {
+          "type": "nationality_not_validated",
+          "field": "nationality",
+          "message": "Nationality was not validated because the enriched CSV does not include nationality"
+        }
+      ]
+    },
+    {
+      "id": "dc2b2f14-938a-4071-964f-6f78e6411ad2",
+      "name": "Xavier Bartlett",
+      "normalized_name": "xavier bartlett",
+      "db_role": "bowler",
+      "enriched_role": "BOWL",
+      "updated_fields": [
+        "matches",
+        "batting_avg",
+        "strike_rate",
+        "wickets",
+        "economy",
+        "performance_score",
+        "consistency_score",
+        "recent_form_score",
+        "experience_level",
+        "impact_type"
+      ],
+      "flags": [
+        {
+          "type": "nationality_not_validated",
+          "field": "nationality",
+          "message": "Nationality was not validated because the enriched CSV does not include nationality"
+        }
+      ]
+    },
+    {
+      "id": "ac4e7b3a-32bf-424f-9ec3-53dfcb6a1b4b",
+      "name": "Kwena Maphaka",
+      "normalized_name": "kwena maphaka",
+      "db_role": "bowler",
+      "enriched_role": "BOWL",
+      "updated_fields": [
+        "matches",
+        "batting_avg",
+        "strike_rate",
+        "wickets",
+        "economy",
+        "performance_score",
+        "consistency_score",
+        "recent_form_score",
+        "experience_level",
+        "impact_type"
+      ],
+      "flags": [
+        {
+          "type": "nationality_not_validated",
+          "field": "nationality",
+          "message": "Nationality was not validated because the enriched CSV does not include nationality"
+        }
+      ]
+    },
+    {
+      "id": "6368bff9-2a65-41e1-a601-eaf84fad70e6",
+      "name": "Mayank Yadav",
+      "normalized_name": "mayank yadav",
+      "db_role": "bowler",
+      "enriched_role": "BOWL",
+      "updated_fields": [
+        "matches",
+        "batting_avg",
+        "strike_rate",
+        "wickets",
+        "economy",
+        "performance_score",
+        "consistency_score",
+        "recent_form_score",
+        "experience_level",
+        "impact_type"
+      ],
+      "flags": [
+        {
+          "type": "nationality_not_validated",
+          "field": "nationality",
+          "message": "Nationality was not validated because the enriched CSV does not include nationality"
+        }
+      ]
+    },
+    {
+      "id": "76d66d5e-5a30-4a90-a025-6a3ba322b850",
+      "name": "Ishant Sharma",
+      "normalized_name": "ishant sharma",
+      "db_role": "bowler",
+      "enriched_role": "BOWL",
+      "updated_fields": [
+        "matches",
+        "batting_avg",
+        "strike_rate",
+        "wickets",
+        "economy",
+        "performance_score",
+        "consistency_score",
+        "recent_form_score",
+        "experience_level",
+        "impact_type"
+      ],
+      "flags": [
+        {
+          "type": "nationality_not_validated",
+          "field": "nationality",
+          "message": "Nationality was not validated because the enriched CSV does not include nationality"
+        }
+      ]
+    },
+    {
+      "id": "4d01482b-2c6a-4b8f-8e3b-64e387156d74",
+      "name": "Nuwan Thushara",
+      "normalized_name": "nuwan thushara",
+      "db_role": "bowler",
+      "enriched_role": "BOWL",
+      "updated_fields": [
+        "matches",
+        "batting_avg",
+        "strike_rate",
+        "wickets",
+        "economy",
+        "performance_score",
+        "consistency_score",
+        "recent_form_score",
+        "experience_level",
+        "impact_type"
+      ],
+      "flags": [
+        {
+          "type": "nationality_not_validated",
+          "field": "nationality",
+          "message": "Nationality was not validated because the enriched CSV does not include nationality"
+        }
+      ]
+    },
+    {
+      "id": "d47f7262-3bfe-425a-9bbf-2c6b4f8b753d",
+      "name": "Prince Yadav",
+      "normalized_name": "prince yadav",
+      "db_role": "bowler",
+      "enriched_role": "BOWL",
+      "updated_fields": [
+        "matches",
+        "batting_avg",
+        "strike_rate",
+        "wickets",
+        "economy",
+        "performance_score",
+        "consistency_score",
+        "recent_form_score",
+        "experience_level",
+        "impact_type"
+      ],
+      "flags": [
+        {
+          "type": "nationality_not_validated",
+          "field": "nationality",
+          "message": "Nationality was not validated because the enriched CSV does not include nationality"
+        }
+      ]
+    },
+    {
+      "id": "26e02e57-02d9-420e-ba49-c33a10740186",
+      "name": "Rahul Tewatia",
+      "normalized_name": "rahul tewatia",
+      "db_role": "allrounder",
+      "enriched_role": "AR",
+      "updated_fields": [
+        "matches",
+        "batting_avg",
+        "strike_rate",
+        "wickets",
+        "economy",
+        "performance_score",
+        "consistency_score",
+        "recent_form_score",
+        "experience_level",
+        "impact_type"
+      ],
+      "flags": [
+        {
+          "type": "nationality_not_validated",
+          "field": "nationality",
+          "message": "Nationality was not validated because the enriched CSV does not include nationality"
+        }
+      ]
+    },
+    {
+      "id": "39b6a204-3f6c-413c-a29e-906023513831",
+      "name": "Anrich Nortje",
+      "normalized_name": "anrich nortje",
+      "db_role": "bowler",
+      "enriched_role": "BOWL",
+      "updated_fields": [
+        "matches",
+        "batting_avg",
+        "strike_rate",
+        "wickets",
+        "economy",
+        "performance_score",
+        "consistency_score",
+        "recent_form_score",
+        "experience_level",
+        "impact_type"
+      ],
+      "flags": [
+        {
+          "type": "nationality_not_validated",
+          "field": "nationality",
+          "message": "Nationality was not validated because the enriched CSV does not include nationality"
+        }
+      ]
+    },
+    {
+      "id": "073dc9ea-3d27-4615-b4b7-6a627ea3a95d",
+      "name": "Manimaran Siddharth",
+      "normalized_name": "manimaran siddharth",
+      "db_role": "bowler",
+      "enriched_role": "BOWL",
+      "updated_fields": [
+        "matches",
+        "batting_avg",
+        "strike_rate",
+        "wickets",
+        "economy",
+        "performance_score",
+        "consistency_score",
+        "recent_form_score",
+        "experience_level",
+        "impact_type"
+      ],
+      "flags": [
+        {
+          "type": "nationality_not_validated",
+          "field": "nationality",
+          "message": "Nationality was not validated because the enriched CSV does not include nationality"
+        }
+      ]
+    },
+    {
+      "id": "d86974de-df44-49e1-b3fc-b4f3d97c3350",
+      "name": "Shahbaz Ahmed",
+      "normalized_name": "shahbaz ahmed",
+      "db_role": "allrounder",
+      "enriched_role": "AR",
+      "updated_fields": [
+        "matches",
+        "batting_avg",
+        "strike_rate",
+        "wickets",
+        "economy",
+        "performance_score",
+        "consistency_score",
+        "recent_form_score",
+        "experience_level",
+        "impact_type"
+      ],
+      "flags": [
+        {
+          "type": "nationality_not_validated",
+          "field": "nationality",
+          "message": "Nationality was not validated because the enriched CSV does not include nationality"
+        }
+      ]
+    },
+    {
+      "id": "75a54e60-0e47-42dd-ae8d-350650cf4d03",
+      "name": "Ramandeep Singh",
+      "normalized_name": "ramandeep singh",
+      "db_role": "batter",
+      "enriched_role": "BAT",
+      "updated_fields": [
+        "matches",
+        "batting_avg",
+        "strike_rate",
+        "wickets",
+        "economy",
+        "performance_score",
+        "consistency_score",
+        "recent_form_score",
+        "experience_level",
+        "impact_type"
+      ],
+      "flags": [
+        {
+          "type": "nationality_not_validated",
+          "field": "nationality",
+          "message": "Nationality was not validated because the enriched CSV does not include nationality"
+        }
+      ]
+    },
+    {
+      "id": "44c111e6-ff7a-4852-9ca6-ddfba9e44a23",
+      "name": "Shubham Dubey",
+      "normalized_name": "shubham dubey",
+      "db_role": "batter",
+      "enriched_role": "BAT",
+      "updated_fields": [
+        "matches",
+        "batting_avg",
+        "strike_rate",
+        "wickets",
+        "economy",
+        "performance_score",
+        "consistency_score",
+        "recent_form_score",
+        "experience_level",
+        "impact_type"
+      ],
+      "flags": [
+        {
+          "type": "nationality_not_validated",
+          "field": "nationality",
+          "message": "Nationality was not validated because the enriched CSV does not include nationality"
+        }
+      ]
+    },
+    {
+      "id": "82527a80-267b-46e9-bfa0-1a6a45190635",
+      "name": "Rajat Patidar",
+      "normalized_name": "rajat patidar",
+      "db_role": "batter",
+      "enriched_role": "BAT",
+      "updated_fields": [
+        "matches",
+        "batting_avg",
+        "strike_rate",
+        "wickets",
+        "economy",
+        "performance_score",
+        "consistency_score",
+        "recent_form_score",
+        "experience_level",
+        "impact_type"
+      ],
+      "flags": [
+        {
+          "type": "nationality_not_validated",
+          "field": "nationality",
+          "message": "Nationality was not validated because the enriched CSV does not include nationality"
+        }
+      ]
+    },
+    {
+      "id": "b85ce291-4b43-4413-a79e-38606ad80f94",
+      "name": "Jitesh Sharma",
+      "normalized_name": "jitesh sharma",
+      "db_role": "wicketkeeper",
+      "enriched_role": "WK",
+      "updated_fields": [
+        "matches",
+        "batting_avg",
+        "strike_rate",
+        "wickets",
+        "economy",
+        "performance_score",
+        "consistency_score",
+        "recent_form_score",
+        "experience_level",
+        "impact_type"
+      ],
+      "flags": [
+        {
+          "type": "nationality_not_validated",
+          "field": "nationality",
+          "message": "Nationality was not validated because the enriched CSV does not include nationality"
+        }
+      ]
+    },
+    {
+      "id": "29437983-5cd6-4af1-b23b-0217254ef4e5",
+      "name": "Aniket Verma",
+      "normalized_name": "aniket verma",
+      "db_role": "batter",
+      "enriched_role": "BAT",
+      "updated_fields": [
+        "matches",
+        "batting_avg",
+        "strike_rate",
+        "wickets",
+        "economy",
+        "performance_score",
+        "consistency_score",
+        "recent_form_score",
+        "experience_level",
+        "impact_type"
+      ],
+      "flags": [
+        {
+          "type": "nationality_not_validated",
+          "field": "nationality",
+          "message": "Nationality was not validated because the enriched CSV does not include nationality"
+        }
+      ]
+    },
+    {
+      "id": "ef7db905-5122-40af-9f8c-d25895c2181a",
+      "name": "Rahul Tripathi",
+      "normalized_name": "rahul tripathi",
+      "db_role": "batter",
+      "enriched_role": "BAT",
+      "updated_fields": [
+        "matches",
+        "batting_avg",
+        "strike_rate",
+        "wickets",
+        "economy",
+        "performance_score",
+        "consistency_score",
+        "recent_form_score",
+        "experience_level",
+        "impact_type"
+      ],
+      "flags": [
+        {
+          "type": "nationality_not_validated",
+          "field": "nationality",
+          "message": "Nationality was not validated because the enriched CSV does not include nationality"
+        }
+      ]
+    },
+    {
+      "id": "828e875b-cb7b-43d5-bd1f-2737f462a1ad",
+      "name": "Sherfane Rutherford",
+      "normalized_name": "sherfane rutherford",
+      "db_role": "batter",
+      "enriched_role": "BAT",
+      "updated_fields": [
+        "matches",
+        "batting_avg",
+        "strike_rate",
+        "wickets",
+        "economy",
+        "performance_score",
+        "consistency_score",
+        "recent_form_score",
+        "experience_level",
+        "impact_type"
+      ],
+      "flags": [
+        {
+          "type": "nationality_not_validated",
+          "field": "nationality",
+          "message": "Nationality was not validated because the enriched CSV does not include nationality"
+        }
+      ]
+    }
+  ],
+  "final_validation_only_rows": []
+}
