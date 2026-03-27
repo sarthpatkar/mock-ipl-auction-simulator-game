@@ -3771,11 +3771,26 @@ h1, h2, h3, h4 { font-family: var(--font-display); letter-spacing: 0.04em; line-
     padding: 10px 12px;
     overflow: hidden;
     pointer-events: auto;
+    background: rgba(12, 21, 32, 0.96);
+    border: 1px solid rgba(48, 71, 97, 0.76);
+    border-radius: 24px;
+    box-shadow: var(--shadow-premium);
+  }
+
+  .mobile-auction-player-card.team-theme {
     background:
-      linear-gradient(180deg, rgba(255, 255, 255, 0.018), rgba(255, 255, 255, 0)),
-      radial-gradient(circle at top left, var(--team-glow, rgba(255,255,255,0.05)), transparent 42%),
-      linear-gradient(135deg, rgba(12, 21, 32, 0.96), rgba(17, 30, 46, 0.94));
-    border-color: var(--team-border, rgba(26, 46, 69, 0.92));
+      linear-gradient(180deg, rgba(255, 255, 255, 0.01), rgba(255, 255, 255, 0)),
+      radial-gradient(circle at top right, var(--team-surface), transparent 32%),
+      rgba(12, 21, 32, 0.96);
+  }
+
+  .mobile-auction-player-card.team-theme::before {
+    content: '';
+    position: absolute;
+    inset: 0 0 auto;
+    height: 3px;
+    background: linear-gradient(90deg, var(--team-primary), var(--team-accent) 55%, transparent);
+    opacity: 0.96;
   }
 
   .mobile-auction-player-media {
@@ -3783,11 +3798,10 @@ h1, h2, h3, h4 { font-family: var(--font-display); letter-spacing: 0.04em; line-
     width: 54px;
     height: 54px;
     overflow: hidden;
-    border-radius: 16px;
+    border-radius: 18px;
     background:
-      linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0)),
       linear-gradient(180deg, #111c29 0%, #0a1119 100%);
-    border: 1px solid var(--team-border, rgba(26, 46, 69, 0.9));
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.04);
     align-self: start;
   }
 
@@ -3861,8 +3875,8 @@ h1, h2, h3, h4 { font-family: var(--font-display); letter-spacing: 0.04em; line-
     min-height: 20px;
     padding: 3px 7px;
     border-radius: 999px;
-    border: 1px solid var(--team-border, rgba(26, 46, 69, 0.9));
-    background: linear-gradient(180deg, rgba(255,255,255,0.015), rgba(255,255,255,0)), var(--team-surface, rgba(17, 30, 46, 0.9));
+    border: 1px solid rgba(26, 46, 69, 0.9);
+    background: rgba(17, 30, 46, 0.9);
     color: var(--text-strong);
     font-size: 0.66rem;
     line-height: 1;
@@ -3897,9 +3911,17 @@ h1, h2, h3, h4 { font-family: var(--font-display); letter-spacing: 0.04em; line-
     pointer-events: auto;
     background:
       linear-gradient(180deg, rgba(255, 255, 255, 0.018), rgba(255, 255, 255, 0)),
-      radial-gradient(circle at top, var(--team-surface, rgba(255,255,255,0.06)), transparent 64%),
+      radial-gradient(circle at top, var(--team-surface, transparent), transparent 64%),
       rgba(12, 21, 32, 0.96);
-    border-color: var(--team-border, rgba(26, 46, 69, 0.92));
+    border-radius: 24px;
+  }
+
+  .mobile-auction-timer::before {
+    content: '';
+    position: absolute;
+    inset: 0 0 auto;
+    height: 2px;
+    background: linear-gradient(90deg, var(--team-accent), transparent);
   }
 
   .mobile-auction-timer-bid,
@@ -4008,8 +4030,8 @@ h1, h2, h3, h4 { font-family: var(--font-display); letter-spacing: 0.04em; line-
     min-height: 22px;
     padding: 4px 7px;
     border-radius: 999px;
-    border: 1px solid var(--team-border, rgba(26, 46, 69, 0.86));
-    background: linear-gradient(180deg, rgba(255,255,255,0.015), rgba(255,255,255,0)), rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(26, 46, 69, 0.86);
+    background: rgba(11, 18, 27, 0.94);
     white-space: nowrap;
     flex-shrink: 0;
   }
@@ -4052,6 +4074,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); letter-spacing: 0.04em; line-
     min-height: 58px;
     max-height: 58px;
     overflow: hidden;
+    border-radius: 12px;
   }
 
   .mobile-auction-history-track {
@@ -4078,16 +4101,17 @@ h1, h2, h3, h4 { font-family: var(--font-display); letter-spacing: 0.04em; line-
     max-width: none;
     padding: 6px 10px;
     border-radius: 999px;
-    border: 1px solid rgba(26, 46, 69, 0.88);
-    background: rgba(17, 30, 46, 0.92);
+    border: 1px solid rgba(26, 46, 69, 0.9);
+    background: rgba(17, 30, 46, 0.96);
     white-space: nowrap;
   }
 
   .mobile-auction-history-item.team-theme {
-    border-color: var(--team-border, rgba(26, 46, 69, 0.88));
+    border-color: var(--team-border);
     background:
       linear-gradient(180deg, rgba(255,255,255,0.012), rgba(255,255,255,0)),
-      var(--team-surface, rgba(17, 30, 46, 0.92));
+      var(--team-surface),
+      rgba(17, 30, 46, 0.96);
   }
 
   .mobile-auction-history-name {
@@ -4137,8 +4161,8 @@ h1, h2, h3, h4 { font-family: var(--font-display); letter-spacing: 0.04em; line-
     min-height: 44px;
     padding: 8px 10px;
     border-radius: 14px;
-    border: 1px solid rgba(26, 46, 69, 0.92);
-    background: rgba(12, 21, 32, 0.96);
+    border: 1px solid rgba(26, 46, 69, 0.9);
+    background: rgba(17, 30, 46, 0.96);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -4183,6 +4207,9 @@ h1, h2, h3, h4 { font-family: var(--font-display); letter-spacing: 0.04em; line-
     min-height: 180px;
     max-height: 34vh;
     overflow: hidden;
+    border-color: rgba(26, 46, 69, 0.9);
+    background: rgba(17, 30, 46, 0.96);
+    border-radius: 16px;
   }
 
   .mobile-auction-team-summary strong {
@@ -4215,7 +4242,8 @@ h1, h2, h3, h4 { font-family: var(--font-display); letter-spacing: 0.04em; line-
     gap: 10px;
     padding: 8px 10px;
     border-radius: 12px;
-    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(26, 46, 69, 0.86);
+    background: rgba(11, 18, 27, 0.94);
   }
 
   .mobile-auction-panel-row strong,
