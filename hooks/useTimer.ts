@@ -12,17 +12,25 @@ export function useTimer(endsAt: string | null, onExpire?: (endsAt: string) => v
       return
     }
 
-    const interval = setInterval(() => {
+    const syncRemaining = () => {
       const diff = new Date(endsAt).getTime() - Date.now()
       const seconds = Math.max(0, Math.ceil(diff / 1000))
       setRemaining(seconds)
 
+      if (seconds === 0 && expiredRef.current !== endsAt) {
+        expiredRef.current = endsAt
+        onExpire?.(endsAt)
+      }
+
+      return seconds
+    }
+
+    syncRemaining()
+
+    const interval = setInterval(() => {
+      const seconds = syncRemaining()
       if (seconds === 0) {
         clearInterval(interval)
-        if (expiredRef.current !== endsAt) {
-          expiredRef.current = endsAt
-          onExpire?.(endsAt)
-        }
       }
     }, 100)
 

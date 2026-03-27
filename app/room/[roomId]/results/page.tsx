@@ -3,8 +3,10 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import { PageNavbar } from '@/components/shared/PageNavbar'
+import { ResultsRevealHold } from '@/components/results/ResultsRevealHold'
 import { RoomResultsBoard } from '@/components/results/RoomResultsBoard'
 import { useRoom } from '@/hooks/useRoom'
+import { useTimer } from '@/hooks/useTimer'
 import { fetchPlayersByIds, RESULTS_PLAYER_COLUMNS } from '@/lib/player-catalog'
 import { getBrowserSessionUser, supabaseClient } from '@/lib/supabase'
 import { Player, SquadPlayer, TeamResult } from '@/types'
@@ -23,6 +25,8 @@ export default function ResultsPage() {
   const [playersById, setPlayersById] = useState<Record<string, Player>>({})
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const revealAt = room?.results_reveal_at ?? null
+  const { remaining: revealRemaining } = useTimer(revealAt)
 
   useEffect(() => {
     getBrowserSessionUser().then((currentUser) => {
@@ -118,7 +122,9 @@ export default function ResultsPage() {
   }, [room?.status, roomId])
 
   const pageError = useMemo(() => error ?? roomError, [error, roomError])
-  const isLoading = roomLoading || loading || room?.status !== 'completed'
+  const isPreReveal = room?.status === 'completed' && Boolean(revealAt) && revealRemaining > 0
+  const isPageBooting = roomLoading || room?.status !== 'completed'
+  const isResultsLoading = loading
 
   return (
     <div className="screen page-with-navbar results-page">
@@ -133,7 +139,16 @@ export default function ResultsPage() {
           </div>
         )}
 
-        {isLoading ? (
+        {isPageBooting ? (
+          <section className="results-loading-shell">
+            <div className="card skeleton-card results-loading-hero" />
+            <div className="card skeleton-card results-loading-bar" />
+            <div className="card skeleton-card results-loading-card" />
+            <div className="card skeleton-card results-loading-card" />
+          </section>
+        ) : isPreReveal ? (
+          <ResultsRevealHold revealAt={revealAt!} remaining={revealRemaining} participants={participants} squads={squads} playersById={playersById} />
+        ) : isResultsLoading ? (
           <section className="results-loading-shell">
             <div className="card skeleton-card results-loading-hero" />
             <div className="card skeleton-card results-loading-bar" />

@@ -20,6 +20,7 @@ import { formatAuctionStatus, formatRolePlural, getTeamThemeStyle } from '@/lib/
 
 const SOUND_STORAGE_KEY = 'auction:sound-enabled'
 const HIGH_BID_ALERT_THRESHOLD = 15 * 10_000_000
+const MARQUEE_BID_SONG_THRESHOLD = 25 * 10_000_000
 
 function playTone(enabled: boolean, frequency: number, duration: number, type: OscillatorType) {
   if (!enabled || typeof window === 'undefined' || !('AudioContext' in window)) return
@@ -60,7 +61,17 @@ export default function AuctionPage() {
   const trackedPlayerKeyRef = useRef<string | null>(null)
   const alertedPlayerKeyRef = useRef<string | null>(null)
   const highBidAlertAudioRef = useRef<HTMLAudioElement | null>(null)
+  const marqueeBidSongAudioRef = useRef<HTMLAudioElement | null>(null)
+  const marqueeBidSongPlayerKeyRef = useRef<string | null>(null)
   const stageRef = useRef<HTMLDivElement | null>(null)
+
+  const stopMarqueeBidSong = () => {
+    const audio = marqueeBidSongAudioRef.current
+    if (!audio) return
+
+    audio.pause()
+    audio.currentTime = 0
+  }
 
   useEffect(() => {
     let active = true
@@ -101,6 +112,21 @@ export default function AuctionPage() {
       audio.pause()
       audio.src = ''
       highBidAlertAudioRef.current = null
+    }
+  }, [])
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+
+    const audio = new Audio('/marquee-bid-song.mp3')
+    audio.preload = 'auto'
+    audio.loop = false
+    marqueeBidSongAudioRef.current = audio
+
+    return () => {
+      audio.pause()
+      audio.src = ''
+      marqueeBidSongAudioRef.current = null
     }
   }, [])
 
@@ -199,10 +225,7 @@ export default function AuctionPage() {
   const me = useMemo(() => participants.find((participant) => participant.user_id === user), [participants, user])
 
   const { remaining, isDanger } = useTimer(auction?.ends_at ?? null, async () => {
-    if (auction?.status !== 'paused' && me && auction?.auction_session_id && participants.length > 0) {
-      const sortedParticipantIds = [...participants].map((participant) => participant.id).sort()
-      const isTimerLeader = sortedParticipantIds[0] === me.id
-      if (!isTimerLeader) return
+    if (auction?.status === 'live' && me && auction?.auction_session_id) {
       await supabaseClient.rpc('finalize_player', { p_auction_session_id: auction.auction_session_id })
     }
   })
@@ -215,6 +238,7 @@ export default function AuctionPage() {
     return Math.max(0, Math.ceil(auction.paused_remaining_ms / 1000))
   }, [auction?.paused_remaining_ms])
   const displayedRemaining = auction?.status === 'paused' ? pausedRemaining : remaining
+  const isExpired = auction?.status === 'live' && Boolean(auction.ends_at) && remaining <= 0
   const currentPlayerThemeStyle = useMemo(() => getTeamThemeStyle(currentPlayer?.ipl_team), [currentPlayer?.ipl_team])
   const resolutionKey = useMemo(() => {
     if (!auction || !auction.current_player_id || !['sold', 'unsold'].includes(auction.status)) return null
@@ -268,15 +292,19 @@ export default function AuctionPage() {
     const playerKey = auction?.current_player_id ? `${auction.auction_session_id}:${auction.current_player_id}` : null
 
     if (!auction || !playerKey) {
+      stopMarqueeBidSong()
       previousPriceRef.current = null
       trackedPlayerKeyRef.current = null
       alertedPlayerKeyRef.current = null
+      marqueeBidSongPlayerKeyRef.current = null
       return
     }
 
     if (trackedPlayerKeyRef.current !== playerKey) {
+      stopMarqueeBidSong()
       trackedPlayerKeyRef.current = playerKey
       alertedPlayerKeyRef.current = null
+      marqueeBidSongPlayerKeyRef.current = null
       previousPriceRef.current = auction?.current_price ?? 0
       return
     }
@@ -284,6 +312,7 @@ export default function AuctionPage() {
     const previousPrice = previousPriceRef.current ?? auction.current_price
     const currentPrice = auction.current_price
     const crossedThreshold = previousPrice <= HIGH_BID_ALERT_THRESHOLD && currentPrice > HIGH_BID_ALERT_THRESHOLD
+    const crossedMarqueeThreshold = previousPrice <= MARQUEE_BID_SONG_THRESHOLD && currentPrice > MARQUEE_BID_SONG_THRESHOLD
 
     if (crossedThreshold && soundEnabled && highBidAlertAudioRef.current && alertedPlayerKeyRef.current !== playerKey) {
       highBidAlertAudioRef.current.currentTime = 0
@@ -291,8 +320,19 @@ export default function AuctionPage() {
       alertedPlayerKeyRef.current = playerKey
     }
 
+    if (crossedMarqueeThreshold && marqueeBidSongAudioRef.current && marqueeBidSongPlayerKeyRef.current !== playerKey) {
+      stopMarqueeBidSong()
+      void marqueeBidSongAudioRef.current.play().catch(() => {})
+      marqueeBidSongPlayerKeyRef.current = playerKey
+    }
+
     previousPriceRef.current = currentPrice
-  }, [auction?.auction_session_id, auction?.current_player_id, auction?.current_price, soundEnabled])
+  }, [auction, soundEnabled])
+
+  useEffect(() => {
+    if (auction?.status !== 'sold') return
+    stopMarqueeBidSong()
+  }, [auction?.status])
 
   useEffect(() => {
     if (!resolutionType || !auction?.auction_session_id || !user || !resolutionKey) return
@@ -484,6 +524,7 @@ export default function AuctionPage() {
               squadCount={me.squad_count}
               squadLimit={room?.settings.squad_size || 20}
               isPaused={auction.status === 'paused'}
+              isExpired={isExpired}
               skipped={Boolean(auction.skipped_bidders?.includes(me.id))}
               isHighestBidder={auction.highest_bidder_id === me.id}
               skipCount={auction.skipped_bidders?.length || 0}

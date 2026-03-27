@@ -5,7 +5,7 @@ import { supabaseClient } from '@/lib/supabase'
 import { Room, RoomParticipant } from '@/types'
 import type { RealtimeStatus } from '@/hooks/useAuction'
 
-const ROOM_SELECT = 'id, code, name, admin_id, status, settings, created_at'
+const ROOM_SELECT = 'id, code, name, admin_id, status, settings, results_reveal_at, created_at'
 const PARTICIPANT_SELECT = 'id, room_id, user_id, team_name, budget_remaining, squad_count, joined_at, accelerated_round_submitted_at, profiles(username)'
 
 function normalizeParticipant(row: any): RoomParticipant {

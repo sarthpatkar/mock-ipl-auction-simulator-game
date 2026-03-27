@@ -20,7 +20,16 @@ export type Room = {
   admin_id: UUID
   status: 'lobby' | 'auction' | 'accelerated_selection' | 'completed'
   settings: RoomSettings
+  results_reveal_at?: string | null
   created_at: string
+}
+
+export type RoomSoundtrackPhase = 'accelerated_transition' | 'results_hold' | 'results_live' | 'idle'
+
+export type RoomSoundtrackState = {
+  enabled: boolean
+  isPlaying: boolean
+  phase: RoomSoundtrackPhase
 }
 
 export type RoomParticipant = {

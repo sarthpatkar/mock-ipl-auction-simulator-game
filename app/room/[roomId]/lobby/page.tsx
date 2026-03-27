@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import { RoomCodeDisplay } from '@/components/lobby/RoomCodeDisplay'
 import { ParticipantList } from '@/components/lobby/ParticipantList'
@@ -19,6 +19,7 @@ export default function LobbyPage() {
   const [userId, setUserId] = useState<string | null>(null)
   const [startError, setStartError] = useState<string | null>(null)
   const [lobbyNotice, setLobbyNotice] = useState('Waiting for participants…')
+  const lobbyAudioRef = useRef<HTMLAudioElement | null>(null)
 
   useEffect(() => {
     getBrowserSessionUser().then((currentUser) => {
@@ -56,8 +57,47 @@ export default function LobbyPage() {
     }
   }, [participants.length])
 
+  useEffect(() => {
+    if (typeof window === 'undefined' || room?.status !== 'lobby') {
+      if (lobbyAudioRef.current) {
+        lobbyAudioRef.current.pause()
+        lobbyAudioRef.current.currentTime = 0
+        lobbyAudioRef.current = null
+      }
+      return
+    }
+
+    const audio = new Audio('/lobby-waiting-music.mp3')
+    audio.preload = 'auto'
+    audio.loop = true
+    audio.volume = 0.45
+    lobbyAudioRef.current = audio
+
+    const startPlayback = () => {
+      void audio.play().catch(() => {})
+    }
+
+    startPlayback()
+    window.addEventListener('pointerdown', startPlayback, { once: true })
+    window.addEventListener('keydown', startPlayback, { once: true })
+
+    return () => {
+      window.removeEventListener('pointerdown', startPlayback)
+      window.removeEventListener('keydown', startPlayback)
+      audio.pause()
+      audio.currentTime = 0
+      if (lobbyAudioRef.current === audio) {
+        lobbyAudioRef.current = null
+      }
+    }
+  }, [room?.status])
+
   const startAuction = async () => {
     if (!room) return
+    if (lobbyAudioRef.current) {
+      lobbyAudioRef.current.pause()
+      lobbyAudioRef.current.currentTime = 0
+    }
     setStartError(null)
     const { data: players, error: playersError } = await supabaseClient.from('players').select('id, role, category')
     if (playersError) {
@@ -129,7 +169,10 @@ export default function LobbyPage() {
       }
       sessionId = created?.id
     }
-    const { error: roomError } = await supabaseClient.from('rooms').update({ status: 'auction' }).eq('id', room.id)
+    const { error: roomError } = await supabaseClient
+      .from('rooms')
+      .update({ status: 'auction', results_reveal_at: null })
+      .eq('id', room.id)
     if (roomError) {
       setStartError(roomError.message)
       return

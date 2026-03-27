@@ -12,6 +12,7 @@ type Props = {
   squadCount: number
   squadLimit: number
   isPaused: boolean
+  isExpired: boolean
   skipped: boolean
   isHighestBidder: boolean
   skipCount: number
@@ -31,6 +32,7 @@ export function BidActions({
   squadCount,
   squadLimit,
   isPaused,
+  isExpired,
   skipped,
   isHighestBidder,
   skipCount,
@@ -40,15 +42,16 @@ export function BidActions({
   const [message, setMessage] = useState<ActionState>(null)
   const increments = getBidIncrements(currentPrice)
 
-  const disabled = isPaused || isHighestBidder || squadCount >= squadLimit || budgetRemaining <= currentPrice
+  const disabled = isPaused || isExpired || isHighestBidder || squadCount >= squadLimit || budgetRemaining <= currentPrice
   const disabledReason = useMemo(() => {
     if (isPaused) return 'Host has paused the auction.'
+    if (isExpired) return 'Timer expired. Waiting for result.'
     if (isHighestBidder) return 'You already hold the highest confirmed bid.'
     if (squadCount >= squadLimit) return 'Your squad limit is full.'
     if (budgetRemaining <= currentPrice) return 'Available budget is below the current price.'
     if (skipped) return `Pass recorded · ${skipCount}/${activeCount} franchises skipped`
     return 'Place a bid or skip this player.'
-  }, [activeCount, budgetRemaining, currentPrice, isHighestBidder, isPaused, skipCount, skipped, squadCount, squadLimit])
+  }, [activeCount, budgetRemaining, currentPrice, isExpired, isHighestBidder, isPaused, skipCount, skipped, squadCount, squadLimit])
 
   const placeBid = async (delta: number) => {
     if (disabled) return
@@ -126,7 +129,7 @@ export function BidActions({
 
         <button
           onClick={skip}
-          disabled={loadingAction !== null || skipped || isPaused || isHighestBidder}
+          disabled={loadingAction !== null || skipped || isPaused || isExpired || isHighestBidder}
           className="btn btn-danger btn-sm auction-skip-button"
         >
           {loadingAction === 'skip' ? 'Submitting…' : skipped ? `${skipCount}/${activeCount} skipped` : 'Skip'}
