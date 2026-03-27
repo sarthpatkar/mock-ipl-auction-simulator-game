@@ -1,6 +1,6 @@
 'use client'
 
-import { CSSProperties, useEffect, useMemo, useRef, useState } from 'react'
+import { CSSProperties, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import { useAuction } from '@/hooks/useAuction'
 import { useTimer } from '@/hooks/useTimer'
@@ -15,6 +15,7 @@ import { TeamView } from '@/components/auction/TeamView'
 import { SoldModal } from '@/components/auction/SoldModal'
 import { TopStatusBar } from '@/components/auction/TopStatusBar'
 import { AdminControls } from '@/components/auction/AdminControls'
+import { MobileAuctionLayout } from '@/components/auction/MobileAuctionLayout'
 import { PageNavbar } from '@/components/shared/PageNavbar'
 import { formatAuctionStatus, formatRolePlural, getTeamThemeStyle } from '@/lib/auction-helpers'
 
@@ -55,6 +56,7 @@ export default function AuctionPage() {
   })
   const [actionBarStyle, setActionBarStyle] = useState<CSSProperties | undefined>(undefined)
   const [soundEnabled, setSoundEnabled] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
   const lastBidIdRef = useRef<string | null>(null)
   const lastTickRef = useRef<number | null>(null)
   const previousPriceRef = useRef<number | null>(null)
@@ -99,6 +101,17 @@ export default function AuctionPage() {
     } catch {
       setSoundEnabled(false)
     }
+  }, [])
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+
+    const media = window.matchMedia('(max-width: 640px)')
+    const sync = () => setIsMobile(media.matches)
+
+    sync()
+    media.addEventListener('change', sync)
+    return () => media.removeEventListener('change', sync)
   }, [])
 
   useEffect(() => {
@@ -224,10 +237,14 @@ export default function AuctionPage() {
 
   const me = useMemo(() => participants.find((participant) => participant.user_id === user), [participants, user])
 
-  const { remaining, isDanger } = useTimer(auction?.ends_at ?? null, async () => {
+  const finalizeExpiredPlayer = useCallback(async () => {
     if (auction?.status === 'live' && me && auction?.auction_session_id) {
       await supabaseClient.rpc('finalize_player', { p_auction_session_id: auction.auction_session_id })
     }
+  }, [auction?.auction_session_id, auction?.status, me])
+
+  const { remaining, isDanger } = useTimer(isMobile ? null : auction?.ends_at ?? null, async () => {
+    await finalizeExpiredPlayer()
   })
 
   const currentPlayer = auction?.current_player_id ? playersById[auction.current_player_id] : null
@@ -394,144 +411,169 @@ export default function AuctionPage() {
   }
 
   return (
-    <div className="auction-page page-with-navbar" style={currentPlayerThemeStyle}>
-      <PageNavbar
-        subtitle={auction?.round_number === 2 ? 'ACCELERATED ROUND' : 'LIVE AUCTION'}
-        showHome
-        actions={
-          auction ? (
-            <div className="auction-navbar-tools">
-              <button
-                type="button"
-                className={`btn btn-ghost btn-sm auction-sound-toggle ${soundEnabled ? 'is-enabled' : 'is-disabled'}`}
-                aria-pressed={soundEnabled}
-                onClick={toggleSound}
-              >
-                Sound {soundEnabled ? 'On' : 'Off'}
-              </button>
-              {room?.admin_id && user === room.admin_id && <AdminControls auctionSessionId={auction.auction_session_id} status={auction.status} compact />}
-              <div className="auction-navbar-status">
-                <span className={`auction-status-pill is-${auction.status}`}>{formatAuctionStatus(auction.status)}</span>
+    <div className={`auction-page ${isMobile ? 'auction-page-mobile' : 'page-with-navbar'}`} style={currentPlayerThemeStyle}>
+      {isMobile ? (
+        <MobileAuctionLayout
+          room={room}
+          auction={auction}
+          currentPlayer={currentPlayer}
+          participants={participants}
+          bidHistory={bidHistory}
+          squads={squads}
+          playersById={playersById}
+          currentUserId={user}
+          me={me}
+          soundEnabled={soundEnabled}
+          onToggleSound={toggleSound}
+          onExpire={finalizeExpiredPlayer}
+          screenLoading={screenLoading}
+          screenError={screenError}
+          connectionState={connectionState}
+          isStale={isStale}
+          onRefetch={refetch}
+          skipTargetCount={skipTargetCount}
+        />
+      ) : (
+        <>
+          <PageNavbar
+            subtitle={auction?.round_number === 2 ? 'ACCELERATED ROUND' : 'LIVE AUCTION'}
+            showHome
+            actions={
+              auction ? (
+                <div className="auction-navbar-tools">
+                  <button
+                    type="button"
+                    className={`btn btn-ghost btn-sm auction-sound-toggle ${soundEnabled ? 'is-enabled' : 'is-disabled'}`}
+                    aria-pressed={soundEnabled}
+                    onClick={toggleSound}
+                  >
+                    Sound {soundEnabled ? 'On' : 'Off'}
+                  </button>
+                  {room?.admin_id && user === room.admin_id && <AdminControls auctionSessionId={auction.auction_session_id} status={auction.status} compact />}
+                  <div className="auction-navbar-status">
+                    <span className={`auction-status-pill is-${auction.status}`}>{formatAuctionStatus(auction.status)}</span>
+                  </div>
+                </div>
+              ) : null
+            }
+          />
+
+          <div className="auction-body">
+            <div className="auction-stage" ref={stageRef}>
+              {screenLoading ? (
+                <>
+                  <div className="card auction-status-grid skeleton-card skeleton-block-lg" />
+                  <div className="card player-card skeleton-card skeleton-player-card" />
+                  <div className="card skeleton-card skeleton-block-md" />
+                  <div className="card skeleton-card skeleton-block-md" />
+                </>
+              ) : (
+                <>
+                  {(screenError || connectionState !== 'live' || isStale) && (
+                    <div className={`card live-banner ${hasCriticalState ? 'is-error' : connectionState === 'offline' ? 'is-danger' : 'is-warning'}`}>
+                      <div>
+                        <span className="status-label">{hasCriticalState ? 'Live board issue' : connectionState === 'offline' ? 'Connection lost' : 'Sync status'}</span>
+                        <p className="live-banner-copy">
+                          {screenError ||
+                            (connectionState === 'offline'
+                              ? 'Realtime connection is down. Use refresh once the channel reconnects.'
+                              : connectionState === 'degraded'
+                                ? 'Realtime delivery is delayed. Waiting for the next confirmed backend update.'
+                                : 'The board is catching up to the most recent backend state.')}
+                        </p>
+                      </div>
+                      <button className="btn btn-ghost btn-sm" type="button" onClick={() => void refetch()}>
+                        Refresh Board
+                      </button>
+                    </div>
+                  )}
+
+                  {auction && (
+                    <TopStatusBar
+                      roundLabel={displayRoundLabel}
+                      progressLabel={progressLabel}
+                      me={me as RoomParticipant}
+                      squadLimit={room?.settings.squad_size || 20}
+                      auctionStatus={auction.status}
+                    />
+                  )}
+                  <PlayerCard player={currentPlayer} />
+                  {auction && (
+                    <BidBar
+                      currentPrice={auction.current_price}
+                      highestBidderId={auction.highest_bidder_id}
+                      participants={participants}
+                      bidHistory={bidHistory}
+                      themeTeam={currentPlayer?.ipl_team}
+                    />
+                  )}
+                  {auction && me && <div className="auction-stage-spacer" aria-hidden="true" />}
+                  {!auction && !screenError && (
+                    <div className="card player-card-empty">
+                      <div className="player-card-empty-copy">
+                        <span className="status-label">Awaiting live session</span>
+                        <strong className="player-card-empty-title">Auction session is not ready</strong>
+                        <p className="text-muted">This screen activates once the room and auction session are available from the backend.</p>
+                      </div>
+                    </div>
+                  )}
+                </>
+              )}
+            </div>
+
+            <div className="auction-sidebar">
+              {screenLoading ? (
+                <>
+                  <div className="card skeleton-card skeleton-timer-card" />
+                  <div className="card skeleton-card skeleton-block-lg" />
+                  <div className="card skeleton-card skeleton-block-sm" />
+                </>
+              ) : (
+                <>
+                  {auction && (
+                    <div className="auction-timer-sticky">
+                      <TimerRing
+                        remaining={displayedRemaining}
+                        total={room?.settings.timer_seconds || 15}
+                        paused={auction.status === 'paused'}
+                        status={auction.status}
+                        themeTeam={currentPlayer?.ipl_team}
+                      />
+                    </div>
+                  )}
+                  {auction && <TeamView participants={participants} squads={squads} playersById={playersById} currentUserId={user} />}
+                  {auction && me && auction.highest_bidder_id === me.id && (
+                    <div className="card live-callout is-success">
+                      <span className="status-label">Live advantage</span>
+                      <p>You currently hold the highest confirmed bid.</p>
+                    </div>
+                  )}
+                </>
+              )}
+            </div>
+          </div>
+
+          {auction && me && (
+            <div className="auction-actions-float" style={actionBarStyle}>
+              <div className="auction-actions-float-inner">
+                <BidActions
+                  auctionSessionId={auction.auction_session_id}
+                  participantId={me.id}
+                  currentPrice={auction.current_price}
+                  budgetRemaining={me.budget_remaining}
+                  squadCount={me.squad_count}
+                  squadLimit={room?.settings.squad_size || 20}
+                  isPaused={auction.status === 'paused'}
+                  isExpired={isExpired}
+                  skipped={Boolean(auction.skipped_bidders?.includes(me.id))}
+                  isHighestBidder={auction.highest_bidder_id === me.id}
+                  skipCount={auction.skipped_bidders?.length || 0}
+                  activeCount={skipTargetCount}
+                />
               </div>
             </div>
-          ) : null
-        }
-      />
-
-      <div className="auction-body">
-        <div className="auction-stage" ref={stageRef}>
-          {screenLoading ? (
-            <>
-              <div className="card auction-status-grid skeleton-card skeleton-block-lg" />
-              <div className="card player-card skeleton-card skeleton-player-card" />
-              <div className="card skeleton-card skeleton-block-md" />
-              <div className="card skeleton-card skeleton-block-md" />
-            </>
-          ) : (
-            <>
-              {(screenError || connectionState !== 'live' || isStale) && (
-                <div className={`card live-banner ${hasCriticalState ? 'is-error' : connectionState === 'offline' ? 'is-danger' : 'is-warning'}`}>
-                  <div>
-                    <span className="status-label">{hasCriticalState ? 'Live board issue' : connectionState === 'offline' ? 'Connection lost' : 'Sync status'}</span>
-                    <p className="live-banner-copy">
-                      {screenError ||
-                        (connectionState === 'offline'
-                          ? 'Realtime connection is down. Use refresh once the channel reconnects.'
-                          : connectionState === 'degraded'
-                            ? 'Realtime delivery is delayed. Waiting for the next confirmed backend update.'
-                            : 'The board is catching up to the most recent backend state.')}
-                    </p>
-                  </div>
-                  <button className="btn btn-ghost btn-sm" type="button" onClick={() => void refetch()}>
-                    Refresh Board
-                  </button>
-                </div>
-              )}
-
-              {auction && (
-                <TopStatusBar
-                  roundLabel={displayRoundLabel}
-                  progressLabel={progressLabel}
-                  me={me as RoomParticipant}
-                  squadLimit={room?.settings.squad_size || 20}
-                  auctionStatus={auction.status}
-                />
-              )}
-              <PlayerCard player={currentPlayer} />
-              {auction && (
-                <BidBar
-                  currentPrice={auction.current_price}
-                  highestBidderId={auction.highest_bidder_id}
-                  participants={participants}
-                  bidHistory={bidHistory}
-                  themeTeam={currentPlayer?.ipl_team}
-                />
-              )}
-              {auction && me && <div className="auction-stage-spacer" aria-hidden="true" />}
-              {!auction && !screenError && (
-                <div className="card player-card-empty">
-                  <div className="player-card-empty-copy">
-                    <span className="status-label">Awaiting live session</span>
-                    <strong className="player-card-empty-title">Auction session is not ready</strong>
-                    <p className="text-muted">This screen activates once the room and auction session are available from the backend.</p>
-                  </div>
-                </div>
-              )}
-            </>
           )}
-        </div>
-
-        <div className="auction-sidebar">
-          {screenLoading ? (
-            <>
-              <div className="card skeleton-card skeleton-timer-card" />
-              <div className="card skeleton-card skeleton-block-lg" />
-              <div className="card skeleton-card skeleton-block-sm" />
-            </>
-          ) : (
-            <>
-              {auction && (
-                <div className="auction-timer-sticky">
-                  <TimerRing
-                    remaining={displayedRemaining}
-                    total={room?.settings.timer_seconds || 15}
-                    paused={auction.status === 'paused'}
-                    status={auction.status}
-                    themeTeam={currentPlayer?.ipl_team}
-                  />
-                </div>
-              )}
-              {auction && <TeamView participants={participants} squads={squads} playersById={playersById} currentUserId={user} />}
-              {auction && me && auction.highest_bidder_id === me.id && (
-                <div className="card live-callout is-success">
-                  <span className="status-label">Live advantage</span>
-                  <p>You currently hold the highest confirmed bid.</p>
-                </div>
-              )}
-            </>
-          )}
-        </div>
-      </div>
-
-      {auction && me && (
-        <div className="auction-actions-float" style={actionBarStyle}>
-          <div className="auction-actions-float-inner">
-            <BidActions
-              auctionSessionId={auction.auction_session_id}
-              participantId={me.id}
-              currentPrice={auction.current_price}
-              budgetRemaining={me.budget_remaining}
-              squadCount={me.squad_count}
-              squadLimit={room?.settings.squad_size || 20}
-              isPaused={auction.status === 'paused'}
-              isExpired={isExpired}
-              skipped={Boolean(auction.skipped_bidders?.includes(me.id))}
-              isHighestBidder={auction.highest_bidder_id === me.id}
-              skipCount={auction.skipped_bidders?.length || 0}
-              activeCount={skipTargetCount}
-            />
-          </div>
-        </div>
+        </>
       )}
 
       {auction && currentPlayer && (

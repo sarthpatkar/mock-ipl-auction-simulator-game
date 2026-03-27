@@ -3598,3 +3598,691 @@ h1, h2, h3, h4 { font-family: var(--font-display); letter-spacing: 0.04em; line-
     padding: 22px;
   }
 }
+
+@media (max-width: 640px) {
+  .auction-page-mobile {
+    --mobile-auction-nav-h: 48px;
+    --mobile-auction-player-h: 112px;
+    --mobile-auction-timer-h: 148px;
+    --mobile-auction-action-h: 96px;
+    min-height: 100vh;
+    padding-top: calc(env(safe-area-inset-top) + var(--mobile-auction-nav-h) + var(--mobile-auction-player-h) + var(--mobile-auction-timer-h) + 24px);
+    padding-bottom: calc(var(--mobile-auction-action-h) + env(safe-area-inset-bottom) + 18px);
+    overflow-x: hidden;
+  }
+
+  .auction-page-mobile .mobile-auction-navbar,
+  .auction-page-mobile .mobile-auction-player-card,
+  .auction-page-mobile .mobile-auction-timer,
+  .auction-page-mobile .mobile-auction-actionbar {
+    left: 0;
+    right: 0;
+    width: 100%;
+  }
+
+  .mobile-auction-navbar {
+    position: fixed;
+    top: 0;
+    z-index: 130;
+    height: calc(env(safe-area-inset-top) + var(--mobile-auction-nav-h));
+    padding: calc(env(safe-area-inset-top) + 6px) 10px 6px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 8px;
+    background: rgba(7, 14, 22, 0.95);
+    border-bottom: 1px solid rgba(26, 46, 69, 0.9);
+    backdrop-filter: blur(10px);
+  }
+
+  .mobile-auction-navbar-left,
+  .mobile-auction-navbar-center,
+  .mobile-auction-navbar-right,
+  .mobile-auction-nav-room {
+    min-width: 0;
+  }
+
+  .mobile-auction-navbar-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .mobile-auction-nav-room,
+  .mobile-auction-navbar-center {
+    display: flex;
+    gap: 6px;
+  }
+
+  .mobile-auction-nav-room {
+    flex-direction: column;
+    gap: 1px;
+  }
+
+  .mobile-auction-nav-room strong {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: var(--text-strong);
+    font-size: 0.78rem;
+  }
+
+  .mobile-auction-navbar-center {
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .mobile-auction-nav-capsule {
+    min-width: 0;
+    min-height: 34px;
+    padding: 4px 8px;
+    border-radius: 999px;
+    border: 1px solid rgba(26, 46, 69, 0.9);
+    background: rgba(12, 21, 32, 0.94);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1px;
+  }
+
+  .mobile-auction-nav-capsule span {
+    color: var(--text-soft);
+    font-size: 0.58rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .mobile-auction-nav-capsule strong {
+    color: var(--text-strong);
+    font-size: 0.78rem;
+    line-height: 1;
+  }
+
+  .mobile-auction-navbar-right {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .mobile-auction-admin-trigger {
+    min-width: 34px;
+    min-height: 34px;
+    padding-inline: 0;
+    justify-content: center;
+    font-size: 1.1rem;
+    border-radius: 999px;
+  }
+
+  .mobile-auction-admin-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 132;
+    background: rgba(5, 10, 15, 0.18);
+    border: 0;
+  }
+
+  .mobile-auction-admin-menu {
+    position: fixed;
+    top: calc(env(safe-area-inset-top) + var(--mobile-auction-nav-h) + 6px);
+    right: 10px;
+    z-index: 133;
+    width: min(260px, calc(100vw - 20px));
+    padding: 10px;
+    border-radius: 18px;
+    border: 1px solid rgba(26, 46, 69, 0.92);
+    background: rgba(10, 17, 27, 0.98);
+    box-shadow: 0 18px 42px rgba(0, 0, 0, 0.34);
+    display: grid;
+    gap: 10px;
+  }
+
+  .mobile-auction-admin-menu .admin-controls-inline-buttons {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .mobile-auction-admin-menu .admin-controls-inline-feedback {
+    display: block;
+    margin-top: 2px;
+  }
+
+  .mobile-auction-admin-sound {
+    width: 100%;
+    justify-content: center;
+    min-height: 42px;
+  }
+
+  .mobile-auction-fixed-stack {
+    pointer-events: none;
+  }
+
+  .mobile-auction-player-card {
+    position: fixed;
+    top: calc(env(safe-area-inset-top) + var(--mobile-auction-nav-h));
+    z-index: 125;
+    height: var(--mobile-auction-player-h);
+    margin: 10px 10px 0;
+    width: calc(100vw - 20px);
+    display: grid;
+    grid-template-columns: 54px minmax(0, 1fr);
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    overflow: hidden;
+    pointer-events: auto;
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.018), rgba(255, 255, 255, 0)),
+      radial-gradient(circle at top left, var(--team-glow, rgba(255,255,255,0.05)), transparent 42%),
+      linear-gradient(135deg, rgba(12, 21, 32, 0.96), rgba(17, 30, 46, 0.94));
+    border-color: var(--team-border, rgba(26, 46, 69, 0.92));
+  }
+
+  .mobile-auction-player-media {
+    position: relative;
+    width: 54px;
+    height: 54px;
+    overflow: hidden;
+    border-radius: 16px;
+    background:
+      linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0)),
+      linear-gradient(180deg, #111c29 0%, #0a1119 100%);
+    border: 1px solid var(--team-border, rgba(26, 46, 69, 0.9));
+    align-self: start;
+  }
+
+  .mobile-auction-player-fallback {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    color: var(--gold);
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+  }
+
+  .mobile-auction-player-content {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-height: 0;
+  }
+
+  .mobile-auction-player-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 8px;
+    min-width: 0;
+  }
+
+  .mobile-auction-player-copy,
+  .mobile-auction-player-badges {
+    min-width: 0;
+  }
+
+  .mobile-auction-player-copy {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .mobile-auction-player-name {
+    color: var(--text-strong);
+    font-size: 0.92rem;
+    line-height: 1.1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .mobile-auction-player-team {
+    color: var(--text-soft);
+    font-size: 0.72rem;
+    line-height: 1.3;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .mobile-auction-player-badges {
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+
+  .mobile-auction-player-badge {
+    display: inline-flex;
+    align-items: center;
+    min-height: 20px;
+    padding: 3px 7px;
+    border-radius: 999px;
+    border: 1px solid var(--team-border, rgba(26, 46, 69, 0.9));
+    background: linear-gradient(180deg, rgba(255,255,255,0.015), rgba(255,255,255,0)), var(--team-surface, rgba(17, 30, 46, 0.9));
+    color: var(--text-strong);
+    font-size: 0.66rem;
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  .mobile-auction-player-details {
+    display: flex;
+    gap: 6px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    min-height: 0;
+    scrollbar-width: none;
+  }
+
+  .mobile-auction-player-details::-webkit-scrollbar {
+    display: none;
+  }
+
+  .mobile-auction-timer {
+    position: fixed;
+    top: calc(env(safe-area-inset-top) + var(--mobile-auction-nav-h) + var(--mobile-auction-player-h) + 10px);
+    z-index: 124;
+    height: var(--mobile-auction-timer-h);
+    margin: 10px 10px 0;
+    width: calc(100vw - 20px);
+    padding: 12px 14px;
+    display: grid;
+    grid-template-rows: auto 1fr auto auto;
+    gap: 8px;
+    overflow: hidden;
+    pointer-events: auto;
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.018), rgba(255, 255, 255, 0)),
+      radial-gradient(circle at top, var(--team-surface, rgba(255,255,255,0.06)), transparent 64%),
+      rgba(12, 21, 32, 0.96);
+    border-color: var(--team-border, rgba(26, 46, 69, 0.92));
+  }
+
+  .mobile-auction-timer-bid,
+  .mobile-auction-timer-foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    min-width: 0;
+  }
+
+  .mobile-auction-timer-bid-value {
+    display: block;
+    margin-top: 2px;
+    color: var(--gold);
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    line-height: 1;
+  }
+
+  .mobile-auction-timer-bidder {
+    min-width: 0;
+    text-align: right;
+  }
+
+  .mobile-auction-timer-bidder strong {
+    display: block;
+    margin-top: 2px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: var(--text-strong);
+    font-size: 0.86rem;
+  }
+
+  .mobile-auction-timer-core {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 0;
+  }
+
+  .mobile-auction-timer-ring {
+    --timer-color: var(--team-accent, var(--success));
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 88px;
+    height: 88px;
+    border-radius: 999px;
+    background:
+      radial-gradient(circle at center, rgba(5, 10, 15, 0) 61%, rgba(5, 10, 15, 1) 62%),
+      conic-gradient(var(--timer-color) calc(var(--timer-progress) * 1turn), rgba(255,255,255,0.08) 0);
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.03), 0 0 0 6px var(--team-glow, rgba(255,255,255,0.04));
+  }
+
+  .mobile-auction-timer-ring::after {
+    content: '';
+    position: absolute;
+    inset: 10px;
+    border-radius: inherit;
+    background: rgba(11, 18, 27, 0.96);
+    border: 1px solid rgba(48, 71, 97, 0.78);
+  }
+
+  .mobile-auction-timer-ring.is-warning { --timer-color: var(--warning); }
+  .mobile-auction-timer-ring.is-danger { --timer-color: var(--danger); }
+  .mobile-auction-timer-ring.is-paused { --timer-color: var(--warning); }
+
+  .mobile-auction-timer-ring-core {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+  }
+
+  .mobile-auction-timer-seconds {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    line-height: 0.92;
+    color: var(--text-strong);
+  }
+
+  .mobile-auction-timer-unit {
+    color: var(--text-soft);
+    font-size: 0.7rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .mobile-auction-timer-caption {
+    color: var(--text-soft);
+    font-size: 0.72rem;
+    line-height: 1.3;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .mobile-auction-player-detail {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    min-height: 22px;
+    padding: 4px 7px;
+    border-radius: 999px;
+    border: 1px solid var(--team-border, rgba(26, 46, 69, 0.86));
+    background: linear-gradient(180deg, rgba(255,255,255,0.015), rgba(255,255,255,0)), rgba(255, 255, 255, 0.04);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .mobile-auction-player-detail span {
+    color: var(--text-soft);
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .mobile-auction-player-detail strong {
+    color: var(--text-strong);
+    font-size: 0.68rem;
+    font-weight: 600;
+  }
+
+  .mobile-auction-scroll {
+    display: grid;
+    gap: 14px;
+    padding: 0 10px 8px;
+  }
+
+  .mobile-auction-history,
+  .mobile-auction-teams,
+  .mobile-auction-teams-panel {
+    padding: 12px;
+  }
+
+  .mobile-auction-section-head,
+  .mobile-auction-teams-head,
+  .mobile-auction-team-summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  .mobile-auction-history {
+    min-height: 58px;
+    max-height: 58px;
+    overflow: hidden;
+  }
+
+  .mobile-auction-history-track {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding-top: 4px;
+    transform: translateY(-2px);
+    scrollbar-width: none;
+  }
+
+  .mobile-auction-history-track::-webkit-scrollbar {
+    display: none;
+  }
+
+  .mobile-auction-history-item,
+  .mobile-auction-history-empty {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-width: max-content;
+    max-width: none;
+    padding: 6px 10px;
+    border-radius: 999px;
+    border: 1px solid rgba(26, 46, 69, 0.88);
+    background: rgba(17, 30, 46, 0.92);
+    white-space: nowrap;
+  }
+
+  .mobile-auction-history-item.team-theme {
+    border-color: var(--team-border, rgba(26, 46, 69, 0.88));
+    background:
+      linear-gradient(180deg, rgba(255,255,255,0.012), rgba(255,255,255,0)),
+      var(--team-surface, rgba(17, 30, 46, 0.92));
+  }
+
+  .mobile-auction-history-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: var(--text-strong);
+    font-size: 0.76rem;
+  }
+
+  .mobile-auction-history-price {
+    color: var(--gold);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+  }
+
+  .mobile-auction-history-empty {
+    align-items: center;
+    color: var(--text-soft);
+  }
+
+  .mobile-auction-teams {
+    display: grid;
+    gap: 10px;
+  }
+
+  .mobile-auction-teams-toggle {
+    min-height: 36px;
+    white-space: nowrap;
+  }
+
+  .mobile-auction-teams-strip {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: none;
+  }
+
+  .mobile-auction-teams-strip::-webkit-scrollbar {
+    display: none;
+  }
+
+  .mobile-auction-team-chip {
+    min-width: 112px;
+    max-width: 132px;
+    min-height: 44px;
+    padding: 8px 10px;
+    border-radius: 14px;
+    border: 1px solid rgba(26, 46, 69, 0.92);
+    background: rgba(12, 21, 32, 0.96);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 2px;
+    color: var(--text-soft);
+    text-align: left;
+  }
+
+  .mobile-auction-team-chip span,
+  .mobile-auction-team-chip strong {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 100%;
+  }
+
+  .mobile-auction-team-chip span {
+    font-size: 0.65rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .mobile-auction-team-chip strong {
+    color: var(--text-strong);
+    font-size: 0.8rem;
+  }
+
+  .mobile-auction-team-chip.is-selected {
+    border-color: rgba(245, 197, 24, 0.52);
+    background: rgba(245, 197, 24, 0.08);
+  }
+
+  .mobile-auction-team-chip.is-mine strong {
+    color: var(--gold);
+  }
+
+  .mobile-auction-teams-panel {
+    display: grid;
+    gap: 12px;
+    min-height: 180px;
+    max-height: 34vh;
+    overflow: hidden;
+  }
+
+  .mobile-auction-team-summary strong {
+    display: block;
+    margin-top: 2px;
+    color: var(--text-strong);
+  }
+
+  .mobile-auction-team-summary-metrics {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 4px;
+    color: var(--text-soft);
+    font-size: 0.74rem;
+  }
+
+  .mobile-auction-panel-list {
+    display: grid;
+    gap: 8px;
+    overflow-y: auto;
+    min-height: 0;
+    padding-right: 2px;
+  }
+
+  .mobile-auction-panel-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 8px 10px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.03);
+  }
+
+  .mobile-auction-panel-row strong,
+  .mobile-auction-panel-price {
+    color: var(--text-strong);
+    font-size: 0.82rem;
+  }
+
+  .mobile-auction-panel-row span,
+  .mobile-auction-panel-empty {
+    display: block;
+    margin-top: 2px;
+    color: var(--text-soft);
+    font-size: 0.72rem;
+  }
+
+  .mobile-auction-actionbar {
+    position: fixed;
+    bottom: 0;
+    z-index: 128;
+    height: calc(var(--mobile-auction-action-h) + env(safe-area-inset-bottom));
+    padding: 10px 10px calc(10px + env(safe-area-inset-bottom));
+    background: linear-gradient(180deg, rgba(7, 14, 22, 0) 0%, rgba(7, 14, 22, 0.92) 32%, rgba(7, 14, 22, 0.98) 100%);
+  }
+
+  .mobile-auction-actionbar-inner {
+    width: 100%;
+  }
+
+  .mobile-auction-actionbar .auction-action-card {
+    min-height: var(--mobile-auction-action-h);
+    max-height: var(--mobile-auction-action-h);
+    padding: 10px 12px;
+    gap: 0;
+    overflow: hidden;
+  }
+
+  .mobile-auction-actionbar .auction-action-head,
+  .mobile-auction-actionbar .auction-feedback-copy {
+    display: none;
+  }
+
+  .mobile-auction-actionbar .auction-action-body {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 112px;
+    align-items: stretch;
+    gap: 10px;
+    height: 100%;
+  }
+
+  .mobile-auction-actionbar .auction-skip-button {
+    order: 2;
+    min-height: 48px;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .mobile-auction-actionbar .auction-bid-buttons {
+    order: 1;
+    display: grid;
+    grid-template-columns: 1fr;
+    align-items: stretch;
+  }
+
+  .mobile-auction-actionbar .auction-bid-button {
+    min-height: 48px;
+    width: 100%;
+    justify-content: space-between;
+  }
+}
