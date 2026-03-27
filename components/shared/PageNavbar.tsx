@@ -25,6 +25,7 @@ export function PageNavbar({ subtitle, showHome = false, actions }: Props) {
           {subtitle && <span>{subtitle}</span>}
         </div>
       </div>
+      <div className="navbar-watermark">Built by Sarth Patkar</div>
       <div className="navbar-actions">{actions}</div>
     </nav>
   )

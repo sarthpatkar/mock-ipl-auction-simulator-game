@@ -6,6 +6,7 @@ import { getBrowserSessionUser, supabaseClient } from '@/lib/supabase'
 import { createRoomWithAdmin, DEFAULT_ROOM_SETTINGS, fetchUserRooms } from '@/lib/room-client'
 import { ActionCard } from '@/components/home/ActionCard'
 import { RoomHistoryList } from '@/components/home/RoomHistoryList'
+import { CreatorBranding } from '@/components/shared/CreatorBranding'
 import { PageNavbar } from '@/components/shared/PageNavbar'
 import { Room } from '@/types'
 
@@ -188,6 +189,7 @@ export default function HomePage() {
           BUILD YOUR <em>DREAM TEAM</em>
         </h1>
         <p className="home-hero-desc">Host or join a live IPL auction room with your friends</p>
+        <CreatorBranding variant="home" />
       </div>
 
       {error && !createOpen && !joinOpen && (

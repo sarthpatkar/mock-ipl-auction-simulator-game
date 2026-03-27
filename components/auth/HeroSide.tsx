@@ -1,3 +1,5 @@
+import { CreatorBranding } from '@/components/shared/CreatorBranding'
+
 export function HeroSide() {
   return (
     <div className="auth-hero">
@@ -15,6 +17,7 @@ export function HeroSide() {
           Build your franchise. Outbid rivals. Win the tournament. The most realistic IPL auction simulation — live, with
           friends.
         </p>
+        <CreatorBranding variant="auth" />
         <div className="hero-stats">
           <div className="hero-stat">
             <span className="hero-stat-num">10</span>
