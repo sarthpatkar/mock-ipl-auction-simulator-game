@@ -1,6 +1,7 @@
 'use client'
 
-import { useMemo, useState } from 'react'
+import { useMemo, useRef, useState } from 'react'
+import { AuctionReactions } from '@/components/auction/AuctionReactions'
 import { getBidIncrements, formatPrice } from '@/lib/auction-helpers'
 import { supabaseClient } from '@/lib/supabase'
 
@@ -40,6 +41,7 @@ export function BidActions({
 }: Props) {
   const [loadingAction, setLoadingAction] = useState<'bid' | 'skip' | null>(null)
   const [message, setMessage] = useState<ActionState>(null)
+  const skipStackRef = useRef<HTMLDivElement | null>(null)
   const increments = getBidIncrements(currentPrice)
 
   const disabled = isPaused || isExpired || isHighestBidder || squadCount >= squadLimit || budgetRemaining <= currentPrice
@@ -127,13 +129,16 @@ export function BidActions({
           })}
         </div>
 
-        <button
-          onClick={skip}
-          disabled={loadingAction !== null || skipped || isPaused || isExpired || isHighestBidder}
-          className="btn btn-danger btn-sm auction-skip-button"
-        >
-          {loadingAction === 'skip' ? 'Submitting…' : skipped ? `${skipCount}/${activeCount} skipped` : 'Skip'}
-        </button>
+        <div ref={skipStackRef} className="auction-skip-stack">
+          <AuctionReactions auctionSessionId={auctionSessionId} anchorRef={skipStackRef} />
+          <button
+            onClick={skip}
+            disabled={loadingAction !== null || skipped || isPaused || isExpired || isHighestBidder}
+            className="btn btn-danger btn-sm auction-skip-button"
+          >
+            {loadingAction === 'skip' ? 'Submitting…' : skipped ? `${skipCount}/${activeCount} skipped` : 'Skip'}
+          </button>
+        </div>
       </div>
       {message && <p className={`auction-feedback-copy ${message ? `is-${message.tone}` : ''}`}>{message.text}</p>}
     </section>

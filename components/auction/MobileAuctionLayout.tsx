@@ -121,7 +121,7 @@ const MobilePlayerIdentity = memo(function MobilePlayerIdentity({ player }: { pl
         <div className="mobile-auction-player-head">
           <div className="mobile-auction-player-copy">
             <span className="status-label">Current player</span>
-            <strong className="mobile-auction-player-name">{player.name}</strong>
+            <strong className="mobile-auction-player-name" data-auction-player-target="current-name">{player.name}</strong>
           </div>
           <div className="mobile-auction-player-badges">
             <span className="mobile-auction-player-badge">{player.ipl_team || 'FA'}</span>

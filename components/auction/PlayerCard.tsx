@@ -56,7 +56,7 @@ export function PlayerCard({ player }: Props) {
       <div className="player-card-content">
         <div className="player-card-header">
           <span className="player-card-kicker">Current player</span>
-          <h2 className="text-3xl font-display">{player.name}</h2>
+          <h2 className="text-3xl font-display" data-auction-player-target="current-name">{player.name}</h2>
           <span className="badge badge-blue text-uppercase">{formatRole(player.role)}</span>
           <span
             className="badge badge-team"

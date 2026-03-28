@@ -1,7 +1,7 @@
 'use client'
 
 type Props = {
-  variant?: 'home' | 'auth'
+  variant?: 'home' | 'auth' | 'auth-panel' | 'auth-footer'
 }
 
 const LINKEDIN_URL = 'https://www.linkedin.com/in/sarthpatkar'

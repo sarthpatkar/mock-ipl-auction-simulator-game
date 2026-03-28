@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import { CreatorBranding } from '@/components/shared/CreatorBranding'
 import { supabaseClient } from '@/lib/supabase'
 
 type Mode = 'login' | 'register'
@@ -15,6 +16,24 @@ export function AuthForm() {
   const [showPassword, setShowPassword] = useState(false)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const mobileFeatureCards = [
+    {
+      title: 'Live Auction Rooms',
+      copy: 'Private rooms for your auction group.'
+    },
+    {
+      title: 'Real Player Pool',
+      copy: 'Bid on a deep IPL-inspired player list.'
+    },
+    {
+      title: 'Budget Strategy',
+      copy: 'Balance stars, depth, and purse pressure.'
+    },
+    {
+      title: 'Multiplayer With Friends',
+      copy: 'Compete live with friends in real time.'
+    }
+  ]
 
   const toggleMode = (next: Mode) => {
     setMode(next)
@@ -74,110 +93,114 @@ export function AuthForm() {
 
   return (
     <div className="auth-form-side">
-      <div className="auth-form-header">
-        <div className="navbar-logo" style={{ marginBottom: 8 }}>
-          IPL AUCTION
-          <span>FRANCHISE MODE</span>
-        </div>
-        <h2 className="auth-form-title">{mode === 'login' ? 'Welcome back' : 'Create account'}</h2>
-        <p className="auth-form-sub">
-          {mode === 'login' ? 'Sign in to your franchise account' : 'Join the auction league with your franchise'}
-        </p>
-      </div>
-
-      <div className="auth-toggle">
-        <button className={`auth-tab ${mode === 'login' ? 'active' : ''}`} onClick={() => toggleMode('login')}>
-          Sign In
-        </button>
-        <button className={`auth-tab ${mode === 'register' ? 'active' : ''}`} onClick={() => toggleMode('register')}>
-          Register
-        </button>
-      </div>
-
-      <form className="auth-form" onSubmit={handleSubmit}>
-        {mode === 'register' && (
-          <div className="input-group">
-            <label className="input-label">Username</label>
-            <input
-              className="input-field"
-              type="text"
-              placeholder="YourFranchiseName"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-            />
+      <div className="auth-form-shell">
+        <section className="auth-form-card">
+          <div className="auth-form-header">
+            <div className="navbar-logo auth-form-logo">
+              IPL AUCTION
+              <span>FRANCHISE MODE</span>
+            </div>
+            <h2 className="auth-form-title">{mode === 'login' ? 'Welcome back' : 'Create account'}</h2>
+            <p className="auth-form-sub">
+              {mode === 'login' ? 'Sign in to enter your auction room and manage your franchise.' : 'Create your franchise account and join the bidding war.'}
+            </p>
           </div>
-        )}
 
-        <div className="input-group">
-          <label className="input-label">Email</label>
-          <input
-            className="input-field"
-            type="email"
-            placeholder="owner@franchise.com"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </div>
-
-        <div className="input-group">
-          <label className="input-label">Password</label>
-          <div style={{ position: 'relative' }}>
-            <input
-              className="input-field"
-              type={showPassword ? 'text' : 'password'}
-              placeholder="••••••••••••"
-              style={{ paddingRight: 48 }}
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-            <button
-              type="button"
-              onClick={() => setShowPassword((v) => !v)}
-              style={{
-                position: 'absolute',
-                right: 12,
-                top: '50%',
-                transform: 'translateY(-50%)',
-                background: 'none',
-                border: 'none',
-                color: 'var(--text-muted)',
-                cursor: 'pointer',
-                fontSize: '0.8rem',
-                fontWeight: 700,
-                letterSpacing: '0.08em',
-                textTransform: 'uppercase'
-              }}
-            >
-              {showPassword ? 'Hide' : 'Show'}
+          <div className="auth-toggle">
+            <button className={`auth-tab ${mode === 'login' ? 'active' : ''}`} onClick={() => toggleMode('login')}>
+              Sign In
+            </button>
+            <button className={`auth-tab ${mode === 'register' ? 'active' : ''}`} onClick={() => toggleMode('register')}>
+              Register
             </button>
           </div>
-        </div>
 
-        {error && <p className="text-red text-sm">{error}</p>}
+          <form className="auth-form" onSubmit={handleSubmit}>
+            {mode === 'register' && (
+              <div className="input-group">
+                <label className="input-label">Username</label>
+                <input
+                  className="input-field"
+                  type="text"
+                  placeholder="YourFranchiseName"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                />
+              </div>
+            )}
 
-        <button className="btn btn-primary btn-lg w-full" type="submit" disabled={loading}>
-          <span>{loading ? 'Please wait…' : mode === 'login' ? 'Sign In' : 'Create Account'}</span>
-        </button>
-      </form>
+            <div className="input-group">
+              <label className="input-label">Email</label>
+              <input
+                className="input-field"
+                type="email"
+                placeholder="owner@franchise.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+            </div>
 
-      <div className="auth-footer">
-        {mode === 'login' ? (
-          <>
-            Don&apos;t have an account?{' '}
-            <a href="#" onClick={(e) => { e.preventDefault(); toggleMode('register') }}>
-              Create one
-            </a>
-          </>
-        ) : (
-          <>
-            Already have an account?{' '}
-            <a href="#" onClick={(e) => { e.preventDefault(); toggleMode('login') }}>
-              Sign in
-            </a>
-          </>
-        )}
+            <div className="input-group">
+              <label className="input-label">Password</label>
+              <div className="auth-password-wrap">
+                <input
+                  className="input-field"
+                  type={showPassword ? 'text' : 'password'}
+                  placeholder="••••••••••••"
+                  style={{ paddingRight: 48 }}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword((v) => !v)}
+                  className="auth-password-toggle"
+                >
+                  {showPassword ? 'Hide' : 'Show'}
+                </button>
+              </div>
+            </div>
+
+            {error && <p className="text-red text-sm">{error}</p>}
+
+            <button className="btn btn-primary btn-lg w-full auth-submit-button" type="submit" disabled={loading}>
+              <span>{loading ? 'Please wait…' : mode === 'login' ? 'Sign In' : 'Create Account'}</span>
+            </button>
+          </form>
+
+          <div className="auth-footer">
+            {mode === 'login' ? (
+              <>
+                Don&apos;t have an account?{' '}
+                <a href="#" onClick={(e) => { e.preventDefault(); toggleMode('register') }}>
+                  Create one
+                </a>
+              </>
+            ) : (
+              <>
+                Already have an account?{' '}
+                <a href="#" onClick={(e) => { e.preventDefault(); toggleMode('login') }}>
+                  Sign in
+                </a>
+              </>
+            )}
+          </div>
+        </section>
+
+        <section className="auth-mobile-post-auth" aria-label="Platform features">
+          <div className="auth-mobile-feature-grid">
+            {mobileFeatureCards.map((feature) => (
+              <div key={feature.title} className="auth-mobile-feature-card">
+                <strong>{feature.title}</strong>
+                <span>{feature.copy}</span>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <CreatorBranding variant="auth-footer" />
       </div>
     </div>
   )
