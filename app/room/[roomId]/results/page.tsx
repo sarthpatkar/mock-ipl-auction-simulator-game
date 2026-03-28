@@ -3,8 +3,8 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import { PageNavbar } from '@/components/shared/PageNavbar'
+import { ResultsExperience } from '@/components/results/ResultsExperience'
 import { ResultsRevealHold } from '@/components/results/ResultsRevealHold'
-import { RoomResultsBoard } from '@/components/results/RoomResultsBoard'
 import { useRoom } from '@/hooks/useRoom'
 import { useTimer } from '@/hooks/useTimer'
 import { fetchPlayersByIds, RESULTS_PLAYER_COLUMNS } from '@/lib/player-catalog'
@@ -13,6 +13,7 @@ import { Player, SquadPlayer, TeamResult } from '@/types'
 
 const RESULTS_SELECT = 'room_id, user_id, team_score, rank, breakdown_json, created_at, updated_at'
 const SQUAD_SELECT = 'id, room_id, participant_id, player_id, price_paid, acquired_at'
+const LOCAL_REVEAL_GRACE_MS = 1500
 
 export default function ResultsPage() {
   const params = useParams()
@@ -25,6 +26,7 @@ export default function ResultsPage() {
   const [playersById, setPlayersById] = useState<Record<string, Player>>({})
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [isRevealAnimating, setIsRevealAnimating] = useState(false)
   const revealAt = room?.results_reveal_at ?? null
   const { remaining: revealRemaining } = useTimer(revealAt)
 
@@ -121,8 +123,29 @@ export default function ResultsPage() {
     }
   }, [room?.status, roomId])
 
+  useEffect(() => {
+    if (!revealAt || room?.status !== 'completed') {
+      setIsRevealAnimating(false)
+      return
+    }
+
+    const revealDeltaMs = Date.now() - new Date(revealAt).getTime()
+    if (revealDeltaMs < 0 || revealDeltaMs >= LOCAL_REVEAL_GRACE_MS) {
+      setIsRevealAnimating(false)
+      return
+    }
+
+    setIsRevealAnimating(true)
+
+    const timeout = window.setTimeout(() => {
+      setIsRevealAnimating(false)
+    }, LOCAL_REVEAL_GRACE_MS - revealDeltaMs)
+
+    return () => window.clearTimeout(timeout)
+  }, [revealAt, revealRemaining, room?.status])
+
   const pageError = useMemo(() => error ?? roomError, [error, roomError])
-  const isPreReveal = room?.status === 'completed' && Boolean(revealAt) && revealRemaining > 0
+  const isPreReveal = room?.status === 'completed' && Boolean(revealAt) && (revealRemaining > 0 || isRevealAnimating)
   const isPageBooting = roomLoading || room?.status !== 'completed'
   const isResultsLoading = loading
 
@@ -147,7 +170,15 @@ export default function ResultsPage() {
             <div className="card skeleton-card results-loading-card" />
           </section>
         ) : isPreReveal ? (
-          <ResultsRevealHold revealAt={revealAt!} remaining={revealRemaining} participants={participants} squads={squads} playersById={playersById} />
+          <ResultsRevealHold
+            revealAt={revealAt!}
+            remaining={revealRemaining}
+            participants={participants}
+            results={results}
+            squads={squads}
+            playersById={playersById}
+            revealPhase={revealRemaining > 0 ? 'projection' : 'revealing'}
+          />
         ) : isResultsLoading ? (
           <section className="results-loading-shell">
             <div className="card skeleton-card results-loading-hero" />
@@ -156,7 +187,7 @@ export default function ResultsPage() {
             <div className="card skeleton-card results-loading-card" />
           </section>
         ) : (
-          <RoomResultsBoard participants={participants} results={results} squads={squads} playersById={playersById} currentUserId={userId} />
+          <ResultsExperience room={room!} participants={participants} results={results} squads={squads} playersById={playersById} currentUserId={userId} />
         )}
       </main>
     </div>

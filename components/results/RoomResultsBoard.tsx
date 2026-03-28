@@ -1,15 +1,18 @@
 'use client'
 
-import { useMemo } from 'react'
-import { getTeamThemeClass, getTeamThemeStyle } from '@/lib/auction-helpers'
+import { MouseEvent, useMemo, useState } from 'react'
+import { formatPrice, getTeamThemeClass, getTeamThemeStyle } from '@/lib/auction-helpers'
 import { Player, RoomParticipant, SquadPlayer, TeamResult, TeamResultBreakdown } from '@/types'
 
 type Props = {
+  roomName: string
+  totalPurse: number
   participants: RoomParticipant[]
   results: TeamResult[]
   squads: SquadPlayer[]
   playersById: Record<string, Player>
   currentUserId?: string | null
+  onShareTeam?: (userId: string, anchorTop?: number) => void
 }
 
 type RankedTeam = {
@@ -17,6 +20,7 @@ type RankedTeam = {
   result: TeamResult
   breakdown: TeamResultBreakdown
   squad: Player[]
+  squadRows: SquadPlayer[]
   isMine: boolean
 }
 
@@ -39,8 +43,98 @@ function formatShortNumber(value: number | null | undefined) {
   return value.toFixed(2).replace(/\.?0+$/, '')
 }
 
-function formatLabel(value: string) {
+function formatLabel(value: string | null | undefined) {
+  if (!value) return '—'
   return value.replace(/_/g, ' ').replace(/\b\w/g, (char) => char.toUpperCase())
+}
+
+function escapeCsvValue(value: string | number | null | undefined) {
+  const normalized = value == null ? '' : String(value)
+  return `"${normalized.replaceAll('"', '""')}"`
+}
+
+function downloadCsvFile(filename: string, rows: Array<Array<string | number | null | undefined>>) {
+  const csv = rows.map((row) => row.map(escapeCsvValue).join(',')).join('\n')
+  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8' })
+  const url = URL.createObjectURL(blob)
+  const anchor = document.createElement('a')
+  anchor.href = url
+  anchor.download = filename
+  document.body.appendChild(anchor)
+  anchor.click()
+  anchor.remove()
+  URL.revokeObjectURL(url)
+}
+
+function formatRoleForCsv(role: Player['role'] | null | undefined) {
+  if (role === 'wicketkeeper') return 'Wicketkeeper'
+  if (role === 'allrounder') return 'All-Rounder'
+  if (role === 'bowler') return 'Bowler'
+  if (role === 'batter') return 'Batsman'
+  return '—'
+}
+
+function parseMoneyValue(value: unknown) {
+  if (typeof value === 'number' && Number.isFinite(value)) return value
+  if (typeof value === 'string') {
+    const parsed = Number.parseFloat(value)
+    if (Number.isFinite(parsed)) return parsed
+  }
+  return null
+}
+
+function formatBasePriceLabelForCsv(player: Player | undefined) {
+  if (!player) return '—'
+  const numericBase = parseMoneyValue(player.base_price)
+
+  if (numericBase != null) {
+    const cr = numericBase / 10000000
+    const formatted = Number.isInteger(cr) ? String(cr) : cr.toFixed(2).replace(/\.?0+$/, '')
+    return `₹${formatted} Cr`
+  }
+
+  const label = player.base_price_label?.trim()
+  if (!label) return '—'
+
+  const normalized = label.replace(/[₹,\s]/g, '').toUpperCase()
+  const amount = Number.parseFloat(normalized.replace(/[A-Z]+$/, ''))
+  if (!Number.isFinite(amount)) return label
+
+  if (normalized.endsWith('L')) {
+    const cr = amount / 100
+    const formatted = Number.isInteger(cr) ? String(cr) : cr.toFixed(2).replace(/\.?0+$/, '')
+    return `₹${formatted} Cr`
+  }
+
+  if (normalized.endsWith('CR')) {
+    const formatted = Number.isInteger(amount) ? String(amount) : amount.toFixed(2).replace(/\.?0+$/, '')
+    return `₹${formatted} Cr`
+  }
+
+  return label
+}
+
+function formatLakhs(value: number | null | undefined) {
+  const numericValue = parseMoneyValue(value)
+  if (numericValue == null) return ''
+  return String(Math.round(numericValue / 100000))
+}
+
+function formatAmountWithUnit(value: number | null | undefined) {
+  if (value == null || Number.isNaN(value)) return ''
+  const cr = value / 10000000
+  if (cr >= 1) {
+    const formatted = Number.isInteger(cr) ? String(cr) : cr.toFixed(2).replace(/\.?0+$/, '')
+    return `${formatted} Cr`
+  }
+
+  const lakhs = value / 100000
+  const formatted = Number.isInteger(lakhs) ? String(lakhs) : lakhs.toFixed(2).replace(/\.?0+$/, '')
+  return `${formatted} L`
+}
+
+function sanitizeFileSegment(value: string) {
+  return value.toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_+|_+$/g, '') || 'results'
 }
 
 function getPlayerTone(player: Player) {
@@ -109,7 +203,7 @@ function ComparisonTable({ comparison, components }: { comparison: TeamResultBre
   )
 }
 
-function TeamCard({ team, winner }: { team: RankedTeam; winner: RankedTeam | null }) {
+function TeamCard({ team, winner, onShareTeam }: { team: RankedTeam; winner: RankedTeam | null; onShareTeam?: (userId: string, anchorTop?: number) => void }) {
   const { participant, result, breakdown, squad, isMine } = team
   const comparison = breakdown.comparison
 
@@ -132,6 +226,15 @@ function TeamCard({ team, winner }: { team: RankedTeam; winner: RankedTeam | nul
         <div className="results-team-scoreblock">
           <span className="results-score-label">Final Score</span>
           <strong className="results-score-value">{formatScore(result.team_score)}</strong>
+          {onShareTeam && (
+            <button
+              type="button"
+              className="btn btn-ghost btn-sm results-viral-share"
+              onClick={(event: MouseEvent<HTMLButtonElement>) => onShareTeam(result.user_id, event.currentTarget.getBoundingClientRect().top)}
+            >
+              Share Team
+            </button>
+          )}
         </div>
       </div>
 
@@ -277,7 +380,8 @@ function TeamCard({ team, winner }: { team: RankedTeam; winner: RankedTeam | nul
   )
 }
 
-export function RoomResultsBoard({ participants, results, squads, playersById, currentUserId }: Props) {
+export function RoomResultsBoard({ roomName, totalPurse, participants, results, squads, playersById, currentUserId, onShareTeam }: Props) {
+  const [expandedUserId, setExpandedUserId] = useState<string | null>(null)
   const participantByUserId = useMemo(
     () => participants.reduce<Record<string, RoomParticipant>>((acc, participant) => {
       acc[participant.user_id] = participant
@@ -314,12 +418,14 @@ export function RoomResultsBoard({ participants, results, squads, playersById, c
         result,
         breakdown: result.breakdown_json,
         squad,
+        squadRows: teamSquad,
         isMine: result.user_id === currentUserId
       }
     })
   }, [currentUserId, participantByUserId, playersById, results, squadsByParticipantId])
 
   const winner = rankedTeams[0] ?? null
+  const expandedTeam = rankedTeams.find((team) => team.result.user_id === expandedUserId) ?? null
 
   if (rankedTeams.length === 0) {
     return (
@@ -327,6 +433,41 @@ export function RoomResultsBoard({ participants, results, squads, playersById, c
         <h2 className="section-title">Results Unavailable</h2>
         <p className="text-sm text-muted mt-3">No persisted room results were found.</p>
       </div>
+    )
+  }
+
+  const handleDownloadTeamCsv = (team: RankedTeam) => {
+    const teamName = team.participant?.team_name || 'Franchise'
+    const totalSpent = team.squadRows.reduce((sum, row) => sum + row.price_paid, 0)
+    const rows: Array<Array<string | number | null | undefined>> = [
+      ['#', 'Player', 'Role', 'IPL Team', 'Base Price', 'Base (₹L)', 'Price', 'impact_type']
+    ]
+
+    team.squadRows.forEach((row, index) => {
+      const player = playersById[row.player_id]
+      rows.push([
+        index + 1,
+        player?.name ?? 'Unknown Player',
+        formatRoleForCsv(player?.role),
+        player?.ipl_team ?? '—',
+        formatBasePriceLabelForCsv(player),
+        formatLakhs(player?.base_price),
+        formatPrice(row.price_paid),
+        player?.impact_type ?? ''
+      ])
+    })
+
+    rows.push([])
+    rows.push(['', 'TOTAL SPENT', '', '', '', '', formatPrice(totalSpent), formatAmountWithUnit(totalSpent)])
+    rows.push(['', 'REMAINING PURSE', '', '', '', '', formatPrice(team.participant?.budget_remaining ?? 0), formatAmountWithUnit(team.participant?.budget_remaining ?? 0)])
+    rows.push(['', 'TOTAL PURSE', '', '', '', '', formatPrice(totalPurse), formatAmountWithUnit(totalPurse)])
+    rows.push(['', 'PLAYERS BOUGHT', '', '', '', '', team.squadRows.length, team.squadRows.length])
+    rows.push(['', 'TOTAL POINTS', '', '', '', '', '', ''])
+    rows.push(['', 'SQUAD score', '', '', '', '', `${formatScore(team.result.team_score)}/100`, ''])
+
+    downloadCsvFile(
+      `${sanitizeFileSegment(roomName)}_${sanitizeFileSegment(teamName)}_results.csv`,
+      rows
     )
   }
 
@@ -358,28 +499,44 @@ export function RoomResultsBoard({ participants, results, squads, playersById, c
         {rankedTeams.map((team) => (
           <div
             key={team.result.user_id}
-            className={`results-leaderboard-row rank-${Math.min(team.result.rank, 4)} ${team.isMine ? 'is-mine' : ''}`}
+            className={`results-leaderboard-row rank-${Math.min(team.result.rank, 4)} ${team.isMine ? 'is-mine' : ''} ${expandedUserId === team.result.user_id ? 'is-expanded' : ''}`}
             style={{ animationDelay: `${team.result.rank * 90}ms` }}
           >
             <div className="results-leaderboard-rank">#{team.result.rank}</div>
-            <div className="results-leaderboard-main">
-              <strong>{team.participant?.team_name || 'Franchise'}</strong>
-              <span>{team.participant?.profiles?.username || 'Franchise Owner'}</span>
-            </div>
-            <div className="results-leaderboard-meta">
-              <span>{team.breakdown.team_archetype}</span>
-              {team.breakdown.near_miss.is_near_miss && <span className="results-near-miss">Near Miss</span>}
-            </div>
-            <div className="results-leaderboard-score">{formatScore(team.result.team_score)}</div>
+            <button
+              type="button"
+              className="results-leaderboard-toggle"
+              aria-expanded={expandedUserId === team.result.user_id}
+              onClick={() => setExpandedUserId((current) => (current === team.result.user_id ? null : team.result.user_id))}
+            >
+              <div className="results-leaderboard-main">
+                <strong>{team.participant?.team_name || 'Franchise'}</strong>
+                <span>{team.participant?.profiles?.username || 'Franchise Owner'}</span>
+              </div>
+              <div className="results-leaderboard-meta">
+                <span>{team.breakdown.team_archetype}</span>
+                {team.breakdown.near_miss.is_near_miss && <span className="results-near-miss">Near Miss</span>}
+              </div>
+              <div className="results-leaderboard-score">{formatScore(team.result.team_score)}</div>
+            </button>
+            <button
+              type="button"
+              className="results-leaderboard-download"
+              onClick={() => handleDownloadTeamCsv(team)}
+              aria-label={`Download ${team.participant?.team_name || 'franchise'} squad CSV`}
+            >
+              <span aria-hidden="true">↓</span>
+              <span>CSV</span>
+            </button>
           </div>
         ))}
       </section>
 
-      <section className="results-team-stack">
-        {rankedTeams.map((team) => (
-          <TeamCard key={team.result.user_id} team={team} winner={winner} />
-        ))}
-      </section>
+      {expandedTeam && (
+        <section className="results-team-stack">
+          <TeamCard key={expandedTeam.result.user_id} team={expandedTeam} winner={winner} onShareTeam={onShareTeam} />
+        </section>
+      )}
     </div>
   )
 }
