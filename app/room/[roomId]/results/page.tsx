@@ -14,6 +14,7 @@ import { Player, SquadPlayer, TeamResult } from '@/types'
 const RESULTS_SELECT = 'room_id, user_id, team_score, rank, breakdown_json, created_at, updated_at'
 const SQUAD_SELECT = 'id, room_id, participant_id, player_id, price_paid, acquired_at'
 const LOCAL_REVEAL_GRACE_MS = 1500
+const REVEAL_HOLD_SECONDS = 90
 
 export default function ResultsPage() {
   const params = useParams()
@@ -28,7 +29,19 @@ export default function ResultsPage() {
   const [error, setError] = useState<string | null>(null)
   const [isRevealAnimating, setIsRevealAnimating] = useState(false)
   const revealAt = room?.results_reveal_at ?? null
-  const { remaining: revealRemaining } = useTimer(revealAt)
+  const effectiveRevealAt = useMemo(() => {
+    if (revealAt) return revealAt
+    if (room?.status !== 'completed' || results.length === 0) return null
+
+    const latestResultTimestamp = results.reduce((latest, result) => {
+      const candidate = new Date(result.updated_at ?? result.created_at).getTime()
+      return Number.isFinite(candidate) && candidate > latest ? candidate : latest
+    }, 0)
+
+    if (latestResultTimestamp <= 0) return null
+    return new Date(latestResultTimestamp + REVEAL_HOLD_SECONDS * 1000).toISOString()
+  }, [results, revealAt, room?.status])
+  const { remaining: revealRemaining } = useTimer(effectiveRevealAt)
 
   useEffect(() => {
     getBrowserSessionUser().then((currentUser) => {
@@ -124,12 +137,12 @@ export default function ResultsPage() {
   }, [room?.status, roomId])
 
   useEffect(() => {
-    if (!revealAt || room?.status !== 'completed') {
+    if (!effectiveRevealAt || room?.status !== 'completed') {
       setIsRevealAnimating(false)
       return
     }
 
-    const revealDeltaMs = Date.now() - new Date(revealAt).getTime()
+    const revealDeltaMs = Date.now() - new Date(effectiveRevealAt).getTime()
     if (revealDeltaMs < 0 || revealDeltaMs >= LOCAL_REVEAL_GRACE_MS) {
       setIsRevealAnimating(false)
       return
@@ -142,10 +155,10 @@ export default function ResultsPage() {
     }, LOCAL_REVEAL_GRACE_MS - revealDeltaMs)
 
     return () => window.clearTimeout(timeout)
-  }, [revealAt, revealRemaining, room?.status])
+  }, [effectiveRevealAt, revealRemaining, room?.status])
 
   const pageError = useMemo(() => error ?? roomError, [error, roomError])
-  const isPreReveal = room?.status === 'completed' && Boolean(revealAt) && (revealRemaining > 0 || isRevealAnimating)
+  const isPreReveal = room?.status === 'completed' && Boolean(effectiveRevealAt) && (revealRemaining > 0 || isRevealAnimating)
   const isPageBooting = roomLoading || room?.status !== 'completed'
   const isResultsLoading = loading
 
@@ -171,7 +184,7 @@ export default function ResultsPage() {
           </section>
         ) : isPreReveal ? (
           <ResultsRevealHold
-            revealAt={revealAt!}
+            revealAt={effectiveRevealAt!}
             remaining={revealRemaining}
             participants={participants}
             results={results}
