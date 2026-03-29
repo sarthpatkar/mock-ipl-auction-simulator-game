@@ -22,6 +22,7 @@ export default function AcceleratedRoundPage() {
   const [saving, setSaving] = useState(false)
   const [message, setMessage] = useState<string | null>(null)
   const [finalizing, setFinalizing] = useState(false)
+  const [searchQuery, setSearchQuery] = useState('')
 
   const me = useMemo(() => participants.find((participant) => participant.user_id === userId), [participants, userId])
   const submittedCount = useMemo(
@@ -29,6 +30,14 @@ export default function AcceleratedRoundPage() {
     [participants]
   )
   const allSubmitted = participants.length > 0 && submittedCount === participants.length
+  const filteredPlayers = useMemo(() => {
+    const query = searchQuery.trim().toLowerCase()
+    if (!query) return sourcePlayers
+
+    return sourcePlayers.filter((player) =>
+      [player.name, player.ipl_team, player.role, player.base_price_label].some((value) => value?.toLowerCase().includes(query))
+    )
+  }, [searchQuery, sourcePlayers])
 
   const hydrateSelection = useCallback(async () => {
     if (!roomId) return
@@ -194,9 +203,26 @@ export default function AcceleratedRoundPage() {
 
         <div className="accelerated-layout">
           <div className="card accelerated-grid">
-            <div className="flex items-center justify-between gap-3 mb-4">
-              <h2 className="section-title">Round 2 Player Pool</h2>
-              <span className="text-sm text-muted">{selectedIds.length} selected</span>
+            <div className="accelerated-grid-toolbar">
+              <div className="accelerated-grid-heading">
+                <h2 className="section-title">Round 2 Player Pool</h2>
+                <p className="text-sm text-muted">
+                  {searchQuery ? `${filteredPlayers.length} of ${sourcePlayers.length} players shown` : `${sourcePlayers.length} eligible players`}
+                </p>
+              </div>
+              <div className="accelerated-grid-actions">
+                <span className="text-sm text-muted">{selectedIds.length} selected</span>
+                <label className="accelerated-search">
+                  <span className="sr-only">Search players</span>
+                  <input
+                    type="search"
+                    className="input-field accelerated-search-input"
+                    placeholder="Search by name, team, role, or base price"
+                    value={searchQuery}
+                    onChange={(event) => setSearchQuery(event.target.value)}
+                  />
+                </label>
+              </div>
             </div>
             <div className="accelerated-player-list">
               {roomLoading && sourcePlayers.length === 0 && (
@@ -206,7 +232,7 @@ export default function AcceleratedRoundPage() {
                   <div className="accelerated-player skeleton-card skeleton-block-sm" />
                 </>
               )}
-              {sourcePlayers.map((player) => {
+              {filteredPlayers.map((player) => {
                 const selected = selectedIds.includes(player.id)
                 return (
                   <button
@@ -226,6 +252,9 @@ export default function AcceleratedRoundPage() {
                 )
               })}
               {sourcePlayers.length === 0 && <div className="text-sm text-muted">No eligible players are available for Accelerated Round.</div>}
+              {sourcePlayers.length > 0 && filteredPlayers.length === 0 && (
+                <div className="text-sm text-muted">No players match your search.</div>
+              )}
             </div>
           </div>
 

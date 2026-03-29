@@ -14,6 +14,7 @@ type Props = {
   room: Room | null
   auction: AuctionLiveState | null
   currentPlayer: Player | null
+  progressCount: string
   participants: RoomParticipant[]
   bidHistory: Bid[]
   squads: SquadPlayer[]
@@ -102,15 +103,20 @@ const MobilePlayerIdentity = memo(function MobilePlayerIdentity({ player }: { pl
     )
   }
 
-  const detailItems = [
-    ['Team', player.ipl_team || 'FA'],
+  const primaryDetailItems = [
     ['Role', formatRole(player.role)],
     ['Category', player.category],
-    ['Age', player.age ?? '—'],
+    ['Age', player.age ?? '—']
+  ]
+
+  const middleDetailItems = [
     ['Nationality', player.nationality || '—'],
+    ['Base', player.base_price_label || '—']
+  ]
+
+  const secondaryDetailItems = [
     ['Batting', player.batting_style || '—'],
     ['Bowling', player.bowling_style || '—'],
-    ['Base', player.base_price_label || '—'],
     ['Spouse', player.spouse || '—']
   ]
 
@@ -125,17 +131,32 @@ const MobilePlayerIdentity = memo(function MobilePlayerIdentity({ player }: { pl
           </div>
           <div className="mobile-auction-player-badges">
             <span className="mobile-auction-player-badge">{player.ipl_team || 'FA'}</span>
-            <span className="mobile-auction-player-badge">{formatRole(player.role)}</span>
           </div>
         </div>
-        <div className="mobile-auction-player-details" aria-label="Player details">
-          {detailItems.map(([label, value]) => (
+        <div className="mobile-auction-player-details mobile-auction-player-details-primary" aria-label="Primary player details">
+          {primaryDetailItems.map(([label, value]) => (
             <span key={label} className="mobile-auction-player-detail">
               <span>{label}</span>
               <strong>{value}</strong>
             </span>
           ))}
         </div>
+        <div className="mobile-auction-player-details mobile-auction-player-details-middle" aria-label="Secondary player details">
+          {middleDetailItems.map(([label, value]) => (
+            <span key={label} className="mobile-auction-player-detail">
+              <span>{label}</span>
+              <strong>{value}</strong>
+            </span>
+          ))}
+        </div>
+      </div>
+      <div className="mobile-auction-player-details mobile-auction-player-details-secondary" aria-label="Player details">
+        {secondaryDetailItems.map(([label, value]) => (
+          <span key={label} className="mobile-auction-player-detail">
+            <span>{label}</span>
+            <strong>{value}</strong>
+          </span>
+        ))}
       </div>
     </>
   )
@@ -369,6 +390,7 @@ export function MobileAuctionLayout({
   room,
   auction,
   currentPlayer,
+  progressCount,
   participants,
   bidHistory,
   squads,
@@ -436,7 +458,7 @@ export function MobileAuctionLayout({
           </div>
         </div>
 
-        <div className="mobile-auction-navbar-center" aria-label="Squad and purse status">
+        <div className="mobile-auction-navbar-center" aria-label="Squad, purse, and auction progress">
           <div className="mobile-auction-nav-capsule">
             <span>Squad</span>
             <strong>{squadSummary}</strong>
@@ -444,6 +466,10 @@ export function MobileAuctionLayout({
           <div className="mobile-auction-nav-capsule">
             <span>Purse</span>
             <strong>{purseSummary}</strong>
+          </div>
+          <div className="mobile-auction-nav-capsule">
+            <span>Done</span>
+            <strong>{progressCount}</strong>
           </div>
         </div>
 

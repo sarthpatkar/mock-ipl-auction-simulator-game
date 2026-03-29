@@ -157,7 +157,6 @@ export default function HomePage() {
 
   const totalRooms = rooms.length
   const ongoingRooms = rooms.filter((room) => room.status !== 'completed').length
-  const playersWon = Object.values(counts).reduce((sum, count) => sum + count, 0)
   const modalError = error ? <p className="text-red text-sm mt-2">{error}</p> : null
   const actionsDisabled = initializing || signingOut
   const statusLabel = useMemo(() => {
@@ -231,10 +230,6 @@ export default function HomePage() {
             <div className="qs-item">
               <div className="qs-val">{roomsLoading ? '—' : ongoingRooms}</div>
               <div className="qs-label">Ongoing</div>
-            </div>
-            <div className="qs-item">
-              <div className="qs-val">{roomsLoading ? '—' : playersWon}</div>
-              <div className="qs-label">Players Won</div>
             </div>
           </div>
         </div>

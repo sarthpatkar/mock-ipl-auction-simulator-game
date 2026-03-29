@@ -59,6 +59,10 @@ export default function AuctionPage() {
   const [isMobile, setIsMobile] = useState(false)
   const [isTablet, setIsTablet] = useState(false)
   const [tabletMenuOpen, setTabletMenuOpen] = useState(false)
+  const [sessionProgressIds, setSessionProgressIds] = useState<{ completedPlayers: string[]; playerQueue: string[] }>({
+    completedPlayers: [],
+    playerQueue: []
+  })
   const lastBidIdRef = useRef<string | null>(null)
   const lastTickRef = useRef<number | null>(null)
   const previousPriceRef = useRef<number | null>(null)
@@ -293,19 +297,73 @@ export default function AuctionPage() {
     return room.settings.player_order === 'random' ? 'Round 1 – Random' : `Round 1 – ${formatRolePlural(currentPlayer.role)}`
   }, [auction?.round_label, auction?.round_number, currentPlayer, room?.settings])
 
+  useEffect(() => {
+    if (!auction?.auction_session_id) {
+      setSessionProgressIds({ completedPlayers: [], playerQueue: [] })
+      return
+    }
+
+    let cancelled = false
+
+    void supabaseClient
+      .from('auction_sessions')
+      .select('completed_players, player_queue')
+      .eq('id', auction.auction_session_id)
+      .maybeSingle()
+      .then(({ data, error }) => {
+        if (cancelled || error) return
+        setSessionProgressIds({
+          completedPlayers: (data?.completed_players as string[] | null) ?? [],
+          playerQueue: (data?.player_queue as string[] | null) ?? []
+        })
+      })
+
+    return () => {
+      cancelled = true
+    }
+  }, [auction?.auction_session_id, completedCount, totalPlayers])
+
+  const progressCount = useMemo(() => {
+    if (!auction || !room?.settings) return '0/0'
+    if (auction.round_number === 2) {
+      return `${completedCount}/${totalPlayers}`
+    }
+
+    if (room.settings.player_order === 'random' || !currentPlayer) {
+      return `${completedCount}/${totalPlayers}`
+    }
+
+    const queueIds = sessionProgressIds.playerQueue
+    const completedIds = sessionProgressIds.completedPlayers
+
+    if (queueIds.length === 0) {
+      return `${completedCount}/${totalPlayers}`
+    }
+
+    const roleTotal = queueIds.reduce((count, playerId) => {
+      return playersById[playerId]?.role === currentPlayer.role ? count + 1 : count
+    }, 0)
+
+    const roleCompleted = completedIds.reduce((count, playerId) => {
+      return playersById[playerId]?.role === currentPlayer.role ? count + 1 : count
+    }, 0)
+
+    return `${roleCompleted}/${roleTotal || 0}`
+  }, [auction, room?.settings, currentPlayer, completedCount, totalPlayers, sessionProgressIds, playersById])
+
   const progressLabel = useMemo(() => {
     if (!auction || !room?.settings) return '0 / 0 players completed'
     if (auction.round_number === 2) {
-      return `${completedCount} / ${totalPlayers} accelerated players completed`
+      return progressCount
     }
     if (room.settings.player_order === 'random' || !currentPlayer) {
-      return `${completedCount} / ${totalPlayers} players completed`
+      return progressCount
     }
 
-    return `${completedCount} / ${totalPlayers} ${formatRolePlural(currentPlayer.role).toLowerCase()}`
-  }, [auction, completedCount, currentPlayer, room?.settings, totalPlayers])
+    return progressCount
+  }, [auction, currentPlayer, progressCount, room?.settings])
 
-  const tabletProgressLabel = useMemo(() => progressLabel.replace(/\s+completed$/, ''), [progressLabel])
+  const tabletProgressLabel = useMemo(() => progressLabel, [progressLabel])
   const tabletBudgetLabel = useMemo(() => (me ? formatPrice(me.budget_remaining) : '—'), [me])
   const tabletSquadLabel = useMemo(() => `${me?.squad_count ?? 0} / ${room?.settings.squad_size || 20}`, [me, room?.settings.squad_size])
 
@@ -438,6 +496,7 @@ export default function AuctionPage() {
           room={room}
           auction={auction}
           currentPlayer={currentPlayer}
+          progressCount={progressCount}
           participants={participants}
           bidHistory={bidHistory}
           squads={squads}

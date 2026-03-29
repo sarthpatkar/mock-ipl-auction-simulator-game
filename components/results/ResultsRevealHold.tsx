@@ -8,7 +8,7 @@ import { Player, RoomParticipant, SquadPlayer, TeamResult } from '@/types'
 const TOTAL_REVEAL_SECONDS = 90
 const IMPACT_ROLES = new Set(['anchor', 'finisher', 'death_bowler', 'spinner', 'powerplay_bowler', 'all_rounder'])
 const LEADERBOARD_ROW_HEIGHT = 84
-const COMPACT_LEADERBOARD_ROW_HEIGHT = 104
+const COMPACT_LEADERBOARD_ROW_HEIGHT = 90
 
 const HOLD_PHASES = [
   { label: 'Building Best XI', copy: 'Locking the strongest core from every squad.' },
@@ -230,6 +230,7 @@ export function ResultsRevealHold({ revealAt, remaining, participants, results, 
       subtitle: `Final results reveal in ${countdown}`
     }
   }, [countdown, leaderboardPhase])
+  const showActualScores = leaderboardPhase === 'revealing'
 
   return (
     <section className="results-hold-shell">
@@ -280,7 +281,7 @@ export function ResultsRevealHold({ revealAt, remaining, participants, results, 
               return (
                 <article
                   key={team.id}
-                  className={`results-projection-row team-theme ${getTeamThemeClass(team.teamName)} ${isTopThree ? 'is-top-three' : ''} ${team.movement !== 'none' ? `is-moving-${team.movement}` : ''} ${isProjectedLeader ? 'is-potential-winner' : ''} ${isRevealWinner ? 'is-reveal-winner' : ''}`}
+                  className={`results-projection-row team-theme ${getTeamThemeClass(team.teamName)} ${isTopThree ? 'is-top-three' : ''} ${team.movement !== 'none' ? `is-moving-${team.movement}` : ''} ${isProjectedLeader ? 'is-potential-winner' : ''} ${isRevealWinner ? 'is-reveal-winner' : ''} ${showActualScores ? '' : 'is-score-hidden'}`}
                   style={{
                     ...getTeamThemeStyle(team.teamName),
                     transform: `translateY(${index * rowHeight}px)`
@@ -294,13 +295,15 @@ export function ResultsRevealHold({ revealAt, remaining, participants, results, 
                     </div>
                     <span>{team.ownerName}</span>
                   </div>
-                  <div className="results-projection-meta">
-                    <span>{team.teamArchetype}</span>
-                    <span className={`results-projection-delta is-${team.movement}`}>
-                      {team.movement === 'up' ? '↑ Rising' : team.movement === 'down' ? '↓ Sliding' : '· Holding'}
-                    </span>
+                  <div className={`results-projection-side ${showActualScores ? '' : 'is-score-hidden'}`}>
+                    <div className="results-projection-meta">
+                      <span>{team.teamArchetype}</span>
+                      <span className={`results-projection-delta is-${team.movement}`}>
+                        {team.movement === 'up' ? '↑ Rising' : team.movement === 'down' ? '↓ Sliding' : '· Holding'}
+                      </span>
+                    </div>
+                    {showActualScores ? <div className="results-projection-score">{formatScore(team.teamScore)}</div> : null}
                   </div>
-                  <div className="results-projection-score">{formatScore(team.teamScore)}</div>
                 </article>
               )
             })}
