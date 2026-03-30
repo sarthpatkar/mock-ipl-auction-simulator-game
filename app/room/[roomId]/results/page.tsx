@@ -5,6 +5,7 @@ import { useParams, useRouter } from 'next/navigation'
 import { PageNavbar } from '@/components/shared/PageNavbar'
 import { ResultsExperience } from '@/components/results/ResultsExperience'
 import { ResultsRevealHold } from '@/components/results/ResultsRevealHold'
+import { useForcedTheme } from '@/components/theme/ThemeProvider'
 import { useRoom } from '@/hooks/useRoom'
 import { useTimer } from '@/hooks/useTimer'
 import { fetchPlayersByIds, RESULTS_PLAYER_COLUMNS } from '@/lib/player-catalog'
@@ -17,6 +18,8 @@ const LOCAL_REVEAL_GRACE_MS = 1500
 const REVEAL_HOLD_SECONDS = 90
 
 export default function ResultsPage() {
+  useForcedTheme('dark')
+
   const params = useParams()
   const roomId = params?.roomId as string
   const router = useRouter()
@@ -164,7 +167,7 @@ export default function ResultsPage() {
 
   return (
     <div className="screen page-with-navbar results-page">
-      <PageNavbar subtitle="RESULTS" showHome />
+      <PageNavbar subtitle="RESULTS" showHome showThemeToggle={false} />
       <main className="mx-auto flex w-full max-w-6xl flex-col gap-6 px-6 py-12">
         {pageError && (
           <div className="card live-banner is-warning">

@@ -2,14 +2,16 @@
 
 import { ReactNode } from 'react'
 import { useRouter } from 'next/navigation'
+import { ThemeToggle } from '@/components/theme/ThemeToggle'
 
 type Props = {
   subtitle?: string
   showHome?: boolean
   actions?: ReactNode
+  showThemeToggle?: boolean
 }
 
-export function PageNavbar({ subtitle, showHome = false, actions }: Props) {
+export function PageNavbar({ subtitle, showHome = false, actions, showThemeToggle = true }: Props) {
   const router = useRouter()
 
   return (
@@ -26,7 +28,10 @@ export function PageNavbar({ subtitle, showHome = false, actions }: Props) {
         </div>
       </div>
       <div className="navbar-watermark">Built by Sarth Patkar</div>
-      <div className="navbar-actions">{actions}</div>
+      <div className="navbar-actions">
+        {showThemeToggle && <ThemeToggle variant="navbar" />}
+        {actions}
+      </div>
     </nav>
   )
 }

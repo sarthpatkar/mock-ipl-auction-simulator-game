@@ -3,6 +3,7 @@ import { createClient, SupabaseClient, User } from '@supabase/supabase-js'
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY
+const AUTH_COOKIE_CHUNK_SIZE = 3000
 
 function createMissingEnvClient(): SupabaseClient {
   const message =
@@ -23,8 +24,89 @@ export const supabaseClient: SupabaseClient =
     ? getBrowserSupabaseClient()
     : createMissingEnvClient()
 
+export const supabasePkceClient: SupabaseClient = supabaseClient
+
 declare global {
   var __iplSupabaseClient__: SupabaseClient | undefined
+  var __iplSupabaseCookieStorage__: ReturnType<typeof createBrowserCookieStorage> | undefined
+}
+
+function buildCookieAttributes(maxAgeSeconds = 60 * 60 * 24 * 30) {
+  const secure = typeof window !== 'undefined' && window.location.protocol === 'https:' ? '; Secure' : ''
+  return `Path=/; Max-Age=${maxAgeSeconds}; SameSite=Lax${secure}`
+}
+
+function readCookie(name: string) {
+  if (typeof document === 'undefined') return null
+  const encodedName = encodeURIComponent(name)
+  const pair = document.cookie
+    .split('; ')
+    .find((entry) => entry.startsWith(`${encodedName}=`))
+
+  if (!pair) return null
+  return decodeURIComponent(pair.slice(encodedName.length + 1))
+}
+
+function listChunkCookieNames(baseKey: string) {
+  if (typeof document === 'undefined') return []
+  const prefix = `${encodeURIComponent(baseKey)}.`
+
+  return document.cookie
+    .split('; ')
+    .map((entry) => entry.split('=')[0] ?? '')
+    .filter((name) => name.startsWith(prefix))
+    .map((name) => decodeURIComponent(name))
+    .sort((left, right) => Number(left.split('.').pop()) - Number(right.split('.').pop()))
+}
+
+function writeCookie(name: string, value: string, maxAgeSeconds = 60 * 60 * 24 * 30) {
+  if (typeof document === 'undefined') return
+  document.cookie = `${encodeURIComponent(name)}=${encodeURIComponent(value)}; ${buildCookieAttributes(maxAgeSeconds)}`
+}
+
+function removeCookie(name: string) {
+  if (typeof document === 'undefined') return
+  document.cookie = `${encodeURIComponent(name)}=; ${buildCookieAttributes(0)}`
+}
+
+function createBrowserCookieStorage() {
+  return {
+    getItem(key: string) {
+      const direct = readCookie(key)
+      if (direct !== null) return direct
+
+      const chunkNames = listChunkCookieNames(key)
+      if (chunkNames.length === 0) return null
+
+      return chunkNames.map((name) => readCookie(name) ?? '').join('')
+    },
+    setItem(key: string, value: string) {
+      this.removeItem(key)
+
+      if (value.length <= AUTH_COOKIE_CHUNK_SIZE) {
+        writeCookie(key, value)
+        return
+      }
+
+      const chunkCount = Math.ceil(value.length / AUTH_COOKIE_CHUNK_SIZE)
+      for (let index = 0; index < chunkCount; index += 1) {
+        const start = index * AUTH_COOKIE_CHUNK_SIZE
+        writeCookie(`${key}.${index}`, value.slice(start, start + AUTH_COOKIE_CHUNK_SIZE))
+      }
+    },
+    removeItem(key: string) {
+      removeCookie(key)
+      listChunkCookieNames(key).forEach(removeCookie)
+    }
+  }
+}
+
+function getBrowserCookieStorage() {
+  if (typeof window === 'undefined') return undefined
+  if (!globalThis.__iplSupabaseCookieStorage__) {
+    globalThis.__iplSupabaseCookieStorage__ = createBrowserCookieStorage()
+  }
+  return globalThis.__iplSupabaseCookieStorage__
 }
 
 function getBrowserSupabaseClient(): SupabaseClient {
@@ -32,7 +114,9 @@ function getBrowserSupabaseClient(): SupabaseClient {
     return createClient(supabaseUrl!, supabaseAnonKey!, {
       auth: {
         persistSession: true,
-        autoRefreshToken: true
+        autoRefreshToken: true,
+        flowType: 'pkce',
+        detectSessionInUrl: false
       }
     })
   }
@@ -41,7 +125,10 @@ function getBrowserSupabaseClient(): SupabaseClient {
     globalThis.__iplSupabaseClient__ = createClient(supabaseUrl!, supabaseAnonKey!, {
       auth: {
         persistSession: true,
-        autoRefreshToken: true
+        autoRefreshToken: true,
+        flowType: 'pkce',
+        detectSessionInUrl: false,
+        storage: getBrowserCookieStorage()
       }
     })
   }

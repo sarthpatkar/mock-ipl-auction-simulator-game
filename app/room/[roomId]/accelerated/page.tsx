@@ -6,10 +6,13 @@ import { useRoom } from '@/hooks/useRoom'
 import { useTimer } from '@/hooks/useTimer'
 import { fetchPlayersByIds, SUMMARY_PLAYER_COLUMNS } from '@/lib/player-catalog'
 import { PageNavbar } from '@/components/shared/PageNavbar'
+import { useForcedTheme } from '@/components/theme/ThemeProvider'
 import { getBrowserSessionUser, supabaseClient } from '@/lib/supabase'
 import { Player } from '@/types'
 
 export default function AcceleratedRoundPage() {
+  useForcedTheme('dark')
+
   const params = useParams()
   const roomId = params?.roomId as string
   const router = useRouter()
@@ -173,6 +176,7 @@ export default function AcceleratedRoundPage() {
       <PageNavbar
         subtitle="ACCELERATED ROUND"
         showHome
+        showThemeToggle={false}
         actions={
           <>
             <div className="badge badge-gold">{submittedCount}/{participants.length || 0} submitted</div>

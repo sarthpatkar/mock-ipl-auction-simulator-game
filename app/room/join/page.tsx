@@ -41,31 +41,33 @@ export default function JoinRoomPage() {
   return (
     <div className="screen page-with-navbar form-page">
       <PageNavbar subtitle="JOIN ROOM" showHome />
-      <main className="mx-auto flex w-full max-w-xl flex-col gap-6 px-6 py-16">
-        <h1 className="text-3xl font-bold">Join Room</h1>
-        <form onSubmit={handleJoin} className="glass rounded-2xl p-6 space-y-4">
+      <main className="themed-form-page">
+        <div className="themed-form-shell">
+          <h1 className="themed-form-title">Join Room</h1>
+          <form onSubmit={handleJoin} className="card themed-form-card">
           <input
             value={code}
             onChange={(e) => setCode(e.target.value)}
             placeholder="Enter 7-digit code"
-            className="w-full rounded-lg bg-slate-900/60 p-3 ring-1 ring-slate-800 focus:ring-amber-400"
+              className="input-field"
             required
           />
           <input
             value={teamName}
             onChange={(e) => setTeamName(e.target.value)}
             placeholder="Team name"
-            className="w-full rounded-lg bg-slate-900/60 p-3 ring-1 ring-slate-800 focus:ring-amber-400"
+              className="input-field"
             required
           />
-          {error && <p className="text-sm text-rose-400">{error}</p>}
+            {error && <p className="text-red text-sm">{error}</p>}
           <button
             type="submit"
-            className="w-full rounded-lg bg-amber-400 px-4 py-3 font-semibold text-slate-900 hover:bg-amber-300"
+              className="btn btn-primary btn-lg w-full"
           >
             Join
           </button>
-        </form>
+          </form>
+        </div>
       </main>
     </div>
   )

@@ -30,36 +30,38 @@ export default function CreateRoomPage() {
   return (
     <div className="screen page-with-navbar form-page">
       <PageNavbar subtitle="CREATE ROOM" showHome />
-      <main className="mx-auto flex w-full max-w-xl flex-col gap-6 px-6 py-16">
-        <h1 className="text-3xl font-bold">Create Room</h1>
-        <form onSubmit={handleCreate} className="glass rounded-2xl p-6 space-y-4">
-          <label className="space-y-2 text-sm">
-            <span>Room name</span>
+      <main className="themed-form-page">
+        <div className="themed-form-shell">
+          <h1 className="themed-form-title">Create Room</h1>
+          <form onSubmit={handleCreate} className="card themed-form-card">
+            <label className="input-group">
+              <span className="input-label">Room name</span>
             <input
               value={name}
               onChange={(e) => setName(e.target.value)}
               required
-              className="w-full rounded-lg bg-slate-900/60 p-3 ring-1 ring-slate-800 focus:ring-amber-400"
+              className="input-field"
             />
           </label>
-          <label className="space-y-2 text-sm">
-            <span>Your team name</span>
+            <label className="input-group">
+              <span className="input-label">Your team name</span>
             <input
               value={teamName}
               onChange={(e) => setTeamName(e.target.value)}
               required
-              className="w-full rounded-lg bg-slate-900/60 p-3 ring-1 ring-slate-800 focus:ring-amber-400"
+              className="input-field"
             />
           </label>
-          {error && <p className="text-sm text-rose-400">{error}</p>}
+            {error && <p className="text-red text-sm">{error}</p>}
           <button
             type="submit"
             disabled={loading}
-            className="w-full rounded-lg bg-amber-400 px-4 py-3 font-semibold text-slate-900 hover:bg-amber-300 disabled:opacity-60"
+              className="btn btn-primary btn-lg w-full"
           >
             {loading ? 'Creating…' : 'Create Room'}
           </button>
-        </form>
+          </form>
+        </div>
       </main>
     </div>
   )

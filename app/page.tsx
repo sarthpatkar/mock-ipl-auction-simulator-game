@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useRouter } from 'next/navigation'
+import { ensureUserProfile } from '@/lib/auth-profiles'
 import { getBrowserSessionUser, supabaseClient } from '@/lib/supabase'
 import { createRoomWithAdmin, DEFAULT_ROOM_SETTINGS, fetchUserRooms } from '@/lib/room-client'
 import { ActionCard } from '@/components/home/ActionCard'
@@ -43,6 +44,7 @@ export default function HomePage() {
           return
         }
 
+        void ensureUserProfile(currentUser, supabaseClient).catch(() => {})
         setUserId(currentUser.id)
         const email = currentUser.email || 'U'
         setUserInitial(email.charAt(0).toUpperCase())

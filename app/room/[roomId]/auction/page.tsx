@@ -16,6 +16,7 @@ import { SoldModal } from '@/components/auction/SoldModal'
 import { AdminControls } from '@/components/auction/AdminControls'
 import { MobileAuctionLayout } from '@/components/auction/MobileAuctionLayout'
 import { PageNavbar } from '@/components/shared/PageNavbar'
+import { useForcedTheme } from '@/components/theme/ThemeProvider'
 import { formatAuctionStatus, formatPrice, formatRolePlural, getTeamThemeStyle } from '@/lib/auction-helpers'
 
 const SOUND_STORAGE_KEY = 'auction:sound-enabled'
@@ -41,6 +42,8 @@ function playTone(enabled: boolean, frequency: number, duration: number, type: O
 }
 
 export default function AuctionPage() {
+  useForcedTheme('dark')
+
   const params = useParams()
   const roomId = params?.roomId as string
   const router = useRouter()
@@ -576,6 +579,7 @@ export default function AuctionPage() {
           <PageNavbar
             subtitle={auction?.round_number === 2 ? 'ACCELERATED ROUND' : 'LIVE AUCTION'}
             showHome
+            showThemeToggle={false}
             actions={
               auction ? (
                 isTablet ? (
