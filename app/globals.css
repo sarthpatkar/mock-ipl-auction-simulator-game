@@ -1799,6 +1799,54 @@ h1, h2, h3, h4 { font-family: var(--font-display); letter-spacing: 0.04em; line-
 /* ===== Home page specific ===== */
 .home-page { min-height: 100vh; background: var(--bg-deep); }
 .nav-user { display: flex; align-items: center; gap: 10px; }
+.nav-user-menu { position: relative; }
+.nav-profile-trigger {
+  border: 0;
+  background: transparent;
+  padding: 0;
+  color: inherit;
+  cursor: pointer;
+}
+.nav-profile-trigger:disabled {
+  cursor: default;
+  opacity: 0.72;
+}
+.nav-profile-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  min-width: 146px;
+  padding: 6px;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: var(--surface-glass-strong);
+  box-shadow: var(--shadow-card);
+  backdrop-filter: blur(12px);
+  z-index: 130;
+}
+.nav-profile-menu-item {
+  width: 100%;
+  min-height: 38px;
+  padding: 10px 12px;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--danger);
+  font-family: var(--font-body);
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-align: left;
+  cursor: pointer;
+}
+.nav-profile-menu-item:hover {
+  background: rgba(239, 68, 68, 0.1);
+}
+.nav-profile-menu-item:disabled {
+  cursor: default;
+  opacity: 0.7;
+}
 .nav-avatar { width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, var(--gold), var(--orange)); display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-size: 1rem; color: #050A0F; font-weight: 900; }
 .nav-username { font-weight: 700; font-size: 0.84rem; color: var(--text-primary); }
 .home-hero { padding: 28px 0 48px; text-align: center; position: relative; overflow: hidden; }
@@ -2636,6 +2684,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); letter-spacing: 0.04em; line-
   justify-content: center;
   width: 18px;
   height: 18px;
+  line-height: 0;
   color: var(--gold);
   flex-shrink: 0;
 }
@@ -2645,6 +2694,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); letter-spacing: 0.04em; line-
   display: block;
   width: 100%;
   height: 100%;
+  overflow: visible;
 }
 
 .theme-toggle-label {
@@ -2857,6 +2907,15 @@ h1, h2, h3, h4 { font-family: var(--font-display); letter-spacing: 0.04em; line-
 [data-theme='light'] .creator-link {
   background: rgba(255, 255, 255, 0.82);
   border-color: rgba(201, 214, 226, 0.92);
+}
+
+[data-theme='light'] .nav-profile-menu {
+  background: rgba(255, 255, 255, 0.96);
+  border-color: rgba(201, 214, 226, 0.92);
+}
+
+[data-theme='light'] .nav-profile-menu-item:hover {
+  background: rgba(239, 68, 68, 0.08);
 }
 
 [data-theme='light'] .history-item:hover,
@@ -4242,7 +4301,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); letter-spacing: 0.04em; line-
 @media (max-width: 769px) {
   .home-page .navbar {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1fr) minmax(0, 0.92fr) auto;
     min-height: 48px;
     padding: 6px 10px;
     gap: 10px;
@@ -4261,8 +4320,8 @@ h1, h2, h3, h4 { font-family: var(--font-display); letter-spacing: 0.04em; line-
     order: initial;
     flex: none;
     flex-basis: auto;
-    justify-self: center;
-    text-align: center;
+    justify-self: start;
+    text-align: left;
     font-size: 0.56rem;
     letter-spacing: 0.1em;
   }
@@ -4318,7 +4377,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); letter-spacing: 0.04em; line-
 
   .lobby-page .navbar {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1fr) minmax(0, 0.92fr) auto;
     min-height: 48px;
     padding: 6px 10px;
     gap: 10px;
@@ -4337,8 +4396,8 @@ h1, h2, h3, h4 { font-family: var(--font-display); letter-spacing: 0.04em; line-
     order: initial;
     flex: none;
     flex-basis: auto;
-    justify-self: center;
-    text-align: center;
+    justify-self: start;
+    text-align: left;
     font-size: 0.56rem;
     letter-spacing: 0.1em;
   }
@@ -4354,6 +4413,46 @@ h1, h2, h3, h4 { font-family: var(--font-display); letter-spacing: 0.04em; line-
     min-height: 30px;
     padding: 7px 10px;
     font-size: 0.68rem;
+  }
+
+  .theme-toggle-button-navbar {
+    width: 32px;
+    min-width: 32px;
+    height: 32px;
+    min-height: 32px;
+    padding: 0;
+    border-radius: 999px;
+    justify-content: center;
+    gap: 0;
+  }
+
+  .theme-toggle-button-navbar .theme-toggle-label {
+    display: none;
+  }
+
+  .theme-toggle-button-navbar .theme-toggle-icon {
+    width: 16px;
+    height: 16px;
+  }
+
+  .theme-toggle-button-navbar.is-dark {
+    background: rgba(16, 25, 37, 0.96);
+    border-color: rgba(88, 106, 128, 0.34);
+    color: #d7e0ea;
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.04),
+      0 0 0 1px rgba(8, 13, 19, 0.08);
+  }
+
+  .theme-toggle-button-navbar.is-light {
+    background: rgba(255, 247, 214, 0.96);
+    border-color: rgba(226, 177, 37, 0.34);
+    color: #8c5a00;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.75);
+  }
+
+  .theme-toggle-button-navbar:hover {
+    transform: none;
   }
 
   .lobby-page .room-code-card {

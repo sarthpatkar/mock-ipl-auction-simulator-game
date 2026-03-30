@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { ensureUserProfile } from '@/lib/auth-profiles'
 import { getBrowserSessionUser, supabaseClient } from '@/lib/supabase'
@@ -30,6 +30,8 @@ export default function HomePage() {
   const [creating, setCreating] = useState(false)
   const [joining, setJoining] = useState(false)
   const [signingOut, setSigningOut] = useState(false)
+  const [profileMenuOpen, setProfileMenuOpen] = useState(false)
+  const profileMenuRef = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
     let active = true
@@ -80,6 +82,19 @@ export default function HomePage() {
   useEffect(() => {
     void fetchRooms()
   }, [fetchRooms])
+
+  useEffect(() => {
+    if (!profileMenuOpen) return
+
+    const handlePointerDown = (event: MouseEvent) => {
+      if (!profileMenuRef.current?.contains(event.target as Node)) {
+        setProfileMenuOpen(false)
+      }
+    }
+
+    window.addEventListener('mousedown', handlePointerDown)
+    return () => window.removeEventListener('mousedown', handlePointerDown)
+  }, [profileMenuOpen])
 
   const handleCreate = async () => {
     setError(null)
@@ -138,6 +153,7 @@ export default function HomePage() {
 
   const handleSignOut = async () => {
     setError(null)
+    setProfileMenuOpen(false)
     setSigningOut(true)
 
     try {
@@ -172,15 +188,29 @@ export default function HomePage() {
       <PageNavbar
         subtitle="FRANCHISE MODE"
         actions={
-          <>
-            <div className="nav-user">
-              <div className="nav-avatar">{userInitial}</div>
-              <span className="nav-username">Franchise</span>
-            </div>
-            <button className="btn btn-ghost btn-sm" onClick={() => void handleSignOut()} disabled={signingOut || initializing}>
-              {signingOut ? 'Signing Out…' : 'Sign Out'}
+          <div className="nav-user-menu" ref={profileMenuRef}>
+            <button
+              type="button"
+              className="nav-profile-trigger"
+              aria-haspopup="menu"
+              aria-expanded={profileMenuOpen}
+              aria-label="Open profile menu"
+              onClick={() => setProfileMenuOpen((value) => !value)}
+              disabled={initializing}
+            >
+              <div className="nav-user">
+                <div className="nav-avatar">{userInitial}</div>
+                <span className="nav-username">Franchise</span>
+              </div>
             </button>
-          </>
+            {profileMenuOpen && (
+              <div className="nav-profile-menu" role="menu" aria-label="Profile menu">
+                <button className="nav-profile-menu-item" type="button" role="menuitem" onClick={() => void handleSignOut()} disabled={signingOut}>
+                  {signingOut ? 'Signing Out…' : 'Sign Out'}
+                </button>
+              </div>
+            )}
+          </div>
         }
       />
 
