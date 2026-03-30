@@ -41,6 +41,9 @@ export type RoomParticipant = {
   squad_count: number
   joined_at: string
   accelerated_round_submitted_at?: string | null
+  removed_at?: string | null
+  removed_by_user_id?: UUID | null
+  removal_reason?: string | null
   profiles?: {
     username: string
   } | null

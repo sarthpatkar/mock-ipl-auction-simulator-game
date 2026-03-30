@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { formatAuctionStatus } from '@/lib/auction-helpers'
 import { supabaseClient } from '@/lib/supabase'
 
@@ -15,9 +15,64 @@ type Feedback = {
   text: string
 } | null
 
+type InactiveParticipantCandidate = {
+  participant_id: string
+  user_id: string
+  team_name: string
+  username: string | null
+  joined_at: string
+}
+
+type InactiveParticipantsResponse = {
+  success?: boolean
+  error?: string
+  completed_count?: number
+  required_count?: number
+  eligible_participants?: InactiveParticipantCandidate[]
+}
+
 export function AdminControls({ auctionSessionId, status, compact = false }: Props) {
   const [loading, setLoading] = useState<null | 'pause' | 'resume' | 'end' | 'stop'>(null)
   const [feedback, setFeedback] = useState<Feedback>(null)
+  const [inactiveCandidates, setInactiveCandidates] = useState<InactiveParticipantCandidate[]>([])
+  const [inactiveCompletedCount, setInactiveCompletedCount] = useState(0)
+  const [inactiveRequiredCount, setInactiveRequiredCount] = useState(25)
+  const [inactiveLoading, setInactiveLoading] = useState(false)
+  const [removingParticipantId, setRemovingParticipantId] = useState<string | null>(null)
+  const canRemoveInactiveParticipant = status === 'waiting' || status === 'sold' || status === 'unsold'
+
+  const loadInactiveCandidates = useCallback(async () => {
+    setInactiveLoading(true)
+
+    try {
+      const { data, error } = await supabaseClient.rpc('list_inactive_participants_for_removal', {
+        p_auction_session_id: auctionSessionId
+      })
+
+      if (error) {
+        setInactiveCandidates([])
+        setFeedback({ tone: 'error', text: error.message })
+        return
+      }
+
+      const result = (data ?? {}) as InactiveParticipantsResponse
+      if (result.success === false) {
+        setInactiveCandidates([])
+        setFeedback({ tone: 'error', text: result.error || 'Failed to load inactive participants.' })
+        return
+      }
+
+      setInactiveCandidates(result.eligible_participants ?? [])
+      setInactiveCompletedCount(result.completed_count ?? 0)
+      setInactiveRequiredCount(result.required_count ?? 25)
+    } finally {
+      setInactiveLoading(false)
+    }
+  }, [auctionSessionId])
+
+  useEffect(() => {
+    void loadInactiveCandidates()
+  }, [loadInactiveCandidates, status])
 
   const runAdminAction = async (
     rpcName: 'pause_auction' | 'resume_auction' | 'stop_auction',
@@ -58,6 +113,86 @@ export function AdminControls({ auctionSessionId, status, compact = false }: Pro
     }
   }
 
+  const removeInactiveParticipant = async (participantId: string) => {
+    setRemovingParticipantId(participantId)
+    setFeedback(null)
+
+    try {
+      const { data, error } = await supabaseClient.rpc('remove_inactive_participant', {
+        p_auction_session_id: auctionSessionId,
+        p_participant_id: participantId
+      })
+
+      if (error) {
+        setFeedback({ tone: 'error', text: error.message })
+        return
+      }
+
+      if (data?.success === false) {
+        setFeedback({ tone: 'error', text: data.error || 'Failed to remove participant.' })
+        return
+      }
+
+      setFeedback({ tone: 'success', text: 'Inactive participant removed from live room participation.' })
+      await loadInactiveCandidates()
+    } finally {
+      setRemovingParticipantId(null)
+    }
+  }
+
+  const renderInactiveParticipantsPanel = () => {
+    const hasWindow = inactiveCompletedCount >= inactiveRequiredCount
+
+    return (
+      <div className={`admin-inactive-panel ${compact ? 'is-compact' : ''}`}>
+        <div className="admin-inactive-panel-head">
+          <div>
+            <span className="status-label">Inactive Last 25 Players</span>
+            <p className="admin-inactive-panel-copy">
+              Remove participants who have not placed a single bid in the last {inactiveRequiredCount} completed players of this round.
+            </p>
+          </div>
+          <span className="status-chip">{Math.min(inactiveCompletedCount, inactiveRequiredCount)}/{inactiveRequiredCount}</span>
+        </div>
+
+        {inactiveLoading ? (
+          <div className="admin-inactive-empty">Checking inactivity window…</div>
+        ) : !hasWindow ? (
+          <div className="admin-inactive-empty">Available after {inactiveRequiredCount} completed players. Current progress: {inactiveCompletedCount}/{inactiveRequiredCount}.</div>
+        ) : inactiveCandidates.length === 0 ? (
+          <div className="admin-inactive-empty">No participants are inactive across the last {inactiveRequiredCount} players.</div>
+        ) : (
+          <div className="admin-inactive-list">
+            {inactiveCandidates.map((candidate) => {
+              const isRemoving = removingParticipantId === candidate.participant_id
+
+              return (
+                <div key={candidate.participant_id} className="admin-inactive-item">
+                  <div className="admin-inactive-item-copy">
+                    <strong>{candidate.team_name}</strong>
+                    <span>{candidate.username || 'Franchise Owner'}</span>
+                  </div>
+                  <button
+                    type="button"
+                    className="btn btn-danger btn-sm"
+                    disabled={!canRemoveInactiveParticipant || isRemoving}
+                    onClick={() => void removeInactiveParticipant(candidate.participant_id)}
+                  >
+                    {isRemoving ? 'Removing…' : 'Remove'}
+                  </button>
+                </div>
+              )
+            })}
+          </div>
+        )}
+
+        {!canRemoveInactiveParticipant && hasWindow && inactiveCandidates.length > 0 && (
+          <div className="admin-inactive-empty">Removal is only allowed between players, after a player resolves and before the next one goes live.</div>
+        )}
+      </div>
+    )
+  }
+
   if (compact) {
     return (
       <section className="admin-controls-inline" aria-label="Admin controls">
@@ -90,6 +225,7 @@ export function AdminControls({ auctionSessionId, status, compact = false }: Pro
             {loading === 'stop' ? 'Stopping…' : 'Stop'}
           </button>
         </div>
+        {renderInactiveParticipantsPanel()}
         {feedback && <span className={`admin-controls-inline-feedback is-${feedback.tone}`}>{feedback.text}</span>}
       </section>
     )
@@ -131,6 +267,8 @@ export function AdminControls({ auctionSessionId, status, compact = false }: Pro
           {loading === 'stop' ? 'Stopping…' : 'Stop'}
         </button>
       </div>
+
+      {renderInactiveParticipantsPanel()}
 
       {feedback && <div className={`auction-feedback-copy ${feedback ? `is-${feedback.tone}` : ''}`}>{feedback.text}</div>}
     </section>

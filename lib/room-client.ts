@@ -33,7 +33,7 @@ export async function createRoomWithAdmin(name: string, teamName: string, settin
 
 export async function fetchUserRooms(userId: string) {
   const [{ data: membershipRows, error: membershipError }, { data: adminRooms, error: adminRoomsError }] = await Promise.all([
-    supabaseClient.from('room_participants').select('room_id').eq('user_id', userId),
+    supabaseClient.from('room_participants').select('room_id').eq('user_id', userId).is('removed_at', null),
     supabaseClient.from('rooms').select(ROOM_LIST_SELECT).eq('admin_id', userId).order('created_at', { ascending: false })
   ])
 
@@ -84,6 +84,7 @@ export async function fetchUserRooms(userId: string) {
     .from('room_participants')
     .select('room_id')
     .in('room_id', roomIds)
+    .is('removed_at', null)
 
   if (participantRowsError) throw participantRowsError
 

@@ -20,7 +20,7 @@ export default function ResultsPage() {
   const params = useParams()
   const roomId = params?.roomId as string
   const router = useRouter()
-  const { room, participants, loading: roomLoading, error: roomError } = useRoom(roomId)
+  const { room, participants, loading: roomLoading, error: roomError } = useRoom(roomId, { includeRemoved: true })
   const [userId, setUserId] = useState<string | null>(null)
   const [results, setResults] = useState<TeamResult[]>([])
   const [squads, setSquads] = useState<SquadPlayer[]>([])

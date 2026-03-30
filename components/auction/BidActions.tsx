@@ -9,6 +9,7 @@ type Props = {
   auctionSessionId: string
   participantId: string
   currentPrice: number
+  hasHighestBid: boolean
   budgetRemaining: number
   squadCount: number
   squadLimit: number
@@ -29,6 +30,7 @@ export function BidActions({
   auctionSessionId,
   participantId,
   currentPrice,
+  hasHighestBid,
   budgetRemaining,
   squadCount,
   squadLimit,
@@ -42,18 +44,20 @@ export function BidActions({
   const [loadingAction, setLoadingAction] = useState<'bid' | 'skip' | null>(null)
   const [message, setMessage] = useState<ActionState>(null)
   const skipStackRef = useRef<HTMLDivElement | null>(null)
-  const increments = getBidIncrements(currentPrice)
+  const isOpeningBid = !hasHighestBid
+  const increments = isOpeningBid ? [{ label: 'Base', amount: 0 }] : getBidIncrements(currentPrice)
+  const hasInsufficientBudget = isOpeningBid ? budgetRemaining < currentPrice : budgetRemaining <= currentPrice
 
-  const disabled = isPaused || isExpired || isHighestBidder || squadCount >= squadLimit || budgetRemaining <= currentPrice
+  const disabled = isPaused || isExpired || isHighestBidder || squadCount >= squadLimit || hasInsufficientBudget
   const disabledReason = useMemo(() => {
     if (isPaused) return 'Host has paused the auction.'
     if (isExpired) return 'Timer expired. Waiting for result.'
     if (isHighestBidder) return 'You already hold the highest confirmed bid.'
     if (squadCount >= squadLimit) return 'Your squad limit is full.'
-    if (budgetRemaining <= currentPrice) return 'Available budget is below the current price.'
+    if (hasInsufficientBudget) return isOpeningBid ? 'Available budget is below the current price.' : 'Available budget must exceed the current price.'
     if (skipped) return `Pass recorded · ${skipCount}/${activeCount} franchises skipped`
     return 'Place a bid or skip this player.'
-  }, [activeCount, budgetRemaining, currentPrice, isExpired, isHighestBidder, isPaused, skipCount, skipped, squadCount, squadLimit])
+  }, [activeCount, hasInsufficientBudget, isExpired, isHighestBidder, isOpeningBid, isPaused, skipCount, skipped, squadCount, squadLimit])
 
   const placeBid = async (delta: number) => {
     if (disabled) return

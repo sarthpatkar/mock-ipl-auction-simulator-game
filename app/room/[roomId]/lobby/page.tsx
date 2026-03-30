@@ -196,15 +196,17 @@ export default function LobbyPage() {
   }
 
   const leaveRoom = async () => {
-    if (!room || !userId) return
+    if (!userId) return
+    const targetRoomId = room?.id ?? roomId
+    if (!targetRoomId) return
 
-    if (room.admin_id === userId) {
-      await supabaseClient.from('rooms').delete().eq('id', room.id)
+    const deleteRoomResult = await supabaseClient.from('rooms').delete().eq('id', targetRoomId)
+    if (!deleteRoomResult.error) {
       router.push('/')
       return
     }
 
-    await supabaseClient.from('room_participants').delete().eq('room_id', room.id).eq('user_id', userId)
+    await supabaseClient.from('room_participants').delete().eq('room_id', targetRoomId).eq('user_id', userId)
     router.push('/')
   }
 

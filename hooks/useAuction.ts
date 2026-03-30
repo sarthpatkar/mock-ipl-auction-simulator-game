@@ -1,7 +1,7 @@
 'use client'
 
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { supabaseClient } from '@/lib/supabase'
+import { getBrowserSessionUser, supabaseClient } from '@/lib/supabase'
 import { AuctionLiveState, Bid, Room, RoomParticipant, SquadPlayer } from '@/types'
 
 export type RealtimeStatus = 'connecting' | 'live' | 'degraded' | 'offline'
@@ -25,11 +25,18 @@ const LIVE_STATE_SELECT = [
   'updated_at'
 ].join(', ')
 const BID_SELECT = 'id, auction_session_id, player_id, bidder_id, amount, created_at'
-const PARTICIPANT_SELECT = 'id, room_id, user_id, team_name, budget_remaining, squad_count, joined_at, accelerated_round_submitted_at, profiles(username)'
+const PARTICIPANT_SELECT =
+  'id, room_id, user_id, team_name, budget_remaining, squad_count, joined_at, accelerated_round_submitted_at, removed_at, removed_by_user_id, removal_reason, owner_profile:profiles!room_participants_user_id_fkey(username)'
 const SQUAD_SELECT = 'id, room_id, participant_id, player_id, price_paid, acquired_at'
 
+function getErrorMessage(error: unknown, fallback: string) {
+  if (error instanceof Error && error.message) return error.message
+  if (error && typeof error === 'object' && 'message' in error && typeof error.message === 'string') return error.message
+  return fallback
+}
+
 function normalizeParticipant(row: any): RoomParticipant {
-  const profileValue = Array.isArray(row?.profiles) ? row.profiles[0] ?? null : row?.profiles ?? null
+  const profileValue = Array.isArray(row?.owner_profile) ? row.owner_profile[0] ?? null : row?.owner_profile ?? null
   return {
     ...row,
     profiles: profileValue ? { username: profileValue.username } : null
@@ -69,6 +76,7 @@ export function useAuction(roomId: string | null) {
       .from('room_participants')
       .select(PARTICIPANT_SELECT)
       .eq('id', participantId)
+      .is('removed_at', null)
       .maybeSingle()
 
     if (participantError) throw participantError
@@ -80,28 +88,36 @@ export function useAuction(roomId: string | null) {
 
     setLoading(true)
     setError(null)
+    let authPending = false
 
     try {
+      const sessionUser = await getBrowserSessionUser()
+      if (!sessionUser) {
+        authPending = true
+        setConnectionState('connecting')
+        return
+      }
+
+      const { data: roomData, error: roomError } = await supabaseClient.from('rooms').select(ROOM_SELECT).eq('id', roomId).maybeSingle()
+      if (roomError) throw roomError
+      setRoom((roomData as Room | null) ?? null)
+
       const [
-        { data: roomData, error: roomError },
         { data: liveStateData, error: liveStateError },
         { data: participantsData, error: participantsError },
         { data: squadsData, error: squadsError }
       ] = await Promise.all([
-        supabaseClient.from('rooms').select(ROOM_SELECT).eq('id', roomId).maybeSingle(),
         supabaseClient.from('auction_live_state').select(LIVE_STATE_SELECT).eq('room_id', roomId).maybeSingle(),
-        supabaseClient.from('room_participants').select(PARTICIPANT_SELECT).eq('room_id', roomId).order('joined_at', { ascending: true }),
+        supabaseClient.from('room_participants').select(PARTICIPANT_SELECT).eq('room_id', roomId).is('removed_at', null).order('joined_at', { ascending: true }),
         supabaseClient.from('squad_players').select(SQUAD_SELECT).eq('room_id', roomId)
       ])
 
-      if (roomError) throw roomError
       if (liveStateError) throw liveStateError
       if (participantsError) throw participantsError
       if (squadsError) throw squadsError
 
       const liveAuction = (liveStateData as AuctionLiveState | null) ?? null
 
-      setRoom((roomData as Room | null) ?? null)
       setAuction(liveAuction)
       setParticipants(sortParticipants((((participantsData as unknown) as any[] | null) ?? []).map(normalizeParticipant)))
       setSquads((squadsData as SquadPlayer[] | null) ?? [])
@@ -123,15 +139,27 @@ export function useAuction(roomId: string | null) {
       hasHydratedRef.current = true
       setConnectionState((value) => (value === 'offline' ? value : 'live'))
     } catch (fetchError) {
-      setError(fetchError instanceof Error ? fetchError.message : 'Failed to load live auction state')
+      setError(getErrorMessage(fetchError, 'Failed to load live auction state'))
       setConnectionState((value) => (value === 'offline' ? value : 'degraded'))
     } finally {
-      setLoading(false)
+      if (!authPending) {
+        setLoading(false)
+      }
     }
   }, [roomId])
 
   useEffect(() => {
+    const {
+      data: { subscription }
+    } = supabaseClient.auth.onAuthStateChange(() => {
+      void hydrate()
+    })
+
     void hydrate()
+
+    return () => {
+      subscription.unsubscribe()
+    }
   }, [hydrate])
 
   useEffect(() => {
@@ -185,6 +213,11 @@ export function useAuction(roomId: string | null) {
             }
 
             const row = normalizeParticipant(payload.new)
+            if (row.removed_at) {
+              setParticipants((prev) => removeById(prev, row.id))
+              return
+            }
+
             if (payload.eventType === 'INSERT') {
               const snapshot = await fetchParticipantSnapshot(row.id)
               if (!snapshot) return
@@ -204,7 +237,7 @@ export function useAuction(roomId: string | null) {
               )
             )
           } catch (participantError) {
-            setError(participantError instanceof Error ? participantError.message : 'Failed to sync participants')
+            setError(getErrorMessage(participantError, 'Failed to sync participants'))
           }
         }
       )

@@ -736,6 +736,7 @@ export default function AuctionPage() {
                   auctionSessionId={auction.auction_session_id}
                   participantId={me.id}
                   currentPrice={auction.current_price}
+                  hasHighestBid={Boolean(auction.highest_bidder_id)}
                   budgetRemaining={me.budget_remaining}
                   squadCount={me.squad_count}
                   squadLimit={room?.settings.squad_size || 20}
