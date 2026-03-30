@@ -148,9 +148,11 @@ export function AdminControls({ auctionSessionId, status, compact = false }: Pro
         <div className="admin-inactive-panel-head">
           <div>
             <span className="status-label">Inactive Last 25 Players</span>
-            <p className="admin-inactive-panel-copy">
-              Remove participants who have not placed a single bid in the last {inactiveRequiredCount} completed players of this round.
-            </p>
+            {!compact && (
+              <p className="admin-inactive-panel-copy">
+                Remove participants who have not placed a single bid in the last {inactiveRequiredCount} completed players of this round.
+              </p>
+            )}
           </div>
           <span className="status-chip">{Math.min(inactiveCompletedCount, inactiveRequiredCount)}/{inactiveRequiredCount}</span>
         </div>

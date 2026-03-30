@@ -10,9 +10,10 @@ type Props = {
   participants: RoomParticipant[]
   bidHistory: Bid[]
   themeTeam?: string | null
+  hideSummary?: boolean
 }
 
-export function BidBar({ currentPrice, highestBidderId, participants, bidHistory, themeTeam }: Props) {
+export function BidBar({ currentPrice, highestBidderId, participants, bidHistory, themeTeam, hideSummary = false }: Props) {
   const bidder = participants.find((p) => p.id === highestBidderId)
   const [flash, setFlash] = useState(false)
 
@@ -24,17 +25,19 @@ export function BidBar({ currentPrice, highestBidderId, participants, bidHistory
 
   return (
     <div className={`bid-bar-shell team-theme ${getTeamThemeClass(themeTeam) || 'team-neutral'} ${flash ? 'bid-bar-flash' : ''}`} style={getTeamThemeStyle(themeTeam)}>
-      <div className="card bid-bar-main">
-        <div className="bid-bar-price">
-          <p className="status-label">Current price</p>
-          <p className="bid-bar-price-value">{formatPrice(currentPrice)}</p>
+      {!hideSummary && (
+        <div className="card bid-bar-main">
+          <div className="bid-bar-price">
+            <p className="status-label">Current price</p>
+            <p className="bid-bar-price-value">{formatPrice(currentPrice)}</p>
+          </div>
+          <div className="bid-bar-bidder">
+            <p className="status-label">Highest bidder</p>
+            <p className="bid-bar-bidder-value">{bidder ? bidder.team_name : 'No bids yet'}</p>
+            <p className="bid-bar-bidder-meta">{bidder ? bidder.profiles?.username || 'Franchise Owner' : 'Waiting for the first confirmed bid'}</p>
+          </div>
         </div>
-        <div className="bid-bar-bidder">
-          <p className="status-label">Highest bidder</p>
-          <p className="bid-bar-bidder-value">{bidder ? bidder.team_name : 'No bids yet'}</p>
-          <p className="bid-bar-bidder-meta">{bidder ? bidder.profiles?.username || 'Franchise Owner' : 'Waiting for the first confirmed bid'}</p>
-        </div>
-      </div>
+      )}
 
       <div className="card bid-ribbon-card">
         <div className="bid-ribbon-head">

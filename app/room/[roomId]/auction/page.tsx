@@ -13,7 +13,6 @@ import { BidActions } from '@/components/auction/BidActions'
 import { TimerRing } from '@/components/auction/TimerRing'
 import { TeamView } from '@/components/auction/TeamView'
 import { SoldModal } from '@/components/auction/SoldModal'
-import { TopStatusBar } from '@/components/auction/TopStatusBar'
 import { AdminControls } from '@/components/auction/AdminControls'
 import { MobileAuctionLayout } from '@/components/auction/MobileAuctionLayout'
 import { PageNavbar } from '@/components/shared/PageNavbar'
@@ -59,6 +58,7 @@ export default function AuctionPage() {
   const [isMobile, setIsMobile] = useState(false)
   const [isTablet, setIsTablet] = useState(false)
   const [tabletMenuOpen, setTabletMenuOpen] = useState(false)
+  const [showStageScrollCue, setShowStageScrollCue] = useState(false)
   const [sessionProgressIds, setSessionProgressIds] = useState<{ completedPlayers: string[]; playerQueue: string[] }>({
     completedPlayers: [],
     playerQueue: []
@@ -129,10 +129,10 @@ export default function AuctionPage() {
   }, [])
 
   useEffect(() => {
-    if (!isTablet) {
+    if (isMobile) {
       setTabletMenuOpen(false)
     }
-  }, [isTablet])
+  }, [isMobile])
 
   useEffect(() => {
     if (typeof window === 'undefined') return
@@ -198,6 +198,10 @@ export default function AuctionPage() {
     connectionState,
     isStale
   } = useAuction(roomId)
+  const screenLoading = authLoading || playersLoading || (auctionLoading && !auction)
+  const screenError = playersError || auctionError
+  const hasCriticalState = Boolean(screenError)
+  const me = useMemo(() => participants.find((participant) => participant.user_id === user), [participants, user])
 
   useEffect(() => {
     const stage = stageRef.current
@@ -230,6 +234,72 @@ export default function AuctionPage() {
     }
   }, [])
 
+  const scrollToOtherDetails = useCallback(() => {
+    const stage = stageRef.current
+    if (!stage) return
+
+    stage.scrollBy({
+      top: Math.max(220, Math.round(stage.clientHeight * 0.42)),
+      behavior: 'smooth'
+    })
+  }, [])
+
+  useEffect(() => {
+    if (isMobile || !auction || !me || typeof window === 'undefined') {
+      setShowStageScrollCue(false)
+      return
+    }
+
+    if (isTablet) {
+      const updateScrollCue = () => {
+        const root = document.documentElement
+        const maxScroll = Math.max(0, root.scrollHeight - window.innerHeight)
+        const hasMoreBelow = window.scrollY < maxScroll - 16
+        setShowStageScrollCue(hasMoreBelow && !tabletMenuOpen)
+      }
+
+      updateScrollCue()
+      window.addEventListener('scroll', updateScrollCue, { passive: true })
+      window.addEventListener('resize', updateScrollCue)
+
+      return () => {
+        window.removeEventListener('scroll', updateScrollCue)
+        window.removeEventListener('resize', updateScrollCue)
+      }
+    }
+
+    const stage = stageRef.current
+    if (!stage) {
+      setShowStageScrollCue(false)
+      return
+    }
+
+    const updateScrollCue = () => {
+      const shortDesktopViewport = window.innerWidth > 1025 && window.innerHeight < 687
+      if (!shortDesktopViewport) {
+        setShowStageScrollCue(false)
+        return
+      }
+
+      const maxScroll = Math.max(0, stage.scrollHeight - stage.clientHeight)
+      const hasMoreBelow = stage.scrollTop < maxScroll - 16
+      setShowStageScrollCue(hasMoreBelow && !tabletMenuOpen)
+    }
+
+    updateScrollCue()
+
+    const observer = new ResizeObserver(updateScrollCue)
+    observer.observe(stage)
+    stage.addEventListener('scroll', updateScrollCue, { passive: true })
+    window.addEventListener('resize', updateScrollCue)
+
+    return () => {
+      observer.disconnect()
+      stage.removeEventListener('scroll', updateScrollCue)
+      window.removeEventListener('resize', updateScrollCue)
+    }
+  }, [isMobile, isTablet, tabletMenuOpen, auction, me, screenLoading])
+
   useEffect(() => {
     if (!room) return
 
@@ -254,8 +324,6 @@ export default function AuctionPage() {
       setModal((value) => (value.visible ? { ...value, visible: false } : value))
     }
   }, [auction])
-
-  const me = useMemo(() => participants.find((participant) => participant.user_id === user), [participants, user])
 
   const finalizeExpiredPlayer = useCallback(async () => {
     if (auction?.status === 'live' && me && auction?.auction_session_id) {
@@ -351,21 +419,13 @@ export default function AuctionPage() {
     return `${roleCompleted}/${roleTotal || 0}`
   }, [auction, room?.settings, currentPlayer, completedCount, totalPlayers, sessionProgressIds, playersById])
 
-  const progressLabel = useMemo(() => {
-    if (!auction || !room?.settings) return '0 / 0 players completed'
-    if (auction.round_number === 2) {
-      return progressCount
-    }
-    if (room.settings.player_order === 'random' || !currentPlayer) {
-      return progressCount
-    }
-
-    return progressCount
-  }, [auction, currentPlayer, progressCount, room?.settings])
-
-  const tabletProgressLabel = useMemo(() => progressLabel, [progressLabel])
+  const tabletProgressLabel = useMemo(() => progressCount, [progressCount])
   const tabletBudgetLabel = useMemo(() => (me ? formatPrice(me.budget_remaining) : '—'), [me])
   const tabletSquadLabel = useMemo(() => `${me?.squad_count ?? 0} / ${room?.settings.squad_size || 20}`, [me, room?.settings.squad_size])
+  const highestBidder = useMemo(
+    () => participants.find((participant) => participant.id === auction?.highest_bidder_id),
+    [auction?.highest_bidder_id, participants]
+  )
 
   useEffect(() => {
     if (!bidHistory.length) return
@@ -474,9 +534,6 @@ export default function AuctionPage() {
     }
   }, [auction?.auction_session_id, resolutionKey, resolutionType, room?.admin_id, user])
 
-  const screenLoading = authLoading || playersLoading || (auctionLoading && !auction)
-  const screenError = playersError || auctionError
-  const hasCriticalState = Boolean(screenError)
   const isAdmin = Boolean(room?.admin_id && user === room.admin_id)
 
   const toggleSound = () => {
@@ -496,6 +553,7 @@ export default function AuctionPage() {
           room={room}
           auction={auction}
           currentPlayer={currentPlayer}
+          roundLabel={displayRoundLabel}
           progressCount={progressCount}
           participants={participants}
           bidHistory={bidHistory}
@@ -532,7 +590,7 @@ export default function AuctionPage() {
                         <strong title={tabletProgressLabel}>{tabletProgressLabel}</strong>
                       </span>
                       <span className="auction-tablet-navbar-metric">
-                        <em>Budget</em>
+                        <em>Purse</em>
                         <strong>{tabletBudgetLabel}</strong>
                       </span>
                       <span className="auction-tablet-navbar-metric">
@@ -545,7 +603,7 @@ export default function AuctionPage() {
                     </div>
                     <button
                       type="button"
-                      className="btn btn-ghost btn-sm auction-tablet-menu-trigger"
+                      className="btn btn-ghost btn-sm mobile-auction-admin-trigger"
                       aria-expanded={tabletMenuOpen}
                       aria-label="Auction tools"
                       onClick={() => setTabletMenuOpen((value) => !value)}
@@ -554,42 +612,67 @@ export default function AuctionPage() {
                     </button>
                   </div>
                 ) : (
-                  <div className="auction-navbar-tools">
-                    <button
-                      type="button"
-                      className={`btn btn-ghost btn-sm auction-sound-toggle ${soundEnabled ? 'is-enabled' : 'is-disabled'}`}
-                      aria-pressed={soundEnabled}
-                      onClick={toggleSound}
-                    >
-                      Sound {soundEnabled ? 'On' : 'Off'}
-                    </button>
-                    {isAdmin && <AdminControls auctionSessionId={auction.auction_session_id} status={auction.status} compact />}
+                  <div className="auction-navbar-tools auction-navbar-tools-desktop">
+                    <div className="auction-navbar-summary-desktop" aria-label="Auction status summary">
+                      <span className="auction-navbar-metric">
+                        <em>Round</em>
+                        <strong title={displayRoundLabel}>{displayRoundLabel}</strong>
+                      </span>
+                      <span className="auction-navbar-metric">
+                        <em>Progress</em>
+                        <strong title={tabletProgressLabel}>{tabletProgressLabel}</strong>
+                      </span>
+                      <span className="auction-navbar-metric">
+                        <em>Purse</em>
+                        <strong>{tabletBudgetLabel}</strong>
+                      </span>
+                      <span className="auction-navbar-metric">
+                        <em>Squad</em>
+                        <strong>{tabletSquadLabel}</strong>
+                      </span>
+                    </div>
                     <div className="auction-navbar-status">
                       <span className={`auction-status-pill is-${auction.status}`}>{formatAuctionStatus(auction.status)}</span>
                     </div>
+                    <button
+                      type="button"
+                      className="btn btn-ghost btn-sm mobile-auction-admin-trigger"
+                      aria-expanded={tabletMenuOpen}
+                      aria-label="Auction tools"
+                      onClick={() => setTabletMenuOpen((value) => !value)}
+                    >
+                      ⋮
+                    </button>
                   </div>
                 )
               ) : null
             }
           />
 
-          {isTablet && tabletMenuOpen && (
+          {!isMobile && tabletMenuOpen && (
             <button
-              className="auction-tablet-menu-backdrop"
+              className="mobile-auction-admin-backdrop"
               type="button"
               aria-label="Close auction tools"
               onClick={() => setTabletMenuOpen(false)}
             />
           )}
-          {isTablet && tabletMenuOpen && auction && (
-            <div className="auction-tablet-menu">
+          {!isMobile && tabletMenuOpen && auction && (
+            <div className="mobile-auction-admin-menu">
               <button
                 type="button"
-                className={`btn btn-ghost btn-sm auction-sound-toggle auction-tablet-menu-sound ${soundEnabled ? 'is-enabled' : 'is-disabled'}`}
+                className={`btn btn-ghost btn-sm auction-sound-toggle mobile-auction-admin-sound ${soundEnabled ? 'is-enabled' : 'is-disabled'}`}
                 aria-pressed={soundEnabled}
+                aria-label={`Turn sound ${soundEnabled ? 'off' : 'on'}`}
                 onClick={toggleSound}
               >
-                Sound {soundEnabled ? 'On' : 'Off'}
+                <span className="auction-sound-toggle-copy">
+                  <strong>Sound Toggle</strong>
+                  <small>{soundEnabled ? 'On' : 'Off'}</small>
+                </span>
+                <span className={`auction-sound-toggle-switch ${soundEnabled ? 'is-enabled' : 'is-disabled'}`} aria-hidden="true">
+                  <span className="auction-sound-toggle-switch-thumb" />
+                </span>
               </button>
               {isAdmin && <AdminControls auctionSessionId={auction.auction_session_id} status={auction.status} compact />}
             </div>
@@ -625,17 +708,6 @@ export default function AuctionPage() {
                     </div>
                   )}
 
-                  {auction && !isTablet && (
-                    <div className="auction-tablet-status">
-                      <TopStatusBar
-                        roundLabel={displayRoundLabel}
-                        progressLabel={progressLabel}
-                        me={me as RoomParticipant}
-                        squadLimit={room?.settings.squad_size || 20}
-                        auctionStatus={auction.status}
-                      />
-                    </div>
-                  )}
                   <div className="auction-tablet-player">
                     <PlayerCard player={currentPlayer} />
                   </div>
@@ -665,6 +737,9 @@ export default function AuctionPage() {
                         paused={auction.status === 'paused'}
                         status={auction.status}
                         themeTeam={currentPlayer?.ipl_team}
+                        currentPrice={auction.current_price}
+                        highestBidderLabel={highestBidder?.team_name || 'No bids yet'}
+                        highestBidderMeta={highestBidder ? highestBidder.profiles?.username || 'Franchise Owner' : 'Waiting for the first confirmed bid'}
                       />
                     </div>
                   )}
@@ -676,6 +751,7 @@ export default function AuctionPage() {
                         participants={participants}
                         bidHistory={bidHistory}
                         themeTeam={currentPlayer?.ipl_team}
+                        hideSummary={isTablet}
                       />
                     </div>
                   )}
@@ -710,12 +786,15 @@ export default function AuctionPage() {
                         paused={auction.status === 'paused'}
                         status={auction.status}
                         themeTeam={currentPlayer?.ipl_team}
+                        currentPrice={isTablet ? auction.current_price : undefined}
+                        highestBidderLabel={isTablet ? highestBidder?.team_name || 'No bids yet' : undefined}
+                        highestBidderMeta={isTablet ? (highestBidder ? highestBidder.profiles?.username || 'Franchise Owner' : 'Waiting for the first confirmed bid') : undefined}
                       />
                     </div>
                   )}
                   {auction && (
                     <div className="auction-tablet-teams">
-                      <TeamView participants={participants} squads={squads} playersById={playersById} currentUserId={user} />
+                      <TeamView participants={participants} squads={squads} playersById={playersById} currentUserId={user} variant={isTablet ? 'mobileLike' : 'default'} />
                     </div>
                   )}
                   {auction && me && auction.highest_bidder_id === me.id && (
@@ -728,6 +807,20 @@ export default function AuctionPage() {
               )}
             </div>
           </div>
+
+          {showStageScrollCue && (
+            <button
+              type="button"
+              className={`auction-scroll-cue ${auction && me ? 'is-docked' : ''}`}
+              aria-label="Scroll to see other details"
+              onClick={scrollToOtherDetails}
+              onMouseEnter={scrollToOtherDetails}
+              onFocus={scrollToOtherDetails}
+            >
+              <span className="auction-scroll-cue-arrow" aria-hidden="true">↓</span>
+              <span className="auction-scroll-cue-text">Scroll to see other details</span>
+            </button>
+          )}
 
           {auction && me && (
             <div className="auction-actions-float" style={actionBarStyle}>

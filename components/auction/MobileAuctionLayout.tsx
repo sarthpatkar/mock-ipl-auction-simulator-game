@@ -1,7 +1,7 @@
 'use client'
 
 import Image from 'next/image'
-import { memo, useEffect, useMemo, useState } from 'react'
+import { memo, useCallback, useEffect, useMemo, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import type { RealtimeStatus } from '@/hooks/useAuction'
 import { useTimer } from '@/hooks/useTimer'
@@ -14,6 +14,7 @@ type Props = {
   room: Room | null
   auction: AuctionLiveState | null
   currentPlayer: Player | null
+  roundLabel: string
   progressCount: string
   participants: RoomParticipant[]
   bidHistory: Bid[]
@@ -391,6 +392,7 @@ export function MobileAuctionLayout({
   room,
   auction,
   currentPlayer,
+  roundLabel,
   progressCount,
   participants,
   bidHistory,
@@ -411,6 +413,7 @@ export function MobileAuctionLayout({
   const router = useRouter()
   const [adminMenuOpen, setAdminMenuOpen] = useState(false)
   const [teamsOpen, setTeamsOpen] = useState(false)
+  const [showScrollCue, setShowScrollCue] = useState(false)
   const orderedParticipants = useMemo(() => {
     const mine = participants.find((participant) => participant.user_id === currentUserId)
     const others = participants.filter((participant) => participant.user_id !== currentUserId)
@@ -443,8 +446,48 @@ export function MobileAuctionLayout({
     [selectedParticipant, squads]
   )
   const liveMessage = getMobileLiveMessage(screenError, connectionState, isStale)
+  const compactRoundLabel = useMemo(() => {
+    if (!roundLabel) return 'Round'
+    if (roundLabel.startsWith('Round 1 – ')) return roundLabel.replace('Round 1 – ', '')
+    if (roundLabel === 'Accelerated Round') return 'Accelerated'
+    return roundLabel.replace(/^Round\s+\d+\s*–\s*/i, '').replace(/^Round\s+\d+\s*/i, '')
+  }, [roundLabel])
   const squadSummary = `${me?.squad_count ?? 0}/${room?.settings.squad_size ?? 0}`
   const purseSummary = me ? formatCompactPurse(me.budget_remaining) : '0 cr'
+  const hasActionBar = Boolean(auction && me)
+
+  const scrollToOtherDetails = useCallback(() => {
+    if (typeof window === 'undefined') return
+
+    window.scrollBy({
+      top: Math.max(180, Math.round(window.innerHeight * 0.42)),
+      behavior: 'smooth'
+    })
+  }, [])
+
+  useEffect(() => {
+    if (!hasActionBar || typeof window === 'undefined') {
+      setShowScrollCue(false)
+      return
+    }
+
+    const updateScrollCue = () => {
+      const root = document.documentElement
+      const maxScroll = Math.max(0, root.scrollHeight - window.innerHeight)
+      const hasMoreBelow = window.scrollY < maxScroll - 12
+
+      setShowScrollCue(hasMoreBelow && !adminMenuOpen)
+    }
+
+    updateScrollCue()
+    window.addEventListener('resize', updateScrollCue)
+    window.addEventListener('scroll', updateScrollCue, { passive: true })
+
+    return () => {
+      window.removeEventListener('resize', updateScrollCue)
+      window.removeEventListener('scroll', updateScrollCue)
+    }
+  }, [adminMenuOpen, hasActionBar])
 
   return (
     <>
@@ -453,13 +496,13 @@ export function MobileAuctionLayout({
           <button className="btn btn-ghost btn-sm" type="button" onClick={() => router.push('/')}>
             ← Home
           </button>
-          <div className="mobile-auction-nav-room">
-            <span className="status-label">Room</span>
-            <strong>{room?.name || 'Auction Room'}</strong>
-          </div>
         </div>
 
         <div className="mobile-auction-navbar-center" aria-label="Squad, purse, and auction progress">
+          <div className="mobile-auction-nav-capsule mobile-auction-nav-capsule-progress">
+            <span>{compactRoundLabel}</span>
+            <strong>{progressCount}</strong>
+          </div>
           <div className="mobile-auction-nav-capsule">
             <span>Squad</span>
             <strong>{squadSummary}</strong>
@@ -467,10 +510,6 @@ export function MobileAuctionLayout({
           <div className="mobile-auction-nav-capsule">
             <span>Purse</span>
             <strong>{purseSummary}</strong>
-          </div>
-          <div className="mobile-auction-nav-capsule">
-            <span>Done</span>
-            <strong>{progressCount}</strong>
           </div>
         </div>
 
@@ -496,9 +535,16 @@ export function MobileAuctionLayout({
               type="button"
               className={`btn btn-ghost btn-sm auction-sound-toggle mobile-auction-admin-sound ${soundEnabled ? 'is-enabled' : 'is-disabled'}`}
               aria-pressed={soundEnabled}
+              aria-label={`Turn sound ${soundEnabled ? 'off' : 'on'}`}
               onClick={onToggleSound}
             >
-              Sound {soundEnabled ? 'On' : 'Off'}
+              <span className="auction-sound-toggle-copy">
+                <strong>Sound Toggle</strong>
+                <small>{soundEnabled ? 'On' : 'Off'}</small>
+              </span>
+              <span className={`auction-sound-toggle-switch ${soundEnabled ? 'is-enabled' : 'is-disabled'}`} aria-hidden="true">
+                <span className="auction-sound-toggle-switch-thumb" />
+              </span>
             </button>
             {isAdmin && <AdminControls auctionSessionId={auction.auction_session_id} status={auction.status} compact />}
           </div>
@@ -595,6 +641,20 @@ export function MobileAuctionLayout({
           </>
         )}
       </div>
+
+      {showScrollCue && (
+        <button
+          type="button"
+          className="mobile-auction-scroll-cue"
+          aria-label="Scroll to other details"
+          onClick={scrollToOtherDetails}
+          onMouseEnter={scrollToOtherDetails}
+          onFocus={scrollToOtherDetails}
+        >
+          <span className="mobile-auction-scroll-cue-arrow" aria-hidden="true">↓</span>
+          <span className="mobile-auction-scroll-cue-text">Scroll to see other details</span>
+        </button>
+      )}
 
       {auction && me && <MobileBottomActionBar auction={auction} me={me} squadLimit={room?.settings.squad_size || 20} skipTargetCount={skipTargetCount} />}
     </>

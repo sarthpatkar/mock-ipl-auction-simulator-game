@@ -1,6 +1,6 @@
 'use client'
 
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { Player, RoomParticipant, SquadPlayer } from '@/types'
 import { formatPrice, formatRole, getTeamThemeClass, getTeamThemeStyle } from '@/lib/auction-helpers'
 
@@ -9,17 +9,114 @@ type Props = {
   squads: SquadPlayer[]
   playersById: Record<string, Player>
   currentUserId?: string | null
+  variant?: 'default' | 'mobileLike'
 }
 
-export function TeamView({ participants, squads, playersById, currentUserId }: Props) {
+export function TeamView({ participants, squads, playersById, currentUserId, variant = 'default' }: Props) {
   const [open, setOpen] = useState(false)
   const [visible, setVisible] = useState(true)
   const [expandedTeamId, setExpandedTeamId] = useState<string | null>(null)
+  const [teamsOpen, setTeamsOpen] = useState(false)
   const orderedParticipants = useMemo(() => {
     const mine = participants.find((participant) => participant.user_id === currentUserId)
     const others = participants.filter((participant) => participant.user_id !== currentUserId)
     return mine ? [mine, ...others] : participants
   }, [currentUserId, participants])
+  const [selectedParticipantId, setSelectedParticipantId] = useState<string | null>(null)
+
+  useEffect(() => {
+    if (!orderedParticipants.length) {
+      setSelectedParticipantId(null)
+      return
+    }
+
+    setSelectedParticipantId((current) =>
+      current && orderedParticipants.some((participant) => participant.id === current) ? current : orderedParticipants[0]?.id ?? null
+    )
+  }, [orderedParticipants])
+
+  const selectedParticipant = useMemo(
+    () => orderedParticipants.find((participant) => participant.id === selectedParticipantId) ?? null,
+    [orderedParticipants, selectedParticipantId]
+  )
+  const selectedSquad = useMemo(
+    () => (selectedParticipant ? squads.filter((entry) => entry.participant_id === selectedParticipant.id) : []),
+    [selectedParticipant, squads]
+  )
+
+  if (variant === 'mobileLike') {
+    return (
+      <div className="team-view-mobile-like">
+        <section className="card mobile-auction-teams" aria-label="Team selector">
+          <div className="mobile-auction-teams-head">
+            <span className="status-label">View teams</span>
+            <button className="btn btn-ghost btn-sm mobile-auction-teams-toggle" type="button" onClick={() => setTeamsOpen((value) => !value)}>
+              {teamsOpen ? 'Hide Teams' : 'Show Teams'}
+            </button>
+          </div>
+
+          <div className="mobile-auction-teams-strip" role="tablist" aria-label="Participant teams">
+            {orderedParticipants.map((participant) => {
+              const isSelected = participant.id === selectedParticipantId
+              const isMine = participant.user_id === currentUserId
+              return (
+                <button
+                  key={participant.id}
+                  type="button"
+                  role="tab"
+                  aria-selected={isSelected}
+                  className={`mobile-auction-team-chip ${isSelected ? 'is-selected' : ''} ${isMine ? 'is-mine' : ''}`}
+                  onClick={() => {
+                    setSelectedParticipantId(participant.id)
+                    setTeamsOpen(true)
+                  }}
+                >
+                  <span>{isMine ? 'My Team' : 'Team'}</span>
+                  <strong>{participant.team_name}</strong>
+                </button>
+              )
+            })}
+          </div>
+        </section>
+
+        {teamsOpen && (
+          <section className="card mobile-auction-teams-panel" aria-label="Selected team squad">
+            <div className="mobile-auction-team-summary">
+              <div>
+                <span className="status-label">Selected team</span>
+                <strong>{selectedParticipant?.team_name || 'No team selected'}</strong>
+              </div>
+              {selectedParticipant && (
+                <div className="mobile-auction-team-summary-metrics">
+                  <span>{selectedParticipant.squad_count} players</span>
+                  <span>{formatPrice(selectedParticipant.budget_remaining)} left</span>
+                </div>
+              )}
+            </div>
+
+            <div className="mobile-auction-panel-list">
+              {selectedParticipant && selectedSquad.length > 0 ? (
+                selectedSquad.map((entry) => {
+                  const player = playersById[entry.player_id]
+                  return (
+                    <div key={entry.id} className="mobile-auction-panel-row">
+                      <div>
+                        <strong>{player?.name || entry.player_id}</strong>
+                        <span>{player ? formatRole(player.role) : 'Player'}</span>
+                      </div>
+                      <strong className="mobile-auction-panel-price">{formatPrice(entry.price_paid)}</strong>
+                    </div>
+                  )
+                })
+              ) : (
+                <div className="mobile-auction-panel-empty">No picks yet.</div>
+              )}
+            </div>
+          </section>
+        )}
+      </div>
+    )
+  }
 
   return (
     <div className={`team-view-shell ${open ? 'is-open' : ''} ${visible ? 'is-visible' : 'is-hidden'}`}>
