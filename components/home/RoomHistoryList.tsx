@@ -9,6 +9,13 @@ type Props = {
 }
 
 export function RoomHistoryList({ rooms, counts = {}, loading = false, error = null }: Props) {
+  const getRoomHref = (room: Room) => {
+    if (room.status === 'completed') return `/room/${room.id}/results`
+    if (room.status === 'auction') return `/room/${room.id}/auction`
+    if (room.status === 'accelerated_selection') return `/room/${room.id}/accelerated`
+    return `/room/${room.id}/lobby`
+  }
+
   if (loading) {
     return (
       <div className="history-list">
@@ -46,7 +53,7 @@ export function RoomHistoryList({ rooms, counts = {}, loading = false, error = n
             : <span className="badge badge-green">Ongoing</span>
         const participants = counts[room.id] ?? 0
         return (
-          <Link key={room.id} className="history-item" href={`/room/${room.id}/lobby`}>
+          <Link key={room.id} className="history-item" href={getRoomHref(room)}>
             <div className={`history-icon ${room.status === 'completed' ? 'hi-completed' : 'hi-ongoing'}`}>
               <span className="history-status-dot" aria-hidden="true"></span>
             </div>
