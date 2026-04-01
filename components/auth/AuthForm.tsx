@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { APP_NAME } from '@/lib/branding'
 import { CreatorBranding } from '@/components/shared/CreatorBranding'
-import { UnofficialDisclaimer } from '@/components/shared/UnofficialDisclaimer'
 import { ThemeToggle } from '@/components/theme/ThemeToggle'
 import { supabaseClient } from '@/lib/supabase'
 
@@ -314,7 +313,6 @@ export function AuthForm() {
           </div>
         </section>
 
-        <UnofficialDisclaimer compact />
         <CreatorBranding variant="auth-footer" />
       </div>
     </div>

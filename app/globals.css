@@ -2370,15 +2370,30 @@ h1, h2, h3, h4 { font-family: var(--font-display); letter-spacing: 0.04em; line-
     radial-gradient(circle at top left, rgba(245, 197, 24, 0.05), transparent 28%),
     radial-gradient(circle at bottom right, rgba(0, 200, 255, 0.04), transparent 26%),
     var(--bg-deep);
-  display: grid;
-  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
-  gap: clamp(24px, 3vw, 44px);
-  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 20px;
   width: min(1360px, calc(100vw - 40px));
   margin: 0 auto;
   min-height: 100vh;
   padding: clamp(28px, 4vw, 44px) 0;
   overflow: visible;
+}
+
+.auth-page-main {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: clamp(24px, 3vw, 44px);
+  align-items: center;
+  flex: 1;
+}
+
+.auth-page-disclaimer {
+  width: min(720px, calc(100vw - 40px));
+  margin: 0 auto;
+  justify-self: center;
+  text-align: center;
 }
 
 .auth-hero {
@@ -3160,10 +3175,13 @@ h1, h2, h3, h4 { font-family: var(--font-display); letter-spacing: 0.04em; line-
 
 @media (max-width: 1200px) {
   .auth-page {
-    grid-template-columns: minmax(0, 0.96fr) minmax(0, 1.04fr);
-    gap: 22px;
     width: min(1180px, calc(100vw - 32px));
     padding: 24px 0;
+  }
+
+  .auth-page-main {
+    grid-template-columns: minmax(0, 0.96fr) minmax(0, 1.04fr);
+    gap: 22px;
   }
 
   .auth-hero {
@@ -3192,12 +3210,18 @@ h1, h2, h3, h4 { font-family: var(--font-display); letter-spacing: 0.04em; line-
 @media (max-width: 800px) {
   .auth-page {
     width: 100%;
+    gap: 16px;
+    padding: 0 0 24px;
+    min-height: 100vh;
+    overflow: visible;
+  }
+
+  .auth-page-main {
+    width: 100%;
     display: grid;
     grid-template-columns: 1fr;
     gap: 0;
-    padding: 0;
-    min-height: 100vh;
-    overflow: visible;
+    flex: 1;
   }
 
   .auth-hero-desktop {
@@ -3215,6 +3239,10 @@ h1, h2, h3, h4 { font-family: var(--font-display); letter-spacing: 0.04em; line-
     gap: 12px;
     margin: 0 auto;
     justify-items: center;
+  }
+
+  .auth-page-disclaimer {
+    width: min(560px, calc(100vw - 32px));
   }
 
   .auth-mobile-hero {
