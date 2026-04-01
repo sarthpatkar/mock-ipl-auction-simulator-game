@@ -9,6 +9,7 @@ import { ActionCard } from '@/components/home/ActionCard'
 import { RoomHistoryList } from '@/components/home/RoomHistoryList'
 import { CreatorBranding } from '@/components/shared/CreatorBranding'
 import { PageNavbar } from '@/components/shared/PageNavbar'
+import { UnofficialDisclaimer } from '@/components/shared/UnofficialDisclaimer'
 import { Room } from '@/types'
 
 export default function HomePage() {
@@ -219,8 +220,9 @@ export default function HomePage() {
         <h1 className="home-hero-title">
           BUILD YOUR <em>DREAM TEAM</em>
         </h1>
-        <p className="home-hero-desc">Host or join a live IPL auction room with your friends</p>
+        <p className="home-hero-desc">Host or join a live T20 auction room with your friends</p>
         <CreatorBranding variant="home" />
+        <UnofficialDisclaimer compact className="home-hero-disclaimer" />
       </div>
 
       {error && !createOpen && !joinOpen && (
@@ -298,7 +300,7 @@ export default function HomePage() {
                 <input
                   className="input-field"
                   type="text"
-                  placeholder="e.g. Royal Challengers"
+                  placeholder="e.g. Midnight Strikers"
                   value={teamName}
                   onChange={(event) => setTeamName(event.target.value)}
                 />
@@ -342,7 +344,7 @@ export default function HomePage() {
                 <input
                   className="input-field"
                   type="text"
-                  placeholder="e.g. Chennai Super Kings"
+                  placeholder="e.g. Harbour Kings"
                   value={joinTeam}
                   onChange={(event) => setJoinTeam(event.target.value)}
                 />

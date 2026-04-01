@@ -38,7 +38,7 @@ export default function AcceleratedRoundPage() {
     if (!query) return sourcePlayers
 
     return sourcePlayers.filter((player) =>
-      [player.name, player.ipl_team, player.role, player.base_price_label].some((value) => value?.toLowerCase().includes(query))
+      [player.name, player.team_code, player.role, player.base_price_label].some((value) => value?.toLowerCase().includes(query))
     )
   }, [searchQuery, sourcePlayers])
 
@@ -248,7 +248,7 @@ export default function AcceleratedRoundPage() {
                     <div>
                       <div className="font-semibold">{player.name}</div>
                       <div className="text-xs text-muted">
-                        {player.ipl_team || 'FA'} · {player.role} · {player.base_price_label || '—'}
+                        {player.team_code || 'FA'} · {player.role} · {player.base_price_label || '—'}
                       </div>
                     </div>
                     <div className={`badge ${selected ? 'badge-gold' : 'badge-gray'}`}>{selected ? 'Selected' : 'Add'}</div>

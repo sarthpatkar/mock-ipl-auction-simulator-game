@@ -347,7 +347,7 @@ export default function AuctionPage() {
   }, [auction?.paused_remaining_ms])
   const displayedRemaining = auction?.status === 'paused' ? pausedRemaining : remaining
   const isExpired = auction?.status === 'live' && Boolean(auction.ends_at) && remaining <= 0
-  const currentPlayerThemeStyle = useMemo(() => getTeamThemeStyle(currentPlayer?.ipl_team), [currentPlayer?.ipl_team])
+  const currentPlayerThemeStyle = useMemo(() => getTeamThemeStyle(currentPlayer?.team_code), [currentPlayer?.team_code])
   const resolutionKey = useMemo(() => {
     if (!auction || !auction.current_player_id || !['sold', 'unsold'].includes(auction.status)) return null
     return `${auction.auction_session_id}:${auction.current_player_id}:${auction.status}`
@@ -740,7 +740,7 @@ export default function AuctionPage() {
                         total={room?.settings.timer_seconds || 15}
                         paused={auction.status === 'paused'}
                         status={auction.status}
-                        themeTeam={currentPlayer?.ipl_team}
+                        themeTeam={currentPlayer?.team_code}
                         currentPrice={auction.current_price}
                         highestBidderLabel={highestBidder?.team_name || 'No bids yet'}
                         highestBidderMeta={highestBidder ? highestBidder.profiles?.username || 'Franchise Owner' : 'Waiting for the first confirmed bid'}
@@ -754,7 +754,7 @@ export default function AuctionPage() {
                         highestBidderId={auction.highest_bidder_id}
                         participants={participants}
                         bidHistory={bidHistory}
-                        themeTeam={currentPlayer?.ipl_team}
+                        themeTeam={currentPlayer?.team_code}
                         hideSummary={isTablet}
                       />
                     </div>
@@ -789,7 +789,7 @@ export default function AuctionPage() {
                         total={room?.settings.timer_seconds || 15}
                         paused={auction.status === 'paused'}
                         status={auction.status}
-                        themeTeam={currentPlayer?.ipl_team}
+                        themeTeam={currentPlayer?.team_code}
                         currentPrice={isTablet ? auction.current_price : undefined}
                         highestBidderLabel={isTablet ? highestBidder?.team_name || 'No bids yet' : undefined}
                         highestBidderMeta={isTablet ? (highestBidder ? highestBidder.profiles?.username || 'Franchise Owner' : 'Waiting for the first confirmed bid') : undefined}

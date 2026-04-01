@@ -2,6 +2,8 @@
 
 import { Suspense, useEffect, useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
+import { APP_NAME } from '@/lib/branding'
+import { UnofficialDisclaimer } from '@/components/shared/UnofficialDisclaimer'
 import { ensureUserProfile } from '@/lib/auth-profiles'
 import { ThemeToggle } from '@/components/theme/ThemeToggle'
 import { supabaseClient } from '@/lib/supabase'
@@ -88,14 +90,15 @@ function AuthCallbackContent() {
             <div className="auth-form-header">
               <div className="auth-form-brand-row">
                 <div className="navbar-logo auth-form-logo">
-                  IPL AUCTION
-                  <span>FRANCHISE MODE</span>
+                  {APP_NAME}
+                  <span>UNOFFICIAL FAN BUILD</span>
                 </div>
                 <ThemeToggle variant="auth" />
               </div>
               <h2 className="auth-form-title">Signing you in</h2>
               <p className="auth-form-sub">{message}</p>
             </div>
+            <UnofficialDisclaimer compact />
           </section>
         </div>
       </div>

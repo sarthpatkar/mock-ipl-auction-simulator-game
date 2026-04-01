@@ -131,7 +131,7 @@ const MobilePlayerIdentity = memo(function MobilePlayerIdentity({ player }: { pl
             <strong className="mobile-auction-player-name" data-auction-player-target="current-name">{player.name}</strong>
           </div>
           <div className="mobile-auction-player-badges">
-            <span className="mobile-auction-player-badge">{player.ipl_team || 'FA'}</span>
+            <span className="mobile-auction-player-badge">{player.team_code || 'FA'}</span>
           </div>
         </div>
         <div className="mobile-auction-player-details mobile-auction-player-details-primary" aria-label="Primary player details">
@@ -170,8 +170,8 @@ const MobilePlayerIdentityCard = memo(function MobilePlayerIdentityCard({
 }) {
   return (
     <section
-      className={`card mobile-auction-player-card team-theme ${getTeamThemeClass(player?.ipl_team)}`}
-      style={getTeamThemeStyle(player?.ipl_team)}
+      className={`card mobile-auction-player-card team-theme ${getTeamThemeClass(player?.team_code)}`}
+      style={getTeamThemeStyle(player?.team_code)}
       aria-label="Current player"
     >
       <MobilePlayerIdentity player={player} />
@@ -205,8 +205,8 @@ const MobileCurrentBidAndTimer = memo(function MobileCurrentBidAndTimer({
 
   return (
     <section
-      className={`card mobile-auction-timer team-theme ${getTeamThemeClass(currentPlayer?.ipl_team)} is-${auction.status}`}
-      style={getTeamThemeStyle(currentPlayer?.ipl_team)}
+      className={`card mobile-auction-timer team-theme ${getTeamThemeClass(currentPlayer?.team_code)} is-${auction.status}`}
+      style={getTeamThemeStyle(currentPlayer?.team_code)}
       aria-label="Auction timer"
     >
       <div className="mobile-auction-timer-bid">

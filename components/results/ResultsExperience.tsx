@@ -190,8 +190,10 @@ export function ResultsExperience({ room, participants, results, squads, players
   }, [comparison, selectedAward, selectedSpotlight, selectedTeam, shareTarget])
 
   const inviteShareText = useMemo(
-    () =>
-      `Think you can build a better team next time?\n\nOr new to the game?\n\nI played this IPL auction game with friends and it was fantastic.\n\nLet's play IPL auction together:\nhttps://mock-ipl-auction-simulator-game.vercel.app`,
+    () => {
+      if (typeof window === 'undefined') return ''
+      return `Think you can build a better team next time?\n\nI played T20 Auction Arena with friends and it was a great franchise auction room.\n\nPlay here:\n${window.location.origin}\n\nUnofficial fan-made simulator. Not affiliated with or endorsed by the BCCI, IPL, or any franchise.`
+    },
     []
   )
 

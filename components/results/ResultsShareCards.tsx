@@ -102,8 +102,8 @@ function ShareCardFrame({
             borderTop: '1px solid rgba(255,255,255,0.08)'
           }}
         >
-          <span style={{ ...labelStyle, color: 'rgba(245,197,24,0.86)' }}>IPL Auction Game</span>
-          <span style={{ fontSize: 11, color: 'rgba(214,226,239,0.78)' }}>Play with friends</span>
+          <span style={{ ...labelStyle, color: 'rgba(245,197,24,0.86)' }}>T20 Auction Arena</span>
+          <span style={{ fontSize: 11, color: 'rgba(214,226,239,0.78)' }}>Unofficial fan-made simulator</span>
         </div>
       </div>
     </div>

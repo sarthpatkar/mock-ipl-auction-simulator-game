@@ -440,7 +440,7 @@ export function RoomResultsBoard({ roomName, totalPurse, participants, results, 
     const teamName = team.participant?.team_name || 'Franchise'
     const totalSpent = team.squadRows.reduce((sum, row) => sum + row.price_paid, 0)
     const rows: Array<Array<string | number | null | undefined>> = [
-      ['#', 'Player', 'Role', 'IPL Team', 'Base Price', 'Base (₹L)', 'Price', 'impact_type']
+      ['#', 'Player', 'Role', 'Team Code', 'Base Price', 'Base (₹L)', 'Price', 'impact_type']
     ]
 
     team.squadRows.forEach((row, index) => {
@@ -449,7 +449,7 @@ export function RoomResultsBoard({ roomName, totalPurse, participants, results, 
         index + 1,
         player?.name ?? 'Unknown Player',
         formatRoleForCsv(player?.role),
-        player?.ipl_team ?? '—',
+        player?.team_code ?? '—',
         formatBasePriceLabelForCsv(player),
         formatLakhs(player?.base_price),
         formatPrice(row.price_paid),

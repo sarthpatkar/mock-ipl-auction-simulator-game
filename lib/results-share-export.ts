@@ -271,7 +271,7 @@ export async function renderTeamShareCardBlob(team: ResultsDerivedTeam) {
         mostExpensive ? `${truncateText(mostExpensive.player.name, 11)} · ${formatPrice(mostExpensive.pricePaid)}` : 'No purchase'
       )}</text>
 
-      <text x="20" y="504" style="font: 700 9px var(--font-body), system-ui, sans-serif; letter-spacing:1.8px; text-transform:uppercase; fill:rgba(245,197,24,0.82);">IPL Auction Game</text>
+      <text x="20" y="504" style="font: 700 9px var(--font-body), system-ui, sans-serif; letter-spacing:1.8px; text-transform:uppercase; fill:rgba(245,197,24,0.82);">T20 Auction Arena</text>
       <text x="276" y="504" text-anchor="end" style="font: 500 10px var(--font-body), system-ui, sans-serif; fill:rgba(214,226,239,0.78);">Play with friends</text>
       ${await resolvePlayerImageBlock(teamName, null, accent)}
     `
@@ -316,7 +316,7 @@ export async function renderAwardShareCardBlob(award: AwardBadgeModel) {
       )}</text>
 
       ${textBlock(copyLines, 20, 352, 16, 'font:500 12px var(--font-body), system-ui, sans-serif; fill:rgba(214,226,239,0.82);')}
-      <text x="20" y="504" style="font: 700 9px var(--font-body), system-ui, sans-serif; letter-spacing:1.8px; text-transform:uppercase; fill:rgba(245,197,24,0.82);">IPL Auction Game</text>
+      <text x="20" y="504" style="font: 700 9px var(--font-body), system-ui, sans-serif; letter-spacing:1.8px; text-transform:uppercase; fill:rgba(245,197,24,0.82);">T20 Auction Arena</text>
       <text x="276" y="504" text-anchor="end" style="font: 500 10px var(--font-body), system-ui, sans-serif; fill:rgba(214,226,239,0.78);">Play with friends</text>
     `
   )
@@ -368,7 +368,7 @@ export async function renderSpotlightShareCardBlob(spotlight: PurchaseSpotlightM
       )}</text>
 
       ${textBlock(copyLines, 20, 368, 16, 'font:500 12px var(--font-body), system-ui, sans-serif; fill:rgba(214,226,239,0.82);')}
-      <text x="20" y="504" style="font: 700 9px var(--font-body), system-ui, sans-serif; letter-spacing:1.8px; text-transform:uppercase; fill:rgba(245,197,24,0.82);">IPL Auction Game</text>
+      <text x="20" y="504" style="font: 700 9px var(--font-body), system-ui, sans-serif; letter-spacing:1.8px; text-transform:uppercase; fill:rgba(245,197,24,0.82);">T20 Auction Arena</text>
       <text x="276" y="504" text-anchor="end" style="font: 500 10px var(--font-body), system-ui, sans-serif; fill:rgba(214,226,239,0.78);">Play with friends</text>
     `
   )
@@ -423,7 +423,7 @@ export async function renderComparisonShareCardBlob(comparison: TeamComparisonMo
       <text x="178" y="142" style="font:500 11px var(--font-body), system-ui, sans-serif; fill:rgba(214,226,239,0.78);">${comparison.rightWins} wins</text>
 
       ${metricsBlock}
-      <text x="20" y="504" style="font: 700 9px var(--font-body), system-ui, sans-serif; letter-spacing:1.8px; text-transform:uppercase; fill:rgba(245,197,24,0.82);">IPL Auction Game</text>
+      <text x="20" y="504" style="font: 700 9px var(--font-body), system-ui, sans-serif; letter-spacing:1.8px; text-transform:uppercase; fill:rgba(245,197,24,0.82);">T20 Auction Arena</text>
       <text x="276" y="504" text-anchor="end" style="font: 500 10px var(--font-body), system-ui, sans-serif; fill:rgba(214,226,239,0.78);">Play with friends</text>
     `
   )

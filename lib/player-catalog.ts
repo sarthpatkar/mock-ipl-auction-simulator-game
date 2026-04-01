@@ -6,7 +6,7 @@ export const AUCTION_PLAYER_COLUMNS = [
   'name',
   'age',
   'nationality',
-  'ipl_team',
+  'team_code',
   'role',
   'category',
   'batting_style',
@@ -21,7 +21,7 @@ export const AUCTION_PLAYER_COLUMNS = [
 export const SUMMARY_PLAYER_COLUMNS = [
   'id',
   'name',
-  'ipl_team',
+  'team_code',
   'role',
   'base_price_label',
   'image_url'
@@ -30,7 +30,7 @@ export const SUMMARY_PLAYER_COLUMNS = [
 export const RESULTS_PLAYER_COLUMNS = [
   'id',
   'name',
-  'ipl_team',
+  'team_code',
   'role',
   'image_url',
   'impact_type',

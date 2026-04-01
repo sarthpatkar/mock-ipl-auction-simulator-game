@@ -1,4 +1,4 @@
-id,name,age,nationality,ipl_team,role,category,batting_style,bowling_style,image_url,base_price,base_price_label,spouse,created_at,matches,batting_avg,strike_rate,wickets,economy,performance_score,consistency_score,recent_form_score,experience_level,impact_type
+id,name,age,nationality,team_code,role,category,batting_style,bowling_style,image_url,base_price,base_price_label,spouse,created_at,matches,batting_avg,strike_rate,wickets,economy,performance_score,consistency_score,recent_form_score,experience_level,impact_type
 654df97d-7bb0-429c-96c9-e339db1bdc7f,Abdul Samad,24,India,LSG,batter,capped,Right hand Bat,Legbreak,,5000000,₹50 L,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
 05026612-1b45-46bc-9d47-8e6296f5037e,Abhinandan Singh,28,India,RCB,bowler,uncapped,Right hand Bat,Right arm Medium fast,,3000000,₹30 L,,2026-03-26 13:14:21.237701+00,,,,,,,,,,
 63865810-9c90-4da8-afb0-ece8feaab211,Abhishek Sharma,25,India,SRH,allrounder,capped,Left hand Bat,Slow Left arm Orthodox,,15000000,₹1.5 Cr,,2026-03-26 13:14:21.237701+00,,,,,,,,,,

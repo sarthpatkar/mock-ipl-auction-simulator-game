@@ -6,6 +6,7 @@ import { RoomCodeDisplay } from '@/components/lobby/RoomCodeDisplay'
 import { ParticipantList } from '@/components/lobby/ParticipantList'
 import { AdminSettings } from '@/components/lobby/AdminSettings'
 import { PageNavbar } from '@/components/shared/PageNavbar'
+import { UnofficialDisclaimer } from '@/components/shared/UnofficialDisclaimer'
 import { useRoom } from '@/hooks/useRoom'
 import { getBrowserSessionUser, supabaseClient } from '@/lib/supabase'
 import { buildCategoryQueue, buildRandomQueue } from '@/lib/player-queue'
@@ -106,7 +107,7 @@ export default function LobbyPage() {
     }
     const typedPlayers = (players as Player[] | null) ?? []
     if (typedPlayers.length === 0) {
-      setStartError('Players table is empty. Run: npx ts-node scripts/seed-players.ts')
+      setStartError('Players table is empty. Run: npm run seed:players')
       return
     }
     const queue =
@@ -225,6 +226,9 @@ export default function LobbyPage() {
           </>
         }
       />
+      <div className="mx-auto w-full max-w-6xl px-6 pt-4">
+        <UnofficialDisclaimer compact />
+      </div>
 
       <div className="lobby-body">
         <div className="lobby-left">

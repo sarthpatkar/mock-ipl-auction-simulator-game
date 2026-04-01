@@ -43,7 +43,7 @@ export function PlayerCard({ player }: Props) {
   }
 
   return (
-    <div className={`card player-card team-theme ${getTeamThemeClass(player.ipl_team)}`} style={getTeamThemeStyle(player.ipl_team)}>
+    <div className={`card player-card team-theme ${getTeamThemeClass(player.team_code)}`} style={getTeamThemeStyle(player.team_code)}>
       <div className="player-card-media">
         {displayImageUrl && !imageFailed ? (
           <Image src={displayImageUrl} alt={player.name} fill className="object-cover" onError={() => setImageFailed(true)} />
@@ -61,12 +61,12 @@ export function PlayerCard({ player }: Props) {
           <span
             className="badge badge-team"
             style={{
-              backgroundColor: `${getTeamColor(player.ipl_team)}22`,
-              borderColor: `${getTeamColor(player.ipl_team)}55`,
-              color: getTeamColor(player.ipl_team)
+              backgroundColor: `${getTeamColor(player.team_code)}22`,
+              borderColor: `${getTeamColor(player.team_code)}55`,
+              color: getTeamColor(player.team_code)
             }}
           >
-            {player.ipl_team || 'FA'}
+            {player.team_code || 'FA'}
           </span>
           <span className="badge badge-gray">{player.category}</span>
         </div>

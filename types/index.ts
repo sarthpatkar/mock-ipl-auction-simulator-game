@@ -54,7 +54,7 @@ export type Player = {
   name: string
   age: number | null
   nationality: string | null
-  ipl_team: string | null
+  team_code: string | null
   role: 'batter' | 'wicketkeeper' | 'allrounder' | 'bowler'
   category: 'capped' | 'uncapped'
   batting_style: string | null

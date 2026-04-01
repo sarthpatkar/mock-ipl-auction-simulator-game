@@ -212,7 +212,7 @@ export function ResultsRevealHold({ revealAt, remaining, participants, results, 
       return {
         eyebrow: 'Final leaderboard locked',
         title: 'Actual standings are now sliding into place.',
-        subtitle: 'Official rank order verified. Champion reveal incoming.'
+        subtitle: 'Final rank order verified. Champion reveal incoming.'
       }
     }
 
@@ -220,7 +220,7 @@ export function ResultsRevealHold({ revealAt, remaining, participants, results, 
       return {
         eyebrow: 'Live leaderboard projections',
         title: 'Final rankings calculating…',
-        subtitle: 'Projection movement is frozen while the official table is prepared.'
+        subtitle: 'Projection movement is frozen while the final table is prepared.'
       }
     }
 

@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import { PageNavbar } from '@/components/shared/PageNavbar'
+import { UnofficialDisclaimer } from '@/components/shared/UnofficialDisclaimer'
 import { ResultsExperience } from '@/components/results/ResultsExperience'
 import { ResultsRevealHold } from '@/components/results/ResultsRevealHold'
 import { useForcedTheme } from '@/components/theme/ThemeProvider'
@@ -169,6 +170,7 @@ export default function ResultsPage() {
     <div className="screen page-with-navbar results-page">
       <PageNavbar subtitle="RESULTS" showHome showThemeToggle={false} />
       <main className="mx-auto flex w-full max-w-6xl flex-col gap-6 px-6 py-12">
+        <UnofficialDisclaimer compact />
         {pageError && (
           <div className="card live-banner is-warning">
             <div>

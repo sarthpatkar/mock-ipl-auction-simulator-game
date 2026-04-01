@@ -49,14 +49,14 @@ type Player = {
   nationality: string
   batting_style: string
   bowling_style: string | null
-  image: string
+  image: string | null
   spouse: string | null
   base_price: number
   base_price_label: string
 }
 
 async function seedPlayers() {
-  const filePath = path.resolve(__dirname, '../public/ipl_auction_2026.json')
+  const filePath = path.resolve(__dirname, '../public/t20_auction_pool_2026.json')
   const raw = await readFile(filePath, 'utf8')
   const auctionData = JSON.parse(raw) as { teams: any[] }
   const rows: object[] = []
@@ -97,7 +97,7 @@ async function seedPlayers() {
             name: p.name,
             age: p.age,
             nationality: p.nationality,
-            ipl_team: team.team,
+            team_code: team.team,
             role: roleLabel,
             category: cap, // 'capped' | 'uncapped'
             batting_style: p.batting_style,

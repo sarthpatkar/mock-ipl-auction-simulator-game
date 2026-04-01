@@ -1,11 +1,11 @@
--- Manual player image update helper
+-- Manual AI avatar update helper
 --
 -- Step 1: Run this to get the player ids you need:
 -- select id, name
 -- from public.players
 -- order by name;
 --
--- Step 2: Upload images to Supabase Storage bucket `player-images`
+-- Step 2: Upload AI-generated avatar images to Supabase Storage bucket `player-images`
 -- using the file name format:
 --   <player_id>.webp
 --

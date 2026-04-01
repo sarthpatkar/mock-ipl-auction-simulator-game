@@ -1,5 +1,5 @@
 {
-  "name": "ipl-auction-sim",
+  "name": "t20-auction-arena",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "eslint .",
     "seed:players": "ts-node scripts/seed-players.ts",
+    "avatars:audit": "ts-node scripts/migrate-player-images.ts",
     "images:migrate": "ts-node scripts/migrate-player-images.ts",
     "players:merge": "ts-node scripts/merge-players-enriched.ts"
   },

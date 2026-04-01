@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { PageNavbar } from '@/components/shared/PageNavbar'
+import { UnofficialDisclaimer } from '@/components/shared/UnofficialDisclaimer'
 import { getBrowserSessionUser, supabaseClient } from '@/lib/supabase'
 
 export default function JoinRoomPage() {
@@ -44,6 +45,7 @@ export default function JoinRoomPage() {
       <main className="themed-form-page">
         <div className="themed-form-shell">
           <h1 className="themed-form-title">Join Room</h1>
+          <UnofficialDisclaimer compact className="themed-form-disclaimer" />
           <form onSubmit={handleJoin} className="card themed-form-card">
           <input
             value={code}

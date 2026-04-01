@@ -1,4 +1,6 @@
+import { APP_NAME, APP_TAGLINE } from '@/lib/branding'
 import { CreatorBranding } from '@/components/shared/CreatorBranding'
+import { UnofficialDisclaimer } from '@/components/shared/UnofficialDisclaimer'
 
 export function HeroSide() {
   const featureCards = [
@@ -8,7 +10,7 @@ export function HeroSide() {
     },
     {
       title: 'Real Player Pool',
-      copy: 'Bid on a deep IPL-inspired player list.'
+      copy: 'Bid on a deep T20 player pool with stylized avatars.'
     },
     {
       title: 'Budget Strategy',
@@ -37,11 +39,11 @@ export function HeroSide() {
             <div className="auth-hero-copy">
               <p className="hero-eyebrow">Multiplayer Auction Game</p>
               <h1 className="hero-title auth-hero-title">
-                <span className="line-1">IPL Auction</span>
-                <span className="line-2">Game</span>
+                <span className="line-1">T20 Auction</span>
+                <span className="line-2">Arena</span>
               </h1>
               <p className="hero-desc auth-hero-desc">
-                Build your franchise, outbid rivals, and compete with friends in a realistic IPL auction simulation.
+                Build your franchise, outbid rivals, and run live T20-style auction rooms with friends.
               </p>
             </div>
 
@@ -70,6 +72,7 @@ export function HeroSide() {
             </section>
 
             <CreatorBranding variant="auth-panel" />
+            <UnofficialDisclaimer compact />
           </div>
         </div>
       </section>
@@ -82,10 +85,10 @@ export function HeroSide() {
           <div className="auth-mobile-hero-copy">
             <span className="auth-mobile-kicker">Multiplayer Auction Game</span>
             <h1 className="auth-mobile-title">
-              <span>IPL Auction Game</span>
+              <span>{APP_NAME}</span>
               <strong>Build Your Dream Squad</strong>
             </h1>
-            <p className="auth-mobile-tagline">Bid smart. Build your team. Beat your friends.</p>
+            <p className="auth-mobile-tagline">{APP_TAGLINE}</p>
           </div>
 
           <div className="auth-mobile-stat-pills" aria-label="Platform stats">
@@ -97,6 +100,8 @@ export function HeroSide() {
             ))}
           </div>
         </div>
+
+        <UnofficialDisclaimer compact className="auth-mobile-disclaimer" />
 
       </section>
     </>

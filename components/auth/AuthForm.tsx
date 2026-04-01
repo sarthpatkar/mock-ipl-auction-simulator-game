@@ -2,7 +2,9 @@
 
 import { useEffect, useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
+import { APP_NAME } from '@/lib/branding'
 import { CreatorBranding } from '@/components/shared/CreatorBranding'
+import { UnofficialDisclaimer } from '@/components/shared/UnofficialDisclaimer'
 import { ThemeToggle } from '@/components/theme/ThemeToggle'
 import { supabaseClient } from '@/lib/supabase'
 
@@ -69,7 +71,7 @@ export function AuthForm() {
     },
     {
       title: 'Real Player Pool',
-      copy: 'Bid on a deep IPL-inspired player list.'
+      copy: 'Bid on a deep T20 player pool with AI avatar art.'
     },
     {
       title: 'Budget Strategy',
@@ -172,14 +174,14 @@ export function AuthForm() {
           <div className="auth-form-header">
             <div className="auth-form-brand-row">
               <div className="navbar-logo auth-form-logo">
-                IPL AUCTION
-                <span>FRANCHISE MODE</span>
+                {APP_NAME}
+                <span>UNOFFICIAL FAN BUILD</span>
               </div>
               <ThemeToggle variant="auth" />
             </div>
             <h2 className="auth-form-title">{mode === 'login' ? 'Welcome back' : 'Create account'}</h2>
             <p className="auth-form-sub">
-              {mode === 'login' ? 'Sign in to enter your auction room and manage your franchise.' : 'Create your franchise account and join the bidding war.'}
+              {mode === 'login' ? 'Sign in to enter your auction room and manage your franchise.' : 'Create your franchise account and join the bidding room.'}
             </p>
           </div>
 
@@ -312,6 +314,7 @@ export function AuthForm() {
           </div>
         </section>
 
+        <UnofficialDisclaimer compact />
         <CreatorBranding variant="auth-footer" />
       </div>
     </div>

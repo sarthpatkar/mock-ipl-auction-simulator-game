@@ -1,4 +1,4 @@
--- IPL Auction Simulation schema
+-- T20 auction simulation schema
 -- Ensure required extensions
 create extension if not exists "pgcrypto";
 
@@ -108,7 +108,7 @@ create table if not exists players (
   name text not null,
   age int,
   nationality text,
-  ipl_team text,
+  team_code text,
   role text check (role in ('batter','wicketkeeper','allrounder','bowler')),
   category text check (category in ('capped','uncapped')),
   batting_style text,

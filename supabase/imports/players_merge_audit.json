@@ -2,7 +2,7 @@
   "generated_at": "2026-03-27T11:18:31.822Z",
   "inputs": {
     "db_csv": "/Users/sarth/Downloads/players_rows-2.csv",
-    "enriched_csv": "/Users/sarth/Downloads/ipl_player_enriched.csv"
+    "enriched_csv": "/Users/sarth/Downloads/t20_player_enriched.csv"
   },
   "outputs": {
     "import_csv": "/Users/sarth/ipl/supabase/imports/players_merged_for_import.csv",
@@ -14,7 +14,7 @@
       "name",
       "age",
       "nationality",
-      "ipl_team",
+      "team_code",
       "role",
       "category",
       "batting_style",

@@ -16,7 +16,6 @@
   "teams": [
     {
       "team": "CSK",
-      "full_name": "Chennai Super Kings",
       "players": {
         "batters": {
           "capped": [
@@ -26,7 +25,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": "Right arm Offbreak",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/102.png",
+              "image": null,
               "spouse": "Utkarsha Pawar",
               "base_price": 20000000,
               "base_price_label": "₹2 Cr"
@@ -37,7 +36,7 @@
               "nationality": "South Africa",
               "batting_style": "Right hand Bat",
               "bowling_style": "Legbreak",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/797.png",
+              "image": null,
               "spouse": null,
               "base_price": 10000000,
               "base_price_label": "₹1 Cr"
@@ -50,7 +49,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": "Legbreak",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "image": null,
               "spouse": null,
               "base_price": 4000000,
               "base_price_label": "₹40 L",
@@ -62,7 +61,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": "Right arm Offbreak",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "image": null,
               "spouse": null,
               "base_price": 3000000,
               "base_price_label": "₹30 L"
@@ -77,7 +76,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": "Right arm Medium",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/57.png",
+              "image": null,
               "spouse": "Sakshi Dhoni",
               "base_price": 20000000,
               "base_price_label": "₹2 Cr"
@@ -88,7 +87,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": null,
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/258.png",
+              "image": null,
               "spouse": "Charulatha Samson",
               "base_price": 20000000,
               "base_price_label": "₹2 Cr"
@@ -101,7 +100,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": null,
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "image": null,
               "spouse": null,
               "base_price": 3000000,
               "base_price_label": "₹30 L"
@@ -112,7 +111,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": null,
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "image": null,
               "spouse": null,
               "base_price": 3000000,
               "base_price_label": "₹30 L"
@@ -127,7 +126,7 @@
               "nationality": "India",
               "batting_style": "Left hand Bat",
               "bowling_style": "Right arm Medium",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/543.png",
+              "image": null,
               "spouse": "Anjum Khan",
               "base_price": 15000000,
               "base_price_label": "₹1.5 Cr"
@@ -138,7 +137,7 @@
               "nationality": "England",
               "batting_style": "Right hand Bat",
               "bowling_style": "Right arm Fast",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/888.png",
+              "image": null,
               "spouse": null,
               "base_price": 10000000,
               "base_price_label": "₹1 Cr"
@@ -149,7 +148,7 @@
               "nationality": "Australia",
               "batting_style": "Right hand Bat",
               "bowling_style": "Right arm Offbreak",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/777.png",
+              "image": null,
               "spouse": null,
               "base_price": 7500000,
               "base_price_label": "₹75 L"
@@ -160,7 +159,7 @@
               "nationality": "New Zealand",
               "batting_style": "Right hand Bat",
               "bowling_style": "Right arm Medium",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "image": null,
               "spouse": null,
               "base_price": 5000000,
               "base_price_label": "₹50 L"
@@ -171,7 +170,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": "Right arm Medium",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/901.png",
+              "image": null,
               "spouse": null,
               "base_price": 4000000,
               "base_price_label": "₹40 L"
@@ -184,7 +183,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": "Right arm Medium",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "image": null,
               "spouse": null,
               "base_price": 3000000,
               "base_price_label": "₹30 L"
@@ -195,7 +194,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": "Right arm Medium Fast",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "image": null,
               "spouse": null,
               "base_price": 3000000,
               "base_price_label": "₹30 L"
@@ -206,7 +205,7 @@
               "nationality": "India",
               "batting_style": "Left hand Bat",
               "bowling_style": "Slow Left arm Orthodox",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "image": null,
               "spouse": null,
               "base_price": 3000000,
               "base_price_label": "₹30 L"
@@ -221,7 +220,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": "Left arm Fast medium",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/8.png",
+              "image": null,
               "spouse": null,
               "base_price": 10000000,
               "base_price_label": "₹1 Cr"
@@ -232,7 +231,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": "Legbreak Googly",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/171.png",
+              "image": null,
               "spouse": "Ishani Johar",
               "base_price": 10000000,
               "base_price_label": "₹1 Cr"
@@ -243,7 +242,7 @@
               "nationality": "New Zealand",
               "batting_style": "Right hand Bat",
               "bowling_style": "Right arm Fast medium",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/600.png",
+              "image": null,
               "spouse": "Holly Carran",
               "base_price": 15000000,
               "base_price_label": "₹1.5 Cr"
@@ -254,7 +253,7 @@
               "nationality": "West Indies",
               "batting_style": "Left hand Bat",
               "bowling_style": "Slow Left arm Orthodox",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/601.png",
+              "image": null,
               "spouse": null,
               "base_price": 7500000,
               "base_price_label": "₹75 L"
@@ -265,7 +264,7 @@
               "nationality": "Australia",
               "batting_style": "Left hand Bat",
               "bowling_style": "Left arm Fast",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/602.png",
+              "image": null,
               "spouse": null,
               "base_price": 15000000,
               "base_price_label": "₹1.5 Cr"
@@ -276,7 +275,7 @@
               "nationality": "Afghanistan",
               "batting_style": "Right hand Bat",
               "bowling_style": "Left arm Wrist spin",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/604.png",
+              "image": null,
               "spouse": null,
               "base_price": 15000000,
               "base_price_label": "₹1.5 Cr"
@@ -289,7 +288,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": "Legbreak",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "image": null,
               "spouse": null,
               "base_price": 3000000,
               "base_price_label": "₹30 L"
@@ -300,7 +299,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": "Left arm Medium fast",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "image": null,
               "spouse": null,
               "base_price": 3000000,
               "base_price_label": "₹30 L"
@@ -311,7 +310,7 @@
               "nationality": "India",
               "batting_style": "Left hand Bat",
               "bowling_style": "Left arm Medium",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/603.png",
+              "image": null,
               "spouse": null,
               "base_price": 3000000,
               "base_price_label": "₹30 L"
@@ -322,9 +321,14 @@
     },
     {
       "team": "DC",
-      "full_name": "Delhi Capitals",
       "withdrawn": [
-        { "name": "Ben Duckett", "age": 31, "role": "wicketkeeper", "nationality": "England", "reason": "Withdrawn" }
+        {
+          "name": "Ben Duckett",
+          "age": 31,
+          "role": "wicketkeeper",
+          "nationality": "England",
+          "reason": "Withdrawn"
+        }
       ],
       "players": {
         "batters": {
@@ -335,7 +339,7 @@
               "nationality": "South Africa",
               "batting_style": "Left hand Bat",
               "bowling_style": "Right arm Offbreak",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/187.png",
+              "image": null,
               "spouse": null,
               "base_price": 20000000,
               "base_price_label": "₹2 Cr"
@@ -346,7 +350,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": "Right arm Offbreak",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/276.png",
+              "image": null,
               "spouse": "Sanjaya Nair",
               "base_price": 3000000,
               "base_price_label": "₹30 L",
@@ -358,7 +362,7 @@
               "nationality": "Sri Lanka",
               "batting_style": "Right hand Bat",
               "bowling_style": null,
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/620.png",
+              "image": null,
               "spouse": null,
               "base_price": 15000000,
               "base_price_label": "₹1.5 Cr"
@@ -369,7 +373,7 @@
               "nationality": "India",
               "batting_style": "Left hand Bat",
               "bowling_style": "Right arm Medium / Offbreak / Legbreak",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/148.png",
+              "image": null,
               "spouse": "Saachi Marwah",
               "base_price": 5000000,
               "base_price_label": "₹50 L"
@@ -380,7 +384,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": "Right arm Offbreak",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/113.png",
+              "image": null,
               "spouse": null,
               "base_price": 3000000,
               "base_price_label": "₹30 L",
@@ -394,7 +398,7 @@
               "nationality": "India",
               "batting_style": "Left hand Bat",
               "bowling_style": "Legbreak",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "image": null,
               "spouse": null,
               "base_price": 3000000,
               "base_price_label": "₹30 L"
@@ -409,7 +413,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": null,
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/112.png",
+              "image": null,
               "spouse": "Athiya Shetty",
               "base_price": 20000000,
               "base_price_label": "₹2 Cr"
@@ -420,7 +424,7 @@
               "nationality": "South Africa",
               "batting_style": "Right hand Bat",
               "bowling_style": "Right arm Offbreak",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/900.png",
+              "image": null,
               "spouse": null,
               "base_price": 10000000,
               "base_price_label": "₹1 Cr"
@@ -433,7 +437,7 @@
               "nationality": "India",
               "batting_style": "Left hand Bat",
               "bowling_style": null,
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "image": null,
               "spouse": null,
               "base_price": 3000000,
               "base_price_label": "₹30 L"
@@ -448,7 +452,7 @@
               "nationality": "India",
               "batting_style": "Left hand Bat",
               "bowling_style": "Slow Left arm Orthodox",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/111.png",
+              "image": null,
               "spouse": "Meha Patel",
               "base_price": 20000000,
               "base_price_label": "₹2 Cr"
@@ -461,7 +465,7 @@
               "nationality": "India",
               "batting_style": "Left hand Bat",
               "bowling_style": "Slow Left arm Orthodox",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "image": null,
               "spouse": null,
               "base_price": 3000000,
               "base_price_label": "₹30 L"
@@ -472,7 +476,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": "Right arm Offbreak",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/950.png",
+              "image": null,
               "spouse": null,
               "base_price": 3000000,
               "base_price_label": "₹30 L"
@@ -483,7 +487,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": null,
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/951.png",
+              "image": null,
               "spouse": null,
               "base_price": 3000000,
               "base_price_label": "₹30 L"
@@ -494,7 +498,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": "Right arm Medium fast",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "image": null,
               "spouse": null,
               "base_price": 3000000,
               "base_price_label": "₹30 L"
@@ -509,7 +513,7 @@
               "nationality": "Sri Lanka",
               "batting_style": "Right hand Bat",
               "bowling_style": "Right arm Fast",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/333.png",
+              "image": null,
               "spouse": null,
               "base_price": 10000000,
               "base_price_label": "₹1 Cr"
@@ -520,7 +524,7 @@
               "nationality": "New Zealand",
               "batting_style": "Right hand Bat",
               "bowling_style": "Right arm Fast medium",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/444.png",
+              "image": null,
               "spouse": null,
               "base_price": 15000000,
               "base_price_label": "₹1.5 Cr"
@@ -531,7 +535,7 @@
               "nationality": "India",
               "batting_style": "Left hand Bat",
               "bowling_style": "Left arm Wrist spin",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/555.png",
+              "image": null,
               "spouse": null,
               "base_price": 20000000,
               "base_price_label": "₹2 Cr"
@@ -542,7 +546,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": "Right arm Medium",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/556.png",
+              "image": null,
               "spouse": null,
               "base_price": 7500000,
               "base_price_label": "₹75 L"
@@ -553,7 +557,7 @@
               "nationality": "India",
               "batting_style": "Left hand Bat",
               "bowling_style": "Left arm Medium",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/557.png",
+              "image": null,
               "spouse": "Pavithra Natarajan",
               "base_price": 10000000,
               "base_price_label": "₹1 Cr"
@@ -564,7 +568,7 @@
               "nationality": "South Africa",
               "batting_style": "Right hand Bat",
               "bowling_style": "Right arm Fast medium",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/558.png",
+              "image": null,
               "spouse": null,
               "base_price": 15000000,
               "base_price_label": "₹1.5 Cr"
@@ -575,7 +579,7 @@
               "nationality": "Australia",
               "batting_style": "Left hand Bat",
               "bowling_style": "Left arm Fast",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/559.png",
+              "image": null,
               "spouse": "Alyssa Healy",
               "base_price": 20000000,
               "base_price_label": "₹2 Cr"
@@ -588,7 +592,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": "Right arm Medium",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "image": null,
               "spouse": null,
               "base_price": 3000000,
               "base_price_label": "₹30 L"
@@ -599,7 +603,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": "Legbreak",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "image": null,
               "spouse": null,
               "base_price": 3000000,
               "base_price_label": "₹30 L"
@@ -610,7 +614,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": "Right arm Offbreak",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "image": null,
               "spouse": null,
               "base_price": 3000000,
               "base_price_label": "₹30 L"
@@ -621,7 +625,6 @@
     },
     {
       "team": "GT",
-      "full_name": "Gujarat Titans",
       "players": {
         "batters": {
           "capped": [
@@ -631,7 +634,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": "Right arm Offbreak",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/62.png",
+              "image": null,
               "spouse": null,
               "base_price": 20000000,
               "base_price_label": "₹2 Cr"
@@ -642,7 +645,7 @@
               "nationality": "India",
               "batting_style": "Left hand Bat",
               "bowling_style": "Legbreak",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/601.png",
+              "image": null,
               "spouse": null,
               "base_price": 15000000,
               "base_price_label": "₹1.5 Cr"
@@ -653,7 +656,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": "Right arm Offbreak",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/389.png",
+              "image": null,
               "spouse": null,
               "base_price": 5000000,
               "base_price_label": "₹50 L"
@@ -669,7 +672,7 @@
               "nationality": "England",
               "batting_style": "Right hand Bat",
               "bowling_style": null,
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/182.png",
+              "image": null,
               "spouse": "Louise Buttler",
               "base_price": 20000000,
               "base_price_label": "₹2 Cr"
@@ -680,7 +683,7 @@
               "nationality": "England",
               "batting_style": "Right hand Bat",
               "bowling_style": null,
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/400.png",
+              "image": null,
               "spouse": null,
               "base_price": 7500000,
               "base_price_label": "₹75 L"
@@ -693,7 +696,7 @@
               "nationality": "India",
               "batting_style": "Left hand Bat",
               "bowling_style": null,
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/534.png",
+              "image": null,
               "spouse": null,
               "base_price": 3000000,
               "base_price_label": "₹30 L"
@@ -704,7 +707,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": null,
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "image": null,
               "spouse": null,
               "base_price": 3000000,
               "base_price_label": "₹30 L"
@@ -719,7 +722,7 @@
               "nationality": "Afghanistan",
               "batting_style": "Right hand Bat",
               "bowling_style": "Legbreak Googly",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/288.png",
+              "image": null,
               "spouse": null,
               "base_price": 20000000,
               "base_price_label": "₹2 Cr"
@@ -730,7 +733,7 @@
               "nationality": "West Indies",
               "batting_style": "Right hand Bat",
               "bowling_style": "Right arm Medium fast",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/274.png",
+              "image": null,
               "spouse": null,
               "base_price": 15000000,
               "base_price_label": "₹1.5 Cr"
@@ -741,7 +744,7 @@
               "nationality": "New Zealand",
               "batting_style": "Right hand Bat",
               "bowling_style": "Right arm Offbreak",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/700.png",
+              "image": null,
               "spouse": null,
               "base_price": 15000000,
               "base_price_label": "₹1.5 Cr"
@@ -752,7 +755,7 @@
               "nationality": "India",
               "batting_style": "Left hand Bat",
               "bowling_style": "Right arm Offbreak",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/20.png",
+              "image": null,
               "spouse": null,
               "base_price": 15000000,
               "base_price_label": "₹1.5 Cr"
@@ -763,7 +766,7 @@
               "nationality": "India",
               "batting_style": "Left hand Bat",
               "bowling_style": "Legbreak",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/199.png",
+              "image": null,
               "spouse": null,
               "base_price": 10000000,
               "base_price_label": "₹1 Cr"
@@ -776,7 +779,7 @@
               "nationality": "India",
               "batting_style": "Left hand Bat",
               "bowling_style": "Slow Left arm Orthodox",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/701.png",
+              "image": null,
               "spouse": null,
               "base_price": 3000000,
               "base_price_label": "₹30 L"
@@ -787,7 +790,7 @@
               "nationality": "India",
               "batting_style": "Left hand Bat",
               "bowling_style": "Slow Left arm Orthodox",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "image": null,
               "spouse": null,
               "base_price": 3000000,
               "base_price_label": "₹30 L"
@@ -802,7 +805,7 @@
               "nationality": "South Africa",
               "batting_style": "Left hand Bat",
               "bowling_style": "Right arm Fast",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/166.png",
+              "image": null,
               "spouse": null,
               "base_price": 20000000,
               "base_price_label": "₹2 Cr"
@@ -813,7 +816,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": "Right arm Fast",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/71.png",
+              "image": null,
               "spouse": "Mahira Sharma",
               "base_price": 20000000,
               "base_price_label": "₹2 Cr"
@@ -824,7 +827,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": "Right arm Fast medium",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/510.png",
+              "image": null,
               "spouse": null,
               "base_price": 15000000,
               "base_price_label": "₹1.5 Cr"
@@ -835,7 +838,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": "Right arm Fast medium",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/50.png",
+              "image": null,
               "spouse": "Pratima Singh",
               "base_price": 3000000,
               "base_price_label": "₹30 L",
@@ -847,7 +850,7 @@
               "nationality": "India",
               "batting_style": "Left hand Bat",
               "bowling_style": "Slow Left arm Orthodox",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/503.png",
+              "image": null,
               "spouse": null,
               "base_price": 4000000,
               "base_price_label": "₹40 L"
@@ -858,7 +861,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": "Right arm Offbreak",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/174.png",
+              "image": null,
               "spouse": null,
               "base_price": 3000000,
               "base_price_label": "₹30 L",
@@ -870,7 +873,7 @@
               "nationality": "England",
               "batting_style": "Left hand Bat",
               "bowling_style": "Left arm Fast medium",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/703.png",
+              "image": null,
               "spouse": null,
               "base_price": 7500000,
               "base_price_label": "₹75 L"
@@ -883,7 +886,7 @@
               "nationality": "India",
               "batting_style": "Left hand Bat",
               "bowling_style": "Left arm Fast medium",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "image": null,
               "spouse": null,
               "base_price": 3000000,
               "base_price_label": "₹30 L"
@@ -894,7 +897,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": "Right arm Medium",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "image": null,
               "spouse": null,
               "base_price": 3000000,
               "base_price_label": "₹30 L"
@@ -905,7 +908,7 @@
               "nationality": "India",
               "batting_style": "Left hand Bat",
               "bowling_style": "Right arm Fast",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/702.png",
+              "image": null,
               "spouse": null,
               "base_price": 3000000,
               "base_price_label": "₹30 L"
@@ -916,7 +919,7 @@
               "nationality": "India",
               "batting_style": "Left hand Bat",
               "bowling_style": "Left arm Medium",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "image": null,
               "spouse": null,
               "base_price": 3000000,
               "base_price_label": "₹30 L"
@@ -927,7 +930,6 @@
     },
     {
       "team": "KKR",
-      "full_name": "Kolkata Knight Riders",
       "players": {
         "batters": {
           "capped": [
@@ -937,7 +939,7 @@
               "nationality": "West Indies",
               "batting_style": "Left hand Bat",
               "bowling_style": "Right arm Offbreak",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/276.png",
+              "image": null,
               "spouse": null,
               "base_price": 20000000,
               "base_price_label": "₹2 Cr",
@@ -950,7 +952,7 @@
               "nationality": "India",
               "batting_style": "Left hand Bat",
               "bowling_style": "Right arm Offbreak",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/964.png",
+              "image": null,
               "spouse": null,
               "base_price": 15000000,
               "base_price_label": "₹1.5 Cr"
@@ -961,7 +963,7 @@
               "nationality": "New Zealand",
               "batting_style": "Right hand Bat",
               "bowling_style": null,
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/704.png",
+              "image": null,
               "spouse": null,
               "base_price": 10000000,
               "base_price_label": "₹1 Cr"
@@ -972,7 +974,7 @@
               "nationality": "West Indies",
               "batting_style": "Right hand Bat",
               "bowling_style": "Right arm Medium fast",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/529.png",
+              "image": null,
               "spouse": null,
               "base_price": 15000000,
               "base_price_label": "₹1.5 Cr"
@@ -983,7 +985,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": "Right arm Medium",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/9.png",
+              "image": null,
               "spouse": "Radhika Dhopavkar",
               "base_price": 3000000,
               "base_price_label": "₹30 L",
@@ -995,7 +997,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": "Right arm Medium",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/123.png",
+              "image": null,
               "spouse": "Ashrita Shetty",
               "base_price": 3000000,
               "base_price_label": "₹30 L",
@@ -1007,7 +1009,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": "Right arm Medium",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/200.png",
+              "image": null,
               "spouse": null,
               "base_price": 3000000,
               "base_price_label": "₹30 L",
@@ -1021,7 +1023,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": "Slow Left arm Orthodox",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/705.png",
+              "image": null,
               "spouse": null,
               "base_price": 3000000,
               "base_price_label": "₹30 L"
@@ -1032,7 +1034,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": "Right arm Medium",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/706.png",
+              "image": null,
               "spouse": null,
               "base_price": 3000000,
               "base_price_label": "₹30 L"
@@ -1043,7 +1045,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": "Legbreak",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "image": null,
               "spouse": null,
               "base_price": 3000000,
               "base_price_label": "₹30 L"
@@ -1058,7 +1060,7 @@
               "nationality": "New Zealand",
               "batting_style": "Right hand Bat",
               "bowling_style": null,
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/707.png",
+              "image": null,
               "spouse": null,
               "base_price": 7500000,
               "base_price_label": "₹75 L"
@@ -1071,7 +1073,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": null,
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "image": null,
               "spouse": null,
               "base_price": 3000000,
               "base_price_label": "₹30 L"
@@ -1086,7 +1088,7 @@
               "nationality": "West Indies",
               "batting_style": "Left hand Bat",
               "bowling_style": "Right arm Offbreak",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/276.png",
+              "image": null,
               "spouse": null,
               "base_price": 20000000,
               "base_price_label": "₹2 Cr"
@@ -1097,7 +1099,7 @@
               "nationality": "New Zealand",
               "batting_style": "Left hand Bat",
               "bowling_style": "Slow Left arm Orthodox",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/709.png",
+              "image": null,
               "spouse": null,
               "base_price": 20000000,
               "base_price_label": "₹2 Cr"
@@ -1108,7 +1110,7 @@
               "nationality": "Australia",
               "batting_style": "Right hand Bat",
               "bowling_style": "Right arm Fast medium",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/708.png",
+              "image": null,
               "spouse": null,
               "base_price": 20000000,
               "base_price_label": "₹2 Cr"
@@ -1119,7 +1121,7 @@
               "nationality": "India",
               "batting_style": "Left hand Bat",
               "bowling_style": "Slow Left arm Orthodox",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/710.png",
+              "image": null,
               "spouse": null,
               "base_price": 3000000,
               "base_price_label": "₹30 L",
@@ -1133,7 +1135,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": "Legbreak Googly",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "image": null,
               "spouse": null,
               "base_price": 3000000,
               "base_price_label": "₹30 L"
@@ -1148,7 +1150,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": "Legbreak Googly",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/543.png",
+              "image": null,
               "spouse": null,
               "base_price": 15000000,
               "base_price_label": "₹1.5 Cr"
@@ -1159,7 +1161,7 @@
               "nationality": "Sri Lanka",
               "batting_style": "Right hand Bat",
               "bowling_style": "Right arm Fast",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/715.png",
+              "image": null,
               "spouse": null,
               "base_price": 20000000,
               "base_price_label": "₹2 Cr"
@@ -1170,7 +1172,7 @@
               "nationality": "Zimbabwe",
               "batting_style": "Right hand Bat",
               "bowling_style": "Right arm Fast medium",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/714.png",
+              "image": null,
               "spouse": null,
               "base_price": 15000000,
               "base_price_label": "₹1.5 Cr"
@@ -1181,7 +1183,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": "Right arm Fast",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/712.png",
+              "image": null,
               "spouse": null,
               "base_price": 15000000,
               "base_price_label": "₹1.5 Cr"
@@ -1192,7 +1194,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": "Right arm Fast medium",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/711.png",
+              "image": null,
               "spouse": null,
               "base_price": 5000000,
               "base_price_label": "₹50 L"
@@ -1205,7 +1207,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": "Left arm Medium fast",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "image": null,
               "spouse": null,
               "base_price": 3000000,
               "base_price_label": "₹30 L"
@@ -1216,7 +1218,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": "Right arm Fast",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/713.png",
+              "image": null,
               "spouse": null,
               "base_price": 3000000,
               "base_price_label": "₹30 L"
@@ -1227,7 +1229,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": "Legbreak",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/716.png",
+              "image": null,
               "spouse": null,
               "base_price": 3000000,
               "base_price_label": "₹30 L"
@@ -1238,7 +1240,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": "Right arm Fast",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/171.png",
+              "image": null,
               "spouse": null,
               "base_price": 4000000,
               "base_price_label": "₹40 L"
@@ -1249,7 +1251,6 @@
     },
     {
       "team": "LSG",
-      "full_name": "Lucknow Super Giants",
       "players": {
         "batters": {
           "capped": [
@@ -1259,7 +1260,7 @@
               "nationality": "India",
               "batting_style": "Left hand Bat",
               "bowling_style": null,
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/18.png",
+              "image": null,
               "spouse": null,
               "base_price": 20000000,
               "base_price_label": "₹2 Cr",
@@ -1271,7 +1272,7 @@
               "nationality": "South Africa",
               "batting_style": "Right hand Bat",
               "bowling_style": "Right arm Offbreak",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/172.png",
+              "image": null,
               "spouse": null,
               "base_price": 20000000,
               "base_price_label": "₹2 Cr"
@@ -1282,7 +1283,7 @@
               "nationality": "West Indies",
               "batting_style": "Left hand Bat",
               "bowling_style": "Right arm Offbreak",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/170.png",
+              "image": null,
               "spouse": null,
               "base_price": 20000000,
               "base_price_label": "₹2 Cr",
@@ -1294,7 +1295,7 @@
               "nationality": "South Africa",
               "batting_style": "Right hand Bat",
               "bowling_style": null,
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/720.png",
+              "image": null,
               "spouse": null,
               "base_price": 10000000,
               "base_price_label": "₹1 Cr"
@@ -1305,7 +1306,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": "Legbreak",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/271.png",
+              "image": null,
               "spouse": null,
               "base_price": 5000000,
               "base_price_label": "₹50 L"
@@ -1316,7 +1317,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": "Right arm Offbreak",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/600.png",
+              "image": null,
               "spouse": null,
               "base_price": 3000000,
               "base_price_label": "₹30 L",
@@ -1330,7 +1331,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": "Right arm Offbreak",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "image": null,
               "spouse": null,
               "base_price": 3000000,
               "base_price_label": "₹30 L"
@@ -1341,7 +1342,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": null,
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "image": null,
               "spouse": null,
               "base_price": 3000000,
               "base_price_label": "₹30 L"
@@ -1352,7 +1353,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": "Right arm Offbreak",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "image": null,
               "spouse": null,
               "base_price": 3000000,
               "base_price_label": "₹30 L"
@@ -1367,7 +1368,7 @@
               "nationality": "India",
               "batting_style": "Left hand Bat",
               "bowling_style": null,
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/18.png",
+              "image": null,
               "spouse": null,
               "base_price": 20000000,
               "base_price_label": "₹2 Cr"
@@ -1378,7 +1379,7 @@
               "nationality": "Australia",
               "batting_style": "Right hand Bat",
               "bowling_style": null,
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/721.png",
+              "image": null,
               "spouse": null,
               "base_price": 10000000,
               "base_price_label": "₹1 Cr"
@@ -1389,7 +1390,7 @@
               "nationality": "West Indies",
               "batting_style": "Left hand Bat",
               "bowling_style": null,
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/170.png",
+              "image": null,
               "spouse": null,
               "base_price": 20000000,
               "base_price_label": "₹2 Cr"
@@ -1405,7 +1406,7 @@
               "nationality": "Australia",
               "batting_style": "Right hand Bat",
               "bowling_style": "Right arm Medium",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/722.png",
+              "image": null,
               "spouse": "Greta Mack",
               "base_price": 20000000,
               "base_price_label": "₹2 Cr"
@@ -1416,7 +1417,7 @@
               "nationality": "Sri Lanka",
               "batting_style": "Right hand Bat",
               "bowling_style": "Legbreak",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/268.png",
+              "image": null,
               "spouse": null,
               "base_price": 20000000,
               "base_price_label": "₹2 Cr"
@@ -1427,7 +1428,7 @@
               "nationality": "India",
               "batting_style": "Left hand Bat",
               "bowling_style": "Slow Left arm Orthodox",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/723.png",
+              "image": null,
               "spouse": null,
               "base_price": 5000000,
               "base_price_label": "₹50 L"
@@ -1440,7 +1441,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": "Right arm Medium",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "image": null,
               "spouse": null,
               "base_price": 3000000,
               "base_price_label": "₹30 L"
@@ -1455,7 +1456,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": "Right arm Fast",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/94.png",
+              "image": null,
               "spouse": null,
               "base_price": 20000000,
               "base_price_label": "₹2 Cr"
@@ -1466,7 +1467,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": "Right arm Fast medium",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/156.png",
+              "image": null,
               "spouse": null,
               "base_price": 10000000,
               "base_price_label": "₹1 Cr"
@@ -1477,7 +1478,7 @@
               "nationality": "South Africa",
               "batting_style": "Right hand Bat",
               "bowling_style": "Right arm Fast",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/725.png",
+              "image": null,
               "spouse": null,
               "base_price": 20000000,
               "base_price_label": "₹2 Cr"
@@ -1488,7 +1489,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": "Right arm Fast",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/728.png",
+              "image": null,
               "spouse": null,
               "base_price": 15000000,
               "base_price_label": "₹1.5 Cr"
@@ -1499,7 +1500,7 @@
               "nationality": "India",
               "batting_style": "Left hand Bat",
               "bowling_style": "Left arm Medium fast",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/725.png",
+              "image": null,
               "spouse": null,
               "base_price": 5000000,
               "base_price_label": "₹50 L"
@@ -1510,7 +1511,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": "Slow Left arm Orthodox",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/726.png",
+              "image": null,
               "spouse": null,
               "base_price": 4000000,
               "base_price_label": "₹40 L"
@@ -1521,7 +1522,7 @@
               "nationality": "India",
               "batting_style": "Left hand Bat",
               "bowling_style": "Left arm Medium fast",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/727.png",
+              "image": null,
               "spouse": null,
               "base_price": 3000000,
               "base_price_label": "₹30 L",
@@ -1535,7 +1536,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": "Left arm Medium fast",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/724.png",
+              "image": null,
               "spouse": null,
               "base_price": 3000000,
               "base_price_label": "₹30 L"
@@ -1546,7 +1547,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": "Right arm Fast",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "image": null,
               "spouse": null,
               "base_price": 3000000,
               "base_price_label": "₹30 L"
@@ -1557,7 +1558,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": "Legbreak",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "image": null,
               "spouse": null,
               "base_price": 3000000,
               "base_price_label": "₹30 L"
@@ -1568,7 +1569,7 @@
               "nationality": "India",
               "batting_style": "Left hand Bat",
               "bowling_style": "Left arm Medium fast",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "image": null,
               "spouse": null,
               "base_price": 3000000,
               "base_price_label": "₹30 L"
@@ -1579,7 +1580,6 @@
     },
     {
       "team": "MI",
-      "full_name": "Mumbai Indians",
       "players": {
         "batters": {
           "capped": [
@@ -1589,7 +1589,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": "Right arm Offbreak",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/6.png",
+              "image": null,
               "spouse": "Ritika Sajdeh",
               "base_price": 20000000,
               "base_price_label": "₹2 Cr"
@@ -1600,7 +1600,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": "Right arm Medium / Offbreak",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/118.png",
+              "image": null,
               "spouse": "Devisha Shetty",
               "base_price": 20000000,
               "base_price_label": "₹2 Cr"
@@ -1611,7 +1611,7 @@
               "nationality": "West Indies",
               "batting_style": "Left hand Bat",
               "bowling_style": "Right arm Fast medium",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/548.png",
+              "image": null,
               "spouse": null,
               "base_price": 10000000,
               "base_price_label": "₹1 Cr"
@@ -1624,7 +1624,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": "Legbreak",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "image": null,
               "spouse": null,
               "base_price": 3000000,
               "base_price_label": "₹30 L"
@@ -1639,7 +1639,7 @@
               "nationality": "South Africa",
               "batting_style": "Left hand Bat",
               "bowling_style": null,
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/187.png",
+              "image": null,
               "spouse": "Sasha Hurly",
               "base_price": 20000000,
               "base_price_label": "₹2 Cr"
@@ -1650,7 +1650,7 @@
               "nationality": "South Africa",
               "batting_style": "Left hand Bat",
               "bowling_style": null,
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/745.png",
+              "image": null,
               "spouse": null,
               "base_price": 15000000,
               "base_price_label": "₹1.5 Cr"
@@ -1663,7 +1663,7 @@
               "nationality": "India",
               "batting_style": "Left hand Bat",
               "bowling_style": "Slow Left arm Orthodox",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "image": null,
               "spouse": null,
               "base_price": 3000000,
               "base_price_label": "₹30 L"
@@ -1678,7 +1678,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": "Right arm Medium fast",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/54.png",
+              "image": null,
               "spouse": "Natasa Stankovic",
               "base_price": 20000000,
               "base_price_label": "₹2 Cr"
@@ -1689,7 +1689,7 @@
               "nationality": "India",
               "batting_style": "Left hand Bat",
               "bowling_style": "Right arm Offbreak",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/750.png",
+              "image": null,
               "spouse": null,
               "base_price": 20000000,
               "base_price_label": "₹2 Cr"
@@ -1700,7 +1700,7 @@
               "nationality": "England",
               "batting_style": "Right hand Bat",
               "bowling_style": "Right arm Offbreak",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/748.png",
+              "image": null,
               "spouse": null,
               "base_price": 15000000,
               "base_price_label": "₹1.5 Cr"
@@ -1711,7 +1711,7 @@
               "nationality": "New Zealand",
               "batting_style": "Left hand Bat",
               "bowling_style": "Slow Left arm Orthodox",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/180.png",
+              "image": null,
               "spouse": null,
               "base_price": 15000000,
               "base_price_label": "₹1.5 Cr"
@@ -1722,7 +1722,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": "Right arm Medium",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/44.png",
+              "image": null,
               "spouse": "Mittali Parulkar",
               "base_price": 10000000,
               "base_price_label": "₹1 Cr"
@@ -1733,7 +1733,7 @@
               "nationality": "South Africa",
               "batting_style": "Right hand Bat",
               "bowling_style": "Right arm Fast medium",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/747.png",
+              "image": null,
               "spouse": null,
               "base_price": 10000000,
               "base_price_label": "₹1 Cr"
@@ -1746,7 +1746,7 @@
               "nationality": "India",
               "batting_style": "Left hand Bat",
               "bowling_style": "Slow Left arm Orthodox",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "image": null,
               "spouse": null,
               "base_price": 3000000,
               "base_price_label": "₹30 L"
@@ -1757,7 +1757,7 @@
               "nationality": "India",
               "batting_style": "Left hand Bat",
               "bowling_style": "Right arm Medium fast",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/746.png",
+              "image": null,
               "spouse": null,
               "base_price": 3000000,
               "base_price_label": "₹30 L"
@@ -1768,7 +1768,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": "Right arm Offbreak",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "image": null,
               "spouse": null,
               "base_price": 3000000,
               "base_price_label": "₹30 L"
@@ -1779,7 +1779,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": "Right arm Offbreak",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/749.png",
+              "image": null,
               "spouse": null,
               "base_price": 3000000,
               "base_price_label": "₹30 L"
@@ -1794,7 +1794,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": "Right arm Fast",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/112.png",
+              "image": null,
               "spouse": "Sanjana Ganesan",
               "base_price": 20000000,
               "base_price_label": "₹2 Cr"
@@ -1805,7 +1805,7 @@
               "nationality": "New Zealand",
               "batting_style": "Right hand Bat",
               "bowling_style": "Left arm Fast medium",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/96.png",
+              "image": null,
               "spouse": "Gert Smith",
               "base_price": 20000000,
               "base_price_label": "₹2 Cr"
@@ -1816,7 +1816,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": "Right arm Medium",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/94.png",
+              "image": null,
               "spouse": "Jaya Bhardwaj",
               "base_price": 10000000,
               "base_price_label": "₹1 Cr"
@@ -1827,7 +1827,7 @@
               "nationality": "Afghanistan",
               "batting_style": "Right hand Bat",
               "bowling_style": "Offbreak / Legbreak",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "image": null,
               "spouse": null,
               "base_price": 10000000,
               "base_price_label": "₹1 Cr"
@@ -1840,7 +1840,7 @@
               "nationality": "India",
               "batting_style": "Left hand Bat",
               "bowling_style": "Left arm Medium",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "image": null,
               "spouse": null,
               "base_price": 3000000,
               "base_price_label": "₹30 L"
@@ -1851,7 +1851,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": "Legbreak",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/751.png",
+              "image": null,
               "spouse": null,
               "base_price": 3000000,
               "base_price_label": "₹30 L"
@@ -1862,7 +1862,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": "Left arm Medium",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "image": null,
               "spouse": null,
               "base_price": 3000000,
               "base_price_label": "₹30 L"
@@ -1873,7 +1873,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": "Legbreak",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "image": null,
               "spouse": null,
               "base_price": 3000000,
               "base_price_label": "₹30 L"
@@ -1884,7 +1884,6 @@
     },
     {
       "team": "PBKS",
-      "full_name": "Punjab Kings",
       "players": {
         "batters": {
           "capped": [
@@ -1894,7 +1893,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": "Right arm Offbreak / Legbreak Googly",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/156.png",
+              "image": null,
               "spouse": "Rohini Iyer",
               "base_price": 20000000,
               "base_price_label": "₹2 Cr"
@@ -1905,7 +1904,7 @@
               "nationality": "India",
               "batting_style": "Left hand Bat",
               "bowling_style": "Legbreak",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/712.png",
+              "image": null,
               "spouse": null,
               "base_price": 3000000,
               "base_price_label": "₹30 L",
@@ -1919,7 +1918,7 @@
               "nationality": "India",
               "batting_style": "Left hand Bat",
               "bowling_style": "Right arm Offbreak",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "image": null,
               "spouse": null,
               "base_price": 3000000,
               "base_price_label": "₹30 L"
@@ -1930,7 +1929,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": "Right arm Medium fast",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "image": null,
               "spouse": null,
               "base_price": 3000000,
               "base_price_label": "₹30 L"
@@ -1941,7 +1940,7 @@
               "nationality": "India",
               "batting_style": "Left hand Bat",
               "bowling_style": "Legbreak",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "image": null,
               "spouse": null,
               "base_price": 3000000,
               "base_price_label": "₹30 L"
@@ -1957,7 +1956,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": null,
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/537.png",
+              "image": null,
               "spouse": null,
               "base_price": 3000000,
               "base_price_label": "₹30 L"
@@ -1968,7 +1967,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": null,
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/540.png",
+              "image": null,
               "spouse": null,
               "base_price": 3000000,
               "base_price_label": "₹30 L"
@@ -1983,7 +1982,7 @@
               "nationality": "South Africa",
               "batting_style": "Right hand Bat",
               "bowling_style": "Left arm Fast",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/250.png",
+              "image": null,
               "spouse": null,
               "base_price": 20000000,
               "base_price_label": "₹2 Cr"
@@ -1994,7 +1993,7 @@
               "nationality": "Australia",
               "batting_style": "Right hand Bat",
               "bowling_style": "Right arm Medium",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/139.png",
+              "image": null,
               "spouse": null,
               "base_price": 15000000,
               "base_price_label": "₹1.5 Cr"
@@ -2005,7 +2004,7 @@
               "nationality": "Afghanistan",
               "batting_style": "Right hand Bat",
               "bowling_style": "Right arm Medium fast",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/900.png",
+              "image": null,
               "spouse": null,
               "base_price": 15000000,
               "base_price_label": "₹1.5 Cr"
@@ -2016,7 +2015,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": "Right arm Medium / Right arm Offbreak",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/902.png",
+              "image": null,
               "spouse": null,
               "base_price": 5000000,
               "base_price_label": "₹50 L"
@@ -2027,7 +2026,7 @@
               "nationality": "Australia",
               "batting_style": "Left hand Bat",
               "bowling_style": "Slow Left arm Orthodox",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/901.png",
+              "image": null,
               "spouse": null,
               "base_price": 7500000,
               "base_price_label": "₹75 L"
@@ -2040,7 +2039,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": "Slow Left arm Orthodox",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "image": null,
               "spouse": null,
               "base_price": 3000000,
               "base_price_label": "₹30 L"
@@ -2051,7 +2050,7 @@
               "nationality": "Australia",
               "batting_style": "Right hand Bat",
               "bowling_style": "Right arm Medium",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "image": null,
               "spouse": null,
               "base_price": 5000000,
               "base_price_label": "₹50 L",
@@ -2063,7 +2062,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": "Right arm Medium fast",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "image": null,
               "spouse": null,
               "base_price": 3000000,
               "base_price_label": "₹30 L"
@@ -2078,7 +2077,7 @@
               "nationality": "India",
               "batting_style": "Left hand Bat",
               "bowling_style": "Left arm Medium fast",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/174.png",
+              "image": null,
               "spouse": null,
               "base_price": 20000000,
               "base_price_label": "₹2 Cr"
@@ -2089,7 +2088,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": "Legbreak Googly",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/96.png",
+              "image": null,
               "spouse": "Dhanashree Verma",
               "base_price": 20000000,
               "base_price_label": "₹2 Cr"
@@ -2100,7 +2099,7 @@
               "nationality": "New Zealand",
               "batting_style": "Right hand Bat",
               "bowling_style": "Right arm Fast",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/176.png",
+              "image": null,
               "spouse": null,
               "base_price": 15000000,
               "base_price_label": "₹1.5 Cr"
@@ -2111,7 +2110,7 @@
               "nationality": "Australia",
               "batting_style": "Right hand Bat",
               "bowling_style": "Right arm Fast medium",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/903.png",
+              "image": null,
               "spouse": null,
               "base_price": 10000000,
               "base_price_label": "₹1 Cr"
@@ -2122,7 +2121,7 @@
               "nationality": "Australia",
               "batting_style": "Left hand Bat",
               "bowling_style": "Left arm Fast medium",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/904.png",
+              "image": null,
               "spouse": null,
               "base_price": 7500000,
               "base_price_label": "₹75 L"
@@ -2133,7 +2132,7 @@
               "nationality": "India",
               "batting_style": "Left hand Bat",
               "bowling_style": "Slow Left arm Orthodox",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/300.png",
+              "image": null,
               "spouse": null,
               "base_price": 4000000,
               "base_price_label": "₹40 L"
@@ -2144,7 +2143,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": "Right arm Medium",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/905.png",
+              "image": null,
               "spouse": null,
               "base_price": 4000000,
               "base_price_label": "₹40 L"
@@ -2155,7 +2154,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": "Right arm Fast medium",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/906.png",
+              "image": null,
               "spouse": null,
               "base_price": 4000000,
               "base_price_label": "₹40 L"
@@ -2168,7 +2167,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": "Legbreak Googly",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "image": null,
               "spouse": null,
               "base_price": 3000000,
               "base_price_label": "₹30 L"
@@ -2179,7 +2178,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": "Legbreak",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "image": null,
               "spouse": null,
               "base_price": 3000000,
               "base_price_label": "₹30 L"
@@ -2190,9 +2189,14 @@
     },
     {
       "team": "RR",
-      "full_name": "Rajasthan Royals",
       "withdrawn": [
-        { "name": "Sam Curran", "age": 27, "role": "all-rounder", "nationality": "England", "reason": "Withdrawn" }
+        {
+          "name": "Sam Curran",
+          "age": 27,
+          "role": "all-rounder",
+          "nationality": "England",
+          "reason": "Withdrawn"
+        }
       ],
       "players": {
         "batters": {
@@ -2203,7 +2207,7 @@
               "nationality": "India",
               "batting_style": "Left hand Bat",
               "bowling_style": "Legbreak",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/135.png",
+              "image": null,
               "spouse": null,
               "base_price": 20000000,
               "base_price_label": "₹2 Cr"
@@ -2214,7 +2218,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": "Right arm Offbreak / Legbreak",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/964.png",
+              "image": null,
               "spouse": null,
               "base_price": 10000000,
               "base_price_label": "₹1 Cr"
@@ -2225,7 +2229,7 @@
               "nationality": "West Indies",
               "batting_style": "Left hand Bat",
               "bowling_style": null,
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/170.png",
+              "image": null,
               "spouse": null,
               "base_price": 15000000,
               "base_price_label": "₹1.5 Cr"
@@ -2238,7 +2242,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": null,
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "image": null,
               "spouse": null,
               "base_price": 3000000,
               "base_price_label": "₹30 L"
@@ -2249,7 +2253,7 @@
               "nationality": "India",
               "batting_style": "Left hand Bat",
               "bowling_style": "Right arm Offbreak",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "image": null,
               "spouse": null,
               "base_price": 3000000,
               "base_price_label": "₹30 L"
@@ -2260,7 +2264,7 @@
               "nationality": "India",
               "batting_style": "Left hand Bat",
               "bowling_style": "Legbreak",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "image": null,
               "spouse": null,
               "base_price": 3000000,
               "base_price_label": "₹30 L"
@@ -2271,7 +2275,7 @@
               "nationality": "India",
               "batting_style": "Left hand Bat",
               "bowling_style": "Slow Left arm Orthodox",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "image": null,
               "spouse": null,
               "base_price": 3000000,
               "base_price_label": "₹30 L"
@@ -2286,7 +2290,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": null,
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/712.png",
+              "image": null,
               "spouse": null,
               "base_price": 15000000,
               "base_price_label": "₹1.5 Cr"
@@ -2299,7 +2303,7 @@
               "nationality": "South Africa",
               "batting_style": "Left hand Bat",
               "bowling_style": null,
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "image": null,
               "spouse": null,
               "base_price": 3000000,
               "base_price_label": "₹30 L",
@@ -2315,7 +2319,7 @@
               "nationality": "India",
               "batting_style": "Left hand Bat",
               "bowling_style": "Slow Left arm Orthodox",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/9.png",
+              "image": null,
               "spouse": "Rivaba Jadeja",
               "base_price": 20000000,
               "base_price_label": "₹2 Cr"
@@ -2326,7 +2330,7 @@
               "nationality": "South Africa",
               "batting_style": "Right hand Bat",
               "bowling_style": "Right arm Offbreak",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/908.png",
+              "image": null,
               "spouse": null,
               "base_price": 7500000,
               "base_price_label": "₹75 L"
@@ -2337,7 +2341,7 @@
               "nationality": "Sri Lanka",
               "batting_style": "Right hand Bat",
               "bowling_style": "Right arm Medium",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/907.png",
+              "image": null,
               "spouse": null,
               "base_price": 10000000,
               "base_price_label": "₹1 Cr"
@@ -2353,7 +2357,7 @@
               "nationality": "England",
               "batting_style": "Right hand Bat",
               "bowling_style": "Right arm Fast",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/171.png",
+              "image": null,
               "spouse": null,
               "base_price": 20000000,
               "base_price_label": "₹2 Cr"
@@ -2364,7 +2368,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": "Legbreak Googly",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/906.png",
+              "image": null,
               "spouse": null,
               "base_price": 15000000,
               "base_price_label": "₹1.5 Cr"
@@ -2375,7 +2379,7 @@
               "nationality": "South Africa",
               "batting_style": "Left hand Bat",
               "bowling_style": "Left arm Fast medium",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/909.png",
+              "image": null,
               "spouse": null,
               "base_price": 10000000,
               "base_price_label": "₹1 Cr"
@@ -2386,7 +2390,7 @@
               "nationality": "South Africa",
               "batting_style": "Left hand Bat",
               "bowling_style": "Left arm Fast",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/910.png",
+              "image": null,
               "spouse": null,
               "base_price": 10000000,
               "base_price_label": "₹1 Cr"
@@ -2397,7 +2401,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": "Right arm Medium",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/911.png",
+              "image": null,
               "spouse": null,
               "base_price": 4000000,
               "base_price_label": "₹40 L"
@@ -2408,7 +2412,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": "Right arm Fast",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/912.png",
+              "image": null,
               "spouse": null,
               "base_price": 4000000,
               "base_price_label": "₹40 L"
@@ -2419,7 +2423,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": "Right arm Medium fast",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "image": null,
               "spouse": null,
               "base_price": 4000000,
               "base_price_label": "₹40 L"
@@ -2430,7 +2434,7 @@
               "nationality": "New Zealand",
               "batting_style": "Right hand Bat",
               "bowling_style": "Right arm Fast",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/910.png",
+              "image": null,
               "spouse": null,
               "base_price": 7500000,
               "base_price_label": "₹75 L"
@@ -2441,7 +2445,7 @@
               "nationality": "India",
               "batting_style": "Left hand Bat",
               "bowling_style": "Right arm Medium",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/909.png",
+              "image": null,
               "spouse": null,
               "base_price": 5000000,
               "base_price_label": "₹50 L"
@@ -2454,7 +2458,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": "Right arm Medium",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "image": null,
               "spouse": null,
               "base_price": 3000000,
               "base_price_label": "₹30 L"
@@ -2465,7 +2469,7 @@
               "nationality": "India",
               "batting_style": "Left hand Bat",
               "bowling_style": "Left arm Medium fast",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "image": null,
               "spouse": null,
               "base_price": 3000000,
               "base_price_label": "₹30 L"
@@ -2476,7 +2480,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": "Left arm Wrist spin",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "image": null,
               "spouse": null,
               "base_price": 3000000,
               "base_price_label": "₹30 L"
@@ -2487,7 +2491,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": "Legbreak Googly",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "image": null,
               "spouse": null,
               "base_price": 3000000,
               "base_price_label": "₹30 L"
@@ -2498,9 +2502,14 @@
     },
     {
       "team": "RCB",
-      "full_name": "Royal Challengers Bengaluru",
       "withdrawn": [
-        { "name": "Yash Dayal", "age": 27, "role": "bowler", "nationality": "India", "reason": "Withdrawn" }
+        {
+          "name": "Yash Dayal",
+          "age": 27,
+          "role": "bowler",
+          "nationality": "India",
+          "reason": "Withdrawn"
+        }
       ],
       "players": {
         "batters": {
@@ -2511,7 +2520,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": "Right arm Medium",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/2.png",
+              "image": null,
               "spouse": "Anushka Sharma",
               "base_price": 20000000,
               "base_price_label": "₹2 Cr"
@@ -2522,7 +2531,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": "Right arm Offbreak",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/597.png",
+              "image": null,
               "spouse": null,
               "base_price": 10000000,
               "base_price_label": "₹1 Cr"
@@ -2533,7 +2542,7 @@
               "nationality": "Australia",
               "batting_style": "Right hand Bat",
               "bowling_style": "Right arm Offbreak",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/540.png",
+              "image": null,
               "spouse": null,
               "base_price": 20000000,
               "base_price_label": "₹2 Cr"
@@ -2544,7 +2553,7 @@
               "nationality": "India",
               "batting_style": "Left hand Bat",
               "bowling_style": "Right arm Offbreak",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/543.png",
+              "image": null,
               "spouse": null,
               "base_price": 7500000,
               "base_price_label": "₹75 L"
@@ -2560,7 +2569,7 @@
               "nationality": "England",
               "batting_style": "Right hand Bat",
               "bowling_style": "Right arm Offbreak",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/912.png",
+              "image": null,
               "spouse": null,
               "base_price": 20000000,
               "base_price_label": "₹2 Cr"
@@ -2571,7 +2580,7 @@
               "nationality": "England",
               "batting_style": "Right hand Bat",
               "bowling_style": null,
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/950.png",
+              "image": null,
               "spouse": null,
               "base_price": 7500000,
               "base_price_label": "₹75 L"
@@ -2584,7 +2593,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": null,
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/913.png",
+              "image": null,
               "spouse": null,
               "base_price": 5000000,
               "base_price_label": "₹50 L"
@@ -2599,7 +2608,7 @@
               "nationality": "India",
               "batting_style": "Left hand Bat",
               "bowling_style": "Slow Left arm Orthodox",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/14.png",
+              "image": null,
               "spouse": "Pankhuri Sharma",
               "base_price": 15000000,
               "base_price_label": "₹1.5 Cr"
@@ -2610,7 +2619,7 @@
               "nationality": "India",
               "batting_style": "Left hand Bat",
               "bowling_style": "Right arm Medium",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/915.png",
+              "image": null,
               "spouse": null,
               "base_price": 15000000,
               "base_price_label": "₹1.5 Cr"
@@ -2621,7 +2630,7 @@
               "nationality": "England",
               "batting_style": "Left hand Bat",
               "bowling_style": "Slow Left arm Orthodox",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/914.png",
+              "image": null,
               "spouse": null,
               "base_price": 15000000,
               "base_price_label": "₹1.5 Cr"
@@ -2632,7 +2641,7 @@
               "nationality": "West Indies",
               "batting_style": "Right hand Bat",
               "bowling_style": "Right arm Fast medium",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/916.png",
+              "image": null,
               "spouse": null,
               "base_price": 10000000,
               "base_price_label": "₹1 Cr"
@@ -2645,7 +2654,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": "Right arm Offbreak",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "image": null,
               "spouse": null,
               "base_price": 3000000,
               "base_price_label": "₹30 L"
@@ -2656,7 +2665,7 @@
               "nationality": "India",
               "batting_style": "Left hand Bat",
               "bowling_style": "Right arm Offbreak",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "image": null,
               "spouse": null,
               "base_price": 3000000,
               "base_price_label": "₹30 L"
@@ -2667,7 +2676,7 @@
               "nationality": "India",
               "batting_style": "Left hand Bat",
               "bowling_style": "Left arm Fast",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "image": null,
               "spouse": null,
               "base_price": 3000000,
               "base_price_label": "₹30 L"
@@ -2682,7 +2691,7 @@
               "nationality": "Australia",
               "batting_style": "Left hand Bat",
               "bowling_style": "Right arm Fast medium",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/33.png",
+              "image": null,
               "spouse": "Cherina Murphy",
               "base_price": 20000000,
               "base_price_label": "₹2 Cr"
@@ -2693,7 +2702,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": "Right arm Medium",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/116.png",
+              "image": null,
               "spouse": "Nupur Nagar",
               "base_price": 15000000,
               "base_price_label": "₹1.5 Cr"
@@ -2704,7 +2713,7 @@
               "nationality": "Sri Lanka",
               "batting_style": "Right hand Bat",
               "bowling_style": "Right arm Medium fast",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/921.png",
+              "image": null,
               "spouse": null,
               "base_price": 10000000,
               "base_price_label": "₹1 Cr"
@@ -2715,7 +2724,7 @@
               "nationality": "New Zealand",
               "batting_style": "Right hand Bat",
               "bowling_style": "Right arm Fast medium",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/917.png",
+              "image": null,
               "spouse": null,
               "base_price": 7500000,
               "base_price_label": "₹75 L"
@@ -2726,7 +2735,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": "Right arm Medium",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/919.png",
+              "image": null,
               "spouse": null,
               "base_price": 4000000,
               "base_price_label": "₹40 L"
@@ -2737,7 +2746,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": "Slow Left arm Orthodox",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/920.png",
+              "image": null,
               "spouse": null,
               "base_price": 3000000,
               "base_price_label": "₹30 L",
@@ -2751,7 +2760,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": "Right arm Medium fast",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "image": null,
               "spouse": null,
               "base_price": 3000000,
               "base_price_label": "₹30 L"
@@ -2762,7 +2771,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": "Slow Left arm Orthodox",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "image": null,
               "spouse": null,
               "base_price": 3000000,
               "base_price_label": "₹30 L"
@@ -2773,7 +2782,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": "Slow Left arm Orthodox",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/918.png",
+              "image": null,
               "spouse": null,
               "base_price": 3000000,
               "base_price_label": "₹30 L"
@@ -2784,7 +2793,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": "Legbreak Googly",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/916.png",
+              "image": null,
               "spouse": null,
               "base_price": 3000000,
               "base_price_label": "₹30 L"
@@ -2795,12 +2804,20 @@
     },
     {
       "team": "SRH",
-      "full_name": "Sunrisers Hyderabad",
       "withdrawn": [
-        { "name": "Jack Edwards", "age": 25, "role": "all-rounder", "nationality": "Australia", "reason": "Withdrawn" }
+        {
+          "name": "Jack Edwards",
+          "age": 25,
+          "role": "all-rounder",
+          "nationality": "Australia",
+          "reason": "Withdrawn"
+        }
       ],
       "replacements": [
-        { "name": "David Payne", "replaces": "Jack Edwards" }
+        {
+          "name": "David Payne",
+          "replaces": "Jack Edwards"
+        }
       ],
       "players": {
         "batters": {
@@ -2811,7 +2828,7 @@
               "nationality": "Australia",
               "batting_style": "Left hand Bat",
               "bowling_style": "Right arm Offbreak",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/137.png",
+              "image": null,
               "spouse": "Jessica Davies",
               "base_price": 20000000,
               "base_price_label": "₹2 Cr"
@@ -2822,7 +2839,7 @@
               "nationality": "India",
               "batting_style": "Left hand Bat",
               "bowling_style": "Slow Left arm Orthodox",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/713.png",
+              "image": null,
               "spouse": null,
               "base_price": 15000000,
               "base_price_label": "₹1.5 Cr",
@@ -2836,7 +2853,7 @@
               "nationality": "India",
               "batting_style": "Left hand Bat",
               "bowling_style": "Right arm Offbreak",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "image": null,
               "spouse": null,
               "base_price": 3000000,
               "base_price_label": "₹30 L"
@@ -2847,7 +2864,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": "Right arm Medium fast",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "image": null,
               "spouse": null,
               "base_price": 3000000,
               "base_price_label": "₹30 L"
@@ -2862,7 +2879,7 @@
               "nationality": "India",
               "batting_style": "Left hand Bat",
               "bowling_style": "Right arm Offbreak / Legbreak",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/18.png",
+              "image": null,
               "spouse": null,
               "base_price": 20000000,
               "base_price_label": "₹2 Cr"
@@ -2873,7 +2890,7 @@
               "nationality": "South Africa",
               "batting_style": "Right hand Bat",
               "bowling_style": "Right arm Offbreak",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/173.png",
+              "image": null,
               "spouse": "Sone Martins",
               "base_price": 20000000,
               "base_price_label": "₹2 Cr"
@@ -2886,7 +2903,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": null,
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "image": null,
               "spouse": null,
               "base_price": 3000000,
               "base_price_label": "₹30 L"
@@ -2901,7 +2918,7 @@
               "nationality": "India",
               "batting_style": "Left hand Bat",
               "bowling_style": "Slow Left arm Orthodox",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/713.png",
+              "image": null,
               "spouse": null,
               "base_price": 15000000,
               "base_price_label": "₹1.5 Cr"
@@ -2912,7 +2929,7 @@
               "nationality": "England",
               "batting_style": "Right hand Bat",
               "bowling_style": "Right arm Offbreak / Legbreak",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/918.png",
+              "image": null,
               "spouse": null,
               "base_price": 20000000,
               "base_price_label": "₹2 Cr"
@@ -2923,7 +2940,7 @@
               "nationality": "Sri Lanka",
               "batting_style": "Left hand Bat",
               "bowling_style": "Right arm Offbreak / Slow Left arm Orthodox",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/915.png",
+              "image": null,
               "spouse": null,
               "base_price": 15000000,
               "base_price_label": "₹1.5 Cr"
@@ -2934,7 +2951,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": "Right arm Medium fast",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/919.png",
+              "image": null,
               "spouse": null,
               "base_price": 15000000,
               "base_price_label": "₹1.5 Cr"
@@ -2945,7 +2962,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": "Right arm Medium",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/31.png",
+              "image": null,
               "spouse": null,
               "base_price": 10000000,
               "base_price_label": "₹1 Cr"
@@ -2956,7 +2973,7 @@
               "nationality": "England",
               "batting_style": "Right hand Bat",
               "bowling_style": "Right arm Fast medium",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/914.png",
+              "image": null,
               "spouse": null,
               "base_price": 10000000,
               "base_price_label": "₹1 Cr"
@@ -2967,7 +2984,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": "Right arm Fast medium",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/920.png",
+              "image": null,
               "spouse": null,
               "base_price": 7500000,
               "base_price_label": "₹75 L"
@@ -2980,7 +2997,7 @@
               "nationality": "India",
               "batting_style": "Left hand Bat",
               "bowling_style": "Slow Left arm Orthodox",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "image": null,
               "spouse": null,
               "base_price": 3000000,
               "base_price_label": "₹30 L"
@@ -2991,7 +3008,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": "Left arm Wrist spin",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "image": null,
               "spouse": null,
               "base_price": 3000000,
               "base_price_label": "₹30 L"
@@ -3002,7 +3019,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": "Left arm Wrist spin",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "image": null,
               "spouse": null,
               "base_price": 3000000,
               "base_price_label": "₹30 L"
@@ -3017,7 +3034,7 @@
               "nationality": "Australia",
               "batting_style": "Right hand Bat",
               "bowling_style": "Right arm Fast",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/7.png",
+              "image": null,
               "spouse": "Becky Boston",
               "base_price": 20000000,
               "base_price_label": "₹2 Cr"
@@ -3028,7 +3045,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": "Left arm Medium",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/166.png",
+              "image": null,
               "spouse": "Rinni Kantaria",
               "base_price": 4000000,
               "base_price_label": "₹40 L"
@@ -3039,7 +3056,7 @@
               "nationality": "England",
               "batting_style": "Right hand Bat",
               "bowling_style": "Left arm Fast medium",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/922.png",
+              "image": null,
               "spouse": null,
               "base_price": 7500000,
               "base_price_label": "₹75 L",
@@ -3051,7 +3068,7 @@
               "nationality": "Sri Lanka",
               "batting_style": "Left hand Bat",
               "bowling_style": "Right arm Fast medium",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/921.png",
+              "image": null,
               "spouse": null,
               "base_price": 7500000,
               "base_price_label": "₹75 L"
@@ -3062,7 +3079,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": "Legbreak Googly",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "image": null,
               "spouse": null,
               "base_price": 4000000,
               "base_price_label": "₹40 L"
@@ -3075,7 +3092,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": "Legbreak Googly",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "image": null,
               "spouse": null,
               "base_price": 3000000,
               "base_price_label": "₹30 L"
@@ -3086,7 +3103,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": "Right arm Medium fast",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "image": null,
               "spouse": null,
               "base_price": 3000000,
               "base_price_label": "₹30 L"
@@ -3097,7 +3114,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": "Right arm Medium",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/923.png",
+              "image": null,
               "spouse": null,
               "base_price": 3000000,
               "base_price_label": "₹30 L"
@@ -3108,7 +3125,7 @@
               "nationality": "India",
               "batting_style": "Right hand Bat",
               "bowling_style": "Right arm Fast",
-              "image": "https://documents.iplt20.com/ipl/IPLHeadshot2025/default.png",
+              "image": null,
               "spouse": null,
               "base_price": 3000000,
               "base_price_label": "₹30 L"

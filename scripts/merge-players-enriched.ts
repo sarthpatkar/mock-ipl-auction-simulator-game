@@ -7,7 +7,7 @@ const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
 const DEFAULT_DB_CSV = '/Users/sarth/Downloads/players_rows-2.csv'
-const DEFAULT_ENRICHED_CSV = '/Users/sarth/Downloads/ipl_player_enriched.csv'
+const DEFAULT_ENRICHED_CSV = '/Users/sarth/Downloads/t20_player_enriched.csv'
 const DEFAULT_OUT_DIR = path.resolve(__dirname, '../supabase/imports')
 
 const STAT_COLUMNS = [

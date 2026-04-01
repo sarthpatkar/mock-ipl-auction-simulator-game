@@ -16,110 +16,88 @@ type TeamTheme = {
 
 const TEAM_THEMES: Record<TeamCode, TeamTheme> = {
   CSK: {
-    primary: '#FBE122',
-    secondary: '#1C3F94',
-    accent: '#FDB913',
-    surface: 'rgba(253, 185, 19, 0.09)',
-    border: 'rgba(253, 185, 19, 0.24)',
-    glow: 'rgba(251, 225, 34, 0.18)'
+    primary: '#0F766E',
+    secondary: '#99F6E4',
+    accent: '#2DD4BF',
+    surface: 'rgba(45, 212, 191, 0.1)',
+    border: 'rgba(45, 212, 191, 0.26)',
+    glow: 'rgba(45, 212, 191, 0.18)'
   },
   MI: {
-    primary: '#004BA0',
-    secondary: '#D1AB3E',
-    accent: '#1C6DD0',
-    surface: 'rgba(28, 109, 208, 0.09)',
-    border: 'rgba(28, 109, 208, 0.25)',
-    glow: 'rgba(0, 75, 160, 0.16)'
+    primary: '#1D4ED8',
+    secondary: '#BFDBFE',
+    accent: '#60A5FA',
+    surface: 'rgba(96, 165, 250, 0.1)',
+    border: 'rgba(96, 165, 250, 0.26)',
+    glow: 'rgba(96, 165, 250, 0.16)'
   },
   RCB: {
-    primary: '#DA1818',
-    secondary: '#000000',
-    accent: '#C9A643',
-    surface: 'rgba(218, 24, 24, 0.09)',
-    border: 'rgba(218, 24, 24, 0.24)',
-    glow: 'rgba(201, 166, 67, 0.14)'
+    primary: '#B91C1C',
+    secondary: '#FECACA',
+    accent: '#FB7185',
+    surface: 'rgba(251, 113, 133, 0.1)',
+    border: 'rgba(251, 113, 133, 0.24)',
+    glow: 'rgba(251, 113, 133, 0.16)'
   },
   KKR: {
-    primary: '#3A225D',
-    secondary: '#F2C028',
-    accent: '#6A4C93',
-    surface: 'rgba(106, 76, 147, 0.1)',
-    border: 'rgba(106, 76, 147, 0.25)',
-    glow: 'rgba(242, 192, 40, 0.14)'
+    primary: '#6D28D9',
+    secondary: '#DDD6FE',
+    accent: '#A78BFA',
+    surface: 'rgba(167, 139, 250, 0.1)',
+    border: 'rgba(167, 139, 250, 0.25)',
+    glow: 'rgba(167, 139, 250, 0.16)'
   },
   DC: {
-    primary: '#17449B',
-    secondary: '#E41E26',
-    accent: '#6FA8FF',
-    surface: 'rgba(111, 168, 255, 0.09)',
-    border: 'rgba(111, 168, 255, 0.24)',
-    glow: 'rgba(228, 30, 38, 0.12)'
+    primary: '#0F172A',
+    secondary: '#CBD5E1',
+    accent: '#38BDF8',
+    surface: 'rgba(56, 189, 248, 0.1)',
+    border: 'rgba(56, 189, 248, 0.24)',
+    glow: 'rgba(56, 189, 248, 0.16)'
   },
   SRH: {
-    primary: '#FF822A',
-    secondary: '#000000',
-    accent: '#FFB347',
-    surface: 'rgba(255, 179, 71, 0.09)',
-    border: 'rgba(255, 130, 42, 0.24)',
-    glow: 'rgba(255, 130, 42, 0.15)'
+    primary: '#C2410C',
+    secondary: '#FED7AA',
+    accent: '#FB923C',
+    surface: 'rgba(251, 146, 60, 0.1)',
+    border: 'rgba(251, 146, 60, 0.24)',
+    glow: 'rgba(251, 146, 60, 0.16)'
   },
   RR: {
-    primary: '#EA1A8C',
-    secondary: '#254AA5',
-    accent: '#FF66C4',
-    surface: 'rgba(255, 102, 196, 0.09)',
-    border: 'rgba(234, 26, 140, 0.24)',
-    glow: 'rgba(37, 74, 165, 0.12)'
+    primary: '#BE185D',
+    secondary: '#FBCFE8',
+    accent: '#F472B6',
+    surface: 'rgba(244, 114, 182, 0.1)',
+    border: 'rgba(244, 114, 182, 0.24)',
+    glow: 'rgba(244, 114, 182, 0.16)'
   },
   PBKS: {
-    primary: '#DD1F2D',
-    secondary: '#4960B6',
-    accent: '#F2D1A0',
-    surface: 'rgba(221, 31, 45, 0.09)',
-    border: 'rgba(221, 31, 45, 0.24)',
-    glow: 'rgba(242, 209, 160, 0.13)'
+    primary: '#7C2D12',
+    secondary: '#FED7AA',
+    accent: '#FDBA74',
+    surface: 'rgba(253, 186, 116, 0.1)',
+    border: 'rgba(253, 186, 116, 0.24)',
+    glow: 'rgba(253, 186, 116, 0.16)'
   },
   GT: {
-    primary: '#1C1C2E',
-    secondary: '#00AEEF',
-    accent: '#FFD700',
-    surface: 'rgba(0, 174, 239, 0.08)',
-    border: 'rgba(0, 174, 239, 0.22)',
-    glow: 'rgba(255, 215, 0, 0.12)'
+    primary: '#1E293B',
+    secondary: '#E2E8F0',
+    accent: '#22D3EE',
+    surface: 'rgba(34, 211, 238, 0.1)',
+    border: 'rgba(34, 211, 238, 0.24)',
+    glow: 'rgba(34, 211, 238, 0.16)'
   },
   LSG: {
-    primary: '#00AEEF',
-    secondary: '#FF7F50',
-    accent: '#7CFC00',
-    surface: 'rgba(0, 174, 239, 0.08)',
-    border: 'rgba(124, 252, 0, 0.22)',
-    glow: 'rgba(255, 127, 80, 0.14)'
+    primary: '#14532D',
+    secondary: '#DCFCE7',
+    accent: '#4ADE80',
+    surface: 'rgba(74, 222, 128, 0.1)',
+    border: 'rgba(74, 222, 128, 0.24)',
+    glow: 'rgba(74, 222, 128, 0.16)'
   }
 }
 
-const TEAM_ALIASES: Record<string, TeamCode> = {
-  'CHENNAI SUPER KINGS': 'CSK',
-  CSK: 'CSK',
-  'MUMBAI INDIANS': 'MI',
-  MI: 'MI',
-  'ROYAL CHALLENGERS BENGALURU': 'RCB',
-  'ROYAL CHALLENGERS BANGALORE': 'RCB',
-  RCB: 'RCB',
-  'KOLKATA KNIGHT RIDERS': 'KKR',
-  KKR: 'KKR',
-  'DELHI CAPITALS': 'DC',
-  DC: 'DC',
-  'SUNRISERS HYDERABAD': 'SRH',
-  SRH: 'SRH',
-  'RAJASTHAN ROYALS': 'RR',
-  RR: 'RR',
-  'PUNJAB KINGS': 'PBKS',
-  PBKS: 'PBKS',
-  'LUCKNOW SUPER GIANTS': 'LSG',
-  LSG: 'LSG',
-  'GUJARAT TITANS': 'GT',
-  GT: 'GT'
-}
+const TEAM_CODES: TeamCode[] = ['CSK', 'MI', 'RCB', 'KKR', 'DC', 'SRH', 'RR', 'PBKS', 'GT', 'LSG']
 
 export function getBidIncrements(currentPrice: number): { label: string; amount: number }[] {
   if (currentPrice < 5 * CR) {
@@ -166,12 +144,13 @@ export function isInternalPlayerImageUrl(url?: string | null): boolean {
 export function getTeamCode(team?: string | null): TeamCode | null {
   if (!team) return null
   const normalized = team.trim().toUpperCase()
-  const direct = TEAM_ALIASES[normalized]
-  if (direct) return direct
+  if ((TEAM_CODES as string[]).includes(normalized)) {
+    return normalized as TeamCode
+  }
 
-  const compact = normalized.replace(/[^A-Z]/g, '')
-  const match = Object.entries(TEAM_ALIASES).find(([alias]) => compact.includes(alias.replace(/[^A-Z]/g, '')))
-  return match?.[1] || null
+  const tokens = normalized.split(/[^A-Z]+/).filter(Boolean)
+  const match = TEAM_CODES.find((code) => tokens.includes(code))
+  return match ?? null
 }
 
 export function getTeamThemeClass(team?: string | null): string {

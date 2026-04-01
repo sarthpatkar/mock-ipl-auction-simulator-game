@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { PageNavbar } from '@/components/shared/PageNavbar'
+import { UnofficialDisclaimer } from '@/components/shared/UnofficialDisclaimer'
 import { createRoomWithAdmin, DEFAULT_ROOM_SETTINGS } from '@/lib/room-client'
 
 export default function CreateRoomPage() {
@@ -33,6 +34,7 @@ export default function CreateRoomPage() {
       <main className="themed-form-page">
         <div className="themed-form-shell">
           <h1 className="themed-form-title">Create Room</h1>
+          <UnofficialDisclaimer compact className="themed-form-disclaimer" />
           <form onSubmit={handleCreate} className="card themed-form-card">
             <label className="input-group">
               <span className="input-label">Room name</span>

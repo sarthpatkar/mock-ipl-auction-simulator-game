@@ -2,6 +2,7 @@
 
 import { ReactNode } from 'react'
 import { useRouter } from 'next/navigation'
+import { APP_NAME } from '@/lib/branding'
 import { ThemeToggle } from '@/components/theme/ThemeToggle'
 
 type Props = {
@@ -23,7 +24,7 @@ export function PageNavbar({ subtitle, showHome = false, actions, showThemeToggl
           </button>
         )}
         <div className="navbar-logo">
-          IPL AUCTION
+          {APP_NAME}
           {subtitle && <span>{subtitle}</span>}
         </div>
       </div>
