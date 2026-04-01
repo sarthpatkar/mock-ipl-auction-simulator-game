@@ -8,9 +8,10 @@ import { AdminSettings } from '@/components/lobby/AdminSettings'
 import { PageNavbar } from '@/components/shared/PageNavbar'
 import { UnofficialDisclaimer } from '@/components/shared/UnofficialDisclaimer'
 import { useRoom } from '@/hooks/useRoom'
+import { getRoomMinimumParticipants, getRoomParticipantLimit, isMatchAuctionRoom } from '@/lib/match-auction'
 import { getBrowserSessionUser, supabaseClient } from '@/lib/supabase'
 import { buildCategoryQueue, buildRandomQueue } from '@/lib/player-queue'
-import { Player } from '@/types'
+import { Match, Player } from '@/types'
 
 export default function LobbyPage() {
   const params = useParams()
@@ -20,7 +21,10 @@ export default function LobbyPage() {
   const [userId, setUserId] = useState<string | null>(null)
   const [startError, setStartError] = useState<string | null>(null)
   const [lobbyNotice, setLobbyNotice] = useState('Waiting for participants…')
+  const [roomMatch, setRoomMatch] = useState<Match | null>(null)
   const lobbyAudioRef = useRef<HTMLAudioElement | null>(null)
+  const participantLimit = useMemo(() => getRoomParticipantLimit(room), [room])
+  const minimumParticipants = useMemo(() => getRoomMinimumParticipants(room), [room])
 
   useEffect(() => {
     getBrowserSessionUser().then((currentUser) => {
@@ -46,17 +50,49 @@ export default function LobbyPage() {
   }, [room, router])
 
   const isAdmin = room?.admin_id === userId
-  const startDisabled = !isAdmin || (participants?.length ?? 0) < 2
+  const isMatchRoom = isMatchAuctionRoom(room)
+  const startDisabled = !isAdmin || (participants?.length ?? 0) < minimumParticipants || (isMatchRoom && (participants?.length ?? 0) !== 2)
 
   useEffect(() => {
-    if (participants.length >= 10) {
+    if (!room?.match_id || !isMatchRoom) {
+      setRoomMatch(null)
+      return
+    }
+
+    let active = true
+
+    void supabaseClient
+      .from('matches')
+      .select('id, season, match_slug, team_a_code, team_b_code, team_a_name, team_b_name, match_date, venue, status, external_match_id, auction_enabled, last_scorecard_upload_at')
+      .eq('id', room.match_id)
+      .maybeSingle()
+      .then(({ data }) => {
+        if (active) setRoomMatch((data as Match | null) ?? null)
+      })
+
+    return () => {
+      active = false
+    }
+  }, [isMatchRoom, room?.match_id])
+
+  useEffect(() => {
+    if (isMatchRoom) {
+      if (participants.length >= 2) {
+        setLobbyNotice('Both competitors are ready')
+      } else {
+        setLobbyNotice('Waiting for both competitors')
+      }
+      return
+    }
+
+    if (participants.length >= participantLimit) {
       setLobbyNotice('Auction table is ready')
-    } else if (participants.length >= 2) {
+    } else if (participants.length >= minimumParticipants) {
       setLobbyNotice('Franchises are joining the auction')
     } else {
       setLobbyNotice('Waiting for participants...')
     }
-  }, [participants.length])
+  }, [isMatchRoom, minimumParticipants, participantLimit, participants.length])
 
   useEffect(() => {
     if (typeof window === 'undefined' || room?.status !== 'lobby') {
@@ -100,7 +136,12 @@ export default function LobbyPage() {
       lobbyAudioRef.current.currentTime = 0
     }
     setStartError(null)
-    const { data: players, error: playersError } = await supabaseClient.from('players').select('id, role, category')
+    const playerQuery = supabaseClient.from('players').select('id, role, category, team_code')
+    const playerRequest =
+      isMatchRoom && roomMatch
+        ? playerQuery.in('team_code', [roomMatch.team_a_code, roomMatch.team_b_code])
+        : playerQuery
+    const { data: players, error: playersError } = await playerRequest
     if (playersError) {
       setStartError(playersError.message)
       return
@@ -129,6 +170,7 @@ export default function LobbyPage() {
     }
     let sessionId: string | undefined = existing?.id
     if (existing) {
+      await supabaseClient.from('room_participants').update({ match_finish_confirmed_at: null }).eq('room_id', room.id).is('removed_at', null)
       const { error } = await supabaseClient
         .from('auction_sessions')
         .update({
@@ -246,23 +288,33 @@ export default function LobbyPage() {
               <div className="rh-name">{room?.name || (roomLoading ? 'Loading…' : 'Room unavailable')}</div>
               <div className="rh-meta">
                 <span className="badge badge-green">{room?.status === 'lobby' ? 'Waiting' : room?.status}</span>
+                {isMatchRoom && <span className="badge badge-blue">Match Auction</span>}
                 {isAdmin && <span className="badge badge-gold">Host</span>}
               </div>
+              {isMatchRoom && roomMatch && (
+                <div className="rh-meta" style={{ marginTop: 10 }}>
+                  <span className="badge badge-gray">
+                    {roomMatch.team_a_code} vs {roomMatch.team_b_code}
+                  </span>
+                  <span className="badge badge-gray">{new Date(roomMatch.match_date).toLocaleString()}</span>
+                </div>
+              )}
             </div>
           </div>
 
           <RoomCodeDisplay code={code} />
-          <ParticipantList participants={participants} limit={10} adminUserId={room?.admin_id} />
+          <ParticipantList participants={participants} limit={participantLimit} adminUserId={room?.admin_id} />
         </div>
 
         <div className="settings-panel">
           {room && isAdmin ? (
             <>
-              <AdminSettings roomId={room.id} settings={room.settings} />
+              <AdminSettings roomId={room.id} settings={room.settings} auctionMode={room.auction_mode} />
               <div className="start-zone">
                 <p className="start-note">
-                  <strong>{participants.length} franchises</strong> ready in the lobby. Minimum 2 participants required to start.
+                  <strong>{participants.length} franchises</strong> ready in the lobby. Minimum {minimumParticipants} participants required to start.
                 </p>
+                {isMatchRoom && <p className="text-secondary text-sm mb-2">Quick auction mode using players from one upcoming match only.</p>}
                 <p className="text-secondary text-sm mb-4">{lobbyNotice}</p>
                 <button className="btn btn-green btn-lg w-full" disabled={startDisabled} onClick={startAuction}>
                   Start Auction

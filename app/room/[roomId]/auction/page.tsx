@@ -4,7 +4,8 @@ import { CSSProperties, useCallback, useEffect, useMemo, useRef, useState } from
 import { useParams, useRouter } from 'next/navigation'
 import { useAuction } from '@/hooks/useAuction'
 import { useTimer } from '@/hooks/useTimer'
-import { AUCTION_PLAYER_COLUMNS, fetchPlayerCatalog } from '@/lib/player-catalog'
+import { AUCTION_PLAYER_COLUMNS, fetchPlayerCatalog, fetchPlayersByTeamCodes } from '@/lib/player-catalog'
+import { MATCH_AUCTION_MODE } from '@/lib/match-auction'
 import { getBrowserSessionUser, supabaseClient } from '@/lib/supabase'
 import { Player, RoomParticipant } from '@/types'
 import { PlayerCard } from '@/components/auction/PlayerCard'
@@ -166,29 +167,6 @@ export default function AuctionPage() {
     }
   }, [])
 
-  useEffect(() => {
-    let active = true
-    setPlayersLoading(true)
-    setPlayersError(null)
-
-    void fetchPlayerCatalog(AUCTION_PLAYER_COLUMNS)
-      .then((map) => {
-        if (active) setPlayersById(map)
-      })
-      .catch((fetchError) => {
-        if (active) {
-          setPlayersError(fetchError instanceof Error ? fetchError.message : 'Failed to load players')
-        }
-      })
-      .finally(() => {
-        if (active) setPlayersLoading(false)
-      })
-
-    return () => {
-      active = false
-    }
-  }, [])
-
   const {
     room,
     auction,
@@ -205,6 +183,52 @@ export default function AuctionPage() {
   const screenError = playersError || auctionError
   const hasCriticalState = Boolean(screenError)
   const me = useMemo(() => participants.find((participant) => participant.user_id === user), [participants, user])
+  const roomAuctionMode = room?.auction_mode
+  const roomMatchId = room?.match_id
+
+  useEffect(() => {
+    if (!roomAuctionMode) return
+
+    let active = true
+    setPlayersLoading(true)
+    setPlayersError(null)
+
+    void (async () => {
+      try {
+        if (roomAuctionMode === MATCH_AUCTION_MODE && roomMatchId) {
+          const { data: matchRow, error: matchError } = await supabaseClient
+            .from('matches')
+            .select('id, season, match_slug, team_a_code, team_b_code, team_a_name, team_b_name, match_date, venue, status, external_match_id, auction_enabled, last_scorecard_upload_at')
+            .eq('id', roomMatchId)
+            .maybeSingle()
+
+          if (matchError) throw matchError
+          if (!matchRow) throw new Error('Match data is unavailable for this room')
+
+          const typedMatch = matchRow as { team_a_code: string; team_b_code: string }
+          const map = await fetchPlayersByTeamCodes([typedMatch.team_a_code, typedMatch.team_b_code], AUCTION_PLAYER_COLUMNS)
+
+          if (!active) return
+          setPlayersById(map)
+          return
+        }
+
+        const map = await fetchPlayerCatalog(AUCTION_PLAYER_COLUMNS)
+        if (!active) return
+        setPlayersById(map)
+      } catch (fetchError) {
+        if (active) {
+          setPlayersError(fetchError instanceof Error ? fetchError.message : 'Failed to load players')
+        }
+      } finally {
+        if (active) setPlayersLoading(false)
+      }
+    })()
+
+    return () => {
+      active = false
+    }
+  }, [roomAuctionMode, roomMatchId])
 
   useEffect(() => {
     const stage = stageRef.current
@@ -361,6 +385,24 @@ export default function AuctionPage() {
     const activeCount = auction.active_bidders?.length || 0
     return Math.max(0, activeCount - (auction.highest_bidder_id ? 1 : 0))
   }, [auction])
+  const effectiveSkippedBidderIds = useMemo(() => {
+    if (!auction) return [] as string[]
+
+    const skippedIds = new Set(auction.skipped_bidders ?? [])
+    if (room?.auction_mode !== 'match_auction') return Array.from(skippedIds)
+
+    const squadLimit = room.settings?.squad_size ?? 7
+    const minimumBid = auction.highest_bidder_id ? auction.current_price + 5000000 : auction.current_price
+    for (const participantId of auction.active_bidders ?? []) {
+      if (participantId === auction.highest_bidder_id) continue
+      const participant = participants.find((entry) => entry.id === participantId)
+      if (participant && (participant.squad_count >= squadLimit || participant.budget_remaining < minimumBid)) {
+        skippedIds.add(participantId)
+      }
+    }
+
+    return Array.from(skippedIds)
+  }, [auction, participants, room?.auction_mode, room?.settings?.squad_size])
 
   const displayRoundLabel = useMemo(() => {
     if (auction?.round_number === 2) return 'Accelerated Round'
@@ -831,6 +873,7 @@ export default function AuctionPage() {
               <div className="auction-actions-float-inner">
                 <BidActions
                   auctionSessionId={auction.auction_session_id}
+                  auctionMode={room?.auction_mode}
                   participantId={me.id}
                   currentPrice={auction.current_price}
                   hasHighestBid={Boolean(auction.highest_bidder_id)}
@@ -839,9 +882,9 @@ export default function AuctionPage() {
                   squadLimit={room?.settings.squad_size || 20}
                   isPaused={auction.status === 'paused'}
                   isExpired={isExpired}
-                  skipped={Boolean(auction.skipped_bidders?.includes(me.id))}
+                  skipped={effectiveSkippedBidderIds.includes(me.id)}
                   isHighestBidder={auction.highest_bidder_id === me.id}
-                  skipCount={auction.skipped_bidders?.length || 0}
+                  skipCount={effectiveSkippedBidderIds.length}
                   activeCount={skipTargetCount}
                 />
               </div>

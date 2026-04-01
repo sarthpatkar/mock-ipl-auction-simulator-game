@@ -1,7 +1,16 @@
 import { supabaseClient } from '@/lib/supabase'
-import { RoomSettings, Room } from '@/types'
+import { RoomSettings, Room, AuctionMode } from '@/types'
+import {
+  FULL_AUCTION_MODE,
+  MATCH_AUCTION_MODE,
+  MATCH_ROOM_BUDGET_OPTIONS,
+  MATCH_ROOM_MINIMUM_SQUAD_SIZE,
+  MATCH_ROOM_PARTICIPANT_LIMIT,
+  MATCH_ROOM_PLAYER_ORDER,
+  MATCH_ROOM_TIMER_SECONDS
+} from '@/lib/match-auction'
 
-const ROOM_LIST_SELECT = 'id, code, name, admin_id, status, settings, created_at'
+const ROOM_LIST_SELECT = 'id, code, name, admin_id, auction_mode, match_id, status, settings, results_reveal_at, created_at'
 
 export const DEFAULT_ROOM_SETTINGS: RoomSettings = {
   budget: 1_000_000_000,
@@ -10,17 +19,46 @@ export const DEFAULT_ROOM_SETTINGS: RoomSettings = {
   player_order: 'category'
 }
 
+export const MATCH_AUCTION_DEFAULT_SETTINGS: RoomSettings = {
+  budget: MATCH_ROOM_BUDGET_OPTIONS[0],
+  squad_size: 7,
+  timer_seconds: MATCH_ROOM_TIMER_SECONDS,
+  player_order: MATCH_ROOM_PLAYER_ORDER,
+  min_participants: MATCH_ROOM_PARTICIPANT_LIMIT,
+  max_participants: MATCH_ROOM_PARTICIPANT_LIMIT,
+  minimum_squad_size: MATCH_ROOM_MINIMUM_SQUAD_SIZE
+}
+
 type CreateRoomResult = {
   room_id: string
   participant_id: string
   code?: string
 }
 
-export async function createRoomWithAdmin(name: string, teamName: string, settings: RoomSettings = DEFAULT_ROOM_SETTINGS) {
+type CreateRoomOptions = {
+  auctionMode?: AuctionMode
+  matchId?: string | null
+  settings?: RoomSettings
+}
+
+export async function createRoomWithAdmin(
+  name: string,
+  teamName: string,
+  settingsOrOptions: RoomSettings | CreateRoomOptions = DEFAULT_ROOM_SETTINGS
+) {
+  const isDirectSettings = 'budget' in settingsOrOptions
+  const auctionMode = isDirectSettings ? FULL_AUCTION_MODE : settingsOrOptions.auctionMode ?? FULL_AUCTION_MODE
+  const settings = isDirectSettings
+    ? settingsOrOptions
+    : settingsOrOptions.settings ?? (auctionMode === MATCH_AUCTION_MODE ? MATCH_AUCTION_DEFAULT_SETTINGS : DEFAULT_ROOM_SETTINGS)
+  const matchId = isDirectSettings ? null : settingsOrOptions.matchId ?? null
+
   const { data, error } = await supabaseClient.rpc('create_room_with_admin', {
     p_name: name.trim(),
     p_team_name: teamName.trim(),
-    p_settings: settings
+    p_settings: settings,
+    p_auction_mode: auctionMode,
+    p_match_id: matchId
   })
 
   if (error) throw error

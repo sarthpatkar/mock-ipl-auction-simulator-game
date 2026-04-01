@@ -25,6 +25,7 @@ type AnchorPoint = {
 type Props = {
   auctionSessionId: string
   anchorRef: RefObject<HTMLElement | null>
+  anchorPlacement?: 'default' | 'top-right'
 }
 
 function createReactionId() {
@@ -62,7 +63,7 @@ function getReactionTargetPoint() {
   }
 }
 
-export const AuctionReactions = memo(function AuctionReactions({ auctionSessionId, anchorRef }: Props) {
+export const AuctionReactions = memo(function AuctionReactions({ auctionSessionId, anchorRef, anchorPlacement = 'default' }: Props) {
   const [isOpen, setIsOpen] = useState(false)
   const [anchorPoint, setAnchorPoint] = useState<AnchorPoint | null>(null)
   const [floatingReactions, setFloatingReactions] = useState<FloatingReaction[]>([])
@@ -80,7 +81,9 @@ export const AuctionReactions = memo(function AuctionReactions({ auctionSessionI
     const buttonHalf = 18
     let x = rect.left + rect.width / 2
 
-    if (viewportWidth >= 1025) {
+    if (anchorPlacement === 'top-right') {
+      x = rect.right - buttonHalf
+    } else if (viewportWidth >= 1025) {
       x = rect.left + buttonHalf + 6
     } else if (viewportWidth < 640) {
       x = rect.right - buttonHalf - 6
@@ -90,7 +93,7 @@ export const AuctionReactions = memo(function AuctionReactions({ auctionSessionI
       x,
       y: rect.top - 44
     })
-  }, [anchorRef])
+  }, [anchorPlacement, anchorRef])
 
   useEffect(() => {
     updateAnchorPoint()

@@ -3,10 +3,13 @@
 import { useMemo, useRef, useState } from 'react'
 import { AuctionReactions } from '@/components/auction/AuctionReactions'
 import { getBidIncrements, formatPrice } from '@/lib/auction-helpers'
+import { MATCH_AUCTION_MODE, MATCH_QUICK_BID_INCREMENTS } from '@/lib/match-auction'
 import { supabaseClient } from '@/lib/supabase'
+import { AuctionMode } from '@/types'
 
 type Props = {
   auctionSessionId: string
+  auctionMode?: AuctionMode
   participantId: string
   currentPrice: number
   hasHighestBid: boolean
@@ -28,6 +31,7 @@ type ActionState = {
 
 export function BidActions({
   auctionSessionId,
+  auctionMode = 'full_auction',
   participantId,
   currentPrice,
   hasHighestBid,
@@ -44,8 +48,14 @@ export function BidActions({
   const [loadingAction, setLoadingAction] = useState<'bid' | 'skip' | null>(null)
   const [message, setMessage] = useState<ActionState>(null)
   const skipStackRef = useRef<HTMLDivElement | null>(null)
+  const matchReactionAnchorRef = useRef<HTMLButtonElement | null>(null)
   const isOpeningBid = !hasHighestBid
-  const increments = isOpeningBid ? [{ label: 'Base', amount: 0 }] : getBidIncrements(currentPrice)
+  const increments =
+    isOpeningBid
+      ? [{ label: 'Base', amount: 0 }]
+      : auctionMode === MATCH_AUCTION_MODE
+        ? [...MATCH_QUICK_BID_INCREMENTS]
+        : getBidIncrements(currentPrice)
   const hasInsufficientBudget = isOpeningBid ? budgetRemaining < currentPrice : budgetRemaining <= currentPrice
 
   const disabled = isPaused || isExpired || isHighestBidder || squadCount >= squadLimit || hasInsufficientBudget
@@ -101,7 +111,10 @@ export function BidActions({
   }
 
   return (
-    <section className="card auction-action-card" aria-label="Auction actions">
+    <section
+      className={`card auction-action-card ${auctionMode === MATCH_AUCTION_MODE ? 'is-match-auction' : ''} ${isOpeningBid ? 'is-opening-bid' : ''}`}
+      aria-label="Auction actions"
+    >
       <div className="auction-action-head">
         <div className="auction-action-copy">
           <span className="status-label">Action bar</span>
@@ -115,13 +128,15 @@ export function BidActions({
 
       <div className="auction-action-body">
         <div className="auction-bid-buttons">
-          {increments.map((inc) => {
+          {increments.map((inc, index) => {
             const target = currentPrice + inc.amount
             const unavailable = disabled || budgetRemaining < target || loadingAction !== null
+            const isReactionAnchor = auctionMode === MATCH_AUCTION_MODE && index === increments.length - 1
 
             return (
               <button
                 key={inc.label}
+                ref={isReactionAnchor ? matchReactionAnchorRef : undefined}
                 onClick={() => placeBid(inc.amount)}
                 disabled={unavailable}
                 className="btn btn-green btn-sm auction-bid-button"
@@ -134,7 +149,11 @@ export function BidActions({
         </div>
 
         <div ref={skipStackRef} className="auction-skip-stack">
-          <AuctionReactions auctionSessionId={auctionSessionId} anchorRef={skipStackRef} />
+          <AuctionReactions
+            auctionSessionId={auctionSessionId}
+            anchorRef={auctionMode === MATCH_AUCTION_MODE ? matchReactionAnchorRef : skipStackRef}
+            anchorPlacement={auctionMode === MATCH_AUCTION_MODE ? 'top-right' : 'default'}
+          />
           <button
             onClick={skip}
             disabled={loadingAction !== null || skipped || isPaused || isExpired || isHighestBidder}

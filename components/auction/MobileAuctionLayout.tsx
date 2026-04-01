@@ -323,15 +323,19 @@ const MobileTeamsPanel = memo(function MobileTeamsPanel({
 })
 
 const MobileBottomActionBar = memo(function MobileBottomActionBar({
+  room,
   auction,
   me,
   squadLimit,
-  skipTargetCount
+  skipTargetCount,
+  effectiveSkippedBidderIds
 }: {
+  room: Room | null
   auction: AuctionLiveState
   me: RoomParticipant
   squadLimit: number
   skipTargetCount: number
+  effectiveSkippedBidderIds: string[]
 }) {
   const isExpired = useExpiryFlag(auction.ends_at ?? null, auction.status)
 
@@ -340,6 +344,7 @@ const MobileBottomActionBar = memo(function MobileBottomActionBar({
       <div className="mobile-auction-actionbar-inner">
         <BidActions
           auctionSessionId={auction.auction_session_id}
+          auctionMode={room?.auction_mode}
           participantId={me.id}
           currentPrice={auction.current_price}
           hasHighestBid={Boolean(auction.highest_bidder_id)}
@@ -348,9 +353,9 @@ const MobileBottomActionBar = memo(function MobileBottomActionBar({
           squadLimit={squadLimit}
           isPaused={auction.status === 'paused'}
           isExpired={isExpired}
-          skipped={Boolean(auction.skipped_bidders?.includes(me.id))}
+          skipped={effectiveSkippedBidderIds.includes(me.id)}
           isHighestBidder={auction.highest_bidder_id === me.id}
-          skipCount={auction.skipped_bidders?.length || 0}
+          skipCount={effectiveSkippedBidderIds.length}
           activeCount={skipTargetCount}
         />
       </div>
@@ -455,6 +460,24 @@ export function MobileAuctionLayout({
   const squadSummary = `${me?.squad_count ?? 0}/${room?.settings.squad_size ?? 0}`
   const purseSummary = me ? formatCompactPurse(me.budget_remaining) : '0 cr'
   const hasActionBar = Boolean(auction && me)
+  const effectiveSkippedBidderIds = useMemo(() => {
+    if (!auction) return [] as string[]
+
+    const skippedIds = new Set(auction.skipped_bidders ?? [])
+    if (room?.auction_mode !== 'match_auction') return Array.from(skippedIds)
+
+    const squadLimit = room.settings?.squad_size ?? 7
+    const minimumBid = auction.highest_bidder_id ? auction.current_price + 5000000 : auction.current_price
+    for (const participantId of auction.active_bidders ?? []) {
+      if (participantId === auction.highest_bidder_id) continue
+      const participant = participants.find((entry) => entry.id === participantId)
+      if (participant && (participant.squad_count >= squadLimit || participant.budget_remaining < minimumBid)) {
+        skippedIds.add(participantId)
+      }
+    }
+
+    return Array.from(skippedIds)
+  }, [auction, participants, room?.auction_mode, room?.settings?.squad_size])
 
   const scrollToOtherDetails = useCallback(() => {
     if (typeof window === 'undefined') return
@@ -656,7 +679,16 @@ export function MobileAuctionLayout({
         </button>
       )}
 
-      {auction && me && <MobileBottomActionBar auction={auction} me={me} squadLimit={room?.settings.squad_size || 20} skipTargetCount={skipTargetCount} />}
+      {auction && me && (
+        <MobileBottomActionBar
+          room={room}
+          auction={auction}
+          me={me}
+          squadLimit={room?.settings.squad_size || 20}
+          skipTargetCount={skipTargetCount}
+          effectiveSkippedBidderIds={effectiveSkippedBidderIds}
+        />
+      )}
     </>
   )
 }

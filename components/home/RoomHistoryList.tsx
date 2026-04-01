@@ -1,14 +1,18 @@
 import Link from 'next/link'
-import { Room } from '@/types'
+import { Match, MatchAuctionResult, Room } from '@/types'
 
 type Props = {
   rooms: Room[]
   counts?: Record<string, number>
+  matchesByRoomId?: Record<string, Match | null>
+  matchResultsByRoomId?: Record<string, MatchAuctionResult | null>
   loading?: boolean
   error?: string | null
 }
 
-export function RoomHistoryList({ rooms, counts = {}, loading = false, error = null }: Props) {
+export function RoomHistoryList({ rooms, counts = {}, matchesByRoomId = {}, matchResultsByRoomId = {}, loading = false, error = null }: Props) {
+  const humanize = (value?: string | null) => (value ? value.replace(/_/g, ' ').replace(/\b\w/g, (letter) => letter.toUpperCase()) : null)
+
   const getRoomHref = (room: Room) => {
     if (room.status === 'completed') return `/room/${room.id}/results`
     if (room.status === 'auction') return `/room/${room.id}/auction`
@@ -48,10 +52,14 @@ export function RoomHistoryList({ rooms, counts = {}, loading = false, error = n
     <div className="history-list">
       {rooms.map((room) => {
         const statusBadge =
-          room.status === 'completed'
-            ? <span className="badge badge-gold">Completed</span>
-            : <span className="badge badge-green">Ongoing</span>
+          room.auction_mode === 'match_auction'
+            ? <span className={`badge ${room.status === 'completed' ? 'badge-gold' : 'badge-blue'}`}>{humanize(matchResultsByRoomId[room.id]?.result_status) || (room.status === 'completed' ? 'Completed' : 'Ongoing')}</span>
+            : room.status === 'completed'
+              ? <span className="badge badge-gold">Completed</span>
+              : <span className="badge badge-green">Ongoing</span>
         const participants = counts[room.id] ?? 0
+        const match = matchesByRoomId[room.id]
+        const matchResult = matchResultsByRoomId[room.id]
         return (
           <Link key={room.id} className="history-item" href={getRoomHref(room)}>
             <div className={`history-icon ${room.status === 'completed' ? 'hi-completed' : 'hi-ongoing'}`}>
@@ -60,8 +68,16 @@ export function RoomHistoryList({ rooms, counts = {}, loading = false, error = n
             <div className="history-info">
               <div className="history-name">{room.name}</div>
               <div className="history-meta">
-                {new Date(room.created_at).toLocaleString()} · {participants}/10 participants
+                {match
+                  ? `${match.team_a_code} vs ${match.team_b_code} · ${new Date(match.match_date).toLocaleDateString()}`
+                  : new Date(room.created_at).toLocaleString()}{' '}
+                · {participants}/{room.settings.max_participants ?? 10} participants
               </div>
+              {match && (
+                <div className="history-meta">
+                  {matchResult?.actual_score != null ? `Final score: ${matchResult.actual_score}` : 'Waiting for match result'} · {match.match_slug}
+                </div>
+              )}
             </div>
             {statusBadge}
             <span className="history-arrow">›</span>

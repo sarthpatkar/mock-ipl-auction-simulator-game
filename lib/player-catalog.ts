@@ -98,3 +98,12 @@ export async function fetchPlayersByIds(ids: string[], columns: string) {
 
   return toPlayerMap(((data as unknown) as Player[] | null) ?? [])
 }
+
+export async function fetchPlayersByTeamCodes(teamCodes: string[], columns: string) {
+  if (teamCodes.length === 0) return {} as Record<string, Player>
+
+  const { data, error } = await supabaseClient.from('players').select(columns).in('team_code', teamCodes)
+  if (error) throw error
+
+  return toPlayerMap(((data as unknown) as Player[] | null) ?? [])
+}
