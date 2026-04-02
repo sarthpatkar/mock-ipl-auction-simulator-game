@@ -377,7 +377,9 @@ export function AuctionRoomChat({ roomId, auctionSessionId, participant, partici
     [appendMessage, canChat, participant, text]
   )
 
-  if (!canChat) return null
+  if (!auctionSessionId || !participant) return null
+
+  const myParticipantId = participant.id
 
   const panelAlign = dockPosition && viewportSize.width > 0
     ? dockPosition.x <= PANEL_SNAP_THRESHOLD || dockPosition.x < viewportSize.width / 2
@@ -430,7 +432,7 @@ export function AuctionRoomChat({ roomId, auctionSessionId, participant, partici
               <p className="auction-chat-empty">No messages yet. Start the room chat.</p>
             ) : (
               messages.map((message) => {
-                const isMine = message.participantId === participant.id
+                const isMine = message.participantId === myParticipantId
                 return (
                   <article key={message.id} className={`auction-chat-message ${isMine ? 'is-mine' : ''}`}>
                     <div className="auction-chat-message-meta">
