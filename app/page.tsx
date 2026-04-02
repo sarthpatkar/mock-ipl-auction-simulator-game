@@ -4,13 +4,17 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { ensureUserProfile } from '@/lib/auth-profiles'
 import { getBrowserSessionUser, supabaseClient } from '@/lib/supabase'
-import { createRoomWithAdmin, DEFAULT_ROOM_SETTINGS, fetchUserRooms } from '@/lib/room-client'
+import { createRoomWithAdmin, DEFAULT_ROOM_SETTINGS, MATCH_AUCTION_DEFAULT_SETTINGS, fetchUserRooms } from '@/lib/room-client'
+import { fetchAvailableMatches, fetchMatchesByIds } from '@/lib/match-client'
+import { MATCH_AUCTION_MODE, MATCH_ROOM_BUDGET_OPTIONS, MATCH_ROOM_SQUAD_OPTIONS } from '@/lib/match-auction'
 import { ActionCard } from '@/components/home/ActionCard'
+import { AuctionModeSelector } from '@/components/home/AuctionModeSelector'
+import { MatchAuctionFields } from '@/components/home/MatchAuctionFields'
 import { RoomHistoryList } from '@/components/home/RoomHistoryList'
 import { CreatorBranding } from '@/components/shared/CreatorBranding'
 import { PageNavbar } from '@/components/shared/PageNavbar'
 import { UnofficialDisclaimer } from '@/components/shared/UnofficialDisclaimer'
-import { Room } from '@/types'
+import { AuctionMode, Match, MatchAuctionResult, Room } from '@/types'
 
 export default function HomePage() {
   const router = useRouter()
@@ -23,6 +27,15 @@ export default function HomePage() {
   const [teamName, setTeamName] = useState('')
   const [joinCode, setJoinCode] = useState('')
   const [joinTeam, setJoinTeam] = useState('')
+  const [auctionMode, setAuctionMode] = useState<AuctionMode>('full_auction')
+  const [availableMatches, setAvailableMatches] = useState<Match[]>([])
+  const [matchesByRoomId, setMatchesByRoomId] = useState<Record<string, Match | null>>({})
+  const [matchResultsByRoomId, setMatchResultsByRoomId] = useState<Record<string, MatchAuctionResult | null>>({})
+  const [matchesLoading, setMatchesLoading] = useState(false)
+  const [matchesError, setMatchesError] = useState<string | null>(null)
+  const [selectedMatchId, setSelectedMatchId] = useState('')
+  const [matchBudget, setMatchBudget] = useState<number>(MATCH_ROOM_BUDGET_OPTIONS[0])
+  const [matchSquadSize, setMatchSquadSize] = useState<number>(MATCH_ROOM_SQUAD_OPTIONS[0])
   const [error, setError] = useState<string | null>(null)
   const [roomsError, setRoomsError] = useState<string | null>(null)
   const [userId, setUserId] = useState<string | null>(null)
@@ -85,6 +98,89 @@ export default function HomePage() {
   }, [fetchRooms])
 
   useEffect(() => {
+    if (!userId || rooms.length === 0) {
+      setMatchesByRoomId({})
+      setMatchResultsByRoomId({})
+      return
+    }
+
+    const matchRooms = rooms.filter((room) => room.auction_mode === MATCH_AUCTION_MODE && room.match_id)
+    if (matchRooms.length === 0) {
+      setMatchesByRoomId({})
+      setMatchResultsByRoomId({})
+      return
+    }
+
+    let active = true
+
+    void (async () => {
+      try {
+        const roomIds = matchRooms.map((room) => room.id)
+        const matchIds = [...new Set(matchRooms.map((room) => room.match_id!).filter(Boolean))]
+        const [matchMap, resultResponse] = await Promise.all([
+          fetchMatchesByIds(matchIds),
+          supabaseClient
+            .from('match_auction_results')
+            .select('room_id, user_id, projected_score, actual_score, result_status, rank, winner_user_id, last_updated_at, last_result_updated_at, published_stats_version')
+            .in('room_id', roomIds)
+            .eq('user_id', userId)
+        ])
+
+        if (!active) return
+
+        const nextMatchesByRoomId = matchRooms.reduce<Record<string, Match | null>>((acc, room) => {
+          acc[room.id] = room.match_id ? matchMap[room.match_id] ?? null : null
+          return acc
+        }, {})
+
+        const nextResultsByRoomId = (((resultResponse.data as MatchAuctionResult[] | null) ?? []) as MatchAuctionResult[]).reduce<
+          Record<string, MatchAuctionResult | null>
+        >((acc, row) => {
+          acc[row.room_id] = row
+          return acc
+        }, {})
+
+        setMatchesByRoomId(nextMatchesByRoomId)
+        setMatchResultsByRoomId(nextResultsByRoomId)
+      } catch {
+        if (!active) return
+        setMatchesByRoomId({})
+        setMatchResultsByRoomId({})
+      }
+    })()
+
+    return () => {
+      active = false
+    }
+  }, [rooms, userId])
+
+  useEffect(() => {
+    if (!createOpen || auctionMode !== MATCH_AUCTION_MODE) return
+
+    let active = true
+    setMatchesLoading(true)
+    setMatchesError(null)
+
+    void fetchAvailableMatches()
+      .then((matches) => {
+        if (!active) return
+        setAvailableMatches(matches)
+        setSelectedMatchId((current) => current || matches[0]?.id || '')
+      })
+      .catch((matchError) => {
+        if (!active) return
+        setMatchesError(matchError instanceof Error ? matchError.message : 'Failed to load upcoming matches')
+      })
+      .finally(() => {
+        if (active) setMatchesLoading(false)
+      })
+
+    return () => {
+      active = false
+    }
+  }, [auctionMode, createOpen])
+
+  useEffect(() => {
     if (!profileMenuOpen) return
 
     const handlePointerDown = (event: MouseEvent) => {
@@ -107,10 +203,30 @@ export default function HomePage() {
 
     setCreating(true)
     try {
-      const result = await createRoomWithAdmin(roomName, teamName, DEFAULT_ROOM_SETTINGS)
+      const isMatchAuction = auctionMode === MATCH_AUCTION_MODE
+      if (isMatchAuction && !selectedMatchId) {
+        throw new Error('Select an upcoming match for Match Auction')
+      }
+
+      const nextSettings = isMatchAuction
+        ? {
+            ...MATCH_AUCTION_DEFAULT_SETTINGS,
+            budget: matchBudget,
+            squad_size: matchSquadSize
+          }
+        : DEFAULT_ROOM_SETTINGS
+
+      const result = await createRoomWithAdmin(roomName, teamName, {
+        auctionMode,
+        matchId: isMatchAuction ? selectedMatchId : null,
+        settings: nextSettings
+      })
       setCreateOpen(false)
       setRoomName('')
       setTeamName('')
+      setSelectedMatchId('')
+      setMatchBudget(MATCH_ROOM_BUDGET_OPTIONS[0])
+      setMatchSquadSize(MATCH_ROOM_SQUAD_OPTIONS[0])
       await fetchRooms()
       router.push(`/room/${result.room_id}/lobby`)
     } catch (createError) {
@@ -174,15 +290,16 @@ export default function HomePage() {
     }
   }
 
-  const totalRooms = rooms.length
-  const ongoingRooms = rooms.filter((room) => room.status !== 'completed').length
+  const filteredRooms = useMemo(() => rooms.filter((room) => room.auction_mode === auctionMode), [auctionMode, rooms])
+  const totalRooms = filteredRooms.length
+  const ongoingRooms = filteredRooms.filter((room) => room.status !== 'completed').length
   const modalError = error ? <p className="text-red text-sm mt-2">{error}</p> : null
   const actionsDisabled = initializing || signingOut
   const statusLabel = useMemo(() => {
     if (initializing) return 'Loading'
     if (roomsLoading) return 'Syncing'
-    return `${rooms.length} rooms`
-  }, [initializing, rooms.length, roomsLoading])
+    return `${filteredRooms.length} rooms`
+  }, [filteredRooms.length, initializing, roomsLoading])
 
   return (
     <div className="home-page screen page-with-navbar">
@@ -221,8 +338,10 @@ export default function HomePage() {
           BUILD YOUR <em>DREAM TEAM</em>
         </h1>
         <p className="home-hero-desc">Host or join a live T20 auction room with your friends</p>
-        <CreatorBranding variant="home" />
-        <UnofficialDisclaimer compact className="home-hero-disclaimer" />
+      </div>
+
+      <div className="home-mode-row">
+        <AuctionModeSelector value={auctionMode} onChange={setAuctionMode} />
       </div>
 
       {error && !createOpen && !joinOpen && (
@@ -273,7 +392,14 @@ export default function HomePage() {
             <h2 className="section-title">My Rooms</h2>
             <span className="badge badge-gray">{statusLabel}</span>
           </div>
-          <RoomHistoryList rooms={rooms} counts={counts} loading={initializing || roomsLoading} error={roomsError} />
+          <RoomHistoryList
+            rooms={filteredRooms}
+            counts={counts}
+            matchesByRoomId={matchesByRoomId}
+            matchResultsByRoomId={matchResultsByRoomId}
+            loading={initializing || roomsLoading}
+            error={roomsError}
+          />
         </div>
       </div>
 
@@ -282,7 +408,11 @@ export default function HomePage() {
           <div className="modal modal-room">
             <div className="modal-header">
               <h2 className="modal-title">Create Room</h2>
-              <p className="modal-copy">Set up your auction room. You will control the room as host.</p>
+              <p className="modal-copy">
+                {auctionMode === MATCH_AUCTION_MODE
+                  ? 'Set up a fast head-to-head Match Auction room.'
+                  : 'Set up your auction room. You will control the room as host.'}
+              </p>
             </div>
             <div className="modal-form modal-body-scroll">
               <div className="input-group">
@@ -305,6 +435,15 @@ export default function HomePage() {
                   onChange={(event) => setTeamName(event.target.value)}
                 />
               </div>
+              {auctionMode === MATCH_AUCTION_MODE && (
+                <MatchAuctionFields
+                  matches={availableMatches}
+                  loading={matchesLoading}
+                  error={matchesError}
+                  selectedMatchId={selectedMatchId}
+                  onSelectedMatchIdChange={setSelectedMatchId}
+                />
+              )}
               {modalError}
               <div className="modal-actions modal-footer">
                 <button className="btn btn-ghost" onClick={() => setCreateOpen(false)} disabled={creating}>
@@ -362,6 +501,11 @@ export default function HomePage() {
           </div>
         </div>
       )}
+
+      <div className="home-footer-stack">
+        <CreatorBranding variant="home" />
+        <UnofficialDisclaimer compact className="home-footer-disclaimer" />
+      </div>
     </div>
   )
 }

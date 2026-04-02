@@ -1,10 +1,17 @@
 export type UUID = string
 
+export type AuctionMode = 'full_auction' | 'match_auction'
+export type MatchStatus = 'upcoming' | 'live' | 'completed' | 'abandoned' | 'cancelled'
+export type MatchAuctionResultStatus = 'provisional' | 'waiting_for_match' | 'match_live' | 'final_ready' | 'match_abandoned'
+
 export type RoomSettings = {
   budget: number
   squad_size: number
   timer_seconds: number
   player_order: 'category' | 'random'
+  min_participants?: number
+  max_participants?: number
+  minimum_squad_size?: number
 }
 
 export type Profile = {
@@ -18,10 +25,14 @@ export type Room = {
   code: string
   name: string
   admin_id: UUID
+  auction_mode: AuctionMode
+  match_id?: UUID | null
   status: 'lobby' | 'auction' | 'accelerated_selection' | 'completed'
   settings: RoomSettings
   results_reveal_at?: string | null
   created_at: string
+  match?: Match | null
+  match_result_status?: MatchAuctionResultStatus | null
 }
 
 export type RoomSoundtrackPhase = 'accelerated_transition' | 'results_hold' | 'results_live' | 'idle'
@@ -41,6 +52,7 @@ export type RoomParticipant = {
   squad_count: number
   joined_at: string
   accelerated_round_submitted_at?: string | null
+  match_finish_confirmed_at?: string | null
   removed_at?: string | null
   removed_by_user_id?: UUID | null
   removal_reason?: string | null
@@ -95,6 +107,89 @@ export type AuctionSession = {
   accelerated_source_players?: UUID[]
   created_at: string
   updated_at?: string | null
+}
+
+export type Match = {
+  id: UUID
+  season: string | null
+  match_slug: string
+  team_a_code: string
+  team_b_code: string
+  team_a_name: string
+  team_b_name: string
+  match_date: string
+  venue: string | null
+  status: MatchStatus
+  external_match_id: string | null
+  auction_enabled: boolean
+  eligible_player_count?: number | null
+  last_scorecard_upload_at?: string | null
+}
+
+export type MatchAuctionResult = {
+  room_id: UUID
+  user_id: UUID
+  projected_score: number
+  actual_score: number | null
+  result_status: MatchAuctionResultStatus
+  rank: number | null
+  winner_user_id: UUID | null
+  last_updated_at: string
+  last_result_updated_at: string
+  published_stats_version: number | null
+}
+
+export type MatchPlayerStat = {
+  match_id: UUID
+  player_id: UUID
+  player_name_snapshot: string
+  source_player_name: string | null
+  team_code: string
+  did_play: boolean
+  is_playing_xi: boolean
+  is_substitute: boolean
+  parse_confidence: number | null
+  runs: number
+  balls: number
+  fours: number
+  sixes: number
+  wickets: number
+  overs: number
+  maidens: number
+  economy: number | null
+  catches: number
+  stumpings: number
+  run_outs: number
+  fantasy_points: number
+  updated_at?: string | null
+}
+
+export type RawMatchScorecard = {
+  id: UUID
+  match_id: UUID
+  raw_scorecard_text: string
+  uploaded_by: UUID
+  uploaded_at: string
+  parsing_status: string
+  provider: string | null
+  model: string | null
+  raw_ai_response: string | null
+  normalized_parsed_json: Record<string, unknown> | null
+  content_hash: string | null
+  scorecard_version: number
+  published_at: string | null
+  published_by: UUID | null
+}
+
+export type MatchScorecardAuditLog = {
+  id: UUID
+  match_id: UUID
+  scorecard_id: UUID | null
+  action_type: 'parsed' | 'edited' | 'published'
+  acted_by: UUID
+  acted_at: string
+  manual_row_change_count: number
+  metadata_json: Record<string, unknown> | null
 }
 
 export type Bid = {

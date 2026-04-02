@@ -6,7 +6,7 @@ import { AuctionLiveState, Bid, Room, RoomParticipant, SquadPlayer } from '@/typ
 
 export type RealtimeStatus = 'connecting' | 'live' | 'degraded' | 'offline'
 
-const ROOM_SELECT = 'id, code, name, admin_id, status, settings, created_at'
+const ROOM_SELECT = 'id, code, name, admin_id, auction_mode, match_id, status, settings, results_reveal_at, created_at'
 const LIVE_STATE_SELECT = [
   'auction_session_id',
   'room_id',
@@ -26,7 +26,7 @@ const LIVE_STATE_SELECT = [
 ].join(', ')
 const BID_SELECT = 'id, auction_session_id, player_id, bidder_id, amount, created_at'
 const PARTICIPANT_SELECT =
-  'id, room_id, user_id, team_name, budget_remaining, squad_count, joined_at, accelerated_round_submitted_at, removed_at, removed_by_user_id, removal_reason, owner_profile:profiles!room_participants_user_id_fkey(username)'
+  'id, room_id, user_id, team_name, budget_remaining, squad_count, joined_at, accelerated_round_submitted_at, match_finish_confirmed_at, removed_at, removed_by_user_id, removal_reason, owner_profile:profiles!room_participants_user_id_fkey(username)'
 const SQUAD_SELECT = 'id, room_id, participant_id, player_id, price_paid, acquired_at'
 
 function getErrorMessage(error: unknown, fallback: string) {

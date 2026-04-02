@@ -1,6 +1,5 @@
 import { APP_NAME, APP_TAGLINE } from '@/lib/branding'
 import { CreatorBranding } from '@/components/shared/CreatorBranding'
-import { UnofficialDisclaimer } from '@/components/shared/UnofficialDisclaimer'
 
 export function HeroSide() {
   const featureCards = [
@@ -72,7 +71,6 @@ export function HeroSide() {
             </section>
 
             <CreatorBranding variant="auth-panel" />
-            <UnofficialDisclaimer compact />
           </div>
         </div>
       </section>
@@ -100,8 +98,6 @@ export function HeroSide() {
             ))}
           </div>
         </div>
-
-        <UnofficialDisclaimer compact className="auth-mobile-disclaimer" />
 
       </section>
     </>

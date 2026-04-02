@@ -1,18 +1,21 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { MATCH_AUCTION_MODE, MATCH_ROOM_BUDGET_OPTIONS, MATCH_ROOM_MINIMUM_SQUAD_SIZE, MATCH_ROOM_SQUAD_OPTIONS, MATCH_ROOM_TIMER_SECONDS } from '@/lib/match-auction'
 import { supabaseClient } from '@/lib/supabase'
-import { RoomSettings } from '@/types'
+import { AuctionMode, RoomSettings } from '@/types'
 
 type Props = {
   roomId: string
   settings: RoomSettings
+  auctionMode?: AuctionMode
 }
 
-export function AdminSettings({ roomId, settings }: Props) {
+export function AdminSettings({ roomId, settings, auctionMode = 'full_auction' }: Props) {
   const [form, setForm] = useState(settings)
   const [saving, setSaving] = useState(false)
   const [message, setMessage] = useState<string | null>(null)
+  const isMatchAuction = auctionMode === MATCH_AUCTION_MODE
 
   useEffect(() => {
     setForm(settings)
@@ -25,7 +28,7 @@ export function AdminSettings({ roomId, settings }: Props) {
       <div className="setting-group">
         <div className="setting-label">Team Budget</div>
         <div className="option-group-vert">
-          {[100, 150, 200, 250].map((val) => (
+          {(isMatchAuction ? MATCH_ROOM_BUDGET_OPTIONS.map((val) => val / 1_000_0000) : [100, 150, 200, 250]).map((val) => (
             <button
               key={val}
               className={`option-btn-vert ${form.budget === val * 1_000_0000 ? 'active' : ''}`}
@@ -41,7 +44,7 @@ export function AdminSettings({ roomId, settings }: Props) {
       <div className="setting-group">
         <div className="setting-label">Squad Size</div>
         <div className="option-group-vert" style={{ gridTemplateColumns: '1fr 1fr 1fr' }}>
-          {[15, 20, 25].map((val) => (
+          {(isMatchAuction ? MATCH_ROOM_SQUAD_OPTIONS : [15, 20, 25]).map((val) => (
             <button
               key={val}
               className={`option-btn-vert ${form.squad_size === val ? 'active' : ''}`}
@@ -54,43 +57,64 @@ export function AdminSettings({ roomId, settings }: Props) {
         </div>
       </div>
 
-      <div className="setting-group">
-        <div className="setting-label">Timer Per Player</div>
-        <div className="option-group-vert">
-          {[5, 10, 15, 20].map((val) => (
-            <button
-              key={val}
-              className={`option-btn-vert ${form.timer_seconds === val ? 'active' : ''}`}
-              onClick={() => setForm((p) => ({ ...p, timer_seconds: val }))}
-              type="button"
-            >
-              {val}s
-            </button>
-          ))}
+      {isMatchAuction ? (
+        <div className="setting-group">
+          <div className="setting-label">Match Auction Rules</div>
+          <div className="card" style={{ padding: 14 }}>
+            <p className="text-secondary text-sm">Timer is locked to {MATCH_ROOM_TIMER_SECONDS}s. Min/Max participants are locked to 2. Minimum squad size is {MATCH_ROOM_MINIMUM_SQUAD_SIZE}.</p>
+          </div>
         </div>
-      </div>
+      ) : (
+        <div className="setting-group">
+          <div className="setting-label">Timer Per Player</div>
+          <div className="option-group-vert">
+            {[5, 10, 15, 20].map((val) => (
+              <button
+                key={val}
+                className={`option-btn-vert ${form.timer_seconds === val ? 'active' : ''}`}
+                onClick={() => setForm((p) => ({ ...p, timer_seconds: val }))}
+                type="button"
+              >
+                {val}s
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
 
-      <div className="setting-group" style={{ marginBottom: 0 }}>
-        <div className="setting-label">Player Order</div>
-        <div className="option-group-vert" style={{ gridTemplateColumns: '1fr 1fr' }}>
-          {(['category', 'random'] as const).map((val) => (
-            <button
-              key={val}
-              className={`option-btn-vert ${form.player_order === val ? 'active' : ''}`}
-              onClick={() => setForm((p) => ({ ...p, player_order: val }))}
-              type="button"
-            >
-              {val === 'category' ? 'Category' : 'Random'}
-            </button>
-          ))}
+      {!isMatchAuction && (
+        <div className="setting-group" style={{ marginBottom: 0 }}>
+          <div className="setting-label">Player Order</div>
+          <div className="option-group-vert" style={{ gridTemplateColumns: '1fr 1fr' }}>
+            {(['category', 'random'] as const).map((val) => (
+              <button
+                key={val}
+                className={`option-btn-vert ${form.player_order === val ? 'active' : ''}`}
+                onClick={() => setForm((p) => ({ ...p, player_order: val }))}
+                type="button"
+              >
+                {val === 'category' ? 'Category' : 'Random'}
+              </button>
+            ))}
+          </div>
         </div>
-      </div>
+      )}
 
       <button
         onClick={async () => {
           setSaving(true)
           setMessage(null)
-          const { error } = await supabaseClient.from('rooms').update({ settings: form }).eq('id', roomId)
+          const nextSettings = isMatchAuction
+            ? {
+                ...form,
+                timer_seconds: MATCH_ROOM_TIMER_SECONDS,
+                player_order: 'random',
+                min_participants: 2,
+                max_participants: 2,
+                minimum_squad_size: MATCH_ROOM_MINIMUM_SQUAD_SIZE
+              }
+            : form
+          const { error } = await supabaseClient.from('rooms').update({ settings: nextSettings }).eq('id', roomId)
           if (error) setMessage(error.message)
           else setMessage('Settings saved')
           setSaving(false)
