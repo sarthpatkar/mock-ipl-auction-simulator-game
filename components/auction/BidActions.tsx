@@ -60,9 +60,9 @@ export function BidActions({
 
   const disabled = isPaused || isExpired || isHighestBidder || squadCount >= squadLimit || hasInsufficientBudget
   const disabledReason = useMemo(() => {
-    if (isPaused) return 'Host has paused the auction.'
-    if (isExpired) return 'Timer expired. Waiting for result.'
-    if (isHighestBidder) return 'You already hold the highest confirmed bid.'
+    if (isPaused) return 'The auction is paused right now.'
+    if (isExpired) return 'Time is up. Waiting for the result.'
+    if (isHighestBidder) return 'You already have the top bid.'
     if (squadCount >= squadLimit) return 'Your squad limit is full.'
     if (hasInsufficientBudget) return isOpeningBid ? 'Available budget is below the current price.' : 'Available budget must exceed the current price.'
     if (skipped) return `Pass recorded · ${skipCount}/${activeCount} franchises skipped`
@@ -117,7 +117,7 @@ export function BidActions({
     >
       <div className="auction-action-head">
         <div className="auction-action-copy">
-          <span className="status-label">Action bar</span>
+          <span className="status-label">Your Move</span>
           <p className="auction-action-caption">{disabledReason}</p>
         </div>
         <div className="auction-action-budget">

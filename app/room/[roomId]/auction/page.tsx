@@ -386,24 +386,7 @@ export default function AuctionPage() {
     const activeCount = auction.active_bidders?.length || 0
     return Math.max(0, activeCount - (auction.highest_bidder_id ? 1 : 0))
   }, [auction])
-  const effectiveSkippedBidderIds = useMemo(() => {
-    if (!auction) return [] as string[]
-
-    const skippedIds = new Set(auction.skipped_bidders ?? [])
-    if (room?.auction_mode !== 'match_auction') return Array.from(skippedIds)
-
-    const squadLimit = room.settings?.squad_size ?? 7
-    const minimumBid = auction.highest_bidder_id ? auction.current_price + 5000000 : auction.current_price
-    for (const participantId of auction.active_bidders ?? []) {
-      if (participantId === auction.highest_bidder_id) continue
-      const participant = participants.find((entry) => entry.id === participantId)
-      if (participant && (participant.squad_count >= squadLimit || participant.budget_remaining < minimumBid)) {
-        skippedIds.add(participantId)
-      }
-    }
-
-    return Array.from(skippedIds)
-  }, [auction, participants, room?.auction_mode, room?.settings?.squad_size])
+  const skippedBidderIds = auction?.skipped_bidders ?? []
 
   const displayRoundLabel = useMemo(() => {
     if (auction?.round_number === 2) return 'Accelerated Round'
@@ -748,14 +731,14 @@ export default function AuctionPage() {
                   {(screenError || connectionState !== 'live' || isStale) && (
                     <div className={`card live-banner auction-live-banner auction-live-banner-primary ${hasCriticalState ? 'is-error' : connectionState === 'offline' ? 'is-danger' : 'is-warning'}`}>
                       <div>
-                        <span className="status-label">{hasCriticalState ? 'Live board issue' : connectionState === 'offline' ? 'Connection lost' : 'Sync status'}</span>
+                        <span className="status-label">{hasCriticalState ? 'Live Update Issue' : connectionState === 'offline' ? 'Connection lost' : 'Updating Board'}</span>
                         <p className="live-banner-copy">
                           {screenError ||
                             (connectionState === 'offline'
-                              ? 'Realtime connection is down. Use refresh once the channel reconnects.'
+                              ? 'The live board lost connection. Reconnect and refresh to catch up.'
                               : connectionState === 'degraded'
-                                ? 'Realtime delivery is delayed. Waiting for the next confirmed backend update.'
-                                : 'The board is catching up to the most recent backend state.')}
+                                ? 'Updates are taking a little longer than usual. Fresh activity will appear shortly.'
+                                : 'Refreshing the latest auction activity.')}
                         </p>
                       </div>
                       <button className="btn btn-ghost btn-sm" type="button" onClick={() => void refetch()}>
@@ -770,14 +753,14 @@ export default function AuctionPage() {
                   {(screenError || connectionState !== 'live' || isStale) && (
                     <div className={`card live-banner auction-live-banner auction-live-banner-tablet ${hasCriticalState ? 'is-error' : connectionState === 'offline' ? 'is-danger' : 'is-warning'}`}>
                       <div>
-                        <span className="status-label">{hasCriticalState ? 'Live board issue' : connectionState === 'offline' ? 'Connection lost' : 'Sync status'}</span>
+                        <span className="status-label">{hasCriticalState ? 'Live Update Issue' : connectionState === 'offline' ? 'Connection lost' : 'Updating Board'}</span>
                         <p className="live-banner-copy">
                           {screenError ||
                             (connectionState === 'offline'
-                              ? 'Realtime connection is down. Use refresh once the channel reconnects.'
+                              ? 'The live board lost connection. Reconnect and refresh to catch up.'
                               : connectionState === 'degraded'
-                                ? 'Realtime delivery is delayed. Waiting for the next confirmed backend update.'
-                                : 'The board is catching up to the most recent backend state.')}
+                                ? 'Updates are taking a little longer than usual. Fresh activity will appear shortly.'
+                                : 'Refreshing the latest auction activity.')}
                         </p>
                       </div>
                       <button className="btn btn-ghost btn-sm" type="button" onClick={() => void refetch()}>
@@ -795,7 +778,7 @@ export default function AuctionPage() {
                         themeTeam={currentPlayer?.team_code}
                         currentPrice={auction.current_price}
                         highestBidderLabel={highestBidder?.team_name || 'No bids yet'}
-                        highestBidderMeta={highestBidder ? highestBidder.profiles?.username || 'Franchise Owner' : 'Waiting for the first confirmed bid'}
+                        highestBidderMeta={highestBidder ? highestBidder.profiles?.username || 'Franchise Owner' : 'Waiting for the first bid'}
                       />
                     </div>
                   )}
@@ -815,9 +798,9 @@ export default function AuctionPage() {
                   {!auction && !screenError && (
                     <div className="card player-card-empty">
                       <div className="player-card-empty-copy">
-                        <span className="status-label">Awaiting live session</span>
-                        <strong className="player-card-empty-title">Auction session is not ready</strong>
-                        <p className="text-muted">This screen activates once the room and auction session are available from the backend.</p>
+                        <span className="status-label">Getting Ready</span>
+                        <strong className="player-card-empty-title">Auction board is almost ready</strong>
+                        <p className="text-muted">The live auction screen will appear here as soon as the room is ready.</p>
                       </div>
                     </div>
                   )}
@@ -844,7 +827,7 @@ export default function AuctionPage() {
                         themeTeam={currentPlayer?.team_code}
                         currentPrice={isTablet ? auction.current_price : undefined}
                         highestBidderLabel={isTablet ? highestBidder?.team_name || 'No bids yet' : undefined}
-                        highestBidderMeta={isTablet ? (highestBidder ? highestBidder.profiles?.username || 'Franchise Owner' : 'Waiting for the first confirmed bid') : undefined}
+                        highestBidderMeta={isTablet ? (highestBidder ? highestBidder.profiles?.username || 'Franchise Owner' : 'Waiting for the first bid') : undefined}
                       />
                     </div>
                   )}
@@ -856,7 +839,7 @@ export default function AuctionPage() {
                   {auction && me && auction.highest_bidder_id === me.id && (
                     <div className="card live-callout is-success auction-tablet-callout">
                       <span className="status-label">Live advantage</span>
-                      <p>You currently hold the highest confirmed bid.</p>
+                      <p>You currently lead the bidding.</p>
                     </div>
                   )}
                 </>
@@ -892,9 +875,9 @@ export default function AuctionPage() {
                   squadLimit={room?.settings.squad_size || 20}
                   isPaused={auction.status === 'paused'}
                   isExpired={isExpired}
-                  skipped={effectiveSkippedBidderIds.includes(me.id)}
+                  skipped={skippedBidderIds.includes(me.id)}
                   isHighestBidder={auction.highest_bidder_id === me.id}
-                  skipCount={effectiveSkippedBidderIds.length}
+                  skipCount={skippedBidderIds.length}
                   activeCount={skipTargetCount}
                 />
               </div>

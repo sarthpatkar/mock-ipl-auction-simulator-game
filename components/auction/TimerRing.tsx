@@ -42,12 +42,12 @@ export function TimerRing({
           <div className="timer-panel-bidder">
             <span className="status-label">Highest bidder</span>
             <strong>{highestBidderLabel || 'No bids yet'}</strong>
-            <span>{highestBidderMeta || 'Waiting for the first confirmed bid'}</span>
+            <span>{highestBidderMeta || 'Waiting for the first bid'}</span>
           </div>
         </div>
       ) : (
         <div className="timer-panel-head">
-          <span className="status-label">Timer</span>
+          <span className="status-label">Bid Timer</span>
           <span className={`timer-state-chip is-${state}`}>{paused ? 'Paused' : formatAuctionStatus(status)}</span>
         </div>
       )}
@@ -72,10 +72,10 @@ export function TimerRing({
         {showBidSummary && <span className={`timer-state-chip is-${state}`}>{paused ? 'Paused' : formatAuctionStatus(status)}</span>}
         <div className="timer-caption">
           {paused
-            ? 'Auction is paused. Waiting for the host to resume.'
+            ? 'Auction is paused. Waiting to resume.'
             : safeRemaining <= 5
-              ? 'Final seconds. Next confirmed bid resets the clock.'
-              : 'Timer reflects the confirmed backend end time.'}
+              ? 'Final seconds. A new bid resets the timer.'
+              : 'Time left for the current bid.'}
         </div>
       </div>
     </section>

@@ -34,7 +34,7 @@ export function BidBar({ currentPrice, highestBidderId, participants, bidHistory
           <div className="bid-bar-bidder">
             <p className="status-label">Highest bidder</p>
             <p className="bid-bar-bidder-value">{bidder ? bidder.team_name : 'No bids yet'}</p>
-            <p className="bid-bar-bidder-meta">{bidder ? bidder.profiles?.username || 'Franchise Owner' : 'Waiting for the first confirmed bid'}</p>
+            <p className="bid-bar-bidder-meta">{bidder ? bidder.profiles?.username || 'Franchise Owner' : 'Waiting for the first bid'}</p>
           </div>
         </div>
       )}

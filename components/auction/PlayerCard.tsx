@@ -34,9 +34,9 @@ export function PlayerCard({ player }: Props) {
     return (
       <div className="card player-card player-card-empty">
         <div className="player-card-empty-copy">
-          <span className="status-label">Awaiting state update</span>
+          <span className="status-label">Up Next</span>
           <strong className="player-card-empty-title">Waiting for the next player</strong>
-          <p className="text-muted">The auction stage updates only after the backend confirms the next turn.</p>
+          <p className="text-muted">The next player will appear here as soon as the auction moves on.</p>
         </div>
       </div>
     )

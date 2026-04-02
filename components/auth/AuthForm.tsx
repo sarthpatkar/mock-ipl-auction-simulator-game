@@ -254,7 +254,7 @@ export function AuthForm() {
               />
             </div>
 
-            <div className="input-group">
+            <div className={`input-group auth-password-group ${mode === 'register' ? 'is-register' : ''}`}>
               <label className="input-label">Password</label>
               <div className="auth-password-wrap">
                 <input
@@ -264,6 +264,7 @@ export function AuthForm() {
                   style={{ paddingRight: 48 }}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
+                  aria-describedby={mode === 'register' ? 'auth-password-hint' : undefined}
                   required
                 />
                 <button
@@ -274,6 +275,11 @@ export function AuthForm() {
                   {showPassword ? 'Hide' : 'Show'}
                 </button>
               </div>
+              {mode === 'register' && (
+                <p id="auth-password-hint" className="auth-password-hint">
+                  Use at least 8 characters. For a stronger password, add uppercase and lowercase letters, a number, and a symbol.
+                </p>
+              )}
             </div>
 
             {error && <p className="text-red text-sm">{error}</p>}

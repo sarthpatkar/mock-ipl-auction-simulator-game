@@ -99,7 +99,7 @@ const MobilePlayerIdentity = memo(function MobilePlayerIdentity({ player }: { pl
       <div className="mobile-auction-player-content">
         <span className="status-label">Current player</span>
         <strong className="mobile-auction-player-name">Waiting for the next player</strong>
-        <p className="mobile-auction-player-team">Stage updates after backend confirmation.</p>
+        <p className="mobile-auction-player-team">The next player will appear here as soon as the auction moves on.</p>
       </div>
     )
   }
@@ -235,8 +235,8 @@ const MobileCurrentBidAndTimer = memo(function MobileCurrentBidAndTimer({
         </span>
         <span className="mobile-auction-timer-caption">
           {auction.status === 'paused'
-            ? 'Waiting for the host to resume.'
-            : `${timerSeconds}s clock · live backend timer`}
+            ? 'Waiting for the auction to resume.'
+            : `Bid timer · ${timerSeconds}s per turn`}
         </span>
       </div>
     </section>
@@ -328,14 +328,14 @@ const MobileBottomActionBar = memo(function MobileBottomActionBar({
   me,
   squadLimit,
   skipTargetCount,
-  effectiveSkippedBidderIds
+  skippedBidderIds
 }: {
   room: Room | null
   auction: AuctionLiveState
   me: RoomParticipant
   squadLimit: number
   skipTargetCount: number
-  effectiveSkippedBidderIds: string[]
+  skippedBidderIds: string[]
 }) {
   const isExpired = useExpiryFlag(auction.ends_at ?? null, auction.status)
 
@@ -353,9 +353,9 @@ const MobileBottomActionBar = memo(function MobileBottomActionBar({
           squadLimit={squadLimit}
           isPaused={auction.status === 'paused'}
           isExpired={isExpired}
-          skipped={effectiveSkippedBidderIds.includes(me.id)}
+          skipped={skippedBidderIds.includes(me.id)}
           isHighestBidder={auction.highest_bidder_id === me.id}
-          skipCount={effectiveSkippedBidderIds.length}
+          skipCount={skippedBidderIds.length}
           activeCount={skipTargetCount}
         />
       </div>
@@ -368,26 +368,26 @@ function getMobileLiveMessage(
   connectionState: RealtimeStatus,
   isStale: boolean
 ) {
-  if (screenError) return { tone: 'is-error', title: 'Live board issue', copy: screenError }
+  if (screenError) return { tone: 'is-error', title: 'Live Update Issue', copy: screenError }
   if (connectionState === 'offline') {
     return {
       tone: 'is-danger',
       title: 'Connection lost',
-      copy: 'Realtime connection is down. Use refresh once the channel reconnects.'
+      copy: 'The live board lost connection. Reconnect and refresh to catch up.'
     }
   }
   if (connectionState === 'degraded') {
     return {
       tone: 'is-warning',
-      title: 'Sync status',
-      copy: 'Realtime delivery is delayed. Waiting for the next confirmed backend update.'
+      title: 'Updating Board',
+      copy: 'Updates are taking a little longer than usual. Fresh activity will appear shortly.'
     }
   }
   if (isStale) {
     return {
       tone: 'is-warning',
-      title: 'Sync status',
-      copy: 'The board is catching up to the most recent backend state.'
+      title: 'Updating Board',
+      copy: 'Refreshing the latest auction activity.'
     }
   }
   return null
@@ -460,24 +460,7 @@ export function MobileAuctionLayout({
   const squadSummary = `${me?.squad_count ?? 0}/${room?.settings.squad_size ?? 0}`
   const purseSummary = me ? formatCompactPurse(me.budget_remaining) : '0 cr'
   const hasActionBar = Boolean(auction && me)
-  const effectiveSkippedBidderIds = useMemo(() => {
-    if (!auction) return [] as string[]
-
-    const skippedIds = new Set(auction.skipped_bidders ?? [])
-    if (room?.auction_mode !== 'match_auction') return Array.from(skippedIds)
-
-    const squadLimit = room.settings?.squad_size ?? 7
-    const minimumBid = auction.highest_bidder_id ? auction.current_price + 5000000 : auction.current_price
-    for (const participantId of auction.active_bidders ?? []) {
-      if (participantId === auction.highest_bidder_id) continue
-      const participant = participants.find((entry) => entry.id === participantId)
-      if (participant && (participant.squad_count >= squadLimit || participant.budget_remaining < minimumBid)) {
-        skippedIds.add(participantId)
-      }
-    }
-
-    return Array.from(skippedIds)
-  }, [auction, participants, room?.auction_mode, room?.settings?.squad_size])
+  const skippedBidderIds = auction?.skipped_bidders ?? []
 
   const scrollToOtherDetails = useCallback(() => {
     if (typeof window === 'undefined') return
@@ -648,16 +631,16 @@ export function MobileAuctionLayout({
                 {auction.highest_bidder_id === me?.id && (
                   <div className="card live-callout is-success">
                     <span className="status-label">Live advantage</span>
-                    <p>You currently hold the highest confirmed bid.</p>
+                    <p>You currently lead the bidding.</p>
                   </div>
                 )}
               </>
             ) : (
               <div className="card player-card-empty">
                 <div className="player-card-empty-copy">
-                  <span className="status-label">Awaiting live session</span>
-                  <strong className="player-card-empty-title">Auction session is not ready</strong>
-                  <p className="text-muted">This screen activates once the room and auction session are available from the backend.</p>
+                  <span className="status-label">Getting Ready</span>
+                  <strong className="player-card-empty-title">Auction board is almost ready</strong>
+                  <p className="text-muted">The live auction screen will appear here as soon as the room is ready.</p>
                 </div>
               </div>
             )}
@@ -686,7 +669,7 @@ export function MobileAuctionLayout({
           me={me}
           squadLimit={room?.settings.squad_size || 20}
           skipTargetCount={skipTargetCount}
-          effectiveSkippedBidderIds={effectiveSkippedBidderIds}
+          skippedBidderIds={skippedBidderIds}
         />
       )}
     </>

@@ -420,7 +420,7 @@ export function AuctionRoomChat({ roomId, auctionSessionId, participant, partici
           <header className="auction-chat-header">
             <div>
               <span className="status-label">Room chat</span>
-              <p className="auction-chat-note">Realtime, text-only, auto-clears in 5 minutes.</p>
+              <p className="auction-chat-note">Live chat only. Messages clear after 5 minutes.</p>
             </div>
             <button type="button" className="btn btn-ghost btn-sm auction-chat-close" onClick={() => setIsOpen(false)}>
               Close

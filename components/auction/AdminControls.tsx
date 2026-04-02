@@ -106,7 +106,7 @@ export function AdminControls({ auctionSessionId, status, compact = false }: Pro
       } else if (data?.success === false) {
         setFeedback({ tone: 'error', text: data.error || 'End round failed.' })
       } else {
-        setFeedback({ tone: 'success', text: 'Round action confirmed. Waiting for the live board to transition.' })
+        setFeedback({ tone: 'success', text: 'Round ended. The next stage will appear shortly.' })
       }
     } finally {
       setLoading(null)
@@ -133,7 +133,7 @@ export function AdminControls({ auctionSessionId, status, compact = false }: Pro
         return
       }
 
-      setFeedback({ tone: 'success', text: 'Inactive participant removed from live room participation.' })
+      setFeedback({ tone: 'success', text: 'Inactive participant removed from the room.' })
       await loadInactiveCandidates()
     } finally {
       setRemovingParticipantId(null)
@@ -200,7 +200,7 @@ export function AdminControls({ auctionSessionId, status, compact = false }: Pro
       <section className="admin-controls-inline" aria-label="Admin controls">
         <div className="admin-controls-inline-buttons">
           <button
-            onClick={() => void runAdminAction('pause_auction', 'pause', 'Pause request confirmed.')}
+            onClick={() => void runAdminAction('pause_auction', 'pause', 'Auction paused.')}
             disabled={loading !== null || status !== 'live'}
             className="btn btn-ghost btn-sm"
             title="Pause auction"
@@ -208,7 +208,7 @@ export function AdminControls({ auctionSessionId, status, compact = false }: Pro
             {loading === 'pause' ? 'Pausing…' : 'Pause'}
           </button>
           <button
-            onClick={() => void runAdminAction('resume_auction', 'resume', 'Resume request confirmed.')}
+            onClick={() => void runAdminAction('resume_auction', 'resume', 'Auction resumed.')}
             disabled={loading !== null || status !== 'paused'}
             className="btn btn-green btn-sm"
             title="Resume auction"
@@ -219,7 +219,7 @@ export function AdminControls({ auctionSessionId, status, compact = false }: Pro
             {loading === 'end' ? 'Ending…' : 'End Round'}
           </button>
           <button
-            onClick={() => void runAdminAction('stop_auction', 'stop', 'Stop request confirmed.')}
+            onClick={() => void runAdminAction('stop_auction', 'stop', 'Auction stopped.')}
             disabled={loading !== null}
             className="btn btn-danger btn-sm"
             title="Stop auction"
@@ -245,14 +245,14 @@ export function AdminControls({ auctionSessionId, status, compact = false }: Pro
 
       <div className="admin-controls-grid">
         <button
-          onClick={() => void runAdminAction('pause_auction', 'pause', 'Pause request confirmed.')}
+          onClick={() => void runAdminAction('pause_auction', 'pause', 'Auction paused.')}
           disabled={loading !== null || status !== 'live'}
           className="btn btn-ghost btn-sm"
         >
           {loading === 'pause' ? 'Pausing…' : 'Pause'}
         </button>
         <button
-          onClick={() => void runAdminAction('resume_auction', 'resume', 'Resume request confirmed.')}
+          onClick={() => void runAdminAction('resume_auction', 'resume', 'Auction resumed.')}
           disabled={loading !== null || status !== 'paused'}
           className="btn btn-green btn-sm"
         >
@@ -262,7 +262,7 @@ export function AdminControls({ auctionSessionId, status, compact = false }: Pro
           {loading === 'end' ? 'Ending…' : 'End Round'}
         </button>
         <button
-          onClick={() => void runAdminAction('stop_auction', 'stop', 'Stop request confirmed.')}
+          onClick={() => void runAdminAction('stop_auction', 'stop', 'Auction stopped.')}
           disabled={loading !== null}
           className="btn btn-danger btn-sm"
         >

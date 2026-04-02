@@ -140,11 +140,16 @@ export function calculateFantasyStylePoints(stat: Partial<MatchPlayerStat>) {
 }
 
 export function getMatchResultStatusLabel(status?: MatchAuctionResultStatus | null) {
-  if (status === 'waiting_for_match' || status === 'provisional') return 'Waiting for Match Result'
-  if (status === 'match_live') return 'Match Live'
-  if (status === 'final_ready') return 'Final Result Ready'
+  if (status === 'waiting_for_match' || status === 'provisional') return 'Match Result Pending'
+  if (status === 'match_live') return 'Match In Progress'
+  if (status === 'final_ready') return 'Final Scores Ready'
   if (status === 'match_abandoned') return 'Match Abandoned'
   return 'Auction Completed'
+}
+
+export function formatMatchScore(value?: number | null) {
+  if (value == null || Number.isNaN(value)) return '0.00'
+  return Number(value).toFixed(2)
 }
 
 export function getProjectedSquadScore(squad: SquadPlayer[], playersById: Record<string, Player>) {
@@ -166,4 +171,3 @@ export function canConfirmFinishEarly(participant: RoomParticipant | undefined, 
   if (!participant || !isMatchAuctionRoom(room)) return false
   return participant.squad_count >= getRoomMinimumSquadSize(room)
 }
-

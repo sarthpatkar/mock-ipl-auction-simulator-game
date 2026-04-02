@@ -2934,6 +2934,24 @@ h1, h2, h3, h4 { font-family: var(--font-display); letter-spacing: 0.04em; line-
   position: relative;
 }
 
+.auth-password-hint {
+  margin-top: 8px;
+  color: var(--text-muted);
+  font-size: 0.83rem;
+  line-height: 1.45;
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  transform: translateY(-4px);
+  transition: opacity 0.18s ease, max-height 0.18s ease, transform 0.18s ease;
+}
+
+.auth-password-group.is-register:focus-within .auth-password-hint {
+  opacity: 1;
+  max-height: 72px;
+  transform: translateY(0);
+}
+
 .auth-password-toggle {
   position: absolute;
   right: 12px;

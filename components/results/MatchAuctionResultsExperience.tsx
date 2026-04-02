@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { formatPrice } from '@/lib/auction-helpers'
-import { getMatchResultStatusLabel } from '@/lib/match-auction'
+import { formatMatchScore, getMatchResultStatusLabel } from '@/lib/match-auction'
 import { Match, MatchAuctionResult, Player, Room, RoomParticipant, SquadPlayer, TeamResult } from '@/types'
 
 type Props = {
@@ -78,32 +78,32 @@ export function MatchAuctionResultsExperience({
       <div className="card">
         <div className="section-header">
           <div>
-            <span className="status-label">Unofficial Match Result</span>
+            <span className="status-label">Match Auction Results</span>
             <h1 className="section-title" style={{ marginTop: 8 }}>
               {match ? `${match.team_a_code} vs ${match.team_b_code}` : room.name}
             </h1>
-            <p className="text-muted text-sm">Basic head-to-head scoring using the same projected result logic as Full Auction.</p>
+            <p className="text-muted text-sm">See who is leading right now, then come back for the final match points once the real game is complete.</p>
           </div>
           <span className={`badge ${isFinal ? 'badge-gold' : 'badge-blue'}`}>{getMatchResultStatusLabel(resultStatus)}</span>
         </div>
 
         <div style={{ display: 'grid', gap: 12, marginTop: 18, gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))' }}>
           <div className="card">
-            <span className="status-label">{isFinal ? 'Winner' : 'Projected winner'}</span>
-            <strong style={{ display: 'block', marginTop: 8 }}>{isAbandoned ? 'No Final Result' : topTeam?.participant.team_name || 'Awaiting teams'}</strong>
+            <span className="status-label">{isFinal ? 'Match winner' : 'Current leader'}</span>
+            <strong style={{ display: 'block', marginTop: 8 }}>{isAbandoned ? 'No result available' : topTeam?.participant.team_name || 'Teams will appear soon'}</strong>
             {!isAbandoned && (
               <p className="text-secondary text-sm mt-2">
-                {isFinal ? `Final score: ${topTeam?.finalScore ?? 0}` : `Projected score: ${topTeam?.projectedScore ?? 0}`}
+                {isFinal ? `Final points: ${formatMatchScore(topTeam?.finalScore ?? 0)}` : `Projected points: ${formatMatchScore(topTeam?.projectedScore ?? 0)}`}
               </p>
             )}
           </div>
           <div className="card">
             <span className="status-label">Status</span>
             <strong style={{ display: 'block', marginTop: 8 }}>
-              {isFinal ? 'Final Result Ready' : isAbandoned ? 'Match Abandoned' : 'Final result not published yet'}
+              {isFinal ? 'Final points are in' : isAbandoned ? 'Match called off' : 'Final points are not ready yet'}
             </strong>
             <p className="text-secondary text-sm mt-2">
-              {isAbandoned ? 'No Final Result' : 'You will get the final result around 8 hours after the real match completes.'}
+              {isAbandoned ? 'This match did not produce a final result.' : 'Final points usually appear within about 8 hours of the real match ending.'}
             </p>
           </div>
         </div>
@@ -121,29 +121,29 @@ export function MatchAuctionResultsExperience({
                 <p className="team-panel-name">
                   {team.participant.team_name} {team.isMe && <span className="badge badge-gold ml-2">You</span>}
                 </p>
-                <p className="team-panel-owner">{isFinal ? 'Final score available' : 'Projected result available'}</p>
+                <p className="team-panel-owner">{isFinal ? 'Final points ready' : 'Projected points ready'}</p>
               </div>
               <p className="team-panel-metrics">
-                <span>{team.projectedScore} projected</span>
-                <span>{team.finalScore ?? 'Pending'} final</span>
+                <span>{formatMatchScore(team.projectedScore)} projected</span>
+                <span>{team.finalScore == null ? 'Pending final' : `${formatMatchScore(team.finalScore)} final`}</span>
               </p>
             </button>
 
             {expandedParticipantId === team.participant.id && (
               <div style={{ display: 'grid', gap: 12, marginTop: 16 }}>
                 <div className="card">
-                  <span className="status-label">Projected Score</span>
-                  <strong style={{ display: 'block', marginTop: 8 }}>{team.projectedScore}</strong>
+                  <span className="status-label">Projected Points</span>
+                  <strong style={{ display: 'block', marginTop: 8 }}>{formatMatchScore(team.projectedScore)}</strong>
                   <p className="text-secondary text-sm mt-2">
-                    {team.projectedRank ? `Projected rank: #${team.projectedRank}` : 'Projected rank will appear after scoring.'}
+                    {team.projectedRank ? `Projected rank: #${team.projectedRank}` : 'Projected rank will appear once the standings are ready.'}
                   </p>
                 </div>
 
                 <div className="card">
-                  <span className="status-label">Final Score</span>
-                  <strong style={{ display: 'block', marginTop: 8 }}>{team.finalScore ?? 'Pending'}</strong>
+                  <span className="status-label">Final Points</span>
+                  <strong style={{ display: 'block', marginTop: 8 }}>{team.finalScore == null ? 'Pending' : formatMatchScore(team.finalScore)}</strong>
                   <p className="text-secondary text-sm mt-2">
-                    {team.finalRank ? `Final rank: #${team.finalRank}` : 'Available after the real match result is published.'}
+                    {team.finalRank ? `Final rank: #${team.finalRank}` : 'Available once the final match result is published.'}
                   </p>
                 </div>
 
@@ -169,11 +169,11 @@ export function MatchAuctionResultsExperience({
       </div>
 
       <div className="card">
-        <span className="status-label">{isFinal ? 'Final score gap' : 'Projected score gap'}</span>
+        <span className="status-label">{isFinal ? 'Winning Margin' : 'Projected Margin'}</span>
         <p className="text-secondary text-sm mt-2">
           {isAbandoned
             ? 'The real match did not produce a final result.'
-            : `${topTeam?.participant.team_name || 'Leading team'} leads by ${scoreGap} ${isFinal ? 'points' : 'projected points'}.`}
+            : `${topTeam?.participant.team_name || 'The leading team'} is ahead by ${formatMatchScore(scoreGap)} ${isFinal ? 'points' : 'projected points'}.`}
         </p>
         <p className="text-secondary text-sm mt-2">Last updated: {formatTimestamp(lastUpdated)}</p>
       </div>
