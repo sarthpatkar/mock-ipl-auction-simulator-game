@@ -4,12 +4,23 @@ import { ParsedMatchStatRow, materializePublishedRows, validateParsedScorecardPa
 import { Match, MatchAuctionResult, Player, RoomParticipant, SquadPlayer } from '@/types'
 
 type ExistingRoomResult = MatchAuctionResult & { room_id: string; user_id: string }
+type PublishReasonCode =
+  | 'network_error'
+  | 'validation_error'
+  | 'missing_scorecard_data'
+  | 'missing_winner_selection'
+  | 'server_error'
+  | 'duplicate_publish_attempt'
+
+function publishError(message: string, status: number, reasonCode: PublishReasonCode) {
+  return NextResponse.json({ error: message, reasonCode }, { status })
+}
 
 export async function POST(request: Request) {
   try {
     const user = await getAuthenticatedApiUser(request)
     if (!user || !isMatchResultsAdmin(user.id)) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+      return publishError('Unauthorized', 401, 'server_error')
     }
 
     const body = await request.json()
@@ -19,7 +30,7 @@ export async function POST(request: Request) {
     const manualRowChangeCount = Number(body?.manualRowChangeCount ?? 0)
 
     if (!matchId || !scorecardId) {
-      return NextResponse.json({ error: 'matchId and scorecardId are required' }, { status: 400 })
+      return publishError('matchId and scorecardId are required', 400, 'missing_scorecard_data')
     }
 
     const service = requireServiceRole()
@@ -31,7 +42,7 @@ export async function POST(request: Request) {
 
     if (matchError) throw matchError
     if (!matchRow) {
-      return NextResponse.json({ error: 'Match not found' }, { status: 404 })
+      return publishError('Match not found', 404, 'missing_scorecard_data')
     }
 
     const match = matchRow as Match
@@ -42,15 +53,20 @@ export async function POST(request: Request) {
 
     if (playersError) throw playersError
 
-    const validated = validateParsedScorecardPayload(
-      {
-        match_id: matchId,
-        rows,
-        unresolved_rows: []
-      },
-      ((players as unknown) as Player[] | null) ?? [],
-      match
-    )
+    let validated
+    try {
+      validated = validateParsedScorecardPayload(
+        {
+          match_id: matchId,
+          rows,
+          unresolved_rows: []
+        },
+        ((players as unknown) as Player[] | null) ?? [],
+        match
+      )
+    } catch (error) {
+      return publishError(error instanceof Error ? error.message : 'Validation failed', 400, 'validation_error')
+    }
 
     const publishedRows = materializePublishedRows(validated.rows)
 
@@ -96,10 +112,11 @@ export async function POST(request: Request) {
 
     if (scorecardError) throw scorecardError
     if (!scorecardRow) {
-      return NextResponse.json({ error: 'Scorecard record not found' }, { status: 404 })
+      return publishError('Scorecard record not found', 404, 'missing_scorecard_data')
     }
 
     const publishedStatsVersion = Number(scorecardRow.scorecard_version)
+    const publishedAt = new Date().toISOString()
 
     const { data: rooms, error: roomsError } = await service
       .from('rooms')
@@ -116,13 +133,14 @@ export async function POST(request: Request) {
         .update({
           parsing_status: 'published',
           normalized_parsed_json: validated,
-          published_at: new Date().toISOString(),
+          published_at: publishedAt,
           published_by: user.id
         })
         .eq('id', scorecardId)
 
       return NextResponse.json({
         success: true,
+        publishedAt,
         publishedStatsVersion,
         publishedRoomCount: 0
       })
@@ -223,12 +241,12 @@ export async function POST(request: Request) {
       .update({
         parsing_status: 'published',
         normalized_parsed_json: validated,
-        published_at: new Date().toISOString(),
+        published_at: publishedAt,
         published_by: user.id
       })
       .eq('id', scorecardId)
 
-    await service.from('matches').update({ last_scorecard_upload_at: new Date().toISOString() }).eq('id', matchId)
+    await service.from('matches').update({ last_scorecard_upload_at: publishedAt }).eq('id', matchId)
 
     if (manualRowChangeCount > 0) {
       await service.from('match_scorecard_audit_logs').insert({
@@ -258,10 +276,11 @@ export async function POST(request: Request) {
 
     return NextResponse.json({
       success: true,
+      publishedAt,
       publishedStatsVersion,
       publishedRoomCount: roomIds.length
     })
   } catch (error) {
-    return NextResponse.json({ error: error instanceof Error ? error.message : 'Failed to publish scorecard' }, { status: 500 })
+    return publishError(error instanceof Error ? error.message : 'Failed to publish scorecard', 500, 'server_error')
   }
 }

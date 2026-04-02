@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { formatPrice } from '@/lib/auction-helpers'
 import { formatMatchScore, getMatchResultStatusLabel } from '@/lib/match-auction'
-import { Match, MatchAuctionResult, Player, Room, RoomParticipant, SquadPlayer, TeamResult } from '@/types'
+import { Match, MatchAuctionResult, MatchPlayerStat, Player, Room, RoomParticipant, SquadPlayer, TeamResult } from '@/types'
 
 type Props = {
   room: Room
@@ -11,6 +11,7 @@ type Props = {
   participants: RoomParticipant[]
   projectedResults: TeamResult[]
   matchResults: MatchAuctionResult[]
+  matchPlayerStats: MatchPlayerStat[]
   squads: SquadPlayer[]
   playersById: Record<string, Player>
   currentUserId: string | null
@@ -27,6 +28,7 @@ export function MatchAuctionResultsExperience({
   participants,
   projectedResults,
   matchResults,
+  matchPlayerStats,
   squads,
   playersById,
   currentUserId
@@ -71,6 +73,9 @@ export function MatchAuctionResultsExperience({
   const isAbandoned = resultStatus === 'match_abandoned'
   const scoreGap =
     topTeam && secondTeam ? Math.abs((topTeam.finalScore ?? topTeam.projectedScore) - (secondTeam.finalScore ?? secondTeam.projectedScore)) : 0
+  const topMatchPerformers = [...matchPlayerStats]
+    .sort((left, right) => right.fantasy_points - left.fantasy_points || left.player_name_snapshot.localeCompare(right.player_name_snapshot))
+    .slice(0, 10)
   const [expandedParticipantId, setExpandedParticipantId] = useState<string | null>(teams[0]?.participant.id ?? null)
 
   return (
@@ -124,20 +129,28 @@ export function MatchAuctionResultsExperience({
                 <p className="team-panel-owner">{isFinal ? 'Final points ready' : 'Projected points ready'}</p>
               </div>
               <p className="team-panel-metrics">
-                <span>{formatMatchScore(team.projectedScore)} projected</span>
-                <span>{team.finalScore == null ? 'Pending final' : `${formatMatchScore(team.finalScore)} final`}</span>
+                {isFinal ? (
+                  <span>{team.finalScore == null ? 'Final pending' : `${formatMatchScore(team.finalScore)} final`}</span>
+                ) : (
+                  <>
+                    <span>{formatMatchScore(team.projectedScore)} projected</span>
+                    <span>{team.finalScore == null ? 'Pending final' : `${formatMatchScore(team.finalScore)} final`}</span>
+                  </>
+                )}
               </p>
             </button>
 
             {expandedParticipantId === team.participant.id && (
               <div style={{ display: 'grid', gap: 12, marginTop: 16 }}>
-                <div className="card">
-                  <span className="status-label">Projected Points</span>
-                  <strong style={{ display: 'block', marginTop: 8 }}>{formatMatchScore(team.projectedScore)}</strong>
-                  <p className="text-secondary text-sm mt-2">
-                    {team.projectedRank ? `Projected rank: #${team.projectedRank}` : 'Projected rank will appear once the standings are ready.'}
-                  </p>
-                </div>
+                {!isFinal && (
+                  <div className="card">
+                    <span className="status-label">Projected Points</span>
+                    <strong style={{ display: 'block', marginTop: 8 }}>{formatMatchScore(team.projectedScore)}</strong>
+                    <p className="text-secondary text-sm mt-2">
+                      {team.projectedRank ? `Projected rank: #${team.projectedRank}` : 'Projected rank will appear once the standings are ready.'}
+                    </p>
+                  </div>
+                )}
 
                 <div className="card">
                   <span className="status-label">Final Points</span>
@@ -177,6 +190,42 @@ export function MatchAuctionResultsExperience({
         </p>
         <p className="text-secondary text-sm mt-2">Last updated: {formatTimestamp(lastUpdated)}</p>
       </div>
+
+      {topMatchPerformers.length > 0 && (
+        <div className="card">
+          <div className="section-header">
+            <div>
+              <span className="status-label">Top Match Performers</span>
+              <h2 className="section-title" style={{ marginTop: 8 }}>Top 10 players in this match</h2>
+              <p className="text-secondary text-sm mt-2">Published match points for the best individual performances.</p>
+            </div>
+          </div>
+
+          <div style={{ display: 'grid', gap: 10, marginTop: 16 }}>
+            {topMatchPerformers.map((entry, index) => (
+              <div
+                key={entry.player_id}
+                style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  gap: 12,
+                  alignItems: 'center',
+                  paddingBottom: 10,
+                  borderBottom: index === topMatchPerformers.length - 1 ? 'none' : '1px solid rgba(255,255,255,0.08)'
+                }}
+              >
+                <div>
+                  <strong>{playersById[entry.player_id]?.name || entry.player_name_snapshot}</strong>
+                  <p className="text-secondary text-sm">
+                    {[playersById[entry.player_id]?.role || null, entry.team_code].filter(Boolean).join(' · ')}
+                  </p>
+                </div>
+                <strong>{formatMatchScore(entry.fantasy_points)} pts</strong>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
     </section>
   )
 }

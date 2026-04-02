@@ -17,6 +17,46 @@ type ParseResponse = {
     unresolved_rows: Array<{ source_text: string; reason: string }>
   }
   diagnostics?: ParseAttemptDiagnostic[]
+  error?: string
+}
+
+type PublishReasonCode =
+  | 'network_error'
+  | 'validation_error'
+  | 'missing_scorecard_data'
+  | 'missing_winner_selection'
+  | 'server_error'
+  | 'duplicate_publish_attempt'
+
+type PublishResponse = {
+  success?: boolean
+  error?: string
+  reasonCode?: PublishReasonCode
+  publishedRoomCount?: number
+  publishedStatsVersion?: number
+  publishedAt?: string
+}
+
+type PublishStatusResponse = {
+  hasPublishedVersion: boolean
+  scorecardId: string | null
+  scorecardVersion: number | null
+  publishedAt: string | null
+  publishedRoomCount: number | null
+  error?: string
+}
+
+type PublishedSnapshot = {
+  scorecardId: string | null
+  scorecardVersion: number | null
+  publishedAt: string
+  publishedRoomCount: number | null
+  rowsSnapshot: string | null
+}
+
+type PublishFailureState = {
+  reasonCode: PublishReasonCode
+  message: string
 }
 
 const ADMIN_VISIBLE_MATCH_STATUSES = ['live', 'completed', 'abandoned', 'cancelled'] as const
@@ -55,6 +95,32 @@ function isSameLocalDay(date: Date, dayStart: Date, nextDayStart: Date) {
   return date >= dayStart && date < nextDayStart
 }
 
+function serializeRows(rows: ParsedMatchStatRow[]) {
+  return JSON.stringify(rows)
+}
+
+function formatTimestamp(value: string | null) {
+  return value ? new Date(value).toLocaleString() : 'Not available'
+}
+
+function getPublishReasonLabel(reasonCode: PublishReasonCode) {
+  switch (reasonCode) {
+    case 'network_error':
+      return 'Network error'
+    case 'validation_error':
+      return 'Validation error'
+    case 'missing_scorecard_data':
+      return 'Missing scorecard data'
+    case 'missing_winner_selection':
+      return 'Missing winner selection'
+    case 'duplicate_publish_attempt':
+      return 'Duplicate publish attempt'
+    case 'server_error':
+    default:
+      return 'Server error'
+  }
+}
+
 export function MatchResultsAdminClient() {
   const [matches, setMatches] = useState<Match[]>([])
   const [selectedMatchId, setSelectedMatchId] = useState('')
@@ -64,13 +130,16 @@ export function MatchResultsAdminClient() {
   const [unresolvedRows, setUnresolvedRows] = useState<Array<{ source_text: string; reason: string }>>([])
   const [players, setPlayers] = useState<Player[]>([])
   const [loadingMatches, setLoadingMatches] = useState(true)
+  const [loadingPublishStatus, setLoadingPublishStatus] = useState(false)
   const [parseLoading, setParseLoading] = useState(false)
   const [publishLoading, setPublishLoading] = useState(false)
-  const [message, setMessage] = useState<string | null>(null)
+  const [feedbackMessage, setFeedbackMessage] = useState<string | null>(null)
   const [scorecardId, setScorecardId] = useState<string | null>(null)
   const [scorecardVersion, setScorecardVersion] = useState<number | null>(null)
   const [providerLabel, setProviderLabel] = useState<string | null>(null)
   const [diagnostics, setDiagnostics] = useState<ParseAttemptDiagnostic[]>([])
+  const [publishFailure, setPublishFailure] = useState<PublishFailureState | null>(null)
+  const [lastPublishedSnapshot, setLastPublishedSnapshot] = useState<PublishedSnapshot | null>(null)
 
   const parseWithTimeout = async (input: RequestInfo | URL, init: RequestInit, timeoutMs: number) => {
     const controller = new AbortController()
@@ -83,7 +152,14 @@ export function MatchResultsAdminClient() {
     }
   }
 
+  const getAuthHeaders = async (): Promise<Record<string, string>> => {
+    const session = await supabaseClient.auth.getSession()
+    const token = session.data.session?.access_token
+    return token ? { Authorization: `Bearer ${token}` } : {}
+  }
+
   const selectedMatch = useMemo(() => matches.find((match) => match.id === selectedMatchId) ?? null, [matches, selectedMatchId])
+  const currentRowsSnapshot = useMemo(() => serializeRows(rows), [rows])
   const manualRowChangeCount = useMemo(() => {
     const initial = JSON.parse(initialRowsSnapshot) as ParsedMatchStatRow[]
     const maxLength = Math.max(initial.length, rows.length)
@@ -97,6 +173,49 @@ export function MatchResultsAdminClient() {
 
     return count
   }, [initialRowsSnapshot, rows])
+
+  const hasSuccessfulPublish = Boolean(lastPublishedSnapshot?.publishedAt)
+  const hasWorkingResult = Boolean(scorecardId || scorecardVersion != null || rows.length > 0)
+
+  const currentWorkingResultIsPublished = useMemo(() => {
+    if (!hasSuccessfulPublish) return false
+    if (!hasWorkingResult) return true
+
+    const idMatches = Boolean(scorecardId && lastPublishedSnapshot?.scorecardId && scorecardId === lastPublishedSnapshot.scorecardId)
+    const versionMatches = Boolean(
+      scorecardVersion != null &&
+      lastPublishedSnapshot?.scorecardVersion != null &&
+      scorecardVersion === lastPublishedSnapshot.scorecardVersion
+    )
+
+    if (!idMatches && !versionMatches) {
+      return false
+    }
+
+    if (lastPublishedSnapshot?.rowsSnapshot) {
+      return currentRowsSnapshot === lastPublishedSnapshot.rowsSnapshot
+    }
+
+    return true
+  }, [currentRowsSnapshot, hasSuccessfulPublish, hasWorkingResult, lastPublishedSnapshot, scorecardId, scorecardVersion])
+
+  const hasUnpublishedChanges = hasSuccessfulPublish && hasWorkingResult && !currentWorkingResultIsPublished
+
+  const publishIndicatorState = publishLoading
+    ? 'publishing'
+    : publishFailure
+      ? 'failed'
+      : currentWorkingResultIsPublished
+        ? 'published'
+        : 'not_published'
+
+  const publishIndicatorLabel = publishIndicatorState === 'publishing'
+    ? 'Publishing'
+    : publishIndicatorState === 'failed'
+      ? 'Publish Failed'
+      : publishIndicatorState === 'published'
+        ? 'Published'
+        : 'Not Published'
 
   useEffect(() => {
     let active = true
@@ -114,7 +233,7 @@ export function MatchResultsAdminClient() {
         if (!active) return
         setLoadingMatches(false)
         if (error) {
-          setMessage(error.message)
+          setFeedbackMessage(error.message)
           return
         }
         const nextMatches = ((data as Match[] | null) ?? [])
@@ -159,6 +278,20 @@ export function MatchResultsAdminClient() {
   }, [])
 
   useEffect(() => {
+    setRawScorecardText('')
+    setRows([])
+    setInitialRowsSnapshot('[]')
+    setUnresolvedRows([])
+    setScorecardId(null)
+    setScorecardVersion(null)
+    setProviderLabel(null)
+    setDiagnostics([])
+    setFeedbackMessage(null)
+    setPublishFailure(null)
+    setLastPublishedSnapshot(null)
+  }, [selectedMatchId])
+
+  useEffect(() => {
     if (!selectedMatch) {
       setPlayers([])
       return
@@ -172,13 +305,62 @@ export function MatchResultsAdminClient() {
       })
       .catch((error) => {
         if (!active) return
-        setMessage(error instanceof Error ? error.message : 'Failed to load match players')
+        setFeedbackMessage(error instanceof Error ? error.message : 'Failed to load match players')
       })
 
     return () => {
       active = false
     }
   }, [selectedMatch])
+
+  useEffect(() => {
+    if (!selectedMatchId) return
+
+    let active = true
+    setLoadingPublishStatus(true)
+
+    void (async () => {
+      try {
+        const response = await fetch(`/api/admin/match-results/status?matchId=${encodeURIComponent(selectedMatchId)}`, {
+          headers: {
+            ...(await getAuthHeaders())
+          }
+        })
+
+        const payload = (await response.json()) as PublishStatusResponse
+        if (!active) return
+
+        if (!response.ok) {
+          setFeedbackMessage(payload.error || 'Failed to load publish status')
+          return
+        }
+
+        if (!payload.hasPublishedVersion || !payload.publishedAt) {
+          setLastPublishedSnapshot(null)
+          return
+        }
+
+        setLastPublishedSnapshot({
+          scorecardId: payload.scorecardId,
+          scorecardVersion: payload.scorecardVersion,
+          publishedAt: payload.publishedAt,
+          publishedRoomCount: payload.publishedRoomCount,
+          rowsSnapshot: null
+        })
+      } catch (error) {
+        if (!active) return
+        setFeedbackMessage(error instanceof Error ? error.message : 'Failed to load publish status')
+      } finally {
+        if (active) {
+          setLoadingPublishStatus(false)
+        }
+      }
+    })()
+
+    return () => {
+      active = false
+    }
+  }, [selectedMatchId])
 
   return (
     <div style={{ display: 'grid', gap: 20 }}>
@@ -220,15 +402,14 @@ export function MatchResultsAdminClient() {
             disabled={parseLoading || !selectedMatchId || !rawScorecardText.trim()}
             onClick={async () => {
               setParseLoading(true)
-              setMessage(null)
+              setFeedbackMessage(null)
+              setPublishFailure(null)
               try {
-                const session = await supabaseClient.auth.getSession()
-                const token = session.data.session?.access_token
                 const response = await parseWithTimeout('/api/admin/match-results/parse', {
                   method: 'POST',
                   headers: {
                     'Content-Type': 'application/json',
-                    ...(token ? { Authorization: `Bearer ${token}` } : {})
+                    ...(await getAuthHeaders())
                   },
                   body: JSON.stringify({
                     matchId: selectedMatchId,
@@ -236,22 +417,22 @@ export function MatchResultsAdminClient() {
                   })
                 }, 75_000)
 
-                const payload = (await response.json()) as ParseResponse & { error?: string }
+                const payload = (await response.json()) as ParseResponse
                 if (!response.ok) throw new Error(payload.error || 'Failed to parse scorecard')
 
                 setRows(payload.payload.rows)
-                setInitialRowsSnapshot(JSON.stringify(payload.payload.rows))
+                setInitialRowsSnapshot(serializeRows(payload.payload.rows))
                 setUnresolvedRows(payload.payload.unresolved_rows)
                 setScorecardId(payload.scorecardId)
                 setScorecardVersion(payload.scorecardVersion)
                 setProviderLabel(payload.provider ? `${payload.provider}${payload.model ? ` · ${payload.model}` : ''}` : 'Manual review')
                 setDiagnostics(payload.diagnostics ?? [])
-                setMessage(`Parsed ${payload.payload.rows.length} rows${payload.payload.unresolved_rows.length ? ` with ${payload.payload.unresolved_rows.length} unresolved lines` : ''}.`)
+                setFeedbackMessage(`Parsed ${payload.payload.rows.length} rows${payload.payload.unresolved_rows.length ? ` with ${payload.payload.unresolved_rows.length} unresolved lines` : ''}.`)
               } catch (error) {
                 if (error instanceof DOMException && error.name === 'AbortError') {
-                  setMessage('Parsing timed out. The server did not return within 75 seconds.')
+                  setFeedbackMessage('Parsing timed out. The server did not return within 75 seconds.')
                 } else {
-                  setMessage(error instanceof Error ? error.message : 'Failed to parse scorecard')
+                  setFeedbackMessage(error instanceof Error ? error.message : 'Failed to parse scorecard')
                 }
               } finally {
                 setParseLoading(false)
@@ -272,7 +453,7 @@ export function MatchResultsAdminClient() {
         </div>
 
         {providerLabel && <p className="text-secondary text-sm mt-3">Parser: {providerLabel} · Scorecard version {scorecardVersion}</p>}
-        {message && <p className="text-secondary text-sm mt-3">{message}</p>}
+        {feedbackMessage && <p className="text-secondary text-sm mt-3">{feedbackMessage}</p>}
         {diagnostics.length > 0 && (
           <div className="mt-3" style={{ display: 'grid', gap: 8 }}>
             {diagnostics.map((entry, index) => (
@@ -283,6 +464,59 @@ export function MatchResultsAdminClient() {
                 </p>
               </div>
             ))}
+          </div>
+        )}
+
+        {selectedMatchId && (
+          <div className="card mt-3" style={{ padding: 16, display: 'grid', gap: 12 }}>
+            <div>
+              <span className="status-label">Publish Status</span>
+              <p className="text-secondary text-sm mt-2">
+                <strong>{publishIndicatorLabel}</strong>
+              </p>
+              {loadingPublishStatus && <p className="text-secondary text-sm mt-2">Checking live publish status…</p>}
+              {!loadingPublishStatus && publishIndicatorState === 'not_published' && !hasSuccessfulPublish && (
+                <p className="text-secondary text-sm mt-2">No live published version yet.</p>
+              )}
+              {!loadingPublishStatus && publishIndicatorState === 'not_published' && hasSuccessfulPublish && (
+                <p className="text-secondary text-sm mt-2">Please republish to make the latest updates live.</p>
+              )}
+              {!loadingPublishStatus && publishIndicatorState === 'publishing' && (
+                <p className="text-secondary text-sm mt-2">Publishing the current result now.</p>
+              )}
+            </div>
+
+            {publishFailure && (
+              <div className="card" style={{ padding: 12 }}>
+                <strong className="text-sm">{getPublishReasonLabel(publishFailure.reasonCode)}</strong>
+                <p className="text-secondary text-sm mt-1">{publishFailure.message}</p>
+                {!hasSuccessfulPublish && <p className="text-secondary text-sm mt-1">No live published version yet.</p>}
+              </div>
+            )}
+
+            {hasSuccessfulPublish && lastPublishedSnapshot && (
+              <div className="card" style={{ padding: 12 }}>
+                <strong className="text-sm">Match result published successfully</strong>
+                <p className="text-secondary text-sm mt-1">Last published at: {formatTimestamp(lastPublishedSnapshot.publishedAt)}</p>
+                <p className="text-secondary text-sm mt-1">
+                  Published version is live
+                  {lastPublishedSnapshot.scorecardVersion != null ? ` · Version ${lastPublishedSnapshot.scorecardVersion}` : ''}.
+                </p>
+                {lastPublishedSnapshot.publishedRoomCount != null && (
+                  <p className="text-secondary text-sm mt-1">
+                    Live in {lastPublishedSnapshot.publishedRoomCount} linked room{lastPublishedSnapshot.publishedRoomCount === 1 ? '' : 's'}.
+                  </p>
+                )}
+              </div>
+            )}
+
+            {hasUnpublishedChanges && (
+              <div className="card" style={{ padding: 12 }}>
+                <strong className="text-sm">You have unpublished changes</strong>
+                <p className="text-secondary text-sm mt-1">Changes made after last publish.</p>
+                <p className="text-secondary text-sm mt-1">Please republish to make the latest updates live.</p>
+              </div>
+            )}
           </div>
         )}
       </section>
@@ -400,15 +634,14 @@ export function MatchResultsAdminClient() {
               disabled={publishLoading || !scorecardId}
               onClick={async () => {
                 setPublishLoading(true)
-                setMessage(null)
+                setFeedbackMessage(null)
+                setPublishFailure(null)
                 try {
-                  const session = await supabaseClient.auth.getSession()
-                  const token = session.data.session?.access_token
                   const response = await fetch('/api/admin/match-results/publish', {
                     method: 'POST',
                     headers: {
                       'Content-Type': 'application/json',
-                      ...(token ? { Authorization: `Bearer ${token}` } : {})
+                      ...(await getAuthHeaders())
                     },
                     body: JSON.stringify({
                       matchId: selectedMatchId,
@@ -418,12 +651,29 @@ export function MatchResultsAdminClient() {
                     })
                   })
 
-                  const payload = (await response.json()) as { error?: string; success?: boolean; publishedRoomCount?: number; publishedStatsVersion?: number }
-                  if (!response.ok) throw new Error(payload.error || 'Failed to publish results')
+                  const payload = (await response.json()) as PublishResponse
+                  if (!response.ok) {
+                    setPublishFailure({
+                      reasonCode: payload.reasonCode ?? 'server_error',
+                      message: payload.error || 'Failed to publish results'
+                    })
+                    return
+                  }
 
-                  setMessage(`Published version ${payload.publishedStatsVersion} to ${payload.publishedRoomCount} linked room(s).`)
+                  const nextPublishedAt = payload.publishedAt ?? new Date().toISOString()
+                  setLastPublishedSnapshot({
+                    scorecardId,
+                    scorecardVersion: payload.publishedStatsVersion ?? scorecardVersion,
+                    publishedAt: nextPublishedAt,
+                    publishedRoomCount: payload.publishedRoomCount ?? null,
+                    rowsSnapshot: currentRowsSnapshot
+                  })
+                  setPublishFailure(null)
                 } catch (error) {
-                  setMessage(error instanceof Error ? error.message : 'Failed to publish results')
+                  setPublishFailure({
+                    reasonCode: 'network_error',
+                    message: error instanceof Error ? error.message : 'Failed to publish results'
+                  })
                 } finally {
                   setPublishLoading(false)
                 }

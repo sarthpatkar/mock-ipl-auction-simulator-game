@@ -13,14 +13,16 @@ import { useTimer } from '@/hooks/useTimer'
 import { MATCH_AUCTION_MODE } from '@/lib/match-auction'
 import { fetchPlayersByIds, RESULTS_PLAYER_COLUMNS } from '@/lib/player-catalog'
 import { getBrowserSessionUser, supabaseClient } from '@/lib/supabase'
-import { Match, MatchAuctionResult, Player, SquadPlayer, TeamResult } from '@/types'
+import { Match, MatchAuctionResult, MatchPlayerStat, Player, SquadPlayer, TeamResult } from '@/types'
 
 const RESULTS_SELECT = 'room_id, user_id, team_score, rank, breakdown_json, created_at, updated_at'
 const MATCH_RESULTS_SELECT =
   'room_id, user_id, projected_score, actual_score, result_status, rank, winner_user_id, last_updated_at, last_result_updated_at, published_stats_version'
+const MATCH_PLAYER_STATS_SELECT = 'match_id, player_id, player_name_snapshot, source_player_name, team_code, fantasy_points, updated_at'
 const SQUAD_SELECT = 'id, room_id, participant_id, player_id, price_paid, acquired_at'
 const LOCAL_REVEAL_GRACE_MS = 1500
 const REVEAL_HOLD_SECONDS = 90
+const TRANSIENT_ROOM_REALTIME_ERROR = 'Realtime connection lost. Reconnecting…'
 
 export default function ResultsPage() {
   useForcedTheme('dark')
@@ -32,6 +34,7 @@ export default function ResultsPage() {
   const [userId, setUserId] = useState<string | null>(null)
   const [results, setResults] = useState<TeamResult[]>([])
   const [matchResults, setMatchResults] = useState<MatchAuctionResult[]>([])
+  const [matchPlayerStats, setMatchPlayerStats] = useState<MatchPlayerStat[]>([])
   const [squads, setSquads] = useState<SquadPlayer[]>([])
   const [playersById, setPlayersById] = useState<Record<string, Player>>({})
   const [match, setMatch] = useState<Match | null>(null)
@@ -94,7 +97,8 @@ export default function ResultsPage() {
             { data: matchResultRows, error: matchResultsError },
             { data: squadRows, error: squadError },
             { data: projectedResultRows, error: projectedResultsError },
-            { data: matchRow, error: matchError }
+            { data: matchRow, error: matchError },
+            { data: matchPlayerStatRows, error: matchPlayerStatsError }
           ] = await Promise.all([
             supabaseClient.from('match_auction_results').select(MATCH_RESULTS_SELECT).eq('room_id', roomId).order('rank', { ascending: true }),
             supabaseClient.from('squad_players').select(SQUAD_SELECT).eq('room_id', roomId),
@@ -105,6 +109,9 @@ export default function ResultsPage() {
                   .select('id, season, match_slug, team_a_code, team_b_code, team_a_name, team_b_name, match_date, venue, status, external_match_id, auction_enabled, last_scorecard_upload_at')
                   .eq('id', room.match_id)
                   .maybeSingle()
+              : Promise.resolve({ data: null, error: null }),
+            room.match_id
+              ? supabaseClient.from('match_player_stats').select(MATCH_PLAYER_STATS_SELECT).eq('match_id', room.match_id)
               : Promise.resolve({ data: null, error: null })
           ])
 
@@ -112,6 +119,7 @@ export default function ResultsPage() {
           if (squadError) throw squadError
           if (projectedResultsError) throw projectedResultsError
           if (matchError) throw matchError
+          if (matchPlayerStatsError) throw matchPlayerStatsError
 
           let finalMatchResults = (matchResultRows as MatchAuctionResult[] | null) ?? []
           let finalProjectedResults = ((projectedResultRows as TeamResult[] | null) ?? []).map((row) => ({
@@ -168,6 +176,12 @@ export default function ResultsPage() {
           )
           setMatch((matchRow as Match | null) ?? null)
           setResults(finalProjectedResults)
+          setMatchPlayerStats(
+            ((matchPlayerStatRows as MatchPlayerStat[] | null) ?? []).map((row) => ({
+              ...row,
+              fantasy_points: Number(row.fantasy_points)
+            }))
+          )
           setSquads(finalSquads)
           setPlayersById(players as Record<string, Player>)
           return
@@ -213,6 +227,7 @@ export default function ResultsPage() {
 
         setResults(finalResults)
         setMatchResults([])
+        setMatchPlayerStats([])
         setSquads(finalSquads)
         setPlayersById(players as Record<string, Player>)
       } catch (hydrateError) {
@@ -253,7 +268,12 @@ export default function ResultsPage() {
     return () => window.clearTimeout(timeout)
   }, [effectiveRevealAt, revealRemaining, room?.status])
 
-  const pageError = useMemo(() => error ?? roomError, [error, roomError])
+  const shouldSuppressRoomError =
+    !error &&
+    room?.status === 'completed' &&
+    roomError === TRANSIENT_ROOM_REALTIME_ERROR &&
+    (results.length > 0 || matchResults.length > 0)
+  const pageError = useMemo(() => error ?? (shouldSuppressRoomError ? null : roomError), [error, roomError, shouldSuppressRoomError])
   const isPreReveal = room?.status === 'completed' && Boolean(effectiveRevealAt) && (revealRemaining > 0 || isRevealAnimating)
   const isPageBooting = roomLoading || room?.status !== 'completed'
   const isResultsLoading = loading
@@ -286,6 +306,7 @@ export default function ResultsPage() {
             participants={participants}
             projectedResults={results}
             matchResults={matchResults}
+            matchPlayerStats={matchPlayerStats}
             squads={squads}
             playersById={playersById}
             currentUserId={userId}
