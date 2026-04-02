@@ -16,6 +16,7 @@ import { TeamView } from '@/components/auction/TeamView'
 import { SoldModal } from '@/components/auction/SoldModal'
 import { AdminControls } from '@/components/auction/AdminControls'
 import { MobileAuctionLayout } from '@/components/auction/MobileAuctionLayout'
+import { AuctionRoomChat } from '@/components/auction/AuctionRoomChat'
 import { PageNavbar } from '@/components/shared/PageNavbar'
 import { useForcedTheme } from '@/components/theme/ThemeProvider'
 import { formatAuctionStatus, formatPrice, formatRolePlural, getTeamThemeStyle } from '@/lib/auction-helpers'
@@ -902,6 +903,8 @@ export default function AuctionPage() {
           price={auction.current_price}
         />
       )}
+
+      <AuctionRoomChat roomId={roomId} auctionSessionId={auction?.auction_session_id ?? null} participant={me} participants={participants} />
     </div>
   )
 }

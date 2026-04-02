@@ -5473,6 +5473,203 @@ h1, h2, h3, h4 { font-family: var(--font-display); letter-spacing: 0.04em; line-
   }
 }
 
+.auction-chat-dock {
+  position: fixed;
+  right: 16px;
+  bottom: calc(env(safe-area-inset-bottom) + 100px);
+  z-index: 98;
+  pointer-events: none;
+}
+
+.auction-chat-dock > * {
+  pointer-events: auto;
+}
+
+.auction-chat-panel {
+  position: absolute;
+  bottom: calc(100% + 10px);
+  width: min(360px, calc(100vw - 24px));
+  max-height: min(460px, calc(100vh - 170px));
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto auto;
+  gap: 12px;
+  padding: 14px;
+  border-radius: 18px;
+  border: 1px solid rgba(31, 55, 81, 0.9);
+  background: rgba(8, 16, 26, 0.96);
+  box-shadow: 0 24px 52px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(10px);
+}
+
+.auction-chat-panel.is-right {
+  right: 0;
+}
+
+.auction-chat-panel.is-left {
+  left: 0;
+}
+
+.auction-chat-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.auction-chat-note {
+  margin-top: 6px;
+  color: var(--text-soft);
+  font-size: 0.74rem;
+  line-height: 1.4;
+}
+
+.auction-chat-close {
+  min-width: 62px;
+}
+
+.auction-chat-messages {
+  display: grid;
+  align-content: start;
+  gap: 8px;
+  min-height: 140px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.auction-chat-empty {
+  color: var(--text-soft);
+  font-size: 0.8rem;
+  line-height: 1.45;
+}
+
+.auction-chat-message {
+  display: grid;
+  gap: 5px;
+  padding: 8px 10px;
+  border-radius: 12px;
+  border: 1px solid rgba(28, 49, 72, 0.84);
+  background: rgba(16, 28, 42, 0.9);
+}
+
+.auction-chat-message.is-mine {
+  border-color: rgba(245, 197, 24, 0.28);
+  background: rgba(46, 36, 12, 0.52);
+}
+
+.auction-chat-message-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.auction-chat-message-meta strong {
+  color: var(--text-strong);
+  font-size: 0.76rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.auction-chat-message-meta time {
+  color: var(--text-soft);
+  font-size: 0.72rem;
+}
+
+.auction-chat-message p {
+  margin: 0;
+  color: var(--text-strong);
+  font-size: 0.86rem;
+  line-height: 1.4;
+  word-break: break-word;
+}
+
+.auction-chat-form {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.auction-chat-form input {
+  width: 100%;
+  min-height: 38px;
+  border-radius: 11px;
+  border: 1px solid rgba(31, 55, 81, 0.94);
+  background: rgba(10, 18, 29, 0.9);
+  color: var(--text-strong);
+  padding: 9px 11px;
+  font-size: 0.86rem;
+}
+
+.auction-chat-form input:focus-visible {
+  outline: none;
+  border-color: rgba(245, 197, 24, 0.4);
+  box-shadow: 0 0 0 3px rgba(245, 197, 24, 0.16);
+}
+
+.auction-chat-error {
+  margin: 0;
+  color: #ff94a5;
+  font-size: 0.76rem;
+}
+
+.auction-chat-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 38px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(31, 55, 81, 0.94);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0)),
+    rgba(10, 18, 29, 0.96);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.34);
+  color: var(--text-strong);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  user-select: none;
+  touch-action: none;
+  cursor: grab;
+  transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
+}
+
+.auction-chat-trigger small {
+  min-width: 20px;
+  min-height: 20px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(245, 197, 24, 0.18);
+  border: 1px solid rgba(245, 197, 24, 0.4);
+  color: var(--gold);
+  font-size: 0.7rem;
+  line-height: 1;
+}
+
+.auction-chat-trigger:hover,
+.auction-chat-trigger.is-open {
+  transform: translateY(-1px);
+  border-color: rgba(245, 197, 24, 0.44);
+  box-shadow: 0 18px 36px rgba(0, 0, 0, 0.4);
+}
+
+.auction-chat-trigger.is-dragging {
+  cursor: grabbing;
+  transform: none;
+}
+
+.auction-page-mobile .auction-chat-dock {
+  z-index: 130;
+}
+
+.auction-page-mobile .auction-chat-panel {
+  width: min(360px, calc(100vw - 20px));
+  max-height: min(380px, calc(100vh - var(--mobile-auction-nav-h) - var(--mobile-auction-player-h) - 26px));
+}
+
 .auction-feedback-copy {
   color: var(--text-soft);
   font-size: 0.83rem;
