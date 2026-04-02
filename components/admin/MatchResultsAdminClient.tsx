@@ -19,6 +19,9 @@ type ParseResponse = {
   diagnostics?: ParseAttemptDiagnostic[]
 }
 
+const ADMIN_VISIBLE_MATCH_STATUSES = ['live', 'completed', 'abandoned', 'cancelled'] as const
+const ADMIN_VISIBLE_MATCH_STATUS_SET = new Set<Match['status']>(ADMIN_VISIBLE_MATCH_STATUSES)
+
 function createEmptyRow(teamCode = ''): ParsedMatchStatRow {
   return {
     source_player_name: '',
@@ -42,6 +45,14 @@ function createEmptyRow(teamCode = ''): ParsedMatchStatRow {
     run_outs: 0,
     row_status: 'needs_review'
   }
+}
+
+function startOfLocalDay(value: Date) {
+  return new Date(value.getFullYear(), value.getMonth(), value.getDate())
+}
+
+function isSameLocalDay(date: Date, dayStart: Date, nextDayStart: Date) {
+  return date >= dayStart && date < nextDayStart
 }
 
 export function MatchResultsAdminClient() {
@@ -90,10 +101,14 @@ export function MatchResultsAdminClient() {
   useEffect(() => {
     let active = true
 
+    const todayStart = startOfLocalDay(new Date())
+    const tomorrowStart = new Date(todayStart)
+    tomorrowStart.setDate(tomorrowStart.getDate() + 1)
+
     void supabaseClient
       .from('matches')
       .select('id, season, match_slug, team_a_code, team_b_code, team_a_name, team_b_name, match_date, venue, status, external_match_id, auction_enabled, last_scorecard_upload_at')
-      .in('status', ['live', 'completed', 'abandoned', 'cancelled'])
+      .in('status', [...ADMIN_VISIBLE_MATCH_STATUSES, 'upcoming'])
       .order('match_date', { ascending: false })
       .then(({ data, error }) => {
         if (!active) return
@@ -102,7 +117,38 @@ export function MatchResultsAdminClient() {
           setMessage(error.message)
           return
         }
-        const nextMatches = (data as Match[] | null) ?? []
+        const nextMatches = ((data as Match[] | null) ?? [])
+          .filter((match) => {
+            if (ADMIN_VISIBLE_MATCH_STATUS_SET.has(match.status)) {
+              return true
+            }
+
+            if (match.status !== 'upcoming') {
+              return false
+            }
+
+            return isSameLocalDay(new Date(match.match_date), todayStart, tomorrowStart)
+          })
+          .sort((left, right) => {
+            const leftDate = new Date(left.match_date)
+            const rightDate = new Date(right.match_date)
+            const leftIsTodayUpcoming = left.status === 'upcoming' && isSameLocalDay(leftDate, todayStart, tomorrowStart)
+            const rightIsTodayUpcoming = right.status === 'upcoming' && isSameLocalDay(rightDate, todayStart, tomorrowStart)
+
+            if (leftIsTodayUpcoming && rightIsTodayUpcoming) {
+              return leftDate.getTime() - rightDate.getTime()
+            }
+
+            if (leftIsTodayUpcoming) {
+              return -1
+            }
+
+            if (rightIsTodayUpcoming) {
+              return 1
+            }
+
+            return rightDate.getTime() - leftDate.getTime()
+          })
         setMatches(nextMatches)
         setSelectedMatchId(nextMatches[0]?.id ?? '')
       })
