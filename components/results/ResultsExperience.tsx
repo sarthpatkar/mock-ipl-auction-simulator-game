@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import { RoomResultsBoard } from '@/components/results/RoomResultsBoard'
 import { AwardShareCard, ComparisonShareCard, SpotlightShareCard, TeamShareCard } from '@/components/results/ResultsShareCards'
 import { useShareCard } from '@/hooks/useShareCard'
+import { formatPrice, getTeamThemeClass, getTeamThemeStyle } from '@/lib/auction-helpers'
 import { buildResultsTeams, buildTeamComparison, deriveAwardBadges, derivePurchaseSpotlights, getInviteText, PurchaseSpotlightModel, ResultsDerivedTeam, TeamComparisonModel } from '@/lib/results-virality'
 import { renderAwardShareCardBlob, renderComparisonShareCardBlob, renderSpotlightShareCardBlob, renderTeamShareCardBlob } from '@/lib/results-share-export'
 import { Player, Room, RoomParticipant, SquadPlayer, TeamResult } from '@/types'
@@ -24,6 +25,13 @@ type ShareTarget =
   | { kind: 'spotlight'; id: PurchaseSpotlightModel['id'] }
   | { kind: 'comparison' }
 
+const COMPARE_ROLE_META: Array<{ role: Player['role']; shortLabel: string }> = [
+  { role: 'batter', shortLabel: 'BAT' },
+  { role: 'wicketkeeper', shortLabel: 'WK' },
+  { role: 'allrounder', shortLabel: 'AR' },
+  { role: 'bowler', shortLabel: 'BWL' }
+]
+
 function getShareFileName(label: string) {
   return label.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '')
 }
@@ -36,6 +44,90 @@ function getShareDialogTop(anchorTop: number | null) {
   if (typeof window === 'undefined') return 32
   if (anchorTop == null) return 32
   return Math.min(Math.max(16, anchorTop - 16), Math.max(32, window.innerHeight - 180))
+}
+
+function formatRoleLabel(role: Player['role']) {
+  if (role === 'wicketkeeper') return 'Wicketkeeper'
+  if (role === 'allrounder') return 'All-Rounder'
+  if (role === 'bowler') return 'Bowler'
+  return 'Batter'
+}
+
+function formatPlayerRating(score: number | null | undefined) {
+  if (score == null || Number.isNaN(score)) return '--'
+  return score.toFixed(0)
+}
+
+function buildRoleCounts(team: ResultsDerivedTeam) {
+  return team.squad.reduce<Record<Player['role'], number>>(
+    (acc, player) => {
+      acc[player.role] += 1
+      return acc
+    },
+    {
+      batter: 0,
+      wicketkeeper: 0,
+      allrounder: 0,
+      bowler: 0
+    }
+  )
+}
+
+function ComparisonSquadPanel({ team, side }: { team: ResultsDerivedTeam; side: 'left' | 'right' }) {
+  const roleCounts = buildRoleCounts(team)
+  const headliner = team.squad[0] ?? null
+  const visibleSquad = team.squad.slice(0, 8)
+  const hiddenCount = Math.max(0, team.squad.length - visibleSquad.length)
+
+  return (
+    <aside
+      className={`results-compare-squad team-theme ${getTeamThemeClass(team.participant?.team_name)} is-${side}`}
+      style={getTeamThemeStyle(team.participant?.team_name)}
+    >
+      <div className="results-compare-squad-head">
+        <strong>{getTeamLabel(team)}</strong>
+        <span>{team.participant?.profiles?.username || 'Franchise Owner'}</span>
+      </div>
+
+      <div className="results-compare-squad-meta">
+        <span>Rank #{team.result.rank}</span>
+        <span>{team.squad.length} players</span>
+      </div>
+
+      <div className="results-compare-rolechips">
+        {COMPARE_ROLE_META.map(({ role, shortLabel }) => (
+          <div key={role} className="results-compare-rolechip">
+            <span>{shortLabel}</span>
+            <strong>{roleCounts[role]}</strong>
+          </div>
+        ))}
+      </div>
+
+      {headliner && (
+        <div className="results-compare-headliner">
+          <span>Headliner</span>
+          <strong>{headliner.name}</strong>
+          <small>
+            {formatRoleLabel(headliner.role)} | Rating {formatPlayerRating(headliner.performance_score)}
+          </small>
+        </div>
+      )}
+
+      <div className="results-compare-squad-list">
+        {visibleSquad.map((player) => (
+          <div key={player.id} className="results-compare-squad-item">
+            <div>
+              <strong>{player.name}</strong>
+              <span>{formatRoleLabel(player.role)}</span>
+            </div>
+            <em>{formatPlayerRating(player.performance_score)}</em>
+          </div>
+        ))}
+        {visibleSquad.length === 0 && <div className="results-compare-more">No squad players found.</div>}
+        {hiddenCount > 0 && <div className="results-compare-more">+{hiddenCount} more players</div>}
+      </div>
+    </aside>
+  )
 }
 
 function ResultsShareButton({ onClick }: { onClick: (event: MouseEvent<HTMLButtonElement>) => void }) {
@@ -136,6 +228,20 @@ export function ResultsExperience({ room, participants, results, squads, players
     if (!left || !right || left.result.user_id === right.result.user_id) return null
     return buildTeamComparison(left, right)
   }, [leftUserId, rightUserId, teamsByUserId])
+
+  const comparisonSquadInsights = useMemo(() => {
+    if (!comparison) return null
+    const leftIds = new Set(comparison.left.squad.map((player) => player.id))
+    const rightIds = new Set(comparison.right.squad.map((player) => player.id))
+    const sharedPlayers = comparison.left.squad.filter((player) => rightIds.has(player.id))
+    const leftUnique = comparison.left.squad.filter((player) => !rightIds.has(player.id)).length
+    const rightUnique = comparison.right.squad.filter((player) => !leftIds.has(player.id)).length
+    return {
+      sharedPlayers,
+      leftUnique,
+      rightUnique
+    }
+  }, [comparison])
 
   const selectedAward = useMemo(
     () => (shareTarget?.kind === 'award' ? awards.find((award) => award.id === shareTarget.id) : undefined),
@@ -411,14 +517,64 @@ export function ResultsExperience({ room, participants, results, squads, players
                 </div>
               </div>
 
-              <div className="results-compare-metrics">
-                {comparison.metrics.map((metric) => (
-                  <div key={metric.id} className="results-compare-metric-row">
-                    <strong className={metric.winner === 'left' ? 'is-winning' : ''}>{metric.leftValue}</strong>
-                    <span>{metric.label}</span>
-                    <strong className={metric.winner === 'right' ? 'is-winning' : ''}>{metric.rightValue}</strong>
+              <div className="results-compare-arena">
+                <ComparisonSquadPanel team={comparison.left} side="left" />
+
+                <div className="results-compare-metrics-shell">
+                  <div className="results-compare-metrics">
+                    {comparison.metrics.map((metric) => (
+                      <div key={metric.id} className="results-compare-metric-row">
+                        <strong className={metric.winner === 'left' ? 'is-winning' : ''}>{metric.leftValue}</strong>
+                        <span>{metric.label}</span>
+                        <strong className={metric.winner === 'right' ? 'is-winning' : ''}>{metric.rightValue}</strong>
+                      </div>
+                    ))}
                   </div>
-                ))}
+
+                  <div className="results-compare-shared-core">
+                    <div className="results-compare-shared-head">
+                      <strong>Squad Overlap</strong>
+                      <span>{comparisonSquadInsights?.sharedPlayers.length ?? 0} shared picks</span>
+                    </div>
+                    <div className="results-compare-shared-pills">
+                      {(comparisonSquadInsights?.sharedPlayers.slice(0, 6) ?? []).map((player) => (
+                        <span key={player.id} className="results-compare-shared-pill">
+                          {player.name}
+                        </span>
+                      ))}
+                      {(comparisonSquadInsights?.sharedPlayers.length ?? 0) === 0 && <span className="results-compare-shared-empty">No overlapping players.</span>}
+                    </div>
+                    <div className="results-compare-unique-row">
+                      <span>{getTeamLabel(comparison.left)} unique: {comparisonSquadInsights?.leftUnique ?? 0}</span>
+                      <span>{getTeamLabel(comparison.right)} unique: {comparisonSquadInsights?.rightUnique ?? 0}</span>
+                    </div>
+                  </div>
+
+                  <div className="results-compare-purse-grid">
+                    {[
+                      { key: 'left', team: comparison.left },
+                      { key: 'right', team: comparison.right }
+                    ].map(({ key, team }) => {
+                      const spendPercent = room.settings.budget > 0 ? Math.min(100, (team.totalSpend / room.settings.budget) * 100) : 0
+                      return (
+                        <div key={key} className="results-compare-purse-card">
+                          <div className="results-compare-purse-head">
+                            <strong>{getTeamLabel(team)}</strong>
+                            <span>{spendPercent.toFixed(0)}% used</span>
+                          </div>
+                          <div className="results-compare-purse-track">
+                            <div className="results-compare-purse-fill" style={{ width: `${spendPercent}%` }} />
+                          </div>
+                          <small>
+                            Spent {formatPrice(team.totalSpend)} | Left {formatPrice(team.remainingPurse)}
+                          </small>
+                        </div>
+                      )
+                    })}
+                  </div>
+                </div>
+
+                <ComparisonSquadPanel team={comparison.right} side="right" />
               </div>
             </div>
           ) : (
