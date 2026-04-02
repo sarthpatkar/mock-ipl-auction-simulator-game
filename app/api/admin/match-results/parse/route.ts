@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 import { requireServiceRole, getAuthenticatedApiUser, isMatchResultsAdmin } from '@/lib/server-auth'
-import { buildScorecardContentHash, parseScorecardWithFallback } from '@/lib/scorecard-parser'
+import { buildScorecardContentHash, parseScorecardWithFallback, tryImportStructuredScorecardPayload } from '@/lib/scorecard-parser'
 import { Match, Player } from '@/types'
 
 export async function POST(request: Request) {
@@ -46,7 +46,10 @@ export async function POST(request: Request) {
       .limit(1)
       .maybeSingle()
 
-    const parsed = await parseScorecardWithFallback(rawScorecardText, match, ((players as unknown) as Player[] | null) ?? [])
+    const eligiblePlayers = ((players as unknown) as Player[] | null) ?? []
+    const parsed =
+      tryImportStructuredScorecardPayload(rawScorecardText, match, eligiblePlayers) ??
+      (await parseScorecardWithFallback(rawScorecardText, match, eligiblePlayers))
     const contentHash = buildScorecardContentHash(rawScorecardText)
     const scorecardVersion = Number(latestScorecard?.scorecard_version ?? 0) + 1
 

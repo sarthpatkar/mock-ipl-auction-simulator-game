@@ -472,6 +472,13 @@ export default function AuctionPage() {
     () => participants.find((participant) => participant.id === auction?.highest_bidder_id),
     [auction?.highest_bidder_id, participants]
   )
+  const allMatchAuctionSquadsFull = useMemo(() => {
+    if (room?.auction_mode !== MATCH_AUCTION_MODE) return false
+    if (!participants.length) return false
+
+    const squadLimit = room.settings?.squad_size ?? 7
+    return participants.every((participant) => participant.squad_count >= squadLimit)
+  }, [participants, room?.auction_mode, room?.settings?.squad_size])
 
   useEffect(() => {
     if (!bidHistory.length) return
@@ -565,20 +572,22 @@ export default function AuctionPage() {
         }, 2000)
       : null
 
+    const advanceDelayMs = room?.auction_mode === MATCH_AUCTION_MODE && allMatchAuctionSquadsFull ? 0 : alreadySeen ? 0 : 2000
+
     const advanceTimer = setTimeout(async () => {
       if (cancelled) return
       await supabaseClient.rpc('advance_to_next_player', {
         p_auction_session_id: auction.auction_session_id,
         p_admin_user_id: room?.admin_id || user
       })
-    }, alreadySeen ? 0 : 2000)
+    }, advanceDelayMs)
 
     return () => {
       cancelled = true
       clearTimeout(advanceTimer)
       if (hideTimer) clearTimeout(hideTimer)
     }
-  }, [auction?.auction_session_id, resolutionKey, resolutionType, room?.admin_id, user])
+  }, [allMatchAuctionSquadsFull, auction?.auction_session_id, resolutionKey, resolutionType, room?.admin_id, room?.auction_mode, user])
 
   const isAdmin = Boolean(room?.admin_id && user === room.admin_id)
 

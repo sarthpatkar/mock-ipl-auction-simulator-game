@@ -32,9 +32,10 @@ export type ParsedScorecardPayload = {
 }
 
 export type ParseAttemptDiagnostic = {
-  provider: 'groq' | 'openrouter' | 'heuristic'
+  provider: 'groq' | 'openrouter' | 'heuristic' | 'manual_json'
   model: string
   status:
+    | 'manual_json_imported'
     | 'groq_success'
     | 'groq_invalid_json'
     | 'groq_validation_failed'
@@ -98,6 +99,14 @@ function normalizeName(value: string) {
   return value.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim()
 }
 
+function cleanImportedPlayerName(value: string) {
+  return value
+    .replace(/[†‡]/g, ' ')
+    .replace(/\([^)]*\)/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim()
+}
+
 function findPlayerByName(players: Player[], value: string, teamCodes: string[]) {
   const normalized = normalizeName(value)
   return (
@@ -135,6 +144,22 @@ function findPlayerMentionInLine(players: Player[], value: string, teamCodes: st
   }
 
   return bestMatch
+}
+
+function findImportedPlayer(players: Player[], sourceName: string, snapshotName: string, teamCodes: string[]) {
+  const preferredNames = [sourceName, snapshotName]
+    .map((value) => cleanImportedPlayerName(String(value || '')))
+    .filter(Boolean)
+
+  for (const value of preferredNames) {
+    const directMatch = findPlayerByName(players, value, teamCodes)
+    if (directMatch) return directMatch
+
+    const mentionMatch = findPlayerMentionInLine(players, value, teamCodes)
+    if (mentionMatch) return mentionMatch
+  }
+
+  return null
 }
 
 function createBaseParsedRow(player: Player, sourcePlayerName?: string): ParsedMatchStatRow {
@@ -722,6 +747,144 @@ async function tryOpenRouter(prompt: string, deadlineAt: number) {
 
 function stripCodeFences(value: string) {
   return value.replace(/^```json\s*/i, '').replace(/^```\s*/i, '').replace(/\s*```$/, '').trim()
+}
+
+function sanitizePotentialJsonInput(value: string) {
+  return stripCodeFences(value)
+    .replace(/[\u201c\u201d]/g, '"')
+    .replace(/[\u2018\u2019]/g, "'")
+    .replace(/[\u00a0]/g, ' ')
+    .trim()
+}
+
+function normalizeImportedTeamCode(rawTeamCode: unknown, match: Match, mappedPlayer: Player | null) {
+  const teamCode = String(rawTeamCode ?? '').trim()
+  if (mappedPlayer?.team_code) return mappedPlayer.team_code
+  if (teamCode === '{{TEAM_A_CODE}}') return match.team_a_code
+  if (teamCode === '{{TEAM_B_CODE}}') return match.team_b_code
+  return teamCode
+}
+
+function asOptionalImportedNumber(value: unknown) {
+  if (value == null || value === '') return null
+  if (typeof value === 'number') return value
+  if (typeof value === 'string') {
+    const trimmed = value.trim()
+    if (!trimmed) return null
+    const parsed = Number(trimmed)
+    return Number.isFinite(parsed) ? parsed : null
+  }
+  return null
+}
+
+export function tryImportStructuredScorecardPayload(rawText: string, match: Match, players: Player[]) {
+  const trimmed = sanitizePotentialJsonInput(rawText)
+  if (!trimmed.startsWith('{') && !trimmed.startsWith('[')) {
+    return null
+  }
+
+  let parsed: unknown
+  try {
+    parsed = JSON.parse(trimmed)
+  } catch {
+    return null
+  }
+
+  if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) {
+    return null
+  }
+
+  const root = parsed as Record<string, unknown>
+  const importedRows = Array.isArray(root.rows) ? root.rows : null
+  if (!importedRows) {
+    return null
+  }
+
+  const unresolvedInput = Array.isArray(root.unresolved_rows) ? root.unresolved_rows : []
+  const teamCodes = [match.team_a_code, match.team_b_code]
+
+  const normalizedRows = importedRows.map((item) => {
+    const row = (item && typeof item === 'object' && !Array.isArray(item) ? item : {}) as Record<string, unknown>
+    const sourcePlayerName = String(row.source_player_name ?? row.player_name_snapshot ?? '').trim()
+    const snapshotName = String(row.player_name_snapshot ?? sourcePlayerName).trim()
+    const mappedPlayer =
+      typeof row.mapped_player_id === 'string'
+        ? players.find((player) => player.id === row.mapped_player_id) ?? null
+        : findImportedPlayer(players, sourcePlayerName, snapshotName, teamCodes)
+
+    const normalizedRow: ParsedMatchStatRow = {
+      source_player_name: sourcePlayerName,
+      mapped_player_id: mappedPlayer?.id ?? null,
+      player_name_snapshot: snapshotName || mappedPlayer?.name || sourcePlayerName,
+      team_code: normalizeImportedTeamCode(row.team_code, match, mappedPlayer),
+      did_play: typeof row.did_play === 'boolean' ? row.did_play : true,
+      is_playing_xi: typeof row.is_playing_xi === 'boolean' ? row.is_playing_xi : true,
+      is_substitute: typeof row.is_substitute === 'boolean' ? row.is_substitute : false,
+      parse_confidence: asOptionalImportedNumber(row.parse_confidence),
+      runs: Number(asOptionalImportedNumber(row.runs) ?? 0),
+      balls: Number(asOptionalImportedNumber(row.balls) ?? 0),
+      fours: Number(asOptionalImportedNumber(row.fours) ?? 0),
+      sixes: Number(asOptionalImportedNumber(row.sixes) ?? 0),
+      wickets: Number(asOptionalImportedNumber(row.wickets) ?? 0),
+      overs: Number(asOptionalImportedNumber(row.overs) ?? 0),
+      maidens: Number(asOptionalImportedNumber(row.maidens) ?? 0),
+      economy: asOptionalImportedNumber(row.economy),
+      catches: Number(asOptionalImportedNumber(row.catches) ?? 0),
+      stumpings: Number(asOptionalImportedNumber(row.stumpings) ?? 0),
+      run_outs: Number(asOptionalImportedNumber(row.run_outs) ?? 0),
+      row_status:
+        row.row_status === 'ignored' || row.row_status === 'parsed' || row.row_status === 'needs_review'
+          ? row.row_status
+          : mappedPlayer
+            ? 'parsed'
+            : 'needs_review'
+    }
+
+    if (normalizedRow.parse_confidence == null) {
+      normalizedRow.parse_confidence = mappedPlayer ? 0.9 : 0.55
+    }
+
+    if (!mappedPlayer) {
+      normalizedRow.row_status = normalizedRow.row_status === 'ignored' ? 'ignored' : 'needs_review'
+    }
+
+    return normalizedRow
+  })
+
+  const normalizedPayload = validateParsedScorecardPayload(
+    {
+      match_id: match.id,
+      rows: normalizedRows,
+      unresolved_rows: unresolvedInput.map((item) => {
+        if (typeof item === 'string') {
+          return { source_text: item, reason: 'Imported unresolved row' }
+        }
+
+        const unresolved = (item && typeof item === 'object' && !Array.isArray(item) ? item : {}) as Record<string, unknown>
+        return {
+          source_text: String(unresolved.source_text ?? unresolved.source_player_name ?? ''),
+          reason: String(unresolved.reason ?? 'Imported unresolved row')
+        }
+      })
+    },
+    players,
+    match
+  )
+
+  return {
+    provider: 'manual_json' as const,
+    model: 'direct-import',
+    rawAiResponse: null,
+    payload: normalizedPayload,
+    diagnostics: [
+      {
+        provider: 'manual_json' as const,
+        model: 'direct-import',
+        status: 'manual_json_imported' as const,
+        message: `Imported ${normalizedPayload.rows.length} structured rows from pasted JSON`
+      }
+    ]
+  }
 }
 
 function parseAndValidateAiPayload(
