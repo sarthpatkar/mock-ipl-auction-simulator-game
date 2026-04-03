@@ -26,7 +26,7 @@ const SOUND_STORAGE_KEY = 'auction:sound-enabled'
 const HIGH_BID_ALERT_THRESHOLD = 15 * 10_000_000
 const MARQUEE_BID_SONG_THRESHOLD = 25 * 10_000_000
 const CRON_BACKUP_FINALIZE_DELAY_MS = 1200
-const CRON_BACKUP_ADVANCE_DELAY_MS = 1500
+const CRON_BACKUP_ADVANCE_DELAY_MS = 2000
 
 function buildFinalizeIdempotencyKey(auctionSessionId: string, playerId: string, endsAt: string) {
   return `client-finalize:${auctionSessionId}:${playerId}:${new Date(endsAt).getTime()}`
@@ -391,20 +391,8 @@ export default function AuctionPage() {
       return
     }
 
-    const result = data?.result
-    if (isResolvedAuctionResult(result)) {
-      await supabaseClient.rpc('advance_to_next_player', {
-        p_auction_session_id: auction.auction_session_id,
-        p_admin_user_id: room?.admin_id || user,
-        p_idempotency_key: buildAdvanceIdempotencyKey(
-          auction.auction_session_id,
-          `${auction.auction_session_id}:${data.player_id ?? auction.current_player_id}:${result}`
-        )
-      })
-    }
-
     await refetch()
-  }, [auction?.auction_session_id, auction?.current_player_id, auction?.ends_at, auction?.status, me, refetch, room?.admin_id, user])
+  }, [auction?.auction_session_id, auction?.current_player_id, auction?.ends_at, auction?.status, me, refetch])
 
   const handleExpiredAuctionTick = useCallback(async () => {
     if (realtimeFeatureFlags.cronFinalizeAdvance) {
@@ -676,7 +664,7 @@ export default function AuctionPage() {
 
     const timeout = window.setTimeout(() => {
       void recoverTransition()
-    }, 1200)
+    }, expiredAuctionKey ? 1200 : 2200)
 
     const interval = window.setInterval(() => {
       void recoverTransition()
