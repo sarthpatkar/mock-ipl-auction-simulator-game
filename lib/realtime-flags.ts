@@ -44,10 +44,10 @@ function stableRoomHash(value: string) {
 }
 
 export const realtimeFeatureFlags = {
-  newRoomStore: readBooleanFlag('NEXT_PUBLIC_FLAG_NEW_ROOM_STORE', true),
+  newRoomStore: readBooleanFlag('NEXT_PUBLIC_FLAG_NEW_ROOM_STORE', false),
   replayRecovery: readBooleanFlag('NEXT_PUBLIC_FLAG_REPLAY_RECOVERY', true),
   cronFinalizeAdvance: readBooleanFlag('NEXT_PUBLIC_FLAG_CRON_FINALIZE_ADVANCE', true),
-  roomBroadcastChannel: readBooleanFlag('NEXT_PUBLIC_FLAG_ROOM_BROADCAST_CHANNEL', true),
+  roomBroadcastChannel: readBooleanFlag('NEXT_PUBLIC_FLAG_ROOM_BROADCAST_CHANNEL', false),
   roomCacheLayer: readBooleanFlag('NEXT_PUBLIC_FLAG_ROOM_CACHE_LAYER', true),
   rolloutStrategy: readStringFlag('NEXT_PUBLIC_REALTIME_ROLLOUT_STRATEGY', 'all'),
   internalRoomIds: readCsvFlag('NEXT_PUBLIC_REALTIME_INTERNAL_ROOM_IDS'),

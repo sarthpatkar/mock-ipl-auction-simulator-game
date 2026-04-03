@@ -240,10 +240,17 @@ class RoomRuntimeStore {
     } else {
       channel = channel
         .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'rooms', filter: `id=eq.${this.roomId}` }, (payload) => {
+          const nextRoom = payload.new as Room & { state_version?: number }
+          const nextStateVersion = Number(nextRoom?.state_version ?? 0)
+
           this.setState((current) => ({
             ...current,
-            room: { ...(current.room ?? {}), ...(payload.new as Room) } as Room
+            room: { ...(current.room ?? {}), ...nextRoom } as Room
           }))
+
+          if (nextStateVersion > this.state.stateVersion) {
+            void this.recover()
+          }
         })
         .on('postgres_changes', { event: '*', schema: 'public', table: 'room_participants', filter: `room_id=eq.${this.roomId}` }, async (payload) => {
           if (payload.eventType === 'DELETE') {
@@ -442,7 +449,12 @@ class RoomRuntimeStore {
   }
 
   private async recover() {
-    if (!realtimeFeatureFlags.replayRecovery || this.state.stateVersion <= 0) return
+    if (!realtimeFeatureFlags.replayRecovery || this.state.stateVersion <= 0) {
+      if (this.channelTransport === 'postgres') {
+        await this.hydrate('recover')
+      }
+      return
+    }
 
     const startedAt = typeof performance !== 'undefined' ? performance.now() : Date.now()
 

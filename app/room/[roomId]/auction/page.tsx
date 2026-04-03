@@ -5,7 +5,6 @@ import { useParams, useRouter } from 'next/navigation'
 import { useAuction } from '@/hooks/useAuction'
 import { useTimer } from '@/hooks/useTimer'
 import { AUCTION_PLAYER_COLUMNS, fetchPlayerCatalog, fetchPlayersByTeamCodes } from '@/lib/player-catalog'
-import { createIdempotencyKey } from '@/lib/idempotency'
 import { LEGENDS_AUCTION_MODE, LEGENDS_PLAYER_POOL, MATCH_AUCTION_MODE, SEASON_PLAYER_POOL } from '@/lib/match-auction'
 import { realtimeFeatureFlags } from '@/lib/realtime-flags'
 import { getBrowserSessionUser, supabaseClient } from '@/lib/supabase'
@@ -26,6 +25,16 @@ import { formatAuctionStatus, formatPrice, formatRolePlural, getTeamThemeStyle }
 const SOUND_STORAGE_KEY = 'auction:sound-enabled'
 const HIGH_BID_ALERT_THRESHOLD = 15 * 10_000_000
 const MARQUEE_BID_SONG_THRESHOLD = 25 * 10_000_000
+const CRON_BACKUP_FINALIZE_DELAY_MS = 1200
+const CRON_BACKUP_ADVANCE_DELAY_MS = 1500
+
+function buildFinalizeIdempotencyKey(auctionSessionId: string, playerId: string, endsAt: string) {
+  return `client-finalize:${auctionSessionId}:${playerId}:${new Date(endsAt).getTime()}`
+}
+
+function buildAdvanceIdempotencyKey(auctionSessionId: string, resolutionKey: string) {
+  return `client-advance:${auctionSessionId}:${resolutionKey}`
+}
 
 function playTone(enabled: boolean, frequency: number, duration: number, type: OscillatorType) {
   if (!enabled || typeof window === 'undefined' || !('AudioContext' in window)) return
@@ -359,20 +368,33 @@ export default function AuctionPage() {
   }, [auction])
 
   const finalizeExpiredPlayer = useCallback(async () => {
-    if (realtimeFeatureFlags.cronFinalizeAdvance) return
-    if (auction?.status === 'live' && me && auction?.auction_session_id) {
+    if (auction?.status === 'live' && me && auction?.auction_session_id && auction.current_player_id && auction.ends_at) {
       await supabaseClient.rpc('finalize_player', {
         p_auction_session_id: auction.auction_session_id,
-        p_idempotency_key: createIdempotencyKey('client-finalize', auction.auction_session_id)
+        p_idempotency_key: buildFinalizeIdempotencyKey(auction.auction_session_id, auction.current_player_id, auction.ends_at)
       })
     }
-  }, [auction?.auction_session_id, auction?.status, me])
+  }, [auction?.auction_session_id, auction?.current_player_id, auction?.ends_at, auction?.status, me])
 
   const handleExpiredAuctionTick = useCallback(async () => {
+    if (realtimeFeatureFlags.cronFinalizeAdvance) {
+      window.setTimeout(() => {
+        void finalizeExpiredPlayer()
+      }, CRON_BACKUP_FINALIZE_DELAY_MS)
+      return
+    }
+
     await finalizeExpiredPlayer()
   }, [finalizeExpiredPlayer])
 
   const { remaining, isDanger } = useTimer(isMobile ? null : auction?.ends_at ?? null, async () => {
+    if (realtimeFeatureFlags.cronFinalizeAdvance) {
+      window.setTimeout(() => {
+        void finalizeExpiredPlayer()
+      }, CRON_BACKUP_FINALIZE_DELAY_MS)
+      return
+    }
+
     await finalizeExpiredPlayer()
   })
 
@@ -567,20 +589,22 @@ export default function AuctionPage() {
         }, 2000)
       : null
 
-    const advanceDelayMs =
-      room?.auction_mode === MATCH_AUCTION_MODE && allMatchAuctionSquadsFull ? 0 : alreadySeen ? 0 : 2000
+    const advanceDelayMs = realtimeFeatureFlags.cronFinalizeAdvance
+      ? CRON_BACKUP_ADVANCE_DELAY_MS
+      : room?.auction_mode === MATCH_AUCTION_MODE && allMatchAuctionSquadsFull
+        ? 0
+        : alreadySeen
+          ? 0
+          : 2000
 
-    const advanceTimer =
-      realtimeFeatureFlags.cronFinalizeAdvance
-        ? null
-        : setTimeout(async () => {
-            if (cancelled) return
-            await supabaseClient.rpc('advance_to_next_player', {
-              p_auction_session_id: auction.auction_session_id,
-              p_admin_user_id: room?.admin_id || user,
-              p_idempotency_key: createIdempotencyKey('client-advance', auction.auction_session_id)
-            })
-          }, advanceDelayMs)
+    const advanceTimer = setTimeout(async () => {
+      if (cancelled) return
+      await supabaseClient.rpc('advance_to_next_player', {
+        p_auction_session_id: auction.auction_session_id,
+        p_admin_user_id: room?.admin_id || user,
+        p_idempotency_key: buildAdvanceIdempotencyKey(auction.auction_session_id, resolutionKey)
+      })
+    }, advanceDelayMs)
 
     return () => {
       cancelled = true
