@@ -66,9 +66,9 @@ export function BidActions({
     if (isPaused) return 'The auction is paused right now.'
     if (isExpired) return 'Time is up. Waiting for the result.'
     if (isHighestBidder) return 'You already have the top bid. Waiting for a challenger.'
+    if (squadCount >= squadLimit) return 'Your squad is full.'
+    if (hasInsufficientBudget) return `You need at least ${formatPrice(minimumRequiredBid)} to place the next valid bid.`
     if (skipped) return 'Pass recorded. You can still re-enter by placing a bid before this player resolves.'
-    if (squadCount >= squadLimit) return 'Your squad limit is full.'
-    if (hasInsufficientBudget) return `Viewer only · minimum required bid is ${formatPrice(minimumRequiredBid)}.`
     return 'Place a bid or skip this player.'
   }, [hasInsufficientBudget, isExpired, isHighestBidder, isPaused, minimumRequiredBid, skipped, squadCount, squadLimit])
 
@@ -136,11 +136,11 @@ export function BidActions({
           <div className="text-sm text-muted">
             {isHighestBidder
               ? 'You lead this player right now. Wait for another franchise to bid or for the timer to expire.'
-              : skipped
-                ? `Pass recorded · ${skipCount}/${activeCount} franchises skipped. You can still place a bid.`
-                : squadCount >= squadLimit
-                  ? 'Your squad is full. You stay connected as a viewer for this player.'
-                  : `Minimum required bid is ${formatPrice(minimumRequiredBid)}. You stay connected as a viewer for this player.`}
+              : squadCount >= squadLimit
+                ? 'Your squad is full. You stay connected as a viewer for this player.'
+                : hasInsufficientBudget
+                  ? `You need at least ${formatPrice(minimumRequiredBid)} to place the next valid bid. You stay connected as a viewer for this player.`
+                  : `Pass recorded · ${skipCount}/${activeCount} franchises skipped. You can still place a bid.`}
           </div>
         ) : (
           <>
