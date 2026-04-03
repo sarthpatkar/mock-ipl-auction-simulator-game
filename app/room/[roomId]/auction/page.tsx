@@ -607,13 +607,11 @@ export default function AuctionPage() {
         }, 2000)
       : null
 
-    const advanceDelayMs = realtimeFeatureFlags.cronFinalizeAdvance
-      ? CRON_BACKUP_ADVANCE_DELAY_MS
-      : room?.auction_mode === MATCH_AUCTION_MODE && allMatchAuctionSquadsFull
-        ? 0
-        : alreadySeen
-          ? 0
-          : 2000
+    const advanceDelayMs = alreadySeen
+      ? 0
+      : realtimeFeatureFlags.cronFinalizeAdvance
+        ? CRON_BACKUP_ADVANCE_DELAY_MS
+        : 2000
 
     const advanceTimer = setTimeout(async () => {
       if (cancelled) return
@@ -630,7 +628,7 @@ export default function AuctionPage() {
       if (advanceTimer) clearTimeout(advanceTimer)
       if (hideTimer) clearTimeout(hideTimer)
     }
-  }, [allMatchAuctionSquadsFull, auction?.auction_session_id, refetch, resolutionKey, resolutionType, room?.admin_id, room?.auction_mode, user])
+  }, [auction?.auction_session_id, refetch, resolutionKey, resolutionType, room?.admin_id, user])
 
   useEffect(() => {
     if (!auction?.auction_session_id || !user) return
