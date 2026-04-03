@@ -28,29 +28,11 @@ export default function AcceleratedRoundPage() {
   const [searchQuery, setSearchQuery] = useState('')
 
   const me = useMemo(() => participants.find((participant) => participant.user_id === userId), [participants, userId])
-  const squadLimit = room?.settings?.squad_size ?? 20
-  const minimumRequiredBudget = useMemo(() => {
-    if (!sourcePlayers.length) return Number.POSITIVE_INFINITY
-    return sourcePlayers.reduce((minimum, player) => Math.min(minimum, Number(player.base_price ?? 0)), Number.POSITIVE_INFINITY)
-  }, [sourcePlayers])
-  const eligibleParticipantIds = useMemo(() => {
-    if (!Number.isFinite(minimumRequiredBudget) || minimumRequiredBudget <= 0) return [] as string[]
-
-    return participants
-      .filter((participant) => participant.squad_count < squadLimit && participant.budget_remaining >= minimumRequiredBudget)
-      .map((participant) => participant.id)
-  }, [minimumRequiredBudget, participants, squadLimit])
-  const eligibleCount = eligibleParticipantIds.length
-  const canSubmitSelection = Boolean(me && eligibleParticipantIds.includes(me.id))
   const submittedCount = useMemo(
-    () =>
-      participants.filter(
-        (participant) =>
-          eligibleParticipantIds.includes(participant.id) && participant.accelerated_round_submitted_at
-      ).length,
-    [eligibleParticipantIds, participants]
+    () => participants.filter((participant) => participant.accelerated_round_submitted_at).length,
+    [participants]
   )
-  const allSubmitted = eligibleCount > 0 && submittedCount === eligibleCount
+  const allSubmitted = participants.length > 0 && submittedCount === participants.length
   const filteredPlayers = useMemo(() => {
     const query = searchQuery.trim().toLowerCase()
     if (!query) return sourcePlayers
@@ -165,12 +147,11 @@ export default function AcceleratedRoundPage() {
   }, [allSubmitted, finalizeSelection])
 
   const togglePlayer = (playerId: string) => {
-    if (!canSubmitSelection) return
     setSelectedIds((prev) => (prev.includes(playerId) ? prev.filter((id) => id !== playerId) : [...prev, playerId]))
   }
 
   const submitSelection = async () => {
-    if (!roomId || !me || !canSubmitSelection) return
+    if (!roomId || !me) return
     setSaving(true)
     setMessage(null)
     const { data, error } = await supabaseClient.rpc('submit_accelerated_selection', {
@@ -198,7 +179,7 @@ export default function AcceleratedRoundPage() {
         showThemeToggle={false}
         actions={
           <>
-            <div className="badge badge-gold">{submittedCount}/{eligibleCount || 0} submitted</div>
+            <div className="badge badge-gold">{submittedCount}/{participants.length || 0} submitted</div>
             <div className="badge badge-blue">{remaining}s left</div>
           </>
         }
@@ -263,7 +244,6 @@ export default function AcceleratedRoundPage() {
                     type="button"
                     className={`accelerated-player ${selected ? 'selected' : ''}`}
                     onClick={() => togglePlayer(player.id)}
-                    disabled={!canSubmitSelection}
                   >
                     <div>
                       <div className="font-semibold">{player.name}</div>
@@ -292,35 +272,20 @@ export default function AcceleratedRoundPage() {
                     <div className="text-xs text-muted">{participant.profiles?.username || 'Franchise Owner'}</div>
                   </div>
                   <span
-                    className={`badge ${
-                      !eligibleParticipantIds.includes(participant.id)
-                        ? 'badge-gray'
-                        : participant.accelerated_round_submitted_at
-                          ? 'badge-green'
-                          : 'badge-gray'
-                    }`}
+                    className={`badge ${participant.accelerated_round_submitted_at ? 'badge-green' : 'badge-gray'}`}
                   >
-                    {!eligibleParticipantIds.includes(participant.id)
-                      ? 'Viewer'
-                      : participant.accelerated_round_submitted_at
-                        ? 'Submitted'
-                        : 'Pending'}
+                    {participant.accelerated_round_submitted_at ? 'Submitted' : 'Pending'}
                   </span>
                 </div>
               ))}
             </div>
 
-            <button className="btn btn-primary w-full mt-5" type="button" onClick={submitSelection} disabled={saving || !me || !canSubmitSelection}>
-              {saving ? 'Submitting…' : canSubmitSelection ? 'Confirm Selection' : 'Viewer Only'}
+            <button className="btn btn-primary w-full mt-5" type="button" onClick={submitSelection} disabled={saving || !me}>
+              {saving ? 'Submitting…' : 'Confirm Selection'}
             </button>
             <button className="btn btn-ghost w-full mt-3" type="button" onClick={() => void finalizeSelection()} disabled={finalizing}>
               {finalizing ? 'Finalizing…' : 'Check Round Status'}
             </button>
-            {!canSubmitSelection && me && (
-              <p className="text-sm text-secondary mt-3">
-                You are viewer-only for Accelerated Round because your squad is full or your remaining purse is below the minimum player price in this pool.
-              </p>
-            )}
             {message && <p className="text-sm text-secondary mt-3">{message}</p>}
             {auctionId && <p className="text-xs text-muted mt-4">Auction Session: {auctionId.slice(0, 8)}…</p>}
           </div>

@@ -319,7 +319,6 @@ declare
   v_room public.rooms%rowtype;
   v_auction public.auction_sessions%rowtype;
   v_participant public.room_participants%rowtype;
-  v_eligible_participants uuid[];
 begin
   select * into v_room
   from public.rooms
@@ -358,15 +357,6 @@ begin
 
   if not found or v_participant.user_id != auth.uid() then
     return jsonb_build_object('success', false, 'error', 'Unauthorized participant');
-  end if;
-
-  v_eligible_participants := public.get_globally_eligible_participant_ids(
-    p_room_id,
-    v_auction.accelerated_source_players
-  );
-
-  if not (p_participant_id = any(coalesce(v_eligible_participants, '{}'::uuid[]))) then
-    return jsonb_build_object('success', false, 'error', 'Viewer-only participants cannot submit accelerated selections');
   end if;
 
   delete from public.accelerated_round_selections
@@ -414,7 +404,6 @@ declare
   v_submitted_participants int;
   v_final_pool uuid[];
   v_result jsonb;
-  v_eligible_participants uuid[];
 begin
   select * into v_room
   from public.rooms
@@ -493,58 +482,11 @@ begin
     return jsonb_build_object('success', true, 'result', 'noop', 'status', v_room.status);
   end if;
 
-  v_eligible_participants := public.get_globally_eligible_participant_ids(
-    p_room_id,
-    v_auction.accelerated_source_players
-  );
-
-  if coalesce(array_length(v_eligible_participants, 1), 0) = 0 then
-    update public.auction_sessions
-    set
-      status = 'completed',
-      current_player_id = null,
-      highest_bidder_id = null,
-      current_price = 0,
-      ends_at = null,
-      paused_remaining_ms = null,
-      selection_ends_at = null,
-      accelerated_source_players = '{}',
-      active_bidders = '{}',
-      skipped_bidders = '{}',
-      round_number = 2,
-      round_label = 'Accelerated Round'
-    where id = v_auction.id;
-
-    delete from public.accelerated_round_selections
-    where room_id = p_room_id;
-
-    update public.room_participants
-    set accelerated_round_submitted_at = null
-    where room_id = p_room_id
-      and removed_at is null;
-
-    perform public.complete_room_results_reveal(p_room_id, true);
-    perform public.sync_room_runtime_cache(p_room_id);
-    perform public.append_room_event(
-      p_room_id,
-      'room_completed',
-      jsonb_build_object(
-        'auction', public.capture_auction_state_payload(v_auction.id),
-        'room_status', 'completed'
-      ),
-      'rpc',
-      v_auction.id
-    );
-
-    return jsonb_build_object('success', true, 'result', 'completed');
-  end if;
-
   select count(*), count(accelerated_round_submitted_at)
   into v_total_participants, v_submitted_participants
   from public.room_participants
   where room_id = p_room_id
-    and removed_at is null
-    and id = any(coalesce(v_eligible_participants, '{}'::uuid[]));
+    and removed_at is null;
 
   if coalesce(v_submitted_participants, 0) < coalesce(v_total_participants, 0)
      and coalesce(v_auction.selection_ends_at, now() + interval '1 second') > now() then
