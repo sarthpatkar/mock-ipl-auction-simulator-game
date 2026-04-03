@@ -57,18 +57,20 @@ export function BidActions({
       : auctionMode === MATCH_AUCTION_MODE
         ? [...MATCH_QUICK_BID_INCREMENTS]
         : getBidIncrements(currentPrice)
-  const hasInsufficientBudget = isOpeningBid ? budgetRemaining < currentPrice : budgetRemaining <= currentPrice
+  const minimumRequiredBid = currentPrice + (increments[0]?.amount ?? 0)
+  const hasInsufficientBudget = budgetRemaining < minimumRequiredBid
+  const isViewerOnly = skipped || isHighestBidder || squadCount >= squadLimit || hasInsufficientBudget
 
-  const disabled = isPaused || isExpired || isHighestBidder || squadCount >= squadLimit || hasInsufficientBudget
+  const disabled = isPaused || isExpired || isViewerOnly
   const disabledReason = useMemo(() => {
     if (isPaused) return 'The auction is paused right now.'
     if (isExpired) return 'Time is up. Waiting for the result.'
-    if (isHighestBidder) return 'You already have the top bid.'
+    if (isHighestBidder) return 'You already have the top bid. Waiting for a challenger.'
+    if (skipped) return 'You are waiting on the next valid bid state or the timer.'
     if (squadCount >= squadLimit) return 'Your squad limit is full.'
-    if (hasInsufficientBudget) return isOpeningBid ? 'Available budget is below the current price.' : 'Available budget must exceed the current price.'
-    if (skipped) return `Pass recorded · ${skipCount}/${activeCount} franchises skipped`
+    if (hasInsufficientBudget) return `Viewer only · minimum required bid is ${formatPrice(minimumRequiredBid)}.`
     return 'Place a bid or skip this player.'
-  }, [activeCount, hasInsufficientBudget, isExpired, isHighestBidder, isOpeningBid, isPaused, skipCount, skipped, squadCount, squadLimit])
+  }, [hasInsufficientBudget, isExpired, isHighestBidder, isPaused, minimumRequiredBid, skipped, squadCount, squadLimit])
 
   const placeBid = async (delta: number) => {
     if (disabled) return
@@ -94,6 +96,7 @@ export function BidActions({
   }
 
   const skip = async () => {
+    if (isPaused || isExpired || isViewerOnly || loadingAction !== null) return
     setLoadingAction('skip')
     setMessage(null)
     const { data, error } = await supabaseClient.rpc('skip_player', {
@@ -129,41 +132,55 @@ export function BidActions({
       </div>
 
       <div className="auction-action-body">
-        <div className="auction-bid-buttons">
-          {increments.map((inc, index) => {
-            const target = currentPrice + inc.amount
-            const unavailable = disabled || budgetRemaining < target || loadingAction !== null
-            const isReactionAnchor = auctionMode === MATCH_AUCTION_MODE && index === increments.length - 1
+        {isViewerOnly ? (
+          <div className="text-sm text-muted">
+            {isHighestBidder
+              ? 'You lead this player right now. Wait for another franchise to bid or for the timer to expire.'
+              : skipped
+                ? `Pass recorded · ${skipCount}/${activeCount} franchises skipped`
+                : squadCount >= squadLimit
+                  ? 'Your squad is full. You stay connected as a viewer for this player.'
+                  : `Minimum required bid is ${formatPrice(minimumRequiredBid)}. You stay connected as a viewer for this player.`}
+          </div>
+        ) : (
+          <>
+            <div className="auction-bid-buttons">
+              {increments.map((inc, index) => {
+                const target = currentPrice + inc.amount
+                const unavailable = disabled || budgetRemaining < target || loadingAction !== null
+                const isReactionAnchor = auctionMode === MATCH_AUCTION_MODE && index === increments.length - 1
 
-            return (
+                return (
+                  <button
+                    key={inc.label}
+                    ref={isReactionAnchor ? matchReactionAnchorRef : undefined}
+                    onClick={() => placeBid(inc.amount)}
+                    disabled={unavailable}
+                    className="btn btn-green btn-sm auction-bid-button"
+                  >
+                    <span>{inc.label}</span>
+                    <strong>{formatPrice(target)}</strong>
+                  </button>
+                )
+              })}
+            </div>
+
+            <div ref={skipStackRef} className="auction-skip-stack">
+              <AuctionReactions
+                auctionSessionId={auctionSessionId}
+                anchorRef={auctionMode === MATCH_AUCTION_MODE ? matchReactionAnchorRef : skipStackRef}
+                anchorPlacement={auctionMode === MATCH_AUCTION_MODE ? 'top-right' : 'default'}
+              />
               <button
-                key={inc.label}
-                ref={isReactionAnchor ? matchReactionAnchorRef : undefined}
-                onClick={() => placeBid(inc.amount)}
-                disabled={unavailable}
-                className="btn btn-green btn-sm auction-bid-button"
+                onClick={skip}
+                disabled={loadingAction !== null || isPaused || isExpired || isViewerOnly}
+                className="btn btn-danger btn-sm auction-skip-button"
               >
-                <span>{inc.label}</span>
-                <strong>{formatPrice(target)}</strong>
+                {loadingAction === 'skip' ? 'Submitting…' : 'Skip'}
               </button>
-            )
-          })}
-        </div>
-
-        <div ref={skipStackRef} className="auction-skip-stack">
-          <AuctionReactions
-            auctionSessionId={auctionSessionId}
-            anchorRef={auctionMode === MATCH_AUCTION_MODE ? matchReactionAnchorRef : skipStackRef}
-            anchorPlacement={auctionMode === MATCH_AUCTION_MODE ? 'top-right' : 'default'}
-          />
-          <button
-            onClick={skip}
-            disabled={loadingAction !== null || skipped || isPaused || isExpired || isHighestBidder}
-            className="btn btn-danger btn-sm auction-skip-button"
-          >
-            {loadingAction === 'skip' ? 'Submitting…' : skipped ? `${skipCount}/${activeCount} skipped` : 'Skip'}
-          </button>
-        </div>
+            </div>
+          </>
+        )}
       </div>
       {message && <p className={`auction-feedback-copy ${message ? `is-${message.tone}` : ''}`}>{message.text}</p>}
     </section>
