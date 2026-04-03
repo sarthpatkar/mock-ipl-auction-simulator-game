@@ -185,6 +185,7 @@ export default function AuctionPage() {
   const screenLoading = authLoading || playersLoading || (auctionLoading && !auction)
   const screenError = playersError || auctionError
   const hasCriticalState = Boolean(screenError)
+  const showLiveIssueBanner = Boolean(screenError)
   const me = useMemo(() => participants.find((participant) => participant.user_id === user), [participants, user])
   const roomAuctionMode = room?.auction_mode
   const roomMatchId = room?.match_id
@@ -744,7 +745,7 @@ export default function AuctionPage() {
                 </>
               ) : (
                 <>
-                  {(screenError || connectionState !== 'live' || isStale) && (
+                  {showLiveIssueBanner && (
                     <div className={`card live-banner auction-live-banner auction-live-banner-primary ${hasCriticalState ? 'is-error' : connectionState === 'offline' ? 'is-danger' : 'is-warning'}`}>
                       <div>
                         <span className="status-label">{hasCriticalState ? 'Live Update Issue' : connectionState === 'offline' ? 'Connection lost' : 'Updating Board'}</span>
@@ -766,7 +767,7 @@ export default function AuctionPage() {
                   <div className="auction-tablet-player">
                     <PlayerCard player={currentPlayer} />
                   </div>
-                  {(screenError || connectionState !== 'live' || isStale) && (
+                  {showLiveIssueBanner && (
                     <div className={`card live-banner auction-live-banner auction-live-banner-tablet ${hasCriticalState ? 'is-error' : connectionState === 'offline' ? 'is-danger' : 'is-warning'}`}>
                       <div>
                         <span className="status-label">{hasCriticalState ? 'Live Update Issue' : connectionState === 'offline' ? 'Connection lost' : 'Updating Board'}</span>

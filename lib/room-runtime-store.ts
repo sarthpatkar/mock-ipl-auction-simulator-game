@@ -138,6 +138,7 @@ class RoomRuntimeStore {
   private connectionId: string
   private currentUserId: string | null = null
   private currentParticipantId: string | null = null
+  private channelTransport: 'broadcast' | 'postgres' = realtimeFeatureFlags.roomBroadcastChannel ? 'broadcast' : 'postgres'
   private reconnectCount = 0
   private replayGapCount = 0
   private duplicateEventCount = 0
@@ -220,16 +221,17 @@ class RoomRuntimeStore {
     if (!this.roomId || this.channel) return
 
     this.setState((current) => ({ ...current, connectionState: 'connecting' }))
+    const useBroadcastChannel = this.channelTransport === 'broadcast'
     let channel = supabaseClient.channel(`room:${this.roomId}`, {
       config: {
-        private: realtimeFeatureFlags.roomBroadcastChannel,
+        private: useBroadcastChannel,
         presence: {
           key: this.connectionId
         }
       }
     })
 
-    if (realtimeFeatureFlags.roomBroadcastChannel) {
+    if (useBroadcastChannel) {
       channel = channel.on('broadcast', { event: 'room_event' }, ({ payload }) => {
         const event = normalizeEventEnvelope(payload)
         if (!event) return
@@ -308,9 +310,14 @@ class RoomRuntimeStore {
             error: null,
             isStale: false
           }))
-          await this.sendPresence()
-          await this.recover()
+          void this.sendPresence()
+          void this.recover()
           this.startPresenceHeartbeat()
+          return
+        }
+
+        if (useBroadcastChannel && (status === 'CHANNEL_ERROR' || status === 'TIMED_OUT' || status === 'CLOSED')) {
+          void this.switchToPostgresChannel()
           return
         }
 
@@ -325,6 +332,25 @@ class RoomRuntimeStore {
           this.scheduleReconnect()
         }
       })
+  }
+
+  private async switchToPostgresChannel() {
+    if (!this.started || this.channelTransport === 'postgres') return
+
+    this.channelTransport = 'postgres'
+
+    if (this.channel) {
+      await supabaseClient.removeChannel(this.channel)
+      this.channel = null
+    }
+
+    this.setState((current) => ({
+      ...current,
+      connectionState: 'connecting',
+      error: null
+    }))
+
+    this.connectChannel()
   }
 
   private scheduleReconnect() {
@@ -589,21 +615,29 @@ class RoomRuntimeStore {
   private async sendPresence() {
     if (!this.currentParticipantId) return
 
-    await supabaseClient.rpc('upsert_room_participant_presence', {
-      p_room_id: this.roomId,
-      p_participant_id: this.currentParticipantId,
-      p_connection_id: this.connectionId,
-      p_status: 'connected',
-      p_reconnect_count: this.reconnectCount
-    })
+    try {
+      await supabaseClient.rpc('upsert_room_participant_presence', {
+        p_room_id: this.roomId,
+        p_participant_id: this.currentParticipantId,
+        p_connection_id: this.connectionId,
+        p_status: 'connected',
+        p_reconnect_count: this.reconnectCount
+      })
+    } catch {
+      return
+    }
 
-    if (this.channel) {
+    if (!this.channel) return
+
+    try {
       await this.channel.track({
         participant_id: this.currentParticipantId,
         connection_id: this.connectionId,
         reconnect_count: this.reconnectCount,
         last_seen_at: new Date().toISOString()
       })
+    } catch {
+      // Presence tracking is supplementary to the RPC-backed heartbeat and should not break the live board.
     }
   }
 

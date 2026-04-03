@@ -369,27 +369,6 @@ function getMobileLiveMessage(
   isStale: boolean
 ) {
   if (screenError) return { tone: 'is-error', title: 'Live Update Issue', copy: screenError }
-  if (connectionState === 'offline') {
-    return {
-      tone: 'is-danger',
-      title: 'Connection lost',
-      copy: 'The live board lost connection. Reconnect and refresh to catch up.'
-    }
-  }
-  if (connectionState === 'degraded') {
-    return {
-      tone: 'is-warning',
-      title: 'Updating Board',
-      copy: 'Updates are taking a little longer than usual. Fresh activity will appear shortly.'
-    }
-  }
-  if (isStale) {
-    return {
-      tone: 'is-warning',
-      title: 'Updating Board',
-      copy: 'Refreshing the latest auction activity.'
-    }
-  }
   return null
 }
 
