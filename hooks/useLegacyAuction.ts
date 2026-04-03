@@ -287,6 +287,7 @@ export function useLegacyAuction(roomId: string | null, options: UseLegacyAuctio
           setConnectionState('degraded')
           setError((value) => value ?? 'Realtime subscription failed. Check that required tables are enabled for Supabase Realtime.')
           priorConnectionRef.current = 'degraded'
+          void hydrate()
           return
         }
 
@@ -294,6 +295,7 @@ export function useLegacyAuction(roomId: string | null, options: UseLegacyAuctio
           setConnectionState('offline')
           setError((value) => value ?? 'Realtime connection lost. Reconnecting…')
           priorConnectionRef.current = 'offline'
+          void hydrate()
         }
       })
 
@@ -301,6 +303,19 @@ export function useLegacyAuction(roomId: string | null, options: UseLegacyAuctio
       void supabaseClient.removeChannel(channel)
     }
   }, [auction?.auction_session_id, enabled, fetchParticipantSnapshot, hydrate, roomId])
+
+  useEffect(() => {
+    if (!enabled || !roomId) return
+    if (connectionState === 'live') return
+
+    const interval = window.setInterval(() => {
+      void hydrate()
+    }, 1500)
+
+    return () => {
+      window.clearInterval(interval)
+    }
+  }, [connectionState, enabled, hydrate, roomId])
 
   return {
     room,

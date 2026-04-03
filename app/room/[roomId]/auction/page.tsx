@@ -36,6 +36,10 @@ function buildAdvanceIdempotencyKey(auctionSessionId: string, resolutionKey: str
   return `client-advance:${auctionSessionId}:${resolutionKey}`
 }
 
+function isResolvedAuctionResult(value: unknown): value is 'sold' | 'unsold' {
+  return value === 'sold' || value === 'unsold'
+}
+
 function playTone(enabled: boolean, frequency: number, duration: number, type: OscillatorType) {
   if (!enabled || typeof window === 'undefined' || !('AudioContext' in window)) return
 
@@ -368,13 +372,35 @@ export default function AuctionPage() {
   }, [auction])
 
   const finalizeExpiredPlayer = useCallback(async () => {
-    if (auction?.status === 'live' && me && auction?.auction_session_id && auction.current_player_id && auction.ends_at) {
-      await supabaseClient.rpc('finalize_player', {
+    if (!(auction?.status === 'live' && me && auction.auction_session_id && auction.current_player_id && auction.ends_at)) {
+      return
+    }
+
+    const finalizeKey = buildFinalizeIdempotencyKey(auction.auction_session_id, auction.current_player_id, auction.ends_at)
+    const { data, error } = await supabaseClient.rpc('finalize_player', {
+      p_auction_session_id: auction.auction_session_id,
+      p_idempotency_key: finalizeKey
+    })
+
+    if (error) {
+      await refetch()
+      return
+    }
+
+    const result = data?.result
+    if (isResolvedAuctionResult(result)) {
+      await supabaseClient.rpc('advance_to_next_player', {
         p_auction_session_id: auction.auction_session_id,
-        p_idempotency_key: buildFinalizeIdempotencyKey(auction.auction_session_id, auction.current_player_id, auction.ends_at)
+        p_admin_user_id: room?.admin_id || user,
+        p_idempotency_key: buildAdvanceIdempotencyKey(
+          auction.auction_session_id,
+          `${auction.auction_session_id}:${data.player_id ?? auction.current_player_id}:${result}`
+        )
       })
     }
-  }, [auction?.auction_session_id, auction?.current_player_id, auction?.ends_at, auction?.status, me])
+
+    await refetch()
+  }, [auction?.auction_session_id, auction?.current_player_id, auction?.ends_at, auction?.status, me, refetch, room?.admin_id, user])
 
   const handleExpiredAuctionTick = useCallback(async () => {
     if (realtimeFeatureFlags.cronFinalizeAdvance) {
