@@ -3,6 +3,7 @@
 import { useMemo, useRef, useState } from 'react'
 import { AuctionReactions } from '@/components/auction/AuctionReactions'
 import { getBidIncrements, formatPrice } from '@/lib/auction-helpers'
+import { createIdempotencyKey } from '@/lib/idempotency'
 import { MATCH_AUCTION_MODE, MATCH_QUICK_BID_INCREMENTS } from '@/lib/match-auction'
 import { supabaseClient } from '@/lib/supabase'
 import { AuctionMode } from '@/types'
@@ -77,7 +78,8 @@ export function BidActions({
     const { data, error } = await supabaseClient.rpc('place_bid', {
       p_auction_session_id: auctionSessionId,
       p_bidder_participant_id: participantId,
-      p_bid_amount: bidAmount
+      p_bid_amount: bidAmount,
+      p_idempotency_key: createIdempotencyKey('bid', auctionSessionId)
     })
 
     if (error) {

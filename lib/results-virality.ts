@@ -1,4 +1,5 @@
 import { formatPrice } from '@/lib/auction-helpers'
+import { APP_NAME } from '@/lib/branding'
 import { Player, RoomParticipant, SquadPlayer, TeamResult, TeamResultBreakdown } from '@/types'
 
 const CR = 10_000_000
@@ -382,5 +383,5 @@ export function buildTeamComparison(left: ResultsDerivedTeam, right: ResultsDeri
 }
 
 export function getInviteText(roomName: string, roomCode: string, appOrigin: string) {
-  return `Think you can build a better team next time?\n\nJoin my T20 Auction Arena room${roomName ? `: ${roomName}` : ''}\nRoom code: ${roomCode}\n${appOrigin}/room/join\n\nUnofficial fan-made simulator. Not affiliated with or endorsed by the BCCI, IPL, or any franchise.`
+  return `Think you can build a better team next time?\n\nJoin my ${APP_NAME} room${roomName ? `: ${roomName}` : ''}\nRoom code: ${roomCode}\n${appOrigin}/room/join\n\nUnofficial fan-made simulator. Not affiliated with or endorsed by the BCCI, IPL, or any franchise.`
 }

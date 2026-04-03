@@ -1,5 +1,6 @@
 import { supabaseClient } from '@/lib/supabase'
 import { Player } from '@/types'
+import { LEGENDS_PLAYER_POOL, SEASON_PLAYER_POOL } from '@/lib/match-auction'
 
 export const AUCTION_PLAYER_COLUMNS = [
   'id',
@@ -47,6 +48,12 @@ export const RESULTS_PLAYER_COLUMNS = [
 
 const playerCatalogCache = new Map<string, Promise<Record<string, Player>> | Record<string, Player>>()
 
+type PlayerPool = typeof SEASON_PLAYER_POOL | typeof LEGENDS_PLAYER_POOL
+
+type PlayerCatalogOptions = {
+  pool?: PlayerPool
+}
+
 function toPlayerMap(players: Player[]) {
   return players.reduce<Record<string, Player>>((acc, player) => {
     acc[player.id] = player
@@ -54,27 +61,29 @@ function toPlayerMap(players: Player[]) {
   }, {})
 }
 
-export async function fetchPlayerCatalog(columns: string) {
-  const cached = playerCatalogCache.get(columns)
+export async function fetchPlayerCatalog(columns: string, options: PlayerCatalogOptions = {}) {
+  const pool = options.pool ?? SEASON_PLAYER_POOL
+  const cacheKey = `${columns}::${pool}`
+  const cached = playerCatalogCache.get(cacheKey)
   if (cached) {
     return await cached
   }
 
   const pending = (async () => {
     try {
-      const { data, error } = await supabaseClient.from('players').select(columns)
+      const { data, error } = await supabaseClient.from('players').select(columns).eq('player_pool', pool)
       if (error) throw error
 
       const map = toPlayerMap(((data as unknown) as Player[] | null) ?? [])
-      playerCatalogCache.set(columns, map)
+      playerCatalogCache.set(cacheKey, map)
       return map
     } catch (error) {
-      playerCatalogCache.delete(columns)
+      playerCatalogCache.delete(cacheKey)
       throw error
     }
   })()
 
-  playerCatalogCache.set(columns, pending)
+  playerCatalogCache.set(cacheKey, pending)
   return await pending
 }
 
@@ -99,10 +108,11 @@ export async function fetchPlayersByIds(ids: string[], columns: string) {
   return toPlayerMap(((data as unknown) as Player[] | null) ?? [])
 }
 
-export async function fetchPlayersByTeamCodes(teamCodes: string[], columns: string) {
+export async function fetchPlayersByTeamCodes(teamCodes: string[], columns: string, options: PlayerCatalogOptions = {}) {
   if (teamCodes.length === 0) return {} as Record<string, Player>
+  const pool = options.pool ?? SEASON_PLAYER_POOL
 
-  const { data, error } = await supabaseClient.from('players').select(columns).in('team_code', teamCodes)
+  const { data, error } = await supabaseClient.from('players').select(columns).eq('player_pool', pool).in('team_code', teamCodes)
   if (error) throw error
 
   return toPlayerMap(((data as unknown) as Player[] | null) ?? [])

@@ -2,6 +2,10 @@ import { supabaseClient } from '@/lib/supabase'
 import { RoomSettings, Room, AuctionMode } from '@/types'
 import {
   FULL_AUCTION_MODE,
+  LEGENDS_AUCTION_MODE,
+  LEGENDS_ROOM_MINIMUM_PARTICIPANTS,
+  LEGENDS_ROOM_PARTICIPANT_LIMIT,
+  LEGENDS_ROOM_SQUAD_SIZE,
   MATCH_AUCTION_MODE,
   MATCH_ROOM_BUDGET_OPTIONS,
   MATCH_ROOM_MINIMUM_SQUAD_SIZE,
@@ -29,6 +33,15 @@ export const MATCH_AUCTION_DEFAULT_SETTINGS: RoomSettings = {
   minimum_squad_size: MATCH_ROOM_MINIMUM_SQUAD_SIZE
 }
 
+export const LEGENDS_AUCTION_DEFAULT_SETTINGS: RoomSettings = {
+  budget: DEFAULT_ROOM_SETTINGS.budget,
+  squad_size: LEGENDS_ROOM_SQUAD_SIZE,
+  timer_seconds: DEFAULT_ROOM_SETTINGS.timer_seconds,
+  player_order: DEFAULT_ROOM_SETTINGS.player_order,
+  min_participants: LEGENDS_ROOM_MINIMUM_PARTICIPANTS,
+  max_participants: LEGENDS_ROOM_PARTICIPANT_LIMIT
+}
+
 type CreateRoomResult = {
   room_id: string
   participant_id: string
@@ -50,7 +63,12 @@ export async function createRoomWithAdmin(
   const auctionMode = isDirectSettings ? FULL_AUCTION_MODE : settingsOrOptions.auctionMode ?? FULL_AUCTION_MODE
   const settings = isDirectSettings
     ? settingsOrOptions
-    : settingsOrOptions.settings ?? (auctionMode === MATCH_AUCTION_MODE ? MATCH_AUCTION_DEFAULT_SETTINGS : DEFAULT_ROOM_SETTINGS)
+    : settingsOrOptions.settings ??
+      (auctionMode === MATCH_AUCTION_MODE
+        ? MATCH_AUCTION_DEFAULT_SETTINGS
+        : auctionMode === LEGENDS_AUCTION_MODE
+          ? LEGENDS_AUCTION_DEFAULT_SETTINGS
+          : DEFAULT_ROOM_SETTINGS)
   const matchId = isDirectSettings ? null : settingsOrOptions.matchId ?? null
 
   const { data, error } = await supabaseClient.rpc('create_room_with_admin', {

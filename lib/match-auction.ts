@@ -2,6 +2,10 @@ import { MatchAuctionResultStatus, MatchPlayerStat, Player, Room, RoomParticipan
 
 export const FULL_AUCTION_MODE = 'full_auction'
 export const MATCH_AUCTION_MODE = 'match_auction'
+export const LEGENDS_AUCTION_MODE = 'legends_auction'
+
+export const SEASON_PLAYER_POOL = 'season'
+export const LEGENDS_PLAYER_POOL = 'legends'
 
 export const MATCH_ROOM_BUDGET_OPTIONS = [500_000_000, 1_000_000_000] as const
 export const MATCH_ROOM_SQUAD_OPTIONS = [7, 8, 9, 10, 11] as const
@@ -10,6 +14,9 @@ export const MATCH_ROOM_PARTICIPANT_LIMIT = 2
 export const MATCH_ROOM_TIMER_SECONDS = 10
 export const MATCH_ROOM_PLAYER_ORDER = 'random'
 export const MATCH_DROPDOWN_CACHE_TTL_MS = 5 * 60 * 1000
+export const LEGENDS_ROOM_SQUAD_SIZE = 11
+export const LEGENDS_ROOM_PARTICIPANT_LIMIT = 10
+export const LEGENDS_ROOM_MINIMUM_PARTICIPANTS = 2
 
 export const MATCH_QUICK_BID_INCREMENTS = [
   { label: '+50 L', amount: 5_000_000 },
@@ -21,9 +28,17 @@ export function isMatchAuctionRoom(room?: Pick<Room, 'auction_mode'> | null) {
   return room?.auction_mode === MATCH_AUCTION_MODE
 }
 
+export function isLegendsAuctionRoom(room?: Pick<Room, 'auction_mode'> | null) {
+  return room?.auction_mode === LEGENDS_AUCTION_MODE
+}
+
 export function getRoomParticipantLimit(room?: Pick<Room, 'settings' | 'auction_mode'> | null) {
   if (isMatchAuctionRoom(room)) {
     return room?.settings.max_participants ?? MATCH_ROOM_PARTICIPANT_LIMIT
+  }
+
+  if (isLegendsAuctionRoom(room)) {
+    return room?.settings.max_participants ?? LEGENDS_ROOM_PARTICIPANT_LIMIT
   }
 
   return room?.settings.max_participants ?? 10
@@ -32,6 +47,10 @@ export function getRoomParticipantLimit(room?: Pick<Room, 'settings' | 'auction_
 export function getRoomMinimumParticipants(room?: Pick<Room, 'settings' | 'auction_mode'> | null) {
   if (isMatchAuctionRoom(room)) {
     return room?.settings.min_participants ?? MATCH_ROOM_PARTICIPANT_LIMIT
+  }
+
+  if (isLegendsAuctionRoom(room)) {
+    return room?.settings.min_participants ?? LEGENDS_ROOM_MINIMUM_PARTICIPANTS
   }
 
   return room?.settings.min_participants ?? 2

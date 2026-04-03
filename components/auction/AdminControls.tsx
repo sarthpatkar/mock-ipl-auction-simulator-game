@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useState } from 'react'
 import { formatAuctionStatus } from '@/lib/auction-helpers'
+import { createIdempotencyKey } from '@/lib/idempotency'
 import { supabaseClient } from '@/lib/supabase'
 
 type Props = {
@@ -83,7 +84,10 @@ export function AdminControls({ auctionSessionId, status, compact = false }: Pro
     setFeedback(null)
 
     try {
-      const { data, error } = await supabaseClient.rpc(rpcName, { p_auction_session_id: auctionSessionId })
+      const { data, error } = await supabaseClient.rpc(rpcName, {
+        p_auction_session_id: auctionSessionId,
+        p_idempotency_key: createIdempotencyKey(rpcName, auctionSessionId)
+      })
       if (error) {
         setFeedback({ tone: 'error', text: error.message })
       } else if (data?.success === false) {

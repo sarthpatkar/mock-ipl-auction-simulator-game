@@ -17,6 +17,11 @@ const OPTIONS: Array<{ mode: AuctionMode; title: string; subtitle: string }> = [
     mode: 'match_auction',
     title: 'Match Auction',
     subtitle: 'Quick head-to-head auction based on a single upcoming match'
+  },
+  {
+    mode: 'legends_auction',
+    title: 'Legends Auction',
+    subtitle: 'Classic full-auction flow using a dedicated IPL legends player pool'
   }
 ]
 

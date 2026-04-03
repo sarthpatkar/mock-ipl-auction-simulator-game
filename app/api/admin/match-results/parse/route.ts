@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server'
+import { SEASON_PLAYER_POOL } from '@/lib/match-auction'
 import { requireServiceRole, getAuthenticatedApiUser, isMatchResultsAdmin } from '@/lib/server-auth'
 import { buildScorecardContentHash, parseScorecardWithFallback, tryImportStructuredScorecardPayload } from '@/lib/scorecard-parser'
 import { Match, Player } from '@/types'
@@ -34,6 +35,7 @@ export async function POST(request: Request) {
     const { data: players, error: playersError } = await service
       .from('players')
       .select('id, name, team_code, role, performance_score, recent_form_score, consistency_score')
+      .eq('player_pool', SEASON_PLAYER_POOL)
       .in('team_code', [match.team_a_code, match.team_b_code])
 
     if (playersError) throw playersError

@@ -22,6 +22,27 @@ function formatTimestamp(value?: string | null) {
   return new Date(value).toLocaleString()
 }
 
+function formatRoleShortLabel(role: Player['role'] | null | undefined) {
+  if (role === 'wicketkeeper') return 'WK'
+  if (role === 'allrounder') return 'AR'
+  if (role === 'bowler') return 'BOWL'
+  if (role === 'batter') return 'BAT'
+  return '—'
+}
+
+function getPlayerTone(player: Player | undefined) {
+  const score = player?.performance_score ?? 0
+  if (score >= 85) return 'star'
+  if (score >= 72) return 'strong'
+  if (score < 60) return 'weak'
+  return 'steady'
+}
+
+function formatPlayerRating(score: number | null | undefined) {
+  if (score == null || Number.isNaN(score)) return '--'
+  return score.toFixed(0).replace(/\.0+$/, '')
+}
+
 export function MatchAuctionResultsExperience({
   room,
   match,
@@ -162,17 +183,32 @@ export function MatchAuctionResultsExperience({
 
                 <div className="card">
                   <span className="status-label">Squad</span>
-                  <div style={{ display: 'grid', gap: 8, marginTop: 12 }}>
+                  <div className="results-player-grid is-compact">
                     {team.squad.length === 0 && <p className="text-secondary text-sm">No players bought.</p>}
-                    {team.squad.map((entry) => (
-                      <div key={entry.id} style={{ display: 'flex', justifyContent: 'space-between', gap: 12 }}>
-                        <div>
-                          <strong>{playersById[entry.player_id]?.name || entry.player_id}</strong>
-                          <p className="text-secondary text-sm">{playersById[entry.player_id]?.role || 'Player'}</p>
-                        </div>
-                        <strong>{formatPrice(entry.price_paid)}</strong>
-                      </div>
-                    ))}
+                    {[...team.squad]
+                      .sort((left, right) => {
+                        const rightScore = playersById[right.player_id]?.performance_score ?? 0
+                        const leftScore = playersById[left.player_id]?.performance_score ?? 0
+                        if (rightScore !== leftScore) return rightScore - leftScore
+                        return right.price_paid - left.price_paid
+                      })
+                      .map((entry) => {
+                        const player = playersById[entry.player_id]
+                        const tone = getPlayerTone(player)
+                        return (
+                          <div key={entry.id} className={`results-player-row is-${tone}`}>
+                            <span className={`results-player-dot is-${tone}`} aria-hidden="true" />
+                            <div className="results-player-main">
+                              <strong>{player?.name || entry.player_id}</strong>
+                              <span className={`results-player-role${player?.role ? ` is-${player.role}` : ''}`}>{formatRoleShortLabel(player?.role)}</span>
+                            </div>
+                            <div className="results-player-values">
+                              <span className={`results-player-points is-${tone}`}>{formatPlayerRating(player?.performance_score)} pts</span>
+                              <span className="results-player-price">{formatPrice(entry.price_paid)}</span>
+                            </div>
+                          </div>
+                        )
+                      })}
                   </div>
                 </div>
               </div>

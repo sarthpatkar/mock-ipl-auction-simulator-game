@@ -8,10 +8,24 @@ import { AdminSettings } from '@/components/lobby/AdminSettings'
 import { PageNavbar } from '@/components/shared/PageNavbar'
 import { UnofficialDisclaimer } from '@/components/shared/UnofficialDisclaimer'
 import { useRoom } from '@/hooks/useRoom'
-import { getRoomMinimumParticipants, getRoomParticipantLimit, isMatchAuctionRoom } from '@/lib/match-auction'
+import { createIdempotencyKey } from '@/lib/idempotency'
+import { getRoomMinimumParticipants, getRoomParticipantLimit, isLegendsAuctionRoom, isMatchAuctionRoom } from '@/lib/match-auction'
 import { getBrowserSessionUser, supabaseClient } from '@/lib/supabase'
-import { buildCategoryQueue, buildRandomQueue } from '@/lib/player-queue'
-import { Match, Player } from '@/types'
+import { Match, RoomParticipant } from '@/types'
+
+function useDebouncedParticipants(participants: RoomParticipant[], delayMs = 120) {
+  const [debounced, setDebounced] = useState(participants)
+
+  useEffect(() => {
+    const timer = window.setTimeout(() => {
+      setDebounced(participants)
+    }, delayMs)
+
+    return () => window.clearTimeout(timer)
+  }, [delayMs, participants])
+
+  return debounced
+}
 
 export default function LobbyPage() {
   const params = useParams()
@@ -25,6 +39,7 @@ export default function LobbyPage() {
   const lobbyAudioRef = useRef<HTMLAudioElement | null>(null)
   const participantLimit = useMemo(() => getRoomParticipantLimit(room), [room])
   const minimumParticipants = useMemo(() => getRoomMinimumParticipants(room), [room])
+  const debouncedParticipants = useDebouncedParticipants(participants)
 
   useEffect(() => {
     getBrowserSessionUser().then((currentUser) => {
@@ -51,6 +66,7 @@ export default function LobbyPage() {
 
   const isAdmin = room?.admin_id === userId
   const isMatchRoom = isMatchAuctionRoom(room)
+  const isLegendsRoom = isLegendsAuctionRoom(room)
   const startDisabled = !isAdmin || (participants?.length ?? 0) < minimumParticipants || (isMatchRoom && (participants?.length ?? 0) !== 2)
 
   useEffect(() => {
@@ -136,104 +152,17 @@ export default function LobbyPage() {
       lobbyAudioRef.current.currentTime = 0
     }
     setStartError(null)
-    const playerQuery = supabaseClient.from('players').select('id, role, category, team_code')
-    const playerRequest =
-      isMatchRoom && roomMatch
-        ? playerQuery.in('team_code', [roomMatch.team_a_code, roomMatch.team_b_code])
-        : playerQuery
-    const { data: players, error: playersError } = await playerRequest
-    if (playersError) {
-      setStartError(playersError.message)
+    const { data: result, error } = await supabaseClient.rpc('start_auction_session', {
+      p_room_id: room.id,
+      p_idempotency_key: createIdempotencyKey('start-auction', room.id)
+    })
+    if (error) {
+      setStartError(error.message)
       return
     }
-    const typedPlayers = (players as Player[] | null) ?? []
-    if (typedPlayers.length === 0) {
-      setStartError('Players table is empty. Run: npm run seed:players')
+    if (result?.success === false) {
+      setStartError(result.error || 'Failed to start auction')
       return
-    }
-    const queue =
-      room.settings.player_order === 'category'
-        ? buildCategoryQueue(typedPlayers)
-        : buildRandomQueue(typedPlayers)
-    if (queue.length === 0) {
-      setStartError('Could not build player queue from players data.')
-      return
-    }
-    const { data: existing, error: existingError } = await supabaseClient
-      .from('auction_sessions')
-      .select('id')
-      .eq('room_id', room.id)
-      .maybeSingle()
-    if (existingError) {
-      setStartError(existingError.message)
-      return
-    }
-    let sessionId: string | undefined = existing?.id
-    if (existing) {
-      await supabaseClient.from('room_participants').update({ match_finish_confirmed_at: null }).eq('room_id', room.id).is('removed_at', null)
-      const { error } = await supabaseClient
-        .from('auction_sessions')
-        .update({
-          player_queue: queue,
-          status: 'waiting',
-          completed_players: [],
-          current_player_id: null,
-          current_price: 0,
-          highest_bidder_id: null,
-          ends_at: null,
-          paused_remaining_ms: null,
-          selection_ends_at: null,
-          accelerated_source_players: [],
-          active_bidders: [],
-          skipped_bidders: [],
-          round_number: 1,
-          round_label: 'Round 1'
-        })
-        .eq('room_id', room.id)
-      if (error) {
-        setStartError(error.message)
-        return
-      }
-    } else {
-      const { data: created, error } = await supabaseClient
-        .from('auction_sessions')
-        .insert({
-          room_id: room.id,
-          player_queue: queue,
-          status: 'waiting',
-          round_number: 1,
-          round_label: 'Round 1'
-        })
-        .select('id')
-        .maybeSingle()
-      if (error) {
-        setStartError(error.message)
-        return
-      }
-      sessionId = created?.id
-    }
-    const { error: roomError } = await supabaseClient
-      .from('rooms')
-      .update({ status: 'auction', results_reveal_at: null })
-      .eq('id', room.id)
-    if (roomError) {
-      setStartError(roomError.message)
-      return
-    }
-    const targetSession = sessionId || existing?.id
-    if (targetSession) {
-      const { data: result, error } = await supabaseClient.rpc('advance_to_next_player', {
-        p_auction_session_id: targetSession,
-        p_admin_user_id: room.admin_id
-      })
-      if (error) {
-        setStartError(error.message)
-        return
-      }
-      if (result?.success === false) {
-        setStartError(result.error || 'Failed to start auction')
-        return
-      }
     }
     router.push(`/room/${room.id}/auction`)
   }
@@ -249,7 +178,7 @@ export default function LobbyPage() {
       return
     }
 
-    await supabaseClient.from('room_participants').delete().eq('room_id', targetRoomId).eq('user_id', userId)
+    await supabaseClient.rpc('leave_room', { p_room_id: targetRoomId })
     router.push('/')
   }
 
@@ -289,6 +218,7 @@ export default function LobbyPage() {
               <div className="rh-meta">
                 <span className="badge badge-green">{room?.status === 'lobby' ? 'Waiting' : room?.status}</span>
                 {isMatchRoom && <span className="badge badge-blue">Match Auction</span>}
+                {isLegendsRoom && <span className="badge badge-gray">Legends Auction</span>}
                 {isAdmin && <span className="badge badge-gold">Host</span>}
               </div>
               {isMatchRoom && roomMatch && (
@@ -303,7 +233,7 @@ export default function LobbyPage() {
           </div>
 
           <RoomCodeDisplay code={code} />
-          <ParticipantList participants={participants} limit={participantLimit} adminUserId={room?.admin_id} />
+          <ParticipantList participants={debouncedParticipants} limit={participantLimit} adminUserId={room?.admin_id} />
         </div>
 
         <div className="settings-panel">
@@ -315,6 +245,7 @@ export default function LobbyPage() {
                   <strong>{participants.length} franchises</strong> ready in the lobby. Minimum {minimumParticipants} participants required to start.
                 </p>
                 {isMatchRoom && <p className="text-secondary text-sm mb-2">Quick auction mode using players from one upcoming match only.</p>}
+                {isLegendsRoom && <p className="text-secondary text-sm mb-2">Legends Auction uses the dedicated IPL legends player pool with fixed 11-player squads.</p>}
                 <p className="text-secondary text-sm mb-4">{lobbyNotice}</p>
                 <button className="btn btn-green btn-lg w-full" disabled={startDisabled} onClick={startAuction}>
                   Start Auction

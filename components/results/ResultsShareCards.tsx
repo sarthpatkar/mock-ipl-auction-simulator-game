@@ -102,7 +102,7 @@ function ShareCardFrame({
             borderTop: '1px solid rgba(255,255,255,0.08)'
           }}
         >
-          <span style={{ ...labelStyle, color: 'rgba(245,197,24,0.86)' }}>T20 Auction Arena</span>
+          <span style={{ ...labelStyle, color: 'rgba(245,197,24,0.86)' }}>{APP_NAME}</span>
           <span style={{ fontSize: 11, color: 'rgba(214,226,239,0.78)' }}>Unofficial fan-made simulator</span>
         </div>
       </div>
@@ -365,3 +365,4 @@ function MetricPill({ label, value, accent }: { label: string; value: string; ac
     </div>
   )
 }
+import { APP_NAME } from '@/lib/branding'

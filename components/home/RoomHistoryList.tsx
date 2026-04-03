@@ -51,9 +51,17 @@ export function RoomHistoryList({ rooms, counts = {}, matchesByRoomId = {}, matc
   return (
     <div className="history-list">
       {rooms.map((room) => {
+        const modeLabel =
+          room.auction_mode === 'match_auction'
+            ? 'Match Auction'
+            : room.auction_mode === 'legends_auction'
+              ? 'Legends Auction'
+              : 'Full Auction'
         const statusBadge =
           room.auction_mode === 'match_auction'
             ? <span className={`badge ${room.status === 'completed' ? 'badge-gold' : 'badge-blue'}`}>{humanize(matchResultsByRoomId[room.id]?.result_status) || (room.status === 'completed' ? 'Completed' : 'Ongoing')}</span>
+            : room.auction_mode === 'legends_auction'
+              ? <span className={`badge ${room.status === 'completed' ? 'badge-gold' : 'badge-gray'}`}>{room.status === 'completed' ? 'Completed' : 'Legends'}</span>
             : room.status === 'completed'
               ? <span className="badge badge-gold">Completed</span>
               : <span className="badge badge-green">Ongoing</span>
@@ -68,6 +76,7 @@ export function RoomHistoryList({ rooms, counts = {}, matchesByRoomId = {}, matc
             <div className="history-info">
               <div className="history-name">{room.name}</div>
               <div className="history-meta">
+                {modeLabel} ·{' '}
                 {match
                   ? `${match.team_a_code} vs ${match.team_b_code} · ${new Date(match.match_date).toLocaleDateString()}`
                   : new Date(room.created_at).toLocaleString()}{' '}

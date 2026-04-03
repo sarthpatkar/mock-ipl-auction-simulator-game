@@ -5,7 +5,9 @@ import { useParams, useRouter } from 'next/navigation'
 import { useAuction } from '@/hooks/useAuction'
 import { useTimer } from '@/hooks/useTimer'
 import { AUCTION_PLAYER_COLUMNS, fetchPlayerCatalog, fetchPlayersByTeamCodes } from '@/lib/player-catalog'
-import { MATCH_AUCTION_MODE } from '@/lib/match-auction'
+import { createIdempotencyKey } from '@/lib/idempotency'
+import { LEGENDS_AUCTION_MODE, LEGENDS_PLAYER_POOL, MATCH_AUCTION_MODE, SEASON_PLAYER_POOL } from '@/lib/match-auction'
+import { realtimeFeatureFlags } from '@/lib/realtime-flags'
 import { getBrowserSessionUser, supabaseClient } from '@/lib/supabase'
 import { Player, RoomParticipant } from '@/types'
 import { PlayerCard } from '@/components/auction/PlayerCard'
@@ -207,14 +209,16 @@ export default function AuctionPage() {
           if (!matchRow) throw new Error('Match data is unavailable for this room')
 
           const typedMatch = matchRow as { team_a_code: string; team_b_code: string }
-          const map = await fetchPlayersByTeamCodes([typedMatch.team_a_code, typedMatch.team_b_code], AUCTION_PLAYER_COLUMNS)
+          const map = await fetchPlayersByTeamCodes([typedMatch.team_a_code, typedMatch.team_b_code], AUCTION_PLAYER_COLUMNS, { pool: SEASON_PLAYER_POOL })
 
           if (!active) return
           setPlayersById(map)
           return
         }
 
-        const map = await fetchPlayerCatalog(AUCTION_PLAYER_COLUMNS)
+        const map = await fetchPlayerCatalog(AUCTION_PLAYER_COLUMNS, {
+          pool: roomAuctionMode === LEGENDS_AUCTION_MODE ? LEGENDS_PLAYER_POOL : SEASON_PLAYER_POOL
+        })
         if (!active) return
         setPlayersById(map)
       } catch (fetchError) {
@@ -354,10 +358,18 @@ export default function AuctionPage() {
   }, [auction])
 
   const finalizeExpiredPlayer = useCallback(async () => {
+    if (realtimeFeatureFlags.cronFinalizeAdvance) return
     if (auction?.status === 'live' && me && auction?.auction_session_id) {
-      await supabaseClient.rpc('finalize_player', { p_auction_session_id: auction.auction_session_id })
+      await supabaseClient.rpc('finalize_player', {
+        p_auction_session_id: auction.auction_session_id,
+        p_idempotency_key: createIdempotencyKey('client-finalize', auction.auction_session_id)
+      })
     }
   }, [auction?.auction_session_id, auction?.status, me])
+
+  const handleExpiredAuctionTick = useCallback(async () => {
+    await finalizeExpiredPlayer()
+  }, [finalizeExpiredPlayer])
 
   const { remaining, isDanger } = useTimer(isMobile ? null : auction?.ends_at ?? null, async () => {
     await finalizeExpiredPlayer()
@@ -459,9 +471,8 @@ export default function AuctionPage() {
     if (room?.auction_mode !== MATCH_AUCTION_MODE) return false
     if (!participants.length) return false
 
-    const squadLimit = room.settings?.squad_size ?? 7
-    return participants.every((participant) => participant.squad_count >= squadLimit)
-  }, [participants, room?.auction_mode, room?.settings?.squad_size])
+    return participants.every((participant) => participant.squad_count >= (room?.settings.minimum_squad_size || room?.settings.squad_size || 0))
+  }, [participants, room?.auction_mode, room?.settings.minimum_squad_size, room?.settings.squad_size])
 
   useEffect(() => {
     if (!bidHistory.length) return
@@ -555,19 +566,24 @@ export default function AuctionPage() {
         }, 2000)
       : null
 
-    const advanceDelayMs = room?.auction_mode === MATCH_AUCTION_MODE && allMatchAuctionSquadsFull ? 0 : alreadySeen ? 0 : 2000
+    const advanceDelayMs =
+      room?.auction_mode === MATCH_AUCTION_MODE && allMatchAuctionSquadsFull ? 0 : alreadySeen ? 0 : 2000
 
-    const advanceTimer = setTimeout(async () => {
-      if (cancelled) return
-      await supabaseClient.rpc('advance_to_next_player', {
-        p_auction_session_id: auction.auction_session_id,
-        p_admin_user_id: room?.admin_id || user
-      })
-    }, advanceDelayMs)
+    const advanceTimer =
+      realtimeFeatureFlags.cronFinalizeAdvance
+        ? null
+        : setTimeout(async () => {
+            if (cancelled) return
+            await supabaseClient.rpc('advance_to_next_player', {
+              p_auction_session_id: auction.auction_session_id,
+              p_admin_user_id: room?.admin_id || user,
+              p_idempotency_key: createIdempotencyKey('client-advance', auction.auction_session_id)
+            })
+          }, advanceDelayMs)
 
     return () => {
       cancelled = true
-      clearTimeout(advanceTimer)
+      if (advanceTimer) clearTimeout(advanceTimer)
       if (hideTimer) clearTimeout(hideTimer)
     }
   }, [allMatchAuctionSquadsFull, auction?.auction_session_id, resolutionKey, resolutionType, room?.admin_id, room?.auction_mode, user])
@@ -601,7 +617,7 @@ export default function AuctionPage() {
           me={me}
           soundEnabled={soundEnabled}
           onToggleSound={toggleSound}
-          onExpire={finalizeExpiredPlayer}
+          onExpire={handleExpiredAuctionTick}
           screenLoading={screenLoading}
           screenError={screenError}
           connectionState={connectionState}

@@ -282,7 +282,6 @@ export default function ResultsPage() {
     <div className="screen page-with-navbar results-page">
       <PageNavbar subtitle="RESULTS" showHome showThemeToggle={false} />
       <main className="mx-auto flex w-full max-w-6xl flex-col gap-6 px-6 py-12">
-        <UnofficialDisclaimer compact />
         {pageError && (
           <div className="card live-banner is-warning">
             <div>
@@ -331,6 +330,8 @@ export default function ResultsPage() {
         ) : (
           <ResultsExperience room={room!} participants={participants} results={results} squads={squads} playersById={playersById} currentUserId={userId} />
         )}
+
+        <UnofficialDisclaimer compact />
       </main>
     </div>
   )

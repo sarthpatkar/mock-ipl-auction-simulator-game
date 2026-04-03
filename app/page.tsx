@@ -4,9 +4,15 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { ensureUserProfile } from '@/lib/auth-profiles'
 import { getBrowserSessionUser, supabaseClient } from '@/lib/supabase'
-import { createRoomWithAdmin, DEFAULT_ROOM_SETTINGS, MATCH_AUCTION_DEFAULT_SETTINGS, fetchUserRooms } from '@/lib/room-client'
+import {
+  createRoomWithAdmin,
+  DEFAULT_ROOM_SETTINGS,
+  LEGENDS_AUCTION_DEFAULT_SETTINGS,
+  MATCH_AUCTION_DEFAULT_SETTINGS,
+  fetchUserRooms
+} from '@/lib/room-client'
 import { fetchAvailableMatches, fetchMatchesByIds } from '@/lib/match-client'
-import { MATCH_AUCTION_MODE, MATCH_ROOM_BUDGET_OPTIONS, MATCH_ROOM_SQUAD_OPTIONS } from '@/lib/match-auction'
+import { LEGENDS_AUCTION_MODE, MATCH_AUCTION_MODE, MATCH_ROOM_BUDGET_OPTIONS, MATCH_ROOM_SQUAD_OPTIONS } from '@/lib/match-auction'
 import { ActionCard } from '@/components/home/ActionCard'
 import { AuctionModeSelector } from '@/components/home/AuctionModeSelector'
 import { MatchAuctionFields } from '@/components/home/MatchAuctionFields'
@@ -17,6 +23,7 @@ import { UnofficialDisclaimer } from '@/components/shared/UnofficialDisclaimer'
 import { AuctionMode, Match, MatchAuctionResult, Room } from '@/types'
 
 export default function HomePage() {
+  const legendsComingSoonMessage = 'Legends Auction is coming soon. Player import is still in progress.'
   const router = useRouter()
   const [userInitial, setUserInitial] = useState('U')
   const [rooms, setRooms] = useState<Room[]>([])
@@ -196,6 +203,11 @@ export default function HomePage() {
   const handleCreate = async () => {
     setError(null)
 
+    if (auctionMode === LEGENDS_AUCTION_MODE) {
+      setError(legendsComingSoonMessage)
+      return
+    }
+
     if (!roomName.trim() || !teamName.trim()) {
       setError('Please fill in room and team name')
       return
@@ -294,7 +306,8 @@ export default function HomePage() {
   const totalRooms = filteredRooms.length
   const ongoingRooms = filteredRooms.filter((room) => room.status !== 'completed').length
   const modalError = error ? <p className="text-red text-sm mt-2">{error}</p> : null
-  const actionsDisabled = initializing || signingOut
+  const isLegendsComingSoon = auctionMode === LEGENDS_AUCTION_MODE
+  const actionsDisabled = initializing || signingOut || isLegendsComingSoon
   const statusLabel = useMemo(() => {
     if (initializing) return 'Loading'
     if (roomsLoading) return 'Syncing'
@@ -343,6 +356,17 @@ export default function HomePage() {
       <div className="home-mode-row">
         <AuctionModeSelector value={auctionMode} onChange={setAuctionMode} />
       </div>
+
+      {isLegendsComingSoon && (
+        <div className="home-body home-banner-row">
+          <div className="card live-banner home-banner-card">
+            <div>
+              <span className="status-label">Coming Soon</span>
+              <p className="live-banner-copy">{legendsComingSoonMessage}</p>
+            </div>
+          </div>
+        </div>
+      )}
 
       {error && !createOpen && !joinOpen && (
         <div className="home-body home-banner-row">
@@ -404,13 +428,15 @@ export default function HomePage() {
       </div>
 
       {createOpen && (
-        <div className="modal-overlay" onClick={(event) => event.currentTarget === event.target && !creating && setCreateOpen(false)}>
+        <div className="modal-overlay modal-overlay-top" onClick={(event) => event.currentTarget === event.target && !creating && setCreateOpen(false)}>
           <div className="modal modal-room">
             <div className="modal-header">
               <h2 className="modal-title">Create Room</h2>
               <p className="modal-copy">
                 {auctionMode === MATCH_AUCTION_MODE
                   ? 'Set up a fast head-to-head Match Auction room.'
+                  : auctionMode === LEGENDS_AUCTION_MODE
+                    ? legendsComingSoonMessage
                   : 'Set up your auction room. You will control the room as host.'}
               </p>
             </div>
@@ -449,8 +475,8 @@ export default function HomePage() {
                 <button className="btn btn-ghost" onClick={() => setCreateOpen(false)} disabled={creating}>
                   Cancel
                 </button>
-                <button className="btn btn-primary" onClick={() => void handleCreate()} disabled={creating}>
-                  {creating ? 'Creating…' : 'Create Room'}
+                <button className="btn btn-primary" onClick={() => void handleCreate()} disabled={creating || isLegendsComingSoon}>
+                  {isLegendsComingSoon ? 'Coming Soon' : creating ? 'Creating…' : 'Create Room'}
                 </button>
               </div>
             </div>
@@ -459,7 +485,7 @@ export default function HomePage() {
       )}
 
       {joinOpen && (
-        <div className="modal-overlay" onClick={(event) => event.currentTarget === event.target && !joining && setJoinOpen(false)}>
+        <div className="modal-overlay modal-overlay-top" onClick={(event) => event.currentTarget === event.target && !joining && setJoinOpen(false)}>
           <div className="modal modal-room">
             <div className="modal-header">
               <h2 className="modal-title">Join Room</h2>

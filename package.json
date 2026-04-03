@@ -1,5 +1,5 @@
 {
-  "name": "t20-auction-arena",
+  "name": "t20arena",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -8,9 +8,12 @@
     "start": "next start",
     "lint": "eslint .",
     "seed:players": "ts-node scripts/seed-players.ts",
+    "seed:legends": "ts-node scripts/seed-legend-players.ts",
     "avatars:audit": "ts-node scripts/migrate-player-images.ts",
     "images:migrate": "ts-node scripts/migrate-player-images.ts",
-    "players:merge": "ts-node scripts/merge-players-enriched.ts"
+    "players:merge": "ts-node scripts/merge-players-enriched.ts",
+    "realtime:bots": "ts-node scripts/realtime-load-test.ts --mode=bots",
+    "realtime:load": "ts-node scripts/realtime-load-test.ts --mode=load"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.43.4",

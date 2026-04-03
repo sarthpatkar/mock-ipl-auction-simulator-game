@@ -6,6 +6,7 @@ import { RoomResultsBoard } from '@/components/results/RoomResultsBoard'
 import { AwardShareCard, ComparisonShareCard, SpotlightShareCard, TeamShareCard } from '@/components/results/ResultsShareCards'
 import { useShareCard } from '@/hooks/useShareCard'
 import { formatPrice, getTeamThemeClass, getTeamThemeStyle } from '@/lib/auction-helpers'
+import { APP_NAME } from '@/lib/branding'
 import { buildResultsTeams, buildTeamComparison, deriveAwardBadges, derivePurchaseSpotlights, getInviteText, PurchaseSpotlightModel, ResultsDerivedTeam, TeamComparisonModel } from '@/lib/results-virality'
 import { renderAwardShareCardBlob, renderComparisonShareCardBlob, renderSpotlightShareCardBlob, renderTeamShareCardBlob } from '@/lib/results-share-export'
 import { Player, Room, RoomParticipant, SquadPlayer, TeamResult } from '@/types'
@@ -42,8 +43,9 @@ function getTeamLabel(team: ResultsDerivedTeam | undefined) {
 
 function getShareDialogTop(anchorTop: number | null) {
   if (typeof window === 'undefined') return 32
-  if (anchorTop == null) return 32
-  return Math.min(Math.max(16, anchorTop - 16), Math.max(32, window.innerHeight - 180))
+  const viewportTopGap = Math.min(Math.max(20, Math.round(window.innerHeight * 0.06)), 44)
+  if (anchorTop == null) return viewportTopGap
+  return Math.min(Math.max(viewportTopGap, anchorTop - 12), viewportTopGap + 12)
 }
 
 function formatRoleLabel(role: Player['role']) {
@@ -51,6 +53,22 @@ function formatRoleLabel(role: Player['role']) {
   if (role === 'allrounder') return 'All-Rounder'
   if (role === 'bowler') return 'Bowler'
   return 'Batter'
+}
+
+function formatRoleShortLabel(role: Player['role'] | null | undefined) {
+  if (role === 'wicketkeeper') return 'WK'
+  if (role === 'allrounder') return 'AR'
+  if (role === 'bowler') return 'BOWL'
+  if (role === 'batter') return 'BAT'
+  return '—'
+}
+
+function getPlayerTone(player: Player) {
+  const score = player.performance_score ?? 0
+  if (score >= 85) return 'star'
+  if (score >= 72) return 'strong'
+  if (score < 60) return 'weak'
+  return 'steady'
 }
 
 function formatPlayerRating(score: number | null | undefined) {
@@ -75,9 +93,8 @@ function buildRoleCounts(team: ResultsDerivedTeam) {
 
 function ComparisonSquadPanel({ team, side }: { team: ResultsDerivedTeam; side: 'left' | 'right' }) {
   const roleCounts = buildRoleCounts(team)
-  const headliner = team.squad[0] ?? null
-  const visibleSquad = team.squad.slice(0, 8)
-  const hiddenCount = Math.max(0, team.squad.length - visibleSquad.length)
+  const headliner = team.purchases[0]?.player ?? null
+  const visiblePurchases = team.purchases
 
   return (
     <aside
@@ -114,17 +131,26 @@ function ComparisonSquadPanel({ team, side }: { team: ResultsDerivedTeam; side: 
       )}
 
       <div className="results-compare-squad-list">
-        {visibleSquad.map((player) => (
-          <div key={player.id} className="results-compare-squad-item">
-            <div>
-              <strong>{player.name}</strong>
-              <span>{formatRoleLabel(player.role)}</span>
-            </div>
-            <em>{formatPlayerRating(player.performance_score)}</em>
-          </div>
-        ))}
-        {visibleSquad.length === 0 && <div className="results-compare-more">No squad players found.</div>}
-        {hiddenCount > 0 && <div className="results-compare-more">+{hiddenCount} more players</div>}
+        <div className="results-player-grid is-compact">
+          {visiblePurchases.map((purchase) => {
+            const { player } = purchase
+            const tone = getPlayerTone(player)
+            return (
+              <div key={purchase.row.id} className={`results-player-row is-${tone}`}>
+                <span className={`results-player-dot is-${tone}`} aria-hidden="true" />
+                <div className="results-player-main">
+                  <strong>{player.name}</strong>
+                  <span className={`results-player-role is-${player.role}`}>{formatRoleShortLabel(player.role)}</span>
+                </div>
+                <div className="results-player-values">
+                  <span className={`results-player-points is-${tone}`}>{formatPlayerRating(player.performance_score)} pts</span>
+                  <span className="results-player-price">{formatPrice(purchase.pricePaid)}</span>
+                </div>
+              </div>
+            )
+          })}
+          {visiblePurchases.length === 0 && <div className="results-compare-more">No squad players found.</div>}
+        </div>
       </div>
     </aside>
   )
@@ -298,7 +324,7 @@ export function ResultsExperience({ room, participants, results, squads, players
   const inviteShareText = useMemo(
     () => {
       if (typeof window === 'undefined') return ''
-      return `Think you can build a better team next time?\n\nI played T20 Auction Arena with friends and it was a great franchise auction room.\n\nPlay here:\n${window.location.origin}\n\nUnofficial fan-made simulator. Not affiliated with or endorsed by the BCCI, IPL, or any franchise.`
+      return `Think you can build a better team next time?\n\nI played ${APP_NAME} with friends and it was a great franchise auction room.\n\nPlay here:\n${window.location.origin}\n\nUnofficial fan-made simulator. Not affiliated with or endorsed by the BCCI, IPL, or any franchise.`
     },
     []
   )
@@ -586,7 +612,12 @@ export function ResultsExperience({ room, participants, results, squads, players
       )}
 
       {shareTarget && preview && (
-        <div className="results-share-dialog-backdrop" role="presentation" style={{ paddingTop: `${shareDialogTop}px` }} onClick={() => setShareTarget(null)}>
+        <div
+          className="results-share-dialog-backdrop"
+          role="presentation"
+          style={{ paddingTop: `calc(env(safe-area-inset-top, 0px) + ${shareDialogTop}px)` }}
+          onClick={() => setShareTarget(null)}
+        >
           <div className="results-share-dialog" role="dialog" aria-modal="true" onClick={(event) => event.stopPropagation()}>
             <div className="results-share-dialog-head">
               <div>
@@ -620,9 +651,9 @@ export function ResultsExperience({ room, participants, results, squads, players
         <div className="results-invite-backdrop" role="presentation" onClick={() => setInviteOpen(false)}>
           <div className="results-invite-modal" role="dialog" aria-modal="true" onClick={(event) => event.stopPropagation()}>
             <div className="results-invite-copy">
-              <span className="status-label">Run It Back</span>
-              <h2 className="section-title">Think you can build a better team next time?</h2>
-              <p>Create another room or send this code to the same group and start a fresh auction war.</p>
+              <span className="status-label">Thank You</span>
+              <h2 className="section-title">Share this auction with friends and run it back</h2>
+              <p>Thanks for playing. Start another room or send an invite to the same group for the next auction battle.</p>
             </div>
 
             <div className="results-invite-actions">
@@ -638,7 +669,6 @@ export function ResultsExperience({ room, participants, results, squads, players
             </div>
 
             <div className="results-invite-meta">
-              <span>Room code: {room.code}</span>
               <button type="button" className="btn btn-ghost btn-sm" onClick={() => setInviteOpen(false)}>
                 Maybe later
               </button>

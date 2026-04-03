@@ -8,10 +8,11 @@ import { createRoomWithAdmin, DEFAULT_ROOM_SETTINGS, MATCH_AUCTION_DEFAULT_SETTI
 import { AuctionModeSelector } from '@/components/home/AuctionModeSelector'
 import { MatchAuctionFields } from '@/components/home/MatchAuctionFields'
 import { fetchAvailableMatches } from '@/lib/match-client'
-import { MATCH_AUCTION_MODE, MATCH_ROOM_BUDGET_OPTIONS, MATCH_ROOM_SQUAD_OPTIONS } from '@/lib/match-auction'
+import { LEGENDS_AUCTION_MODE, MATCH_AUCTION_MODE, MATCH_ROOM_BUDGET_OPTIONS, MATCH_ROOM_SQUAD_OPTIONS } from '@/lib/match-auction'
 import { AuctionMode, Match } from '@/types'
 
 export default function CreateRoomPage() {
+  const legendsComingSoonMessage = 'Legends Auction is coming soon. Player import is still in progress.'
   const router = useRouter()
   const [name, setName] = useState('')
   const [teamName, setTeamName] = useState('')
@@ -54,6 +55,12 @@ export default function CreateRoomPage() {
   const handleCreate = async (e: React.FormEvent) => {
     e.preventDefault()
     setError(null)
+
+    if (auctionMode === LEGENDS_AUCTION_MODE) {
+      setError(legendsComingSoonMessage)
+      return
+    }
+
     setLoading(true)
 
     try {
@@ -88,6 +95,7 @@ export default function CreateRoomPage() {
           <UnofficialDisclaimer compact className="themed-form-disclaimer" />
           <form onSubmit={handleCreate} className="card themed-form-card">
             <AuctionModeSelector value={auctionMode} onChange={setAuctionMode} />
+            {auctionMode === LEGENDS_AUCTION_MODE && <p className="text-secondary text-sm">{legendsComingSoonMessage}</p>}
             <label className="input-group">
               <span className="input-label">Room name</span>
             <input
@@ -118,10 +126,10 @@ export default function CreateRoomPage() {
             {error && <p className="text-red text-sm">{error}</p>}
           <button
             type="submit"
-            disabled={loading}
+            disabled={loading || auctionMode === LEGENDS_AUCTION_MODE}
               className="btn btn-primary btn-lg w-full"
           >
-            {loading ? 'Creating…' : 'Create Room'}
+            {auctionMode === LEGENDS_AUCTION_MODE ? 'Coming Soon' : loading ? 'Creating…' : 'Create Room'}
           </button>
           </form>
         </div>

@@ -1,6 +1,6 @@
 export type UUID = string
 
-export type AuctionMode = 'full_auction' | 'match_auction'
+export type AuctionMode = 'full_auction' | 'match_auction' | 'legends_auction'
 export type MatchStatus = 'upcoming' | 'live' | 'completed' | 'abandoned' | 'cancelled'
 export type MatchAuctionResultStatus = 'provisional' | 'waiting_for_match' | 'match_live' | 'final_ready' | 'match_abandoned'
 
@@ -31,6 +31,7 @@ export type Room = {
   settings: RoomSettings
   results_reveal_at?: string | null
   created_at: string
+  state_version?: number
   match?: Match | null
   match_result_status?: MatchAuctionResultStatus | null
 }
@@ -86,6 +87,8 @@ export type Player = {
   recent_form_score?: number | null
   experience_level?: string | null
   impact_type?: string | null
+  player_pool?: 'season' | 'legends' | null
+  legend_player_id?: UUID | null
 }
 
 export type AuctionSession = {
@@ -226,6 +229,47 @@ export type AuctionLiveState = {
   completed_count?: number
   queue_count?: number
   updated_at?: string | null
+}
+
+export type RoomHealthStatus = 'healthy' | 'recovering' | 'degraded' | 'desynced'
+
+export type RoomRuntimeCache = {
+  room_id: UUID
+  current_player_id: UUID | null
+  highest_bid: number
+  highest_bidder_id: UUID | null
+  timer_end: string | null
+  live_participant_count: number
+  current_room_status: Room['status']
+  state_version: number
+  room_health_status: RoomHealthStatus
+  abandoned_at?: string | null
+  updated_at: string
+}
+
+export type RoomEventEnvelope = {
+  event_id: UUID
+  version: number
+  auction_session_id?: UUID | null
+  event_type: string
+  payload: Record<string, unknown> | null
+  server_generated_at: string
+  created_at: string
+  total_gap_count?: number | null
+}
+
+export type RoomRuntimeSnapshot = {
+  success: boolean
+  error?: string
+  room: Room | null
+  auction: AuctionLiveState | null
+  participants: RoomParticipant[]
+  squads: SquadPlayer[]
+  bid_history: Bid[]
+  runtime_cache: RoomRuntimeCache | null
+  state_version: number
+  room_health_status: RoomHealthStatus | null
+  server_time: string
 }
 
 export type AcceleratedRoundSelection = {

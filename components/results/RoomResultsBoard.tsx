@@ -19,7 +19,7 @@ type RankedTeam = {
   participant: RoomParticipant | null
   result: TeamResult
   breakdown: TeamResultBreakdown
-  squad: Player[]
+  squadEntries: Array<{ player: Player; squadRow: SquadPlayer }>
   squadRows: SquadPlayer[]
   isMine: boolean
 }
@@ -145,6 +145,14 @@ function getPlayerTone(player: Player) {
   return 'steady'
 }
 
+function formatRoleShortLabel(role: Player['role'] | null | undefined) {
+  if (role === 'wicketkeeper') return 'WK'
+  if (role === 'allrounder') return 'AR'
+  if (role === 'bowler') return 'BOWL'
+  if (role === 'batter') return 'BAT'
+  return '—'
+}
+
 function ResultBar({ label, score, max, accent = 'gold' }: { label: string; score: number; max: number; accent?: string }) {
   const width = max > 0 ? Math.min(100, Math.max(0, (score / max) * 100)) : 0
   return (
@@ -204,7 +212,7 @@ function ComparisonTable({ comparison, components }: { comparison: TeamResultBre
 }
 
 function TeamCard({ team, winner, onShareTeam }: { team: RankedTeam; winner: RankedTeam | null; onShareTeam?: (userId: string, anchorTop?: number) => void }) {
-  const { participant, result, breakdown, squad, isMine } = team
+  const { participant, result, breakdown, squadEntries, isMine } = team
   const comparison = breakdown.comparison
 
   return (
@@ -356,24 +364,27 @@ function TeamCard({ team, winner, onShareTeam }: { team: RankedTeam; winner: Ran
       )}
 
       <section className="results-inline-panel">
-        <h3 className="section-title">Squad Grid</h3>
+        <h3 className="section-title">Squad List</h3>
         <div className="results-player-grid">
-          {squad.map((player) => {
+          {squadEntries.map(({ player, squadRow }) => {
             const tone = getPlayerTone(player)
             return (
-              <div key={player.id} className={`results-player-tile is-${tone}`}>
-                <div className="results-player-head">
+              <div key={squadRow.id} className={`results-player-row is-${tone}`}>
+                <span className={`results-player-dot is-${tone}`} aria-hidden="true" />
+                <div className="results-player-main">
                   <strong>{player.name}</strong>
-                  <span>{player.performance_score != null ? formatShortNumber(player.performance_score) : '—'}</span>
+                  <span className={`results-player-role is-${player.role}`}>{formatRoleShortLabel(player.role)}</span>
                 </div>
-                <div className="results-player-meta">
-                  <span>{formatLabel(player.role)}</span>
-                  <span>{player.impact_type ? formatLabel(player.impact_type) : 'No Impact Tag'}</span>
+                <div className="results-player-values">
+                  <span className={`results-player-points is-${tone}`}>
+                    {player.performance_score != null ? `${formatShortNumber(player.performance_score)} pts` : '— pts'}
+                  </span>
+                  <span className="results-player-price">{formatPrice(squadRow.price_paid)}</span>
                 </div>
               </div>
             )
           })}
-          {squad.length === 0 && <div className="text-sm text-muted">No squad players found.</div>}
+          {squadEntries.length === 0 && <div className="text-sm text-muted">No squad players found.</div>}
         </div>
       </section>
     </article>
@@ -403,21 +414,24 @@ export function RoomResultsBoard({ roomName, totalPurse, participants, results, 
     return results.map((result) => {
       const participant = participantByUserId[result.user_id] ?? null
       const teamSquad = participant ? squadsByParticipantId[participant.id] ?? [] : []
-      const squad = teamSquad
-        .map((row) => playersById[row.player_id])
-        .filter((player): player is Player => Boolean(player))
-        .sort((left, right) => {
-          const rightScore = right.performance_score ?? 0
-          const leftScore = left.performance_score ?? 0
-          if (rightScore !== leftScore) return rightScore - leftScore
-          return (right.recent_form_score ?? 0) - (left.recent_form_score ?? 0)
+      const squadEntries = teamSquad
+        .map((squadRow) => {
+          const player = playersById[squadRow.player_id]
+          if (!player) return null
+          return { player, squadRow }
         })
-
+        .filter((entry): entry is { player: Player; squadRow: SquadPlayer } => Boolean(entry))
+        .sort((left, right) => {
+          const rightScore = right.player.performance_score ?? 0
+          const leftScore = left.player.performance_score ?? 0
+          if (rightScore !== leftScore) return rightScore - leftScore
+          return (right.player.recent_form_score ?? 0) - (left.player.recent_form_score ?? 0)
+        })
       return {
         participant,
         result,
         breakdown: result.breakdown_json,
-        squad,
+        squadEntries,
         squadRows: teamSquad,
         isMine: result.user_id === currentUserId
       }
