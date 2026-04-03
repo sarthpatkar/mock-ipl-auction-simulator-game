@@ -59,14 +59,14 @@ export function BidActions({
         : getBidIncrements(currentPrice)
   const minimumRequiredBid = currentPrice + (increments[0]?.amount ?? 0)
   const hasInsufficientBudget = budgetRemaining < minimumRequiredBid
-  const isViewerOnly = skipped || isHighestBidder || squadCount >= squadLimit || hasInsufficientBudget
+  const isViewerOnly = isHighestBidder || squadCount >= squadLimit || hasInsufficientBudget
 
   const disabled = isPaused || isExpired || isViewerOnly
   const disabledReason = useMemo(() => {
     if (isPaused) return 'The auction is paused right now.'
     if (isExpired) return 'Time is up. Waiting for the result.'
     if (isHighestBidder) return 'You already have the top bid. Waiting for a challenger.'
-    if (skipped) return 'You are waiting on the next valid bid state or the timer.'
+    if (skipped) return 'Pass recorded. You can still re-enter by placing a bid before this player resolves.'
     if (squadCount >= squadLimit) return 'Your squad limit is full.'
     if (hasInsufficientBudget) return `Viewer only · minimum required bid is ${formatPrice(minimumRequiredBid)}.`
     return 'Place a bid or skip this player.'
@@ -137,7 +137,7 @@ export function BidActions({
             {isHighestBidder
               ? 'You lead this player right now. Wait for another franchise to bid or for the timer to expire.'
               : skipped
-                ? `Pass recorded · ${skipCount}/${activeCount} franchises skipped`
+                ? `Pass recorded · ${skipCount}/${activeCount} franchises skipped. You can still place a bid.`
                 : squadCount >= squadLimit
                   ? 'Your squad is full. You stay connected as a viewer for this player.'
                   : `Minimum required bid is ${formatPrice(minimumRequiredBid)}. You stay connected as a viewer for this player.`}
@@ -173,10 +173,10 @@ export function BidActions({
               />
               <button
                 onClick={skip}
-                disabled={loadingAction !== null || isPaused || isExpired || isViewerOnly}
+                disabled={loadingAction !== null || skipped || isPaused || isExpired || isViewerOnly}
                 className="btn btn-danger btn-sm auction-skip-button"
               >
-                {loadingAction === 'skip' ? 'Submitting…' : 'Skip'}
+                {loadingAction === 'skip' ? 'Submitting…' : skipped ? `${skipCount}/${activeCount} skipped` : 'Skip'}
               </button>
             </div>
           </>

@@ -976,10 +976,6 @@ begin
     return jsonb_build_object('success', false, 'error', 'You are not an active bidder for this player');
   end if;
 
-  if coalesce(v_auction.skipped_bidders, '{}'::uuid[]) @> array[p_bidder_participant_id] then
-    return jsonb_build_object('success', false, 'error', 'You are skipped for this player');
-  end if;
-
   if v_auction.highest_bidder_id is null then
     if p_bid_amount != v_auction.current_price then
       return jsonb_build_object('success', false, 'error', 'Opening bid must match the base price');
