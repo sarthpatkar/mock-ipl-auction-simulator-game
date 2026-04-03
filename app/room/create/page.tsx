@@ -4,7 +4,12 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { PageNavbar } from '@/components/shared/PageNavbar'
 import { UnofficialDisclaimer } from '@/components/shared/UnofficialDisclaimer'
-import { createRoomWithAdmin, DEFAULT_ROOM_SETTINGS, MATCH_AUCTION_DEFAULT_SETTINGS } from '@/lib/room-client'
+import {
+  createRoomWithAdmin,
+  DEFAULT_ROOM_SETTINGS,
+  LEGENDS_AUCTION_DEFAULT_SETTINGS,
+  MATCH_AUCTION_DEFAULT_SETTINGS
+} from '@/lib/room-client'
 import { AuctionModeSelector } from '@/components/home/AuctionModeSelector'
 import { MatchAuctionFields } from '@/components/home/MatchAuctionFields'
 import { fetchAvailableMatches } from '@/lib/match-client'
@@ -12,7 +17,6 @@ import { LEGENDS_AUCTION_MODE, MATCH_AUCTION_MODE, MATCH_ROOM_BUDGET_OPTIONS, MA
 import { AuctionMode, Match } from '@/types'
 
 export default function CreateRoomPage() {
-  const legendsComingSoonMessage = 'Legends Auction is coming soon. Player import is still in progress.'
   const router = useRouter()
   const [name, setName] = useState('')
   const [teamName, setTeamName] = useState('')
@@ -56,22 +60,20 @@ export default function CreateRoomPage() {
     e.preventDefault()
     setError(null)
 
-    if (auctionMode === LEGENDS_AUCTION_MODE) {
-      setError(legendsComingSoonMessage)
-      return
-    }
-
     setLoading(true)
 
     try {
       const isMatchAuction = auctionMode === MATCH_AUCTION_MODE
+      const isLegendsAuction = auctionMode === LEGENDS_AUCTION_MODE
       const settings = isMatchAuction
         ? {
             ...MATCH_AUCTION_DEFAULT_SETTINGS,
             budget,
             squad_size: squadSize
           }
-        : DEFAULT_ROOM_SETTINGS
+        : isLegendsAuction
+          ? LEGENDS_AUCTION_DEFAULT_SETTINGS
+          : DEFAULT_ROOM_SETTINGS
 
       const result = await createRoomWithAdmin(name, teamName, {
         auctionMode,
@@ -95,7 +97,6 @@ export default function CreateRoomPage() {
           <UnofficialDisclaimer compact className="themed-form-disclaimer" />
           <form onSubmit={handleCreate} className="card themed-form-card">
             <AuctionModeSelector value={auctionMode} onChange={setAuctionMode} />
-            {auctionMode === LEGENDS_AUCTION_MODE && <p className="text-secondary text-sm">{legendsComingSoonMessage}</p>}
             <label className="input-group">
               <span className="input-label">Room name</span>
             <input
@@ -126,10 +127,10 @@ export default function CreateRoomPage() {
             {error && <p className="text-red text-sm">{error}</p>}
           <button
             type="submit"
-            disabled={loading || auctionMode === LEGENDS_AUCTION_MODE}
+            disabled={loading}
               className="btn btn-primary btn-lg w-full"
           >
-            {auctionMode === LEGENDS_AUCTION_MODE ? 'Coming Soon' : loading ? 'Creating…' : 'Create Room'}
+            {loading ? 'Creating…' : 'Create Room'}
           </button>
           </form>
         </div>

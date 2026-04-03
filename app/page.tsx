@@ -23,7 +23,6 @@ import { UnofficialDisclaimer } from '@/components/shared/UnofficialDisclaimer'
 import { AuctionMode, Match, MatchAuctionResult, Room } from '@/types'
 
 export default function HomePage() {
-  const legendsComingSoonMessage = 'Legends Auction is coming soon. Player import is still in progress.'
   const router = useRouter()
   const [userInitial, setUserInitial] = useState('U')
   const [rooms, setRooms] = useState<Room[]>([])
@@ -203,11 +202,6 @@ export default function HomePage() {
   const handleCreate = async () => {
     setError(null)
 
-    if (auctionMode === LEGENDS_AUCTION_MODE) {
-      setError(legendsComingSoonMessage)
-      return
-    }
-
     if (!roomName.trim() || !teamName.trim()) {
       setError('Please fill in room and team name')
       return
@@ -216,6 +210,7 @@ export default function HomePage() {
     setCreating(true)
     try {
       const isMatchAuction = auctionMode === MATCH_AUCTION_MODE
+      const isLegendsAuction = auctionMode === LEGENDS_AUCTION_MODE
       if (isMatchAuction && !selectedMatchId) {
         throw new Error('Select an upcoming match for Match Auction')
       }
@@ -226,7 +221,9 @@ export default function HomePage() {
             budget: matchBudget,
             squad_size: matchSquadSize
           }
-        : DEFAULT_ROOM_SETTINGS
+        : isLegendsAuction
+          ? LEGENDS_AUCTION_DEFAULT_SETTINGS
+          : DEFAULT_ROOM_SETTINGS
 
       const result = await createRoomWithAdmin(roomName, teamName, {
         auctionMode,
@@ -306,8 +303,7 @@ export default function HomePage() {
   const totalRooms = filteredRooms.length
   const ongoingRooms = filteredRooms.filter((room) => room.status !== 'completed').length
   const modalError = error ? <p className="text-red text-sm mt-2">{error}</p> : null
-  const isLegendsComingSoon = auctionMode === LEGENDS_AUCTION_MODE
-  const actionsDisabled = initializing || signingOut || isLegendsComingSoon
+  const actionsDisabled = initializing || signingOut
   const statusLabel = useMemo(() => {
     if (initializing) return 'Loading'
     if (roomsLoading) return 'Syncing'
@@ -356,17 +352,6 @@ export default function HomePage() {
       <div className="home-mode-row">
         <AuctionModeSelector value={auctionMode} onChange={setAuctionMode} />
       </div>
-
-      {isLegendsComingSoon && (
-        <div className="home-body home-banner-row">
-          <div className="card live-banner home-banner-card">
-            <div>
-              <span className="status-label">Coming Soon</span>
-              <p className="live-banner-copy">{legendsComingSoonMessage}</p>
-            </div>
-          </div>
-        </div>
-      )}
 
       {error && !createOpen && !joinOpen && (
         <div className="home-body home-banner-row">
@@ -435,8 +420,6 @@ export default function HomePage() {
               <p className="modal-copy">
                 {auctionMode === MATCH_AUCTION_MODE
                   ? 'Set up a fast head-to-head Match Auction room.'
-                  : auctionMode === LEGENDS_AUCTION_MODE
-                    ? legendsComingSoonMessage
                   : 'Set up your auction room. You will control the room as host.'}
               </p>
             </div>
@@ -475,8 +458,8 @@ export default function HomePage() {
                 <button className="btn btn-ghost" onClick={() => setCreateOpen(false)} disabled={creating}>
                   Cancel
                 </button>
-                <button className="btn btn-primary" onClick={() => void handleCreate()} disabled={creating || isLegendsComingSoon}>
-                  {isLegendsComingSoon ? 'Coming Soon' : creating ? 'Creating…' : 'Create Room'}
+                <button className="btn btn-primary" onClick={() => void handleCreate()} disabled={creating}>
+                  {creating ? 'Creating…' : 'Create Room'}
                 </button>
               </div>
             </div>
