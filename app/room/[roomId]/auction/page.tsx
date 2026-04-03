@@ -40,6 +40,10 @@ function isResolvedAuctionResult(value: unknown): value is 'sold' | 'unsold' {
   return value === 'sold' || value === 'unsold'
 }
 
+function isSuccessfulRpcResult(value: unknown) {
+  return !(value && typeof value === 'object' && 'success' in value && value.success === false)
+}
+
 function playTone(enabled: boolean, frequency: number, duration: number, type: OscillatorType) {
   if (!enabled || typeof window === 'undefined' || !('AudioContext' in window)) return
 
@@ -382,7 +386,7 @@ export default function AuctionPage() {
       p_idempotency_key: finalizeKey
     })
 
-    if (error) {
+    if (error || !isSuccessfulRpcResult(data)) {
       await refetch()
       return
     }
@@ -630,6 +634,7 @@ export default function AuctionPage() {
         p_admin_user_id: room?.admin_id || user,
         p_idempotency_key: buildAdvanceIdempotencyKey(auction.auction_session_id, resolutionKey)
       })
+      await refetch()
     }, advanceDelayMs)
 
     return () => {
@@ -637,7 +642,63 @@ export default function AuctionPage() {
       if (advanceTimer) clearTimeout(advanceTimer)
       if (hideTimer) clearTimeout(hideTimer)
     }
-  }, [allMatchAuctionSquadsFull, auction?.auction_session_id, resolutionKey, resolutionType, room?.admin_id, room?.auction_mode, user])
+  }, [allMatchAuctionSquadsFull, auction?.auction_session_id, refetch, resolutionKey, resolutionType, room?.admin_id, room?.auction_mode, user])
+
+  useEffect(() => {
+    if (!auction?.auction_session_id || !user) return
+
+    const expiredAuctionKey =
+      auction.status === 'live' && auction.current_player_id && auction.ends_at && remaining <= 0
+        ? `${auction.auction_session_id}:${auction.current_player_id}:${auction.ends_at}`
+        : null
+
+    if (!expiredAuctionKey && !resolutionKey) return
+
+    let cancelled = false
+
+    const recoverTransition = async () => {
+      if (cancelled) return
+
+      if (expiredAuctionKey) {
+        await finalizeExpiredPlayer()
+        return
+      }
+
+      if (!resolutionKey) return
+
+      await supabaseClient.rpc('advance_to_next_player', {
+        p_auction_session_id: auction.auction_session_id,
+        p_admin_user_id: room?.admin_id || user,
+        p_idempotency_key: buildAdvanceIdempotencyKey(auction.auction_session_id, resolutionKey)
+      })
+      await refetch()
+    }
+
+    const timeout = window.setTimeout(() => {
+      void recoverTransition()
+    }, 1200)
+
+    const interval = window.setInterval(() => {
+      void recoverTransition()
+    }, 2500)
+
+    return () => {
+      cancelled = true
+      window.clearTimeout(timeout)
+      window.clearInterval(interval)
+    }
+  }, [
+    auction?.auction_session_id,
+    auction?.current_player_id,
+    auction?.ends_at,
+    auction?.status,
+    finalizeExpiredPlayer,
+    refetch,
+    remaining,
+    resolutionKey,
+    room?.admin_id,
+    user
+  ])
 
   const isAdmin = Boolean(room?.admin_id && user === room.admin_id)
 
