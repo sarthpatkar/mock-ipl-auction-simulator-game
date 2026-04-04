@@ -405,7 +405,8 @@ export default function AuctionPage() {
     await finalizeExpiredPlayer()
   }, [finalizeExpiredPlayer])
 
-  const { remaining, isDanger } = useTimer(isMobile ? null : auction?.ends_at ?? null, async () => {
+  const desktopTimerEndsAt = isMobile ? null : auction?.ends_at ?? null
+  const { remaining: desktopRemaining, isDanger } = useTimer(desktopTimerEndsAt, async () => {
     if (realtimeFeatureFlags.cronFinalizeAdvance) {
       window.setTimeout(() => {
         void finalizeExpiredPlayer()
@@ -423,8 +424,8 @@ export default function AuctionPage() {
     if (!auction?.paused_remaining_ms) return 0
     return Math.max(0, Math.ceil(auction.paused_remaining_ms / 1000))
   }, [auction?.paused_remaining_ms])
-  const displayedRemaining = auction?.status === 'paused' ? pausedRemaining : remaining
-  const isExpired = auction?.status === 'live' && Boolean(auction.ends_at) && remaining <= 0
+  const displayedRemaining = auction?.status === 'paused' ? pausedRemaining : desktopRemaining
+  const isExpired = !isMobile && auction?.status === 'live' && Boolean(desktopTimerEndsAt) && desktopRemaining <= 0
   const currentPlayerThemeStyle = useMemo(() => getTeamThemeStyle(currentPlayer?.team_code), [currentPlayer?.team_code])
   const resolutionKey = useMemo(() => {
     if (!auction || !auction.current_player_id || !['sold', 'unsold'].includes(auction.status)) return null
@@ -526,10 +527,10 @@ export default function AuctionPage() {
 
   useEffect(() => {
     if (auction?.status === 'paused') return
-    if (!isDanger || remaining <= 0 || remaining === lastTickRef.current) return
-    lastTickRef.current = remaining
+    if (!isDanger || desktopRemaining <= 0 || desktopRemaining === lastTickRef.current) return
+    lastTickRef.current = desktopRemaining
     playTone(soundEnabled, 520, 0.05, 'triangle')
-  }, [auction?.status, isDanger, remaining, soundEnabled])
+  }, [auction?.status, desktopRemaining, isDanger, soundEnabled])
 
   useEffect(() => {
     const playerKey = auction?.current_player_id ? `${auction.auction_session_id}:${auction.current_player_id}` : null
@@ -634,7 +635,7 @@ export default function AuctionPage() {
     if (!auction?.auction_session_id || !user) return
 
     const expiredAuctionKey =
-      auction.status === 'live' && auction.current_player_id && auction.ends_at && remaining <= 0
+      !isMobile && auction.status === 'live' && auction.current_player_id && desktopTimerEndsAt && desktopRemaining <= 0
         ? `${auction.auction_session_id}:${auction.current_player_id}:${auction.ends_at}`
         : null
 
@@ -678,9 +679,11 @@ export default function AuctionPage() {
     auction?.current_player_id,
     auction?.ends_at,
     auction?.status,
+    desktopRemaining,
+    desktopTimerEndsAt,
     finalizeExpiredPlayer,
+    isMobile,
     refetch,
-    remaining,
     resolutionKey,
     room?.admin_id,
     user

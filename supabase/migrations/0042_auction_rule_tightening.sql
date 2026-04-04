@@ -1364,3 +1364,40 @@ begin
   return jsonb_build_object('success', true, 'result', 'completed');
 end;
 $$;
+
+create or replace function public.process_expired_auctions_batch(
+  p_limit int default 100
+)
+returns int
+language plpgsql
+security definer
+set search_path = public
+as $$
+declare
+  v_auction record;
+  v_result jsonb;
+  v_processed int := 0;
+begin
+  for v_auction in
+    select a.id, a.room_id
+    from public.auction_sessions a
+    where a.status = 'live'
+      and a.ends_at is not null
+      and a.ends_at <= now()
+    order by a.ends_at asc
+    limit greatest(coalesce(p_limit, 100), 1)
+    for update skip locked
+  loop
+    select public.finalize_player(
+      v_auction.id,
+      gen_random_uuid()::text
+    ) into v_result;
+
+    -- Leave the auction in sold/unsold long enough for clients to render the
+    -- resolution before the pending-advance worker moves to the next state.
+    v_processed := v_processed + 1;
+  end loop;
+
+  return v_processed;
+end;
+$$;
